@@ -1,0 +1,22 @@
+/* Live WebGL skyline, with the same industrial primary control used in-game. */
+#viewport.title-screen .hud,#viewport.title-screen .wavehud,#viewport.title-screen .shield-hud,#viewport.title-screen .bottomhud,#viewport.title-screen .test-open,#viewport.title-screen .skill-wallet,#viewport.title-screen .motionfx{display:none!important}
+#viewport.title-screen #overlay{padding:0;overflow:hidden;background:linear-gradient(180deg,#090d2c8c 0%,transparent 38%,transparent 70%,#080d28ae 100%);backdrop-filter:none;justify-content:initial}
+#viewport.title-screen #overlay::before{display:none}
+.title-brand{position:absolute;top:9%;left:4%;right:4%;pointer-events:none}
+.title-brand h1{margin:0;font-size:0;line-height:0}
+.title-brand img{display:block;width:100%;height:auto;object-fit:contain}
+.title-entry{position:absolute;left:0;right:0;bottom:13%;display:flex;align-items:center;flex-direction:column}
+#viewport.title-screen #start{width:61%;min-width:0;min-height:52px;margin:0;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;font-size:17px}
+#viewport.title-screen #overlay .title-caption{margin:13px 0 0;font-size:10px;letter-spacing:.16em;color:#8eabc7}
+#viewport.title-screen .menu-extras{position:absolute;bottom:max(14px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:70%;max-width:none;margin:0;border-color:#7180a033;z-index:1}
+#viewport.title-screen .menu-extras summary{text-align:center;font-size:9px;color:#8192aa}
+#viewport.title-screen .menu-extras[open]{max-height:24%;background:#101925f5}
+@media(prefers-reduced-motion:reduce){.title-brand{filter:none}}
+
+#viewport.title-screen .skill-entry{position:absolute;bottom:6.5%;margin:0;padding:6px 12px;font-size:10px;background:#111b25bb;border-color:#43556288;color:#9bb3cb}
+
+#title-rain-glass{display:none;position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+.title-screen #title-rain-glass{display:block}
+#title-rain-glass i{position:absolute;width:var(--drop-w);height:var(--drop-h);border-radius:48% 48% 44% 44%;border:1px solid #bad9ff22;background:radial-gradient(ellipse at 25% 18%,#e3ecff55 0%,#a1bcf512 19%,transparent 46%),linear-gradient(120deg,#27365a22,transparent 55%,#b2c9ee33);box-shadow:inset -1px -2px 2px #bccfff29,0 1px 3px #02092266;backdrop-filter:blur(.5px);animation:glass-rain var(--drop-time) var(--drop-delay) linear infinite}
+@keyframes glass-rain{0%,15%{transform:translateY(-35px) scale(.7);opacity:0}24%,74%{opacity:.25}100%{transform:translateY(170px) scale(1);opacity:0}}
+@media(prefers-reduced-motion:reduce){#title-rain-glass i{animation:none;opacity:.35}}

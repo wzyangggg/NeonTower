@@ -1,0 +1,11 @@
+const fs=require('fs'),vm=require('vm');const els={},handlers={};function el(){return {style:{},classList:{add(){},remove(){}},firstElementChild:{style:{}},handlers:{},addEventListener(k,f){this.handlers[k]=f},setPointerCapture(){},closest(){return null},getBoundingClientRect(){return {left:10,top:100,width:390,height:390}}}}const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({})},{get(t,k){return t[k]||(()=>{})}});const canvas=el();canvas.getContext=()=>gl;const win={innerHeight:800,devicePixelRatio:1,addEventListener(k,f){(handlers[k]??=[]).push(f)}};const sandbox={console,Math,Float32Array,performance:{now:()=>0},localStorage:{getItem:()=>0,setItem(){}},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},window:win,document:{querySelector:()=>canvas,getElementById:id=>els[id]||(els[id]=el()),querySelectorAll:()=>[]}};sandbox.handlers=handlers;vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/music.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/renderer.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/game.js','utf8'),sandbox);
+
+
+
+vm.runInContext(`{
+function check(v,m){if(!v)throw Error(m)}
+function target(deg){const a=deg*Math.PI/180;return {x:p.x+Math.cos(a)*65,y:p.y+Math.sin(a)*65,hp:100,r:1}}
+reset();state='combat';p.y=300;const w=createWeapon('sword');check(Math.abs(SWORD_SWEEP*180/Math.PI-240)<1e-8,'exact 240 degree sector');
+for(const direction of [-1,1]){shots=[];emitWeaponShots(w,0,p);const s=shots[0],start=s.angle;const left=target(-115),right=target(115),rear=target(180);enemies=[left,right,rear];advanceFriendlyShot(s,.14);check(Math.abs(Math.abs(s.angle-start)*180/Math.PI-240)<1e-8,'both directions sweep 240 degrees');check(s.arcTargets.includes(left)&&s.arcTargets.includes(right)&&!s.arcTargets.includes(rear),'wide lateral rear-side coverage, rear gap preserved');for(const deg of [-120,-60,0,60,120]){s.angle=deg*Math.PI/180;s.life=.01;renderer.begin();drawSwordSlash(s);const sprite=renderer.sprites[0];check(sprite.data.every(Number.isFinite)&&sprite.lead===direction*.4,'texture follows blade through full sector')}}
+console.log('Exact 240 degree alternating sweep, expanded side coverage, rear gap and full-arc textured trail passed');
+}`,sandbox);

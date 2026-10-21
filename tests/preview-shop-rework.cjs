@@ -1,0 +1,18 @@
+const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({headless:true,channel:'msedge'});try{
+ const page=await browser.newPage({viewport:{width:390,height:844}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:4173/');
+ await page.evaluate(()=>{reset();state='upgrade';cash=300;shopLevel=3;equipItem('armor',createArmor('shell',1));const armorItem=equipmentShopItem('armor');armorItem.equipment=createArmor('energy',3);shopItems=[armorItem,equipmentShopItem('weapon'),{key:'terrainPassive',terrainId:terrainDef('急救箱').id,name:'急救箱',desc:terrainDef('急救箱').desc,amount:1}].map(u=>({...u,price:shopPrice(u),sold:false}));renderShop();});
+ assert.ok(await page.locator('[data-i="0"]').innerText().then(t=>t.includes('轻便护甲')&&!t.includes('琉璃铁布衫')&&!t.includes('需要替换')));
+ const before=await page.evaluate(()=>({cash,stock:JSON.stringify(shopItems),armor:JSON.stringify(armor)}));
+ for(const [width,height]of [[390,844],[390,680],[1280,900]]){await page.setViewportSize({width,height});assert.ok(await page.locator('.shop-panel').evaluate(e=>e.scrollWidth<=e.clientWidth+1));await page.screenshot({path:`tests/shop-rework-${width}x${height}.png`});}
+ await page.setViewportSize({width:390,height:844});await page.locator('[data-i="0"]').click();await page.waitForSelector('#equipment-confirm');await page.screenshot({path:'tests/shop-rework-comparison.png'});assert.equal(await page.evaluate(()=>cash),before.cash-36);
+ await page.locator('#equipment-confirm').click();assert.deepEqual(await page.evaluate(()=>({cash,armor:armor.id,sold:shopItems[0].sold})),{cash:before.cash-36,armor:'energy',sold:true});
+ await page.evaluate(()=>{const u=equipmentShopItem('armor');shopItems[0]={...u,price:20,sold:false};renderShop();});await page.locator('[data-i="0"]').click();await page.locator('#equipment-cancel').click();assert.deepEqual(await page.evaluate(()=>({cash,armor:armor.id,discarded:shopItems[0].discarded})),{cash:before.cash-56,armor:'energy',discarded:true});
+ const count=await page.evaluate(()=>tiles.length);await page.locator('#shop-expand').click();assert.equal(await page.evaluate(()=>shopTerrainPlan.tiles.length),count+3);
+ await page.locator('[data-i="2"]').click();assert.equal(await page.evaluate(()=>terrainHas('急救箱')),true);await page.locator('#equipment-confirm').click();
+ await page.evaluate(()=>{floor=2;reward();cash=300;renderShop();});assert.equal(await page.locator('.bar-shop').count(),0);assert.equal(await page.locator('.drink-card').count(),0);assert.equal(await page.evaluate(()=>barItems.length),0);assert.equal(await page.locator('#shop-expand').count(),1);assert.equal(await page.evaluate(()=>floor),2);await page.locator('#shop-leave').click();assert.equal(await page.evaluate(()=>floor),3);
+ for(const id of ['ram','interceptor','weakener','medic','charger']){await page.evaluate(id=>{reset();startWave();p.inv=999;shootTimer=999;equipItem('drone',createDrone(id,3));updateDrone(.1,combatTargets());draw();},id);assert.equal(await page.evaluate(()=>renderer.gl.getError()),0);await page.screenshot({path:'tests/companion-'+id+'.png'});}
+ assert.deepEqual(errors,[]);console.log('Shop rework browser: category stock, paid reveal, no-refund discard, single-charge confirmation, gold expansion/passive, no bar entry, floor transition, resident companions and three viewport sizes passed.');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1});

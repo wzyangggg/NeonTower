@@ -1,0 +1,13 @@
+const fs=require('fs'),vm=require('vm');const els={},handlers={};function el(){return {style:{},classList:{add(){},remove(){}},firstElementChild:{style:{}},handlers:{},addEventListener(k,f){this.handlers[k]=f},setPointerCapture(){},closest(){return null},getBoundingClientRect(){return {left:10,top:100,width:390,height:390}}}}const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({})},{get(t,k){return t[k]||(()=>{})}});const canvas=el();canvas.getContext=()=>gl;const win={innerHeight:800,devicePixelRatio:1,addEventListener(k,f){(handlers[k]??=[]).push(f)}};const sandbox={console,Math,Float32Array,performance:{now:()=>0},localStorage:{getItem:()=>0,setItem(){}},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},window:win,document:{querySelector:()=>canvas,getElementById:id=>els[id]||(els[id]=el()),querySelectorAll:()=>[]}};vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/music.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/renderer.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/game.js','utf8'),sandbox);
+vm.runInContext(fs.readFileSync('dist/virus.js','utf8'),sandbox);
+vm.runInContext(`
+function check(v,m){if(!v)throw Error(m)}
+$('virus-health').style.setProperty=()=>{};startVirusTest();sound=false;virusGod=true;shootTimer=999;
+for(let i=1;i<16;i++)spawnVirusBoss(virusBoss);for(const e of livingViruses())e.birthFlash=0;
+renderer.begin();for(const e of livingViruses())drawVirusBoss(e);check(renderer.residentSnapshot().length/9<=120000,'sixteen bosses use fewer than one hundred twenty thousand vertices');
+const meshes=[...renderer.residentMeshes.values()].map(m=>[m.data,new Float32Array(m.data)]),size=renderer.residentMeshes.size;check(size===9,'core, joints, legs, shadow and three health meshes shared by all clones');
+for(let i=0;i<90;i++){updateVirusBoss(1/60);renderer.begin();for(const e of livingViruses())drawVirusBoss(e);check(renderer.residentMeshes.size===size,'animation does not grow mesh cache');}for(let i=0;i<renderer.count;i++)check(Number.isFinite(renderer.data[i]),'animated stress mesh finite');
+virusBoss.hitAt=time;renderer.begin();drawVirusBoss(virusBoss);for(const [mesh,saved] of meshes)check(mesh.every((v,i)=>v===saved[i]),'hit tint and placement never mutate shared cache');
+const core=renderer.residentMeshes.get('virus:core');renderer.initializeGPU();renderer.begin();for(const e of livingViruses())drawVirusBoss(e);check(renderer.residentMeshes.get('virus:core')===core&&renderer.count/9<=120000,'CPU cache survives GPU rebuilding');
+console.log('Sixteen-virus vertex budget, fixed shared cache, animated finite mesh, hit isolation and GPU restoration passed');
+`,sandbox);

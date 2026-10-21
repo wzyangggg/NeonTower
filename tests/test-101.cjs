@@ -1,0 +1,14 @@
+const fs=require('fs'),vm=require('vm');const els={},handlers={};function el(){return {style:{},classList:{add(){},remove(){}},firstElementChild:{style:{}},handlers:{},addEventListener(k,f){this.handlers[k]=f},setPointerCapture(){},closest(){return null},getBoundingClientRect(){return {left:10,top:100,width:390,height:390}}}}const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({})},{get(t,k){return t[k]||(()=>{})}});const canvas=el();canvas.getContext=()=>gl;const win={innerHeight:800,devicePixelRatio:1,addEventListener(k,f){(handlers[k]??=[]).push(f)}};const sandbox={console,Math,Float32Array,performance:{now:()=>0},localStorage:{getItem:()=>0,setItem(){}},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},window:win,document:{querySelector:()=>canvas,getElementById:id=>els[id]||(els[id]=el()),querySelectorAll:()=>[]}};sandbox.handlers=handlers;vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/music.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/renderer.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/game.js','utf8'),sandbox);
+
+
+
+vm.runInContext(`{
+function check(v,m){if(!v)throw Error(m)}
+reset();state='combat';const w=createWeapon('sword'),d=createDrone('sword');check(w.interval===.325&&d.interval===.325,'weapon and drone attack intervals halved');
+for(const direction of [-1,1,-1,1]){shots=[];emitWeaponShots(w,0,p);const s=shots[0];check(s.direction===direction&&s.angle===-direction*SWORD_SWEEP/2,'alternate left/right start');advanceFriendlyShot(s,.07);check(Math.abs(s.angle)<1e-8,'both swings pass aim midpoint');advanceFriendlyShot(s,.07);check(s.angle===direction*SWORD_SWEEP/2,'opposite sides at end');renderer.begin();s.life=.01;drawSwordSlash(s);check(renderer.sprites[0].direction===direction,'texture tail direction follows swing')}
+shots=[];emitWeaponShots(d,0,dronePosition(),'drone');check(shots[0].direction===-1,'drone swing alternation independent');emitWeaponShots(d,0,dronePosition(),'drone');check(shots[2].direction===1,'drone alternates too');reset();shots=[];emitWeaponShots(w,0,p);check(shots[0].direction===-1,'restart resets sequence');
+const original=emitSword;let count=0;emitSword=(...args)=>{count++;original(...args)};
+function attacks(interval){reset();state='combat';p.inv=999;spawnQueue=[];chaserSpawned=24;turrets=[];equipItem('weapon',{...createWeapon('sword'),interval});enemies=[{type:'eye',x:500,y:300,homeX:500,homeY:300,hp:10000,max:10000,r:14,t:0,fire:999,seed:0}];count=0;for(let i=0;i<300;i++)step(.01);return count}
+const before=attacks(.65),after=attacks(.325);check(after>=before*1.8,'actual combat fires twice as often');emitSword=original;
+console.log('Alternating left/right sword and independent drone, matching texture direction, restart and actual combat doubled attack cadence passed: '+before+' -> '+after);
+}`,sandbox);

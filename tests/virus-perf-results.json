@@ -1,0 +1,69 @@
+{
+  "environment": "Codex in-app browser, same localhost CPU benchmark; medians after five warmup samples; GPU completion was not timed",
+  "before": [
+    {
+      "bosses": 1,
+      "modelMs": 2.1,
+      "movementMs": 0,
+      "fullDrawMs": 10.1
+    },
+    {
+      "bosses": 8,
+      "modelMs": 12.3,
+      "movementMs": 0.1,
+      "fullDrawMs": 20.8
+    },
+    {
+      "bosses": 16,
+      "modelMs": 23.3,
+      "movementMs": 0.1,
+      "fullDrawMs": 34.2
+    }
+  ],
+  "after": [
+    {
+      "bosses": 1,
+      "modelMs": 0.3,
+      "movementMs": 0,
+      "fullDrawMs": 8.1
+    },
+    {
+      "bosses": 8,
+      "modelMs": 1.9,
+      "movementMs": 0,
+      "fullDrawMs": 9.8
+    },
+    {
+      "bosses": 16,
+      "modelMs": 3.4,
+      "movementMs": 0.1,
+      "fullDrawMs": 11.8
+    }
+  ],
+  "verticesPerBoss": {
+    "before": 12288,
+    "after": 7296
+  },
+  "reproduce": "node tests/perf-virus.mjs; open http://127.0.0.1:4186/virus.html; ?stress keeps sixteen active bosses; node tools/bench-virus.cjs runs a separate mocked CPU benchmark",
+  "residentGPU": [
+    {
+      "bosses": 1,
+      "modelMs": 0.1,
+      "movementMs": 0,
+      "fullDrawMs": 7.9
+    },
+    {
+      "bosses": 8,
+      "modelMs": 0.3,
+      "movementMs": 0,
+      "fullDrawMs": 7.7
+    },
+    {
+      "bosses": 16,
+      "modelMs": 0.5,
+      "movementMs": 0.1,
+      "fullDrawMs": 8.1
+    }
+  ],
+  "residentDetails": "Shared STATIC_DRAW geometry buffers; ANGLE instanced poses, 13 floats per instance, nine batches for virus including health bars and shadow; GPU completion not timed"
+}

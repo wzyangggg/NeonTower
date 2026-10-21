@@ -1,0 +1,88 @@
+/* Industrial matrix study: charcoal plates, clipped corners, cyan controls. */
+:root{--acid:#57b8ef;--cyan:#57bed9;--muted:#99a5ad;--plate:#161b1f;--line:#39434a;--cut:polygon(0 0,calc(100% - 11px) 0,100% 11px,100% 100%,0 100%)}
+body{background:#080c0f;color:#e6eaec}
+#viewport{box-shadow:0 0 0 1px #303a42,0 0 60px #0009}
+#viewport .overlay,#viewport .pause-panel,#viewport .equipment-test,#viewport .skill-panel{isolation:isolate;background:#0c1115f5;color:#e6eaec;backdrop-filter:blur(5px)}
+#viewport .overlay::before,#viewport .skill-panel::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(circle,#9cb2c322 0 .6px,transparent .8px);background-size:15px 15px;opacity:.45}
+#viewport .overlay h2,#viewport .skill-panel h2{font-family:system-ui,sans-serif;font-weight:900;letter-spacing:-.03em;color:#e6eaec;text-shadow:none}
+#viewport .overlay h2::after{content:"";display:block;width:30px;height:2px;background:#57b8ef;margin:12px auto 0}
+#viewport .tag{font:9px monospace;letter-spacing:.23em;color:#70838e}
+#viewport .overlay p{color:#9eabb2;font-size:12px;line-height:1.9}
+#viewport .overlay small{color:#89969e}
+#viewport .primary,#viewport .skill-panel footer .primary{background:#54b2ee;border:1px solid #7ecaff;color:#09141e;border-radius:0;box-shadow:none;text-shadow:none;font-weight:850;clip-path:var(--cut);letter-spacing:.06em}
+#viewport button:focus-visible,#viewport a:focus-visible{outline:2px solid #75cdff;outline-offset:3px}
+#viewport .primary:hover{background:#80cfff}
+#viewport .snake-entry{font-size:12px;color:#95c4df;text-decoration:none;margin:8px 0}
+#viewport .menu-extras{width:100%;max-width:280px;flex-shrink:0;font-size:11px;color:#8798a4;margin-top:12px;text-align:left;border-top:1px solid #303b42}
+#viewport .menu-extras summary{cursor:pointer;padding:10px;letter-spacing:.1em}
+#viewport .menu-extras[open]{max-height:170px;overflow:auto;background:#12191e}
+#viewport .menu-extras .snake-entry{display:block;padding:6px 10px;margin:0;font-size:10px}
+#viewport .hud{background:linear-gradient(#0a1019dd,transparent);padding-bottom:16px}
+#viewport .floorinfo strong{color:#e7edf2;text-shadow:0 2px 4px #000}
+#viewport .floorinfo>span,#viewport .wavehud span{color:#c1ced7}
+#viewport .wavehud b,#viewport .toast{color:#78ccfa;text-shadow:0 2px 5px #000}
+#viewport .actions button,#viewport .test-open,#viewport .skill-wallet,#viewport .skill-entry{background:#111b25eb;border:1px solid #435562;border-radius:0;box-shadow:none;color:#c6d9e7;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,0 100%)}
+#viewport .actions button{border-bottom:2px solid #4f829f}
+#viewport .bottomhud{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));padding:11px 9px;border:1px solid #3b4b58;border-left:3px solid #54b2ee;border-radius:0;background:#101922ed;color:#afc0cd;text-shadow:none;gap:8px}
+#viewport .bottomhud b,#viewport .cashhud{color:#80cfff!important}
+#viewport.shopping .skill-wallet{visibility:hidden}
+#viewport.shopping .test-open{visibility:hidden}
+#viewport .shop-panel{counter-reset:stock}
+#viewport .shop-heading{border-bottom:1px solid #30383c;margin:8px 0 14px;padding-bottom:10px}
+#viewport .shop-heading h2{font-size:28px;margin:0}
+#viewport .shop-heading h2::after{margin:10px 0 0}
+#viewport .shop-wallet{color:#e1e9ee;font:800 29px/1 monospace}
+#viewport .shop-wallet::before{content:"◆";color:#54b2ee;font-size:12px;vertical-align:middle;margin-right:5px}
+#viewport .shop-upgrade,#viewport .terrain-expand,#viewport .all-icons-controls{border:1px solid #354049;border-radius:0;background:#171e24;color:#c8d1d6;box-shadow:none}
+#viewport .shop-upgrade span{color:#9eacb7}
+#viewport .shop-upgrade button,#viewport #shop-reroll,#viewport #bar-reroll,#viewport #equipment-cancel,#viewport .test-content select{border:1px solid #486274;background:#152631;color:#a4d5f3;border-radius:0;box-shadow:none}
+#viewport .choice,#viewport .shop-buy.weapon-card,#viewport .weapon-compare-head>div{border:1px solid #343b40;border-radius:0;background:linear-gradient(140deg,#1d2327,#13181c);box-shadow:none;color:#e5e9ec}
+#viewport .shop-grid{gap:8px}
+#viewport .shop-buy{position:relative;min-height:310px;padding:0 10px 0;gap:8px;clip-path:var(--cut);counter-increment:stock;overflow:hidden}
+#viewport .shop-buy.weapon-card{border-top-width:1px}
+#viewport .shop-buy::before{content:attr(data-category);order:0;flex:none;display:block;width:calc(100% + 20px);margin:0 -10px;padding:9px 9px;text-align:left;color:#181a1b;background:#d8dedf;font:800 10px/1.2 system-ui;letter-spacing:.08em}
+#viewport .shop-buy[data-kind="weapon"]::before,#viewport .shop-buy[data-kind="shovel"]::before,#viewport .shop-buy[data-kind="drone"]::before{background:#ed9b46}
+#viewport .shop-buy[data-kind="terrainPassive"]::before,#viewport .shop-buy[data-kind="drink"]::before{background:#56bfd7}
+#viewport .shop-buy::after{content:"";position:absolute;top:10px;right:9px;width:25px;height:9px;background:repeating-linear-gradient(125deg,#18232b99 0 2px,transparent 2px 4px);pointer-events:none}
+#viewport .shop-buy>b{order:2;color:var(--rarity,var(--drink-color,#e8edef));font-size:13px;line-height:1.5;margin-top:3px;font-weight:850;min-height:39px}
+#viewport .shop-buy.terrain-rare{--rarity:#d4b2ef}
+#viewport .shop-buy .shop-item-description{order:3;color:#9ca9b3;font-size:10px;line-height:1.8;flex:1}
+#viewport .shop-buy .shop-price{order:4;display:block;flex:none;align-self:stretch;margin:auto -10px 0;padding:10px 9px;width:calc(100% + 20px);border-top:1px solid #343e46;background:#10161a;color:#e9edef;font:800 20px/1.1 monospace;text-shadow:none}
+#viewport .shop-price::after{content:counter(stock,decimal-leading-zero);float:right;margin-top:3px;border:1px solid #46525c;padding:2px;color:#94a4b0;font:8px/1 monospace}
+#viewport .shop-buy:hover:not(:disabled),#viewport .shop-buy:focus-visible{border-color:#62bdf1;background:#202b34}
+#viewport .shop-buy:hover:not(:disabled) .shop-price,#viewport .shop-buy:focus-visible .shop-price{background:#54b2ee;color:#081621}
+#viewport .shop-buy:disabled{background:#13181c;border-color:#30373d}
+#viewport .shop-buy:disabled .shop-price{color:#6b7882}
+#viewport .shop-buy.sold{opacity:.45}
+#viewport .shop-item-fx{display:none}
+#viewport .shop-equipment-icon,#viewport .weapon-compare-head .shop-equipment-icon{order:1;flex:0 0 76px;width:76px;height:76px;margin:12px auto 4px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;isolation:isolate;filter:none}
+#viewport .shop-equipment-icon::before{content:"";position:absolute;inset:10px;border:1px solid #46505b77;transform:rotate(45deg);z-index:-1}
+#viewport .shop-equipment-icon::after{display:none}
+#viewport .shop-equipment-icon svg{width:48px;height:48px;filter:none}
+#viewport .shop-equipment-icon svg>g{filter:none}
+#viewport .bar-shop .shop-buy::before{content:"特调";background:#56bfd7}
+#viewport .bar-shop .shop-buy>span:not(.shop-equipment-icon){order:3;color:#9ca9b3;line-height:1.7}
+#viewport .terrain-expand{border-left:2px solid #56bfd7}
+#viewport .terrain-expand .shop-equipment-icon{width:36px;height:36px;flex-basis:36px;margin:0;grid-column:1;order:0}
+#viewport .terrain-expand .shop-equipment-icon::before{inset:5px}
+#viewport .terrain-expand .shop-equipment-icon svg{width:27px;height:27px}
+#viewport .terrain-expand b,#viewport .terrain-expand strong{color:#b8dff5}
+#viewport .terrain-expand span,#viewport .shop-equipped,#viewport .equipment-attributes dt,#viewport .weapon-compare-head span{color:#a4b2be}
+#viewport .shop-controls button{border-radius:0}
+#viewport .weapon-compare-head>div{border-left:2px solid var(--rarity,#54b2ee);clip-path:var(--cut)}
+#viewport .weapon-compare-head b{color:var(--rarity,#e1e8ed)}
+#viewport .equipment-attributes>div,#viewport .equipment-special-effects{border-color:#343e47}
+#viewport .skill-panel{background:#0d1319}
+#viewport .skill-panel header{border-bottom:1px solid #364149;margin-bottom:13px;padding-bottom:6px}
+#viewport .skill-panel header small{color:#758896;letter-spacing:.18em}
+#viewport .skill-panel button{background:#18222b;border:1px solid #3c4c59;border-radius:0;color:#c5d4df;box-shadow:none}
+#viewport .skill-panel nav .selected{background:#54b2ee;border-color:#7ccaff;color:#0d1a24}
+#viewport .skill-budget strong,#viewport .skill-row p{color:#6fc6f8}
+#viewport .skill-budget small,#viewport .skill-row small,#viewport .skill-row-heading span,#viewport .skill-controls span,#viewport .skill-panel footer p{color:#9baebb}
+#viewport .skill-row{position:relative;border:1px solid #333f49;border-left:2px solid #ed9b46;border-radius:0;background:linear-gradient(125deg,#1b242c,#141c23);clip-path:var(--cut);counter-increment:skill}
+#viewport .skill-row-heading strong{font-size:15px;color:#e3eaf0}
+#viewport .skill-controls button{background:#24323e;color:#8ccff6}
+#viewport .skill-panel footer .primary{background:#54b2ee;color:#09141e}
+#viewport .joy{background:#20344266;border-color:#72b6dc88;box-shadow:none}
+#viewport .joy i{background:#82c9f344;border-color:#a5dcfa99}
+@media(max-height:730px){#viewport .overlay:not(.shop){padding:18px}#viewport .overlay:not(.shop) h2{font-size:34px;margin:10px 0 4px}#viewport .overlay:not(.shop) p{font-size:11px;line-height:1.8;margin:7px 0}#viewport .overlay:not(.shop) .primary{margin:12px 0}#viewport .menu-extras{margin-top:4px}#viewport .shop-buy{min-height:285px}}

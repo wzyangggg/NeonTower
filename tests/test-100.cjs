@@ -1,0 +1,10 @@
+const fs=require('fs'),vm=require('vm');const els={},handlers={};function el(){return {style:{},classList:{add(){},remove(){}},firstElementChild:{style:{}},handlers:{},addEventListener(k,f){this.handlers[k]=f},setPointerCapture(){},closest(){return null},getBoundingClientRect(){return {left:10,top:100,width:390,height:390}}}}const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({})},{get(t,k){return t[k]||(()=>{})}});const canvas=el();canvas.getContext=()=>gl;const win={innerHeight:800,devicePixelRatio:1,addEventListener(k,f){(handlers[k]??=[]).push(f)}};const sandbox={console,Math,Float32Array,performance:{now:()=>0},localStorage:{getItem:()=>0,setItem(){}},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},window:win,document:{querySelector:()=>canvas,getElementById:id=>els[id]||(els[id]=el()),querySelectorAll:()=>[]}};sandbox.handlers=handlers;vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/music.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/renderer.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/game.js','utf8'),sandbox);
+
+
+
+vm.runInContext(`{
+function check(v,m){if(!v)throw Error(m)}
+reset();state='combat';p.y=300;emitWeaponShots(createWeapon('sword'),0,p);const slash=shots[0];check(slash.angle===SWORD_SWEEP/2&&slash.life===.14&&shots[1].launchDelay===.035,'faster reverse attack and earlier wave');
+const early={x:p.x+Math.cos(.8)*65,y:p.y+Math.sin(.8)*65,hp:100,r:3},late={x:p.x+Math.cos(-.8)*65,y:p.y+Math.sin(-.8)*65,hp:100,r:3};enemies=[early,late];advanceFriendlyShot(slash,.045);check(slash.angle<SWORD_SWEEP/2&&slash.arcTargets.includes(early)&&!slash.arcTargets.includes(late),'reverse sweep reaches clockwise side first');advanceFriendlyShot(slash,.095);check(slash.arcTargets.includes(late)&&slash.angle===-SWORD_SWEEP/2,'large frame covers full reverse sector without undersampling');
+console.log('Faster counterclockwise slash, early sword wave, temporal contact order and large-frame swept collision passed');
+}`,sandbox);

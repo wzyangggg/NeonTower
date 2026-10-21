@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+.DS_Store
+
+# Local build packages and archived copies
+/releases/
+/archives/
+
+# Local preview output and generated test evidence
+*.log
+/*-preview.jpg
+/tests/*.png
+/tests/*.jpg
+/tests/*-results.json

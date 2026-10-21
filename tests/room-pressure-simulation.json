@@ -1,0 +1,437 @@
+[
+  {
+    "floor": 1,
+    "build": "starter",
+    "seed": 1,
+    "elapsed": 12,
+    "kills": 8,
+    "remaining": 0,
+    "peak": 14,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      10,
+      14
+    ]
+  },
+  {
+    "floor": 1,
+    "build": "starter",
+    "seed": 2,
+    "elapsed": 12,
+    "kills": 8,
+    "remaining": 0,
+    "peak": 14,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      10,
+      14
+    ]
+  },
+  {
+    "floor": 1,
+    "build": "starter",
+    "seed": 3,
+    "elapsed": 12,
+    "kills": 8,
+    "remaining": 0,
+    "peak": 14,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      10,
+      14
+    ]
+  },
+  {
+    "floor": 1,
+    "build": "starter",
+    "seed": 4,
+    "elapsed": 12,
+    "kills": 7,
+    "remaining": 0,
+    "peak": 14,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      10,
+      14
+    ]
+  },
+  {
+    "floor": 1,
+    "build": "starter",
+    "seed": 5,
+    "elapsed": 12,
+    "kills": 8,
+    "remaining": 0,
+    "peak": 14,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      10,
+      14
+    ]
+  },
+  {
+    "floor": 1,
+    "build": "upgraded",
+    "seed": 1,
+    "elapsed": 6.51,
+    "kills": 20,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.11,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 1,
+    "build": "upgraded",
+    "seed": 2,
+    "elapsed": 6.51,
+    "kills": 20,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.11,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 1,
+    "build": "upgraded",
+    "seed": 3,
+    "elapsed": 6.51,
+    "kills": 20,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.11,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 1,
+    "build": "upgraded",
+    "seed": 4,
+    "elapsed": 6.51,
+    "kills": 20,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.11,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 1,
+    "build": "upgraded",
+    "seed": 5,
+    "elapsed": 6.51,
+    "kills": 20,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.11,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "starter",
+    "seed": 1,
+    "elapsed": 14,
+    "kills": 8,
+    "remaining": 0,
+    "peak": 18,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      12,
+      15
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "starter",
+    "seed": 2,
+    "elapsed": 14,
+    "kills": 8,
+    "remaining": 0,
+    "peak": 18,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      12,
+      15
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "starter",
+    "seed": 3,
+    "elapsed": 14,
+    "kills": 8,
+    "remaining": 0,
+    "peak": 18,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      12,
+      15
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "starter",
+    "seed": 4,
+    "elapsed": 14,
+    "kills": 7,
+    "remaining": 0,
+    "peak": 18,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      12,
+      15
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "starter",
+    "seed": 5,
+    "elapsed": 14,
+    "kills": 8,
+    "remaining": 0,
+    "peak": 17,
+    "emptyTime": 0.01,
+    "snapshots": [
+      4,
+      11,
+      14
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "upgraded",
+    "seed": 1,
+    "elapsed": 7.51,
+    "kills": 23,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.46,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "upgraded",
+    "seed": 2,
+    "elapsed": 7.51,
+    "kills": 23,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.46,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "upgraded",
+    "seed": 3,
+    "elapsed": 7.51,
+    "kills": 23,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.46,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "upgraded",
+    "seed": 4,
+    "elapsed": 7.51,
+    "kills": 23,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.46,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 2,
+    "build": "upgraded",
+    "seed": 5,
+    "elapsed": 7.51,
+    "kills": 23,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.46,
+    "snapshots": [
+      3,
+      3
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "starter",
+    "seed": 1,
+    "elapsed": 16,
+    "kills": 11,
+    "remaining": 0,
+    "peak": 22,
+    "emptyTime": 0.01,
+    "snapshots": [
+      6,
+      16,
+      21
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "starter",
+    "seed": 2,
+    "elapsed": 16,
+    "kills": 11,
+    "remaining": 0,
+    "peak": 22,
+    "emptyTime": 0.01,
+    "snapshots": [
+      6,
+      16,
+      20
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "starter",
+    "seed": 3,
+    "elapsed": 16,
+    "kills": 11,
+    "remaining": 0,
+    "peak": 22,
+    "emptyTime": 0.01,
+    "snapshots": [
+      6,
+      17,
+      20
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "starter",
+    "seed": 4,
+    "elapsed": 16,
+    "kills": 11,
+    "remaining": 0,
+    "peak": 22,
+    "emptyTime": 0.01,
+    "snapshots": [
+      6,
+      16,
+      21
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "starter",
+    "seed": 5,
+    "elapsed": 16,
+    "kills": 11,
+    "remaining": 0,
+    "peak": 22,
+    "emptyTime": 0.01,
+    "snapshots": [
+      6,
+      16,
+      21
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "upgraded",
+    "seed": 1,
+    "elapsed": 8.46,
+    "kills": 30,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.27,
+    "snapshots": [
+      1,
+      0
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "upgraded",
+    "seed": 2,
+    "elapsed": 8.46,
+    "kills": 30,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.09,
+    "snapshots": [
+      1,
+      0
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "upgraded",
+    "seed": 3,
+    "elapsed": 8.44,
+    "kills": 30,
+    "remaining": 0,
+    "peak": 4,
+    "emptyTime": 2.36,
+    "snapshots": [
+      1,
+      0
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "upgraded",
+    "seed": 4,
+    "elapsed": 8.44,
+    "kills": 30,
+    "remaining": 0,
+    "peak": 4,
+    "emptyTime": 2.36,
+    "snapshots": [
+      1,
+      0
+    ]
+  },
+  {
+    "floor": 3,
+    "build": "upgraded",
+    "seed": 5,
+    "elapsed": 8.46,
+    "kills": 30,
+    "remaining": 0,
+    "peak": 3,
+    "emptyTime": 2.27,
+    "snapshots": [
+      1,
+      0
+    ]
+  }
+]

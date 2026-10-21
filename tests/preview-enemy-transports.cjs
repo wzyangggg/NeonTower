@@ -1,0 +1,23 @@
+const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({headless:true,channel:'msedge'});try{
+ const page=await browser.newPage({viewport:{width:390,height:844}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:4173/');await page.waitForFunction(()=>window.HexMap?.ready);await page.locator('#start').click();await page.waitForFunction(()=>state==='combat');
+ await page.evaluate(()=>{paused=true;window.requestAnimationFrame=()=>0;});await page.waitForTimeout(100);
+ await page.evaluate(()=>{reset();paused=true;state='combat';floor=17;phase=0;scroll=0;toast('',0);enemies=[];enemyTransports=[];spawnQueue=[];timedRoom={remaining:45,nextWaveAt:999};chaserTimer=999;shootTimer=999;p.inv=999;spawn({type:'crawler',side:0});spawn({type:'goldSpider',side:1});Object.assign(enemies.at(-1),{heading:0,walkDistance:0,wanderLeft:1,wanderHeading:0,moveSpeed:170,speedFactor:1});greedRoom={spiders:enemies.filter(e=>e.type==='goldSpider'),remaining:40,reward:12,killed:0,earned:0,outcome:'hunting'};spawn({type:'suicideDrone',side:2});for(const f of enemyTransports)f.age=4.8;draw();});
+ assert.equal(await page.evaluate(()=>enemyTransports.length),2);
+ const bars=await page.evaluate(()=>{const original=drawMonsterHealthBar,calls=[];enemyTransports[0].cargo.hp=enemyTransports[0].cargo.max/2;drawMonsterHealthBar=(...args)=>{calls.push(args);original(...args);};try{draw();}finally{drawMonsterHealthBar=original;}return calls.filter(a=>a[1]===168).map(a=>({ratio:a[3]/a[4],height:a[1]}));});
+ assert.deepEqual(bars,[{ratio:.5,height:168},{ratio:1,height:168}]);
+ const drone=await page.evaluate(()=>{draw();const rotor=renderer.residentMeshes.get('enemy-transport:rotor'),data=rotor.data,pose=rotor.instances[0],count=rotor.count;time+=.1;draw();return {count,animated:rotor.instances[0]!==pose,stable:rotor.data===data,finite:rotor.data.every(Number.isFinite)};});
+ assert.deepEqual(drone,{count:8,animated:true,stable:true,finite:true});
+ for(const [width,height]of [[390,844],[390,680],[1280,900]]){await page.setViewportSize({width,height});await page.evaluate(()=>draw());await page.screenshot({path:`tests/transports-${width}x${height}.png`});}
+ const result=await page.evaluate(()=>{const old=enemyTransports[0].age;step(.2);const frozen=enemyTransports[0].age===old;paused=false;for(let i=0;i<8;i++)step(.1);paused=true;draw();return {frozen,landed:enemies.filter(e=>e.groundDeployed).every(e=>!e.transport&&HexMap.canStand(tiles,e.x,e.y,e.r)),air:enemies.filter(e=>e.type==='suicideDrone').every(e=>!e.transport),gl:renderer.gl.getError()};});
+ assert.deepEqual(result,{frozen:true,landed:true,air:true,gl:0});await page.screenshot({path:'tests/transports-landed.png'});
+ const meshes=await page.evaluate(()=>{const data=renderer.residentMeshes.get('enemy-transport:hull').data;for(let i=0;i<120;i++){time+=.016;draw();}return {stable:renderer.residentMeshes.get('enemy-transport:hull').data===data,finite:data.every(Number.isFinite)};});assert.deepEqual(meshes,{stable:true,finite:true});
+ const interception=await page.evaluate(()=>{
+  reset();state='combat';paused=true;enemies=[];enemyTransports=[];spawnQueue=[];timedRoom={remaining:45,nextWaveAt:999};chaserTimer=999;p.inv=999;spawn({type:'crawler',side:0});const mob=enemies[0],flight=mob.transport;flight.age=4.8;updateEnemyTransports(0);draw();
+  const pose=transportPose(flight),m=renderer.vp,project=(x,y,z)=>[m[0]*x+m[4]*y+m[8]*z+m[12],m[1]*x+m[5]*y+m[9]*z+m[13]];syncTransportTarget(flight);const target=project(mob.x-325,12,(mob.y-300)*1.06),body=project(pose.x,pose.height,pose.z),aligned=target.every((v,i)=>Math.abs(v-body[i])<1e-5),targetable=isAttackable(mob);
+  weapon=createWeapon('laser',1);weapon.damage=9999;shootTimer=0;paused=false;step(.016);paused=true;draw();return {aligned,targetable,killed:!!flight.destroyed,canceled:!enemies.includes(mob),gl:renderer.gl.getError()};
+ });assert.deepEqual(interception,{aligned:true,targetable:true,killed:true,canceled:true,gl:0});await page.screenshot({path:'tests/transports-intercepted.png'});
+ assert.deepEqual(errors,[]);console.log('Real Edge/WebGL transports: 3 viewports, compact quadrotor/cargo, instant arrival, auto-aim interception, projected hit alignment, pause, unchanged air, resident reuse and no script/GL errors passed.');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

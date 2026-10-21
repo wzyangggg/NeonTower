@@ -1,0 +1,17 @@
+const fs=require('fs'),vm=require('vm');const els={},handlers={};function el(){return {style:{},classList:{add(){},remove(){}},firstElementChild:{style:{}},handlers:{},addEventListener(k,f){this.handlers[k]=f},setPointerCapture(){},closest(){return null},getBoundingClientRect(){return {left:10,top:100,width:390,height:390}}}}const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({})},{get(t,k){return t[k]||(()=>{})}});const canvas=el();canvas.getContext=()=>gl;const win={innerHeight:800,devicePixelRatio:1,addEventListener(k,f){(handlers[k]??=[]).push(f)}};const sandbox={console,Math,Float32Array,performance:{now:()=>0},localStorage:{getItem:()=>0,setItem(){}},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},window:win,document:{querySelector:()=>canvas,getElementById:id=>els[id]||(els[id]=el()),querySelectorAll:()=>[]}};vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/music.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/renderer.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/game.js','utf8'),sandbox);
+vm.runInContext(fs.readFileSync('dist/humanoid.js','utf8'),sandbox);
+vm.runInContext(`
+function check(v,m){if(!v)throw Error(m)}
+$('humanoid-health').style.setProperty=()=>{};
+const at=(q,r)=>[q.point[0]+Math.sin(q.angle)*r,q.point[2]+Math.cos(q.angle)*r],cross=(a,b,c)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
+for(const mode of ['walk','run'])for(const heading of [0,Math.PI/2,Math.PI,-Math.PI/2]){
+ startHumanoidTest();sound=false;shootTimer=999;setHumanoidMotion(mode);updateHumanoidBoss(.8);humanoidBoss.angle=heading;startHumanoidSlash();const s=humanoidBoss.slash;
+ check(Math.abs(humanoidSlashBladeAngle(s,.005)-humanoidSlashBladeAngle(s,0))>1e-4,'blade starts rotating with moving hand, no initial held angle');
+ const quarter=s.strike/4,travel=[];for(let i=0;i<4;i++)travel.push(Math.abs(humanoidSlashBladeAngle(s,(i+1)*quarter)-humanoidSlashBladeAngle(s,i*quarter)));check(travel.every((v,i)=>i===0||v<travel[i-1]),'slash slows throughout stroke');check(travel[0]>travel[3]*10,'strong fast onset and slow finish');check(humanoidSlashProgress(s,s.strike/2)>.85,'most slash travel occurs in first half');
+ for(let f=0;f<46;f++){updateHumanoidBoss(1/120);if(!humanoidBoss.slash)break;for(let i=1;i<s.trail.length;i++){const p=s.trail[i-1],q=s.trail[i];check(Math.abs(q.angle-p.angle)<=.055+1e-8,'adaptive angular chord limit');check(Math.hypot(...q.point.map((v,j)=>v-p.point[j]))<=3+1e-8,'adaptive grip displacement limit');const a=at(p,45),b=at(p,98),c=at(q,98),d=at(q,45);check(cross(a,b,c)*cross(a,c,d)>=-1e-4,'two triangles agree on winding, no folded strip');}}
+}
+// A stationary-angle translation cannot become a spur before the rotating arc.
+const fixture={trail:[]};appendHumanoidBladeTrail(fixture,{age:0,point:[0,64,0],angle:0});appendHumanoidBladeTrail(fixture,{age:.01,point:[10,64,0],angle:0});check(fixture.trail.length===1&&fixture.trail[0].point[0]===10,'stationary blade translation resets arc seed');appendHumanoidBladeTrail(fixture,{age:.02,point:[13,64,0],angle:.6});check(fixture.trail.length>10,'large angular frame subdivided');
+console.log('Slash trail onset synchronization, fast-to-slow angular speed, adaptive curve spacing, consistent triangle winding and no stationary-translation spur passed');
+`,sandbox);
+

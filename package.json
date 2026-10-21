@@ -1,0 +1,11 @@
+{
+  "name": "hell-elevator",
+  "version": "0.250.0",
+  "private": true,
+  "description": "霓虹高塔：竖屏 WebGL 弹幕游戏",
+  "scripts": {
+    "dev": "node server.mjs",
+    "check": "node --check dist/talents.js && node --check dist/shop-effects.js && node --check dist/performance.js && node --check dist/music.js && node --check dist/game.js && node --check dist/weapon-lab.js && node --check dist/renderer.js && node --check dist/rain-curtain.js && node --check dist/snake.js && node --check dist/virus.js && node --check dist/humanoid.js && node --check dist/cowboy.js && node --check dist/drone-boss.js && node --check dist/crimson-mech.js && node --check dist/ufo-boss.js && node --check dist/fish-school.js && node --check dist/street-scene.js && node --check dist/scene-lab.js && node --check dist/scene-atmosphere.js && node --check dist/abyss-scene.js && node --check dist/orbital-scene.js && node --check dist/hex-map.js && node --check dist/hex-loader.js && node --check dist/title-screen.js",
+    "test": "node tests/run.cjs"
+  }
+}

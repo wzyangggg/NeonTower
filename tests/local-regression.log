@@ -1,0 +1,94 @@
+
+> hell-elevator@0.169.0 test
+> node tests/run.cjs
+
+Repeated context loss/restoration: preventDefault, rebuilt mesh/point resources, buffer reupload, retained progress and manual resume passed
+Repeated chaser kills pay zero, ranged/boss payouts retained, weak materials and full emission checked
+Wall-fixed screen motion, next panel landing, rainbow wave and synchronized screen lighting and rendering passed
+RGB waterfall direction, simultaneous hues, real audio response and bounded geometry/color cache passed
+Boss ground warning and active attack retain emissive red throughout lighting cycle passed
+Finite per-floor chaser totals, 24 maximum, floor/restart resets and original nearest aim passed
+Weapon tiers/stock, compare cancel/confirm atomicity, duplicate protection, patterns, pierce, models and restart passed
+Fixed 143-cell map, unchanged expanded tiles/arena across resolutions/DPR, camera coverage and portrait joystick coordinates passed
+Identical seeded enemy spawn coordinates and chase paths across portrait and landscape resolutions passed
+Armor/shoes/drone stock, atomic replacement, permanent upgrades, no swap healing, independent fire, models, payouts, survival and restoration passed
+BGM looping, shop/compare ducking, smooth gain, mute, pause, background, context loss and autoplay handling passed
+Economy: floor incomes 24/28/20/28/24/20/28/36/20/32/32/44/32/32/20/52/32/20/32/60/20/32/32/68; buying each floor reaches upgrades on B3/B8/B13/B22; capped prices, cash-tile payback and transaction limits passed
+Real BGM frequency routing, low/high mapping, pre-duck analysis, mute decay and removal of synthetic spectrum passed
+Single blind boxes: concealed stock, reveal/compare, stable rerolls, atomic equip and bounded per-item stat variance passed
+Stage ending: clear and survival show ending for 1.5 seconds, freeze hazards, pay once, respect pause and reset, then open shop
+Boss kill by main weapon/drone clears adds and queued waves, pays once and opens shop after ending delay
+Shotgun static target hits at 100/200/350/450: 3/1/1/1 -> 5/5/3/3; all grades and drone patterns passed
+Laser hitscan, near-to-far piercing, one damage application, beam lifetime/models, drone snapshots, simple stats and weapon identities passed
+Rifle/sniper/magnum identities, real hit damage, drone cooldown, blind-box eligibility and finite models passed
+Electric nearest chain, radius cap, damage falloff, single application, lifetime, drone snapshots, shop pool and boss ending passed
+sniper: 4 attacks in 3 seconds, formerly 2
+magnum: 5 attacks in 3 seconds, formerly 3
+rail: 5 attacks in 3 seconds, formerly 3
+tesla: 6 attacks in 3 seconds, formerly 5
+shotgun: 6 attacks in 3 seconds, formerly 5
+Faster slow weapons and matching drones, real combat cadence and damage preservation passed
+Mobile production aura, all supply types, leaving/swapping, magnetic pickup, shield recharge/cap, cash-heal cooldown and swap protection, shop/UI/models passed
+Stationary 8% slow time/full-speed movement, survival/ending timing, all armor capacities, clamp/no free refill, stored shield pickup, automatic cap, pulse range/equal damage and boss rewards passed
+Rocket splash radius/single damage/first contact/boss rewards, boomerang two-pass damage/return to moving owner/edge turn, drone snapshots, blind boxes and models passed
+Rotary equal-angle/world rotation, actual damage cooldown/shared target dedupe/boss clear, continuous rendering, drone and blind-box pools, all test gear/qualities/free equips/restart/background pause passed
+Drone-only saw pool/test slots, full player-centered orbit/follow/no pursuit/unclamped edge, contact-only repeated damage, thin finite model, slow time and boss rewards passed
+Upward two-shot delay/current-origin burst, delayed homing, actual side and top-boundary kills, retarget, finite model, boss cleanup, drone and equipment pools passed
+Bezier arc-length constant speed including close approach, close/behind/side and moving target hits, path rebuild and curved swept collision passed
+Seeker arena patrol, constant speed across waypoints, target reacquisition/loss, lifetime and slow time passed
+Crescent wide swept hits, piercing and dedupe, melee knockback/resume/bounds, boss clear, range, drone and rendering passed
+Three sword equal hover/follow, staggered stab and return, local reach, single-hit and repeated combat damage, slow time, boss rewards, mount-only effect/test and finite models passed
+Fixed sword slots, nearest living target facing during cooldown/out of range, moving/dead targets, default downward facing and target types passed
+Shared hit refresh, world-time decay, model-only tinted flash/micro shake across nine model paths, faster cash burst, damping, frame independence and particle cap passed
+Curated weapon roster/order/minimal names, matching drone pool, dedicated melee drones, starter pistol, every blind box/test item and retired exclusion passed
+Tinted material contrast, real-hit neon sparks/audio, lifetimes, finite rendering, dense-hit throttling/caps, mute/suspend and audio cleanup passed
+Bee five-shot spread, distributed seeking/retarget/patrol, real contact damage/dedupe/far reach, expiry, boss rewards, drone snapshots/test panel and finite bee meshes passed
+Actual walk-distance bee rewards, threshold/remainder/multi grant, speed/diagonal/blocked/still movement, combat/pause scope, weapon/drone scaling, swap/reset and normal fire preserved passed
+Sniper crit chance/multiplier, armor percentage-point synergy/cap, real damage and feedback, airborne/splash/saw/sword/movement-bee profiles, shared boss rewards, UI/shop/test and reset passed
+Sword animated swept sector/late hits/dedupe/range, independent slash+wave real damage, full-field wave, follow, crit snapshots, boss victory, drone, stat roll/UI/test and finite models passed
+Sword texture quad and reverse leading edge, idle/active/finished visibility and drone/context restoration passed
+Faster counterclockwise slash, early sword wave, temporal contact order and large-frame swept collision passed
+Alternating left/right sword and independent drone, matching texture direction, restart and actual combat doubled attack cadence passed: 5 -> 10
+Exact 240 degree alternating sweep, expanded side coverage, rear gap and full-arc textured trail passed
+Sword wave surviving-chaser regression, continued hand/drone sword attacks, seeker combination explosions and finite state at 10/16/33ms passed
+Armor merge, heavy movement tradeoff, energy hit protection/recharge, coat rename and shop cards passed
+Recovery radius stacking, accelerating physical pickups, arrival-only healing/rewards, moving target/swap, full shield storage, model position and frame timing passed
+Greed cash production radius/stacking, pickup/kill/survival payouts, real doubled health damage, unaffected shield and invincibility, roster/cards/models/swap/reset passed
+Purity one-per-floor cleanse of traps/saws/flywheels/turrets, boss/survival/no-bank/duplicate/swap; all weapons/drones cannot hit or target trap turrets; turret attacks and cards preserved
+Renewal medical +2 on arrival, periodic combat/survival healing, cap/no banking, quality rolls, large-step timing, pause/shop, swaps/reset and equipment cards/pools passed
+Falcon primary speed/secondary crit, all-quality defensive sacrifice/rolls, real walking/sniper crit/movement bees/drone synergy, swap clamps/no refill, cards/pool/reset passed
+Wine crit scaling, probability success/failure, one-life cap, real sniper/bee/drone/splash/fatal/boss hits, no repeat/full-health/trap proc, swap and cards/pools passed
+Ambush high primary crit, fixed slow/weak defense, rolls, actual movement and sniper damage, no lifesteal, airborne snapshots, swaps/no-refill and cards/pools/reset passed
+Plume capped no-hit floor stacks, shield/health/invincibility rules, boss/survival/duplicate/late equip, persistent inactive swaps, actual weapon/drone/saw/sword/rotor cadence and UI/pools/reset passed
+Armor common attributes, zero values, prose effects after attributes, actual rolled values and title cleanup passed
+Dual Uzi closest-two/single targeting, replacement, trap exclusion, actual damage, tiers, crit snapshots, acquisition and mock rendering passed
+Barrett slower high-DPS fire, actual boss normal/critical hits and clear, movement cost/composition/swap, quality rolls, crit snapshots, acquisition and mock rendering passed
+Skateboard continuous motion, bounded turning, edge/hole safety, swept graze/hit/expiry/cap/invincibility, armor/weapon/drone/bee synergy, swap/stage/reset, acquisition and mock model passed
+Skateboard smooth flowing color, real graze ollie label, airborne mesh, temporary damage immunity, non-chaining, landing/swap/floor/clear/reset and card timings passed
+Higher 72-unit jump, exact two horizontal board revolutions, rider independence, foot separation, finite full animation and landing alignment passed
+Lower skateboard cruising speed, automatic sharp-turn braking with momentum, immediate safe-entry graze protection and unchanged direct-hit damage passed
+Automatic danger proximity including underfoot traps/bullets, activation fallback, source rearm, all danger types, real-time slow motion/protection, doubled jump, four different tricks and once-per-trick rewards passed
+English skateboard labels, 1.5-second real cooldown across trigger/fallback/damage, pending danger at expiry, pause/shop/swap, circular projected UI and modest speed boost passed
+Startup keyboard/joystick slide latch across all movement phases, release/transition/damage/swap, laser/circle warning and near-miss exclusion, actual-hit protection and cooldown passed
+Spider cockpit mount acquisition, idle world contacts, alternating diagonal swing/lift/settle, analytic IK bone lengths/reach degeneracy, directional movement, finite mock mesh, sparse contacts and swap/reset passed
+Full spider mesh stays within 1.5 x 1.5 tiles at rest, every step phase, cardinal/diagonal turns, boosted speed, long frame and extreme stale foot contacts passed
+Belly mounted gun smooth independent targeting/trap exclusion, four round burst, friendly muzzle height and near hits, actual damage/boss rewards, quality/crit/attack speed, pause/state/swap/reset and full-circle compact mesh passed
+Standing flying star test equip, neutral stats, beveled emissive finite compact mesh, rider/boot/glow hover alignment, controlled movement/stop, trail emission/expiry/cap/teleport and armor/swap/reset passed
+Inflated rounded star 18-unit thickness, wide valleys, curved ring surfaces, compact finite full heading mesh, autonomous spin during movement/stopping/blocked input passed
+Star continuous per-vertex radial cream/gold/orange gradient, seam-free shared vertices, interpolated triangles, bounded emissive colors and independent time-driven rotation passed
+Exact 3.5-second star spin, circular soft glow below rider, transparent/additive rendering, independent sword texture/mode, missing asset isolation and context restore passed
+Vinyl record model and acquisition, close-radius multi-target scratches, actual repeated damage and boss rewards, mild chaser push, quality/crit/attack speed, state/pause/movement/stop, finite compact model, card/swap/reset passed
+Enlarged black vinyl record name/footprint/contact range, independent UFO roster/equip/no inherited damage, silver hull/transparent canopy, seating/controlled movement and swap passed
+UFO enclosing glass cockpit/reflections/ribs/neon, inner record light band, asymmetric label and spiral rotation independent of static tonearm passed
+Solid inset vinyl ring, broad classic saucer/low dome and compact pilot, independent mounted laser targeting/piercing/actual damage/rewards, quality/crit/attack speed and state/pause/swap/reset passed
+Neon flying sword independent test mount, directional/diagonal/stop heading, pointed emissive blade and standing height, fading bounded ribbon/teleport, drone distinction, armor/card/swap/reset passed
+Complete three-sword migration preserves stats and actual damage, independent drone slot, closed legacy shop/test/equip/runtime, floor/swap/re-equip lifecycle and mounted card passed
+Back-ridden flying shark test mount, directional finite tapered body/fins/eyes/teeth/animated tail, astride rider, hover/controlled movement/stop, armor/card/swap/reset passed
+Back-mounted shark riding pose, straddling legs/torso above saddle, teeth/gills and animated tail, removed balloon rig/gondola features passed
+Small plane independent prototype, compact finite hull/wings/propeller, rotated glass/lights, full-size riding, controlled movement/stop and armor/swap/reset passed
+Mount labels, neutral tentacle prototype, eight radial arms without tangential spiral, idle/mid-step stop freezes, fixed world contacts, multi-bone IK lengths/endpoints, four-way lift/replant, floor edges/sparse tiles, pause/stop, finite tube/suction/rider mesh and swap/floor/reset passed
+Plane uneven forward fan/cadence, hull direction/muzzle, real contact damage/dedupe/boss reward, quality/crit/attack speed, trap immunity and state/pause/swap/reset passed
+Mount attack/crit builds, stationary warmup/movement/pause, crowd cap/trap exclusions/snapshots, actual scratch reward/refresh/expiry, enlarged friendly blast victims, quality/stacking/cards and lifecycle passed
+Plane real-hit vulnerability, cap/refresh/expiry/reapply, target isolation/all-source damage/crit, quality snapshots, trap immunity, markers/cards and swap/kill/reset passed
+UFO defensive bullet field, quality radius/slow, entry/exit/full crossing frame equivalence, immutable velocity/lifetime, moving/swap/states, contact damage/friendly isolation and finite field model passed
+Four-layer explosions, short high fire/long smoke/contracting ground glow, fast shock-front coast, radius sync/unchanged single damage, independent lifetime/bounded dense effects and stage/shop/reset passed

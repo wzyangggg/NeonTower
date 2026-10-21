@@ -1,0 +1,17 @@
+const fs=require('fs'),vm=require('vm');const els={},handlers={};function el(){return {style:{},classList:{add(){},remove(){}},firstElementChild:{style:{}},handlers:{},addEventListener(k,f){this.handlers[k]=f},setPointerCapture(){},closest(){return null},getBoundingClientRect(){return {left:10,top:100,width:390,height:390}}}}const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({})},{get(t,k){return t[k]||(()=>{})}});const canvas=el();canvas.getContext=()=>gl;const win={innerHeight:800,devicePixelRatio:1,addEventListener(k,f){(handlers[k]??=[]).push(f)}};const sandbox={console,Math,Float32Array,performance:{now:()=>0},localStorage:{getItem:()=>0,setItem(){}},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},window:win,document:{querySelector:()=>canvas,getElementById:id=>els[id]||(els[id]=el()),querySelectorAll:()=>[]}};vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/music.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/renderer.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/game.js','utf8'),sandbox);
+
+
+
+vm.runInContext(`{
+function check(v,m){if(!v)throw Error(m)}
+reset();state='combat';p.y=300;p.inv=999;shootTimer=999;spawnQueue=[];chaserSpawned=24;turrets=[];
+enemies=[500,470,440,410,380].map(x=>({type:'eye',x,y:300,homeX:x,homeY:300,hp:20,max:20,r:14,t:0,fire:999,seed:0}));
+weapon=createWeapon('laser');shootWeapon(0);const beam=shots[0];check(beam.beam&&beam.originX===p.x&&beam.x>500&&shootTimer===weapon.interval,'instant beam and cooldown');
+step(.001);check(enemies.filter(e=>e.hp<20).length===4&&enemies[0].hp===20,'pierces nearest four targets independent of enemy order');
+check(beam.damageApplied&&shots.includes(beam),'beam remains visible after damage');const hp=enemies.map(e=>e.hp).join(',');step(.02);check(enemies.map(e=>e.hp).join(',')===hp,'visible beam does not deal repeated frame damage');draw();check(renderer.data.slice(0,renderer.count).every(Number.isFinite),'laser mesh finite');step(.2);check(!shots.includes(beam),'beam visual expires');
+shots=[];const laserDrone=createDrone('laser',3);emitWeaponShots(laserDrone,Math.PI/2,{x:325,y:300},'drone');check(shots[0].beam&&shots[0].height===48&&shots[0].damage===laserDrone.damage,'laser drone uses independent beam');const saved=shots[0].damage;equipItem('drone',createDrone('pulse'));check(shots[0].damage===saved,'swap preserves beam stats');
+for(const key of ['weapon','drone']){const rows=equipmentStatRows(key);check(rows.length===2&&rows[0][0]==='攻击力'&&rows[1][0]==='攻速','only simple attack and speed stats');const card=equipmentAttributeCard(key,createWeapon('laser'),'新装备');check(!card.includes('理论伤害')&&!card.includes('DPS')&&!card.includes('每次弹数'),'no DPS or detailed rows in UI');}
+const smg=createWeapon('smg'),rail=createWeapon('rail');check(smg.interval<.08&&rail.interval>createWeapon('rifle').interval&&rail.damage>=5&&rail.pierce===3,'distinct fast spray and slow heavy rail');
+reset();floor=3;state='combat';p.y=300;p.inv=999;spawnQueue=[{type:'eye',side:0}];shootTimer=999;enemies=[{type:'boss',x:450,y:300,homeX:450,homeY:300,hp:1,max:1,r:24,t:0,fire:999,seed:0}];emitWeaponShots(createWeapon('laser'),0,p);step(.001);check(state==='stageClear'&&cash===20&&!spawnQueue.length,'laser boss kill uses normal ending and rewards');
+console.log('Laser hitscan, near-to-far piercing, one damage application, beam lifetime/models, drone snapshots, simple stats and weapon identities passed');
+}`,sandbox);

@@ -1,0 +1,14 @@
+const fs=require('fs'),vm=require('vm');const els={},handlers={};function el(){return {style:{},classList:{add(){},remove(){}},firstElementChild:{style:{}},handlers:{},addEventListener(k,f){this.handlers[k]=f},setPointerCapture(){},closest(){return null},getBoundingClientRect(){return {left:10,top:100,width:390,height:390}}}}const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({})},{get(t,k){return t[k]||(()=>{})}});const canvas=el();canvas.getContext=()=>gl;const win={innerHeight:800,devicePixelRatio:1,addEventListener(k,f){(handlers[k]??=[]).push(f)}};const sandbox={console,Math,Float32Array,performance:{now:()=>0},localStorage:{getItem:()=>0,setItem(){}},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},window:win,document:{querySelector:()=>canvas,getElementById:id=>els[id]||(els[id]=el()),querySelectorAll:()=>[]}};vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/music.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/renderer.js','utf8'),sandbox);vm.runInContext(fs.readFileSync('dist/game.js','utf8'),sandbox);
+
+
+
+
+vm.runInContext(`{
+function check(v,m){if(!v)throw Error(m)}
+reset();state='combat';p.x=325;p.y=300;equipItem('shoes',createShoes('warpstar'));time=0;renderer.begin();drawFlyingStar(0,0);const seen=new Map(),palette=new Set();let center,edge,mixed=0;
+for(let i=0;i<renderer.count;i+=9){if(renderer.data[i+4]!==2)continue;const x=renderer.data[i],y=renderer.data[i+1],z=renderer.data[i+2],rgb=Array.from(renderer.data.slice(i+6,i+9)),key=[x,y,z].map(v=>v.toFixed(4)).join(',');check(rgb.every(v=>v>=0&&v<=1),'valid emissive color');if(seen.has(key))check(rgb.every((v,j)=>Math.abs(v-seen.get(key)[j])<1e-6),'shared surface vertex has continuous color');else seen.set(key,rgb);palette.add(rgb.map(v=>v.toFixed(4)).join(','));if(Math.hypot(x,z)<.001&&y===23)center=rgb;if(Math.hypot(x,z)>26.9&&y===12)edge=rgb;}
+for(let i=0;i<renderer.count;i+=27){if(renderer.data[i+4]===2&&Array.from(renderer.data.slice(i+6,i+9)).some((v,j)=>Math.abs(v-renderer.data[i+15+j])>.001))mixed++;}
+check(center&&edge&&center[1]>edge[1]&&center[2]>edge[2]&&center[1]>.9,'cream gold center transitions toward orange gold edge');check(palette.size>=8&&mixed>100,'many triangles interpolate per-vertex gradient instead of solid color bands');
+const angle=starSpinAngle();keys.a=true;keys.w=true;p.dx=-1;p.dy=-1;updateStarTrail(.1);check(starSpinAngle()===angle,'input and velocity never choose rotation');time+=.2;check(starSpinAngle()>angle,'clock drives rotation');const before=time;draw();draw();check(time===before,'draw does not accelerate spin');
+console.log('Star continuous per-vertex radial cream/gold/orange gradient, seam-free shared vertices, interpolated triangles, bounded emissive colors and independent time-driven rotation passed');
+}`,sandbox);
