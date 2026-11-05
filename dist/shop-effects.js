@@ -1,4 +1,4 @@
-/* Shop materials: adjacent-hue vectors, luminous type, rising fog and sparse GGX glitter.
+/* Shop materials: dark rarity backgrounds, luminous type and sparse GGX glitter.
    One lazy GPU context bakes the normal field once and is reused across shop visits. */
 (()=>{
  const previewControls=document.currentScript?.dataset.previewControls==='true';
@@ -14,8 +14,8 @@
  .sugar-grid.has-shop-shader [data-tier="5"] .shop-glitter{display:none}
  .sugar-grid :is([data-tier="3"],[data-tier="4"],[data-tier="5"]):not(:disabled){background-image:linear-gradient(180deg,#10171e99,transparent 48%,#10171e55),var(--shop-vector);background-size:100% 100%;background-repeat:no-repeat}
  .sugar-grid [data-tier="3"]{--shop-vector:${vectorBackdrop('#145e85','#324c98','#4fcddf')}}
- .sugar-grid [data-tier="4"]{--shop-vector:${vectorBackdrop('#a634b8','#246df0','#79c5ff')}}
- .sugar-grid [data-tier="5"]{--shop-vector:${vectorBackdrop('#d18b20','#ee731e','#ffca42',true)}}
+ .sugar-grid [data-tier="4"]{--shop-vector:none;background-color:#21152f}
+ .sugar-grid [data-tier="5"]{--shop-vector:none;background-color:#302411}
  .sugar-grid :is([data-tier="3"],[data-tier="4"],[data-tier="5"])>b,.sugar-grid :is([data-tier="3"],[data-tier="4"],[data-tier="5"])>span:not(.shop-item-fx){text-shadow:0 1px 2px #080d12,0 0 4px #080d12}
  .sugar-grid [data-tier="3"]{--type-mid:#0abaff;--type-low:#2587df;--type-hot:#38deff;--type-glow:#009dff99;--type-aura:#008cff33}
  .sugar-grid [data-tier="4"]{--type-mid:#c269ff;--type-low:#a14ae6;--type-hot:#e48dff;--type-glow:#c443ff99;--type-aura:#ab30ff33}
@@ -39,7 +39,7 @@
  void main(){vec3 p=vec3(uv,.137)*128.,cell=floor(p),f=fract(p),winner=vec3(0.);float best=100.;
  for(int z=-1;z<=1;z++)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){vec3 offset=vec3(float(x),float(y),float(z)),delta=offset+hash3(cell+offset)-f;float d=dot(delta,delta);if(d<best){best=d;winner=cell+offset;}}
  vec3 cellColor=hash3(winner+23.7);gl_FragColor=vec4(cellColor,dot(cellColor,vec3(.2126,.7152,.0722)));}`;
- const fragment=`precision highp float;varying vec2 uv;uniform sampler2D normalField;uniform vec2 size,pointer;uniform float time,seed,lighting,palette,normalStrength,tier,smokeAmount;
+ const fragment=`precision highp float;varying vec2 uv;uniform sampler2D normalField;uniform vec2 size,pointer;uniform float time,seed,lighting,palette,normalStrength,tier;
  const float PI=3.14159265;
  vec3 ramp(float value){if(palette>.5)return mix(vec3(.08,1.,.015),vec3(1.,.015,.85),value);if(tier<4.5)return mix(vec3(.22,.14,.38),vec3(.66,.48,.9),value);return mix(vec3(.23,.115,.022),vec3(1.,.7,.3),value);}
  float ggx(float nh){float a=.1*.1,a2=a*a,d=nh*nh*(a2-1.)+1.;return a2/max(PI*d*d,.00000001);}
@@ -71,22 +71,9 @@
  vec3 color=mix(albedo,tier>4.5?vec3(1.,.97,.86):vec3(.9,.86,1.),min(1.,spark*(tier>4.5?1.:1.5)));
  return vec4(color*alpha,alpha);
  }
- float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);vec2 k=vec2(127.1,311.7);float a=fract(sin(dot(i,k))*43758.5453),b=fract(sin(dot(i+vec2(1.,0.),k))*43758.5453),c=fract(sin(dot(i+vec2(0.,1.),k))*43758.5453),d=fract(sin(dot(i+1.,k))*43758.5453);return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);}
- float fbm(vec2 p){float v=0.,weight=.5;for(int i=0;i<4;i++){v+=noise(p)*weight;p=mat2(1.6,-1.2,1.2,1.6)*p+3.7;weight*=.5;}return v;}
- vec4 smoke(vec2 at){vec2 p=vec2(at.x*3.2,at.y*2.8-time*.38)+seed*.13;vec2 curl=vec2(fbm(p+1.7),fbm(p+8.3));float cloud=fbm(p+curl*2.4);
- float centerA=.28+.13*sin(at.y*6.-time*.5),centerB=.72+.1*sin(at.y*7.+time*.4);
- float width=.09+.12*at.y;float plume=exp(-pow((at.x-centerA)/width,2.))+exp(-pow((at.x-centerB)/(width*.85),2.));
- float density=pow(smoothstep(.27,.71,cloud),1.15)*min(1.,plume);
- float fade=smoothstep(0.,.12,at.y)*(1.-smoothstep(.72,1.,at.y));
- // Luminous aurora folds: a soft body with brighter narrow crests, not a flat veil.
- float crest=pow(density,3.);float textFade=mix(1.,.62,smoothstep(.58,.92,at.y));
- float alpha=(density*(tier>4.5?.32:.49)+crest*(tier>4.5?.14:.20))*fade*textFade*smokeAmount;
- vec3 color=tier>4.5?mix(vec3(1.,.76,.32),vec3(1.,.97,.78),cloud):mix(vec3(.73,.37,1.),vec3(.52,1.,.94),cloud);
- return vec4(color*alpha,alpha);
- }
  void main(){
  vec4 material=vec4(0.);if(tier>3.5){vec2 d=.28/size;vec4 a=shade(uv+d),b=shade(uv-d),c=shade(uv+vec2(d.x,-d.y)),e=shade(uv+vec2(-d.x,d.y));material=(a+b+c+e)*.25;float peak=max(max(a.a,b.a),max(c.a,e.a));float sharpened=mix(material.a,peak,.55);material.rgb*=sharpened/max(material.a,.0001);material.a=sharpened;}
- vec4 fog=smoke(uv);vec4 combined=material+fog*(1.-material.a);
+ vec4 combined=material;
  vec2 box=abs(uv-.5)*size-size*.5+vec2(7.);float corner=length(max(box,0.))+min(max(box.x,box.y),0.)-5.;if(corner>0.)discard;
  gl_FragColor=vec4(combined.rgb/max(combined.a,.0001),combined.a);
  }`;
@@ -99,9 +86,9 @@
  buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
  texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1024,1024,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
  const framebuffer=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffer);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,texture,0);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error('Normal map bake framebuffer unavailable');gl.viewport(0,0,1024,1024);gl.useProgram(baker);gl.drawArrays(gl.TRIANGLES,0,6);gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.deleteFramebuffer(framebuffer);gl.deleteProgram(baker);gl.bindTexture(gl.TEXTURE_2D,texture);gl.generateMipmap(gl.TEXTURE_2D);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);
- gl.useProgram(program);gl.uniform1i(gl.getUniformLocation(program,'normalField'),0);uniforms=Object.fromEntries(['size','time','seed','pointer','lighting','palette','normalStrength','tier','smokeAmount'].map(name=>[name,gl.getUniformLocation(program,name)]));canvas.dataset.ready='true';canvas.dataset.material='voronoi-normal-ggx';canvas.dataset.textureSize='1024x1024';canvas.dataset.normalStrength='.5';canvas.dataset.roughness='.1';
+ gl.useProgram(program);gl.uniform1i(gl.getUniformLocation(program,'normalField'),0);uniforms=Object.fromEntries(['size','time','seed','pointer','lighting','palette','normalStrength','tier'].map(name=>[name,gl.getUniformLocation(program,name)]));canvas.dataset.ready='true';canvas.dataset.material='voronoi-normal-ggx';canvas.dataset.textureSize='1024x1024';canvas.dataset.normalStrength='.5';canvas.dataset.roughness='.1';
  }
- function draw(){if(!gl||!program||lost||!root?.isConnected)return;const bounds=root.getBoundingClientRect();if(bounds.width<=0||bounds.height<=0)return;const dpr=Math.min(devicePixelRatio||1,1.5),w=Math.round(bounds.width*dpr),h=Math.round(bounds.height*dpr);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(program);gl.uniform1f(uniforms.time,elapsed);gl.uniform2fv(uniforms.pointer,pointer);gl.uniform1f(uniforms.lighting,lighting);gl.uniform1f(uniforms.palette,palette);gl.uniform1f(uniforms.normalStrength,.5);gl.uniform1f(uniforms.smokeAmount,1.);
+ function draw(){if(!gl||!program||lost||!root?.isConnected)return;const bounds=root.getBoundingClientRect();if(bounds.width<=0||bounds.height<=0)return;const dpr=Math.min(devicePixelRatio||1,1.5),w=Math.round(bounds.width*dpr),h=Math.round(bounds.height*dpr);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(program);gl.uniform1f(uniforms.time,elapsed);gl.uniform2fv(uniforms.pointer,pointer);gl.uniform1f(uniforms.lighting,lighting);gl.uniform1f(uniforms.palette,palette);gl.uniform1f(uniforms.normalStrength,.5);
  cards.forEach((card,i)=>{if(card.disabled)return;const r=card.getBoundingClientRect();gl.viewport(Math.round((r.left-bounds.left)*dpr),Math.round((bounds.bottom-r.bottom)*dpr),Math.round(r.width*dpr),Math.round(r.height*dpr));gl.uniform2f(uniforms.size,r.width,r.height);gl.uniform1f(uniforms.seed,37.4+i*91.7);gl.uniform1f(uniforms.tier,+card.dataset.tier);gl.drawArrays(gl.TRIANGLES,0,6);});}
  function running(){return !!gl&&!!program&&!lost&&root?.isConnected&&root.getClientRects().length>0&&cards.some(card=>!card.disabled)&&!reduce.matches&&!document.hidden&&inView;}
  function frame(now){raf=0;if(!running())return;if(!last)last=now;if(now-last>=32){elapsed+=Math.min((now-last)/1000,.1);last=now;draw();}raf=requestAnimationFrame(frame);}

@@ -1,0 +1,11 @@
+# Baked font glow
+
+Built-in image_gen, existing isolated lettering as edit targets. Original flat PNGs retained for comparison. Core pixel bounds determine padded display mapping in neon-lab.js.
+
+## headline
+
+Edit target: this isolated text game texture. Change ONLY its outer glow. Preserve the exact "NEON RHYTHM" two-line white and magenta lettering, letter shapes, proportions, arrangement, flat faces and readable holes. Add a clearly visible, soft hot pink / magenta with a subtle violet outer fringe emissive neon outer glow baked directly into the transparent PNG, bright near the strokes and smoothly fading to zero alpha outside. No bevels, no new outlines crossing letter faces, no texture, no new objects or background. The original letter faces must remain flat solid color, unchanged. Keep glow around EACH letter including into transparent gaps, with a narrow bright halo and broader restrained bloom. Add transparent padding equal to 6% of original width on each horizontal side and 6% of original height on each vertical side so all bloom fits without clipping. Preserve relative text layout precisely. Actual RGBA transparency, no black or gray filled background and no checkerboard. Output one isolated text texture, not a mockup.
+
+## subtitle
+
+Edit target: this isolated text game texture. Change ONLY its outer glow. Preserve the exact "LIVE TONIGHT" one-line yellow lettering, letter shapes, proportions, arrangement, flat faces and readable holes. Add a clearly visible, soft warm golden yellow emissive neon outer glow baked directly into the transparent PNG, bright near the strokes and smoothly fading to zero alpha outside. No bevels, no new outlines crossing letter faces, no texture, no new objects or background. The original letter faces must remain flat solid color, unchanged. Keep glow around EACH letter including into transparent gaps, with a narrow bright halo and broader restrained bloom. Add transparent padding equal to 6% of original width on each horizontal side and 6% of original height on each vertical side so all bloom fits without clipping. Preserve relative text layout precisely. Actual RGBA transparency, no black or gray filled background and no checkerboard. Output one isolated text texture, not a mockup.

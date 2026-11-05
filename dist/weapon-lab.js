@@ -37,7 +37,7 @@ if(typeof location!=='undefined'&&new URLSearchParams(location.search).get('weap
    this.elapsed+=dt;for(let i=0;i<this.targets.length;i++){const t=this.targets[i];this.damage+=Math.max(0,t.lastHealth-Math.max(0,t.e.hp));t.lastHealth=Math.max(0,t.e.hp);if(t.e.hp<=0){t.respawn+=dt;if(t.respawn>=.4)this.targets[i]=this.makeTarget(t.index,t.x,t.y);}}
    this.hudClock+=dt;if(this.hudClock>=.15){this.hudClock=0;this.hud();}
   },
-  hud(){updateUI();$('status').textContent='武器测试场 · '+(this.god?'无敌':'实战伤害');$('wave').textContent='自动补靶 · 无层数结算';$('weapon-metrics').textContent='伤害 '+Math.round(this.damage)+' · DPS '+(this.damage/Math.max(.2,this.elapsed)).toFixed(1)+' · 击杀 '+kills;$('weapon-info').textContent=equipmentName(weapon)+'：'+weapon.desc;$('weapon-evolve').disabled=!weapon.growth||weapon.growth.stage>=2;},
+  hud(){updateUI();$('status').textContent='武器测试场 · '+(this.god?'无敌':'实战伤害');$('wave').textContent='自动补靶 · 无层数结算';$('weapon-metrics').textContent='伤害 '+combatDisplayDamage(this.damage)+' · DPS '+combatDisplayDamage(this.damage/Math.max(.2,this.elapsed))+' · 击杀 '+kills;$('weapon-info').textContent=equipmentName(weapon)+'：'+weapon.desc;$('weapon-evolve').disabled=!weapon.growth||weapon.growth.stage>=2;},
   next(delta){const index=WEAPON_MODELS.findIndex(m=>m.id===weapon.itemId);this.select(WEAPON_MODELS[(index+delta+WEAPON_MODELS.length)%WEAPON_MODELS.length].id);},
  };
  $('weapon-model').onchange=()=>weaponLab.select($('weapon-model').value);$('weapon-prev').onclick=()=>weaponLab.next(-1);$('weapon-next').onclick=()=>weaponLab.next(1);

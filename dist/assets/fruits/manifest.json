@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "texture": "Garden-Palette.png",
+  "models": {
+    "apple": "apple.json",
+    "watermelon": "watermelon.json",
+    "banana": "banana.json",
+    "grape": "grape.json"
+  }
+}

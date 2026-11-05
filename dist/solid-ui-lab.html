@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>纯色 UI · 黑底测试</title>
+  <link rel="stylesheet" href="post-process.css">
+  <link rel="stylesheet" href="solid-ui-background.css">
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#090a0d;color:#c7c9d0;font:12px/1.5 system-ui,sans-serif}
+    #viewport{position:relative;min-height:100svh;display:grid;place-items:center;overflow:hidden;background:#090a0d}
+    .panel{--cut:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));width:min(440px,78vw);aspect-ratio:16/9;background:linear-gradient(125deg,var(--panel-color,#70dfff),var(--panel-end,#b995ff));clip-path:var(--cut);position:relative;box-shadow:inset 0 -5px 0 #0003;display:grid;place-items:center;color:#080a10;font-size:clamp(26px,6vw,42px);font-weight:900;letter-spacing:.08em}
+    .panel::after{content:"";position:absolute;inset:0;clip-path:var(--cut);pointer-events:none;box-shadow:inset 0 2px 0 #ffffff90,inset 0 -1px 0 #00000030}
+    .raw .panel{box-shadow:none;border-color:transparent}.raw .panel::after{display:none}
+    body.square .panel{aspect-ratio:1}
+    .panel-shell{position:relative;width:min(440px,78vw);isolation:isolate}
+    .panel-shell .panel{width:100%}
+    .panel-shell::before,.panel-shell::after{content:"";position:absolute;pointer-events:none;z-index:-1;border-radius:22%;background:linear-gradient(110deg,var(--panel-color,#70dfff),var(--panel-end,#b995ff))}
+    .panel-shell::before{inset:-6px;filter:blur(32px);opacity:.44}
+    .panel-shell::after{inset:-28px;filter:blur(72px);opacity:.2}
+    .panel-shell.no-glow::before,.panel-shell.no-glow::after{opacity:0}
+    .edge-light{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:3}
+    .edge-light[hidden]{display:none}
+    .edge-rim[hidden],.edge-flow[hidden]{display:none}
+    .edge-rim{filter:drop-shadow(0 0 2px #bceaff40)}
+    .edge-flow{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 8px var(--panel-color,#70dfff))}
+    .edge-light path{fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+    .panel{--shape-a:#7489df;--shape-b:#c3a5ed;--shape-c:#a1eee5;overflow:hidden;isolation:isolate}
+    .panel.lime{--shape-a:#70cc93;--shape-b:#e7ce74;--shape-c:#f4f7b2}
+    .composition{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+    .composition g{transform-box:fill-box;transform-origin:center}
+    .dots{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle,var(--dot-color,#8068bf) 0 1.2px,transparent 1.5px);background-size:22px 22px;mix-blend-mode:normal;opacity:1;mask-image:radial-gradient(ellipse 65% 80% at 100% 100%,#000 15%,transparent 85%)}
+    .dots[hidden]{display:none}
+    .soft-lines{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+    .soft-lines[hidden]{display:none}
+    .soft-lines path{fill:none;stroke:url(#soft-line-ink);stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+    .panel-text{position:relative;z-index:1}.panel::after{z-index:2}
+    #animate{font:inherit;padding:5px 10px;border:1px solid #b995ff70;border-radius:4px;background:#b995ff;color:#080a10;cursor:pointer;font-weight:700}#animate:disabled{opacity:.6;cursor:wait}
+    .controls{position:fixed;z-index:10002;bottom:max(22px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;width:max-content;max-width:calc(100vw - 24px);padding:10px 16px;border:1px solid #ffffff12;border-radius:9px;background:#111217ee}
+    label{display:flex;align-items:center;gap:6px;white-space:nowrap;cursor:pointer}input[type=color]{width:24px;height:24px;border:0;padding:0;background:transparent;cursor:pointer}input[type=checkbox]{accent-color:#a18ae5}select{font:inherit;color:inherit;background:#202127;border:1px solid #ffffff20;border-radius:4px;padding:3px}
+    @media(max-width:450px){.controls{gap:10px;font-size:11px}}
+  </style>
+</head>
+<body>
+  <main id="viewport" aria-label="偏黑背景上的渐变 UI 测试"><div class="panel"><svg class="composition" viewBox="0 0 440 248" preserveAspectRatio="none" aria-hidden="true"></svg><span class="dots" aria-hidden="true"></span><svg class="soft-lines" viewBox="0 0 440 248" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="soft-line-ink" gradientUnits="userSpaceOnUse" x1="205" y1="0" x2="440" y2="0"><stop offset="0" stop-color="#f0fff9" stop-opacity="0"/><stop offset=".45" stop-color="#f0fff9" stop-opacity=".12"/><stop offset="1" stop-color="#f0fff9" stop-opacity=".65"/></linearGradient></defs><g>
+    <path d="M185 222 H254 Q272 222 272 204 V200 Q272 182 290 182 H338 Q356 182 356 164 V158 Q356 140 374 140 H464"/>
+    <path d="M181 204 H250 Q268 204 268 186 V182 Q268 164 286 164 H334 Q352 164 352 146 V140 Q352 122 370 122 H464"/>
+    <path d="M177 186 H246 Q264 186 264 168 V164 Q264 146 282 146 H330 Q348 146 348 128 V122 Q348 104 366 104 H464"/>
+    <path d="M173 168 H242 Q260 168 260 150 V146 Q260 128 278 128 H326 Q344 128 344 110 V104 Q344 86 362 86 H464"/>
+  </g></svg><span class="panel-text">即刻出发</span></div></main>
+  <aside class="controls" aria-label="视觉对照">
+    <select id="background" aria-label="场景背景"><option value="space">深紫星空</option><option value="blue">深蓝星屑</option><option value="black">原始黑底</option></select>
+    <button id="animate" type="button">随机构图 ↻</button>
+    <label><input id="motion" type="checkbox" checked>图形流动</label>
+    <label><input id="lines" type="checkbox" checked>柔和曲线</label>
+    <label><input id="glow" type="checkbox" checked>柔和背光</label>
+    <label><input id="edge" type="checkbox" checked>高亮流光</label>
+    <label><input id="rim" type="checkbox" checked>常亮边界</label>
+    <label><input id="dots" type="checkbox" checked>彩色波点</label>
+    <label>点色 <input id="dot-color" type="color" value="#8068bf" aria-label="波点纯色"></label>
+    <select id="palette" aria-label="渐变配色"><option value="blue">亮蓝紫</option><option value="lime">亮黄绿</option></select>
+    <label>起色 <input id="color" type="color" value="#70dfff" aria-label="渐变起色"></label>
+    <label>终色 <input id="end" type="color" value="#b995ff" aria-label="渐变终色"></label>
+    <select id="ratio" aria-label="面板比例"><option value="video">视频 16:9</option><option value="square">商品 1:1</option></select>
+    <label><input id="finish" type="checkbox" checked>边缘质感</label>
+    <label><input id="fx" type="checkbox" checked>项目滤镜</label>
+  </aside>
+  <script src="post-process.js"></script>
+  <script src="solid-ui-background.js"></script>
+  <script src="solid-ui-lab.js"></script>
+</body>
+</html>

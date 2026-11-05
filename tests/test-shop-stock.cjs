@@ -6,9 +6,24 @@ vm.runInContext(`{
 function check(v,m){if(!v)throw Error(m)}
 reset();state='upgrade';cash=999;
 check(typeof PASSIVE_ITEMS==='undefined'&&typeof passiveBonus==='undefined','removed passive catalog and stat hooks');
-const seen=new Set();for(let level=1;level<=5;level++){shopLevel=level;for(let i=0;i<300;i++){rollShop();check(shopItems.length===3,'three real goods');for(const u of shopItems){check(u.key==='terrainPassive'||['heal','erase','medical','shield','cashTile','shockTile','coverTile'].includes(u.key)||EQUIPMENT_LABELS[u.key],'only supported goods');seen.add(u.key);check(Number.isFinite(u.price)&&u.price>0,'valid price');if(EQUIPMENT_LABELS[u.key])check(itemEquipment(u).tier<=level,'equipment quality still follows shop');}}}
-check(Object.keys(EQUIPMENT_LABELS).every(k=>seen.has(k))&&!seen.has('drink')&&seen.has('heal')&&seen.has('terrainPassive'),'equipment, shovel, terrain passives and healing remain available');
-renderShop();check(!$('overlay').innerHTML.includes('passive-inventory')&&!$('overlay').innerHTML.includes('passive-card'),'removed passive shop UI');
+const seen=new Set();for(let level=1;level<=5;level++){shopLevel=level;for(let i=0;i<300;i++){rollShop();check(shopItems.length===3,'three real goods');for(const u of shopItems){check(u.key==='erase'||EQUIPMENT_LABELS[u.key],'only supported goods');seen.add(u.key);check(Number.isFinite(u.price)&&u.price>0,'valid price');if(EQUIPMENT_LABELS[u.key])check(itemEquipment(u).tier<=level,'equipment quality still follows shop');}}}
+check(Object.keys(EQUIPMENT_LABELS).every(k=>seen.has(k))&&!seen.has('drink')&&!seen.has('heal')&&!seen.has('terrainPassive'),'only equipment and demolition remain available');
+renderShop();check(!$('overlay').innerHTML.includes('passive-inventory')&&!$('overlay').innerHTML.includes('passive-card'),'removed passive shop UI');check(!$('overlay').innerHTML.includes('terrain-owned')&&!$('overlay').innerHTML.includes('地块加成')&&!$('overlay').innerHTML.includes('应急修复'),'ordinary shop has no removed bonus/repair display or entry');
 reset();check(movementSpeed()===195&&attackSpeedMultiplier()===1&&supplyPickupRadius()===20,'base stats unaffected');check(resolveShotDamage({},100,null).damage===100,'base damage unchanged');check(DRINK_TYPES.length===16&&TERRAIN_CATALOG.some(d=>d.kind==='稀有被动'),'other passive systems retained');
-console.log('Shop stock: removed small passives; three slots, all equipment tiers/shovel, terrain goods, healing, no ordinary drinks and base stats passed');
+// Locking keeps the rolled object, stats and price across every stock refresh path.
+reset();state='upgrade';cash=9999;rollShop();const kept=shopItems[0],other=shopItems[1],wallet=cash;
+check(toggleShopItemLock(0)&&kept.locked&&cash===wallet&&!kept.sold,'locking never purchases');
+check($('overlay').innerHTML.includes('class="shop-lock"')&&$('overlay').innerHTML.includes('aria-pressed="true"'),'independent accessible lock button');check($('overlay').innerHTML.includes('data-lock-state="locked"')&&$('overlay').innerHTML.includes('data-lock-state="unlocked"'),'lock controls show closed and open lock icons');
+const oldPrice=kept.price,oldEquipment=itemEquipment(kept);check(rerollShop()&&shopItems[0]===kept&&shopItems[1]!==other,'reroll preserves only locked slot');
+check(upgradeShop()&&shopLevel===2&&shopItems[0]===kept&&kept.price===oldPrice&&itemEquipment(kept)===oldEquipment,'upgrade preserves original locked offer');
+leaveShop();check(state==='descent','leave locked stock');reward();check(shopItems[0]===kept&&shopRefreshes===0,'next room shop keeps locked offer');
+check(toggleShopItemLock(0)&&!kept.locked,'unlock');rollShop();check(shopItems[0]!==kept,'unlocked offer refreshes');
+const sold=shopItems[0];toggleShopItemLock(0);check(buyShopItem(0)&&sold.sold,'can buy locked offer');if(pendingEquipment)confirmEquipmentPurchase();check(!toggleShopItemLock(0),'sold offer cannot toggle');rollShop();check(shopItems[0]!==sold,'purchased locked stock refills');
+const blocked=shopItems[0];pendingEquipment={};check(!toggleShopItemLock(0),'comparison prevents locking');pendingEquipment=null;
+for(const key of ['heal','terrainPassive']){const u={key,terrainId:TERRAIN_CATALOG.find(d=>d.kind==='稀有被动').id,price:1,sold:false};shopItems=[u];const money=cash;check(!shopUsable(u)&&!buyShopItem(0)&&money===cash,'removed stale offer cannot charge '+key);}
+for(let i=0;i<200;i++)check(rewardOptions().every(u=>u.key!=='heal'),'no emergency repair in room rewards');
+check(equipmentShopCategories('weapon',createWeaponModel('smg_t2'))[0]==='重武器'&&shopItemIcon({key:'weapon',equipment:createWeaponModel('smg_t2')}).includes('heavy-weapon.png'),'AK47 uses rifle silhouette');
+for(const id of ARMOR_TYPES.map(e=>e.id)){const e=createArmor(id,3),palette=armorVisualPalette(e);equipItem('armor',e);renderShop();check($('overlay').innerHTML.includes('--item-body:'+palette.body)&&$('overlay').innerHTML.includes('--item-trim:'+palette.trim),'loadout uses actual armor palette '+id);const oldBox=renderer.box,colors=[];renderer.box=function(...args){colors.push(args[6]);return oldBox.apply(this,args)};try{drawEquipmentModels()}finally{renderer.box=oldBox;}check(colors.includes(palette.body)&&colors.includes(palette.trim),'worn armor uses shared palette '+id);}
+reset();check(!shopItems.length,'restart clears locked stock');
+console.log('Shop stock: removed small passives; three slots, all equipment tiers, lock/reroll/upgrade/cross-room/restart lifecycle, no terrain bonuses or repairs, AK47 rifle icon and base stats passed');
 }`,sandbox);

@@ -2,34 +2,49 @@ from pathlib import Path
 import base64, zipfile, hashlib, re, subprocess, json
 
 root=Path(__file__).resolve().parents[1]
+# Refresh font subsets before either offline or web packaging.
+subprocess.run([__import__('sys').executable,str(root/'tools/build-fonts.py')],check=True)
 version=__import__('json').loads((root/'package.json').read_text(encoding='utf-8'))['version']
 dist=root/'dist'
 release=root/'releases'/('hell-elevator-'+version+'-offline')
 release.mkdir(parents=True,exist_ok=True)
 html=(dist/'index.html').read_text(encoding='utf-8')
+# Keep one embedded resource table, including paths assembled at runtime.
+mimes={'.png':'image/png','.svg':'image/svg+xml','.wav':'audio/wav','.mp3':'audio/mpeg','.json':'application/json','.woff2':'font/woff2'}
+assets={file.relative_to(dist).as_posix():'data:'+mimes[file.suffix]+';base64,'+base64.b64encode(file.read_bytes()).decode('ascii') for file in dist.rglob('*') if file.is_file() and file.suffix in mimes}
+def offline_source(source):
+    source=re.sub(r'''(['"])((?:assets|audio)/[^'"\n]+)\1''',lambda m:'globalThis.resolveOfflineAsset('+json.dumps(m.group(2))+')' if m.group(2) in assets else m.group(0),source)
+    # SVG markup also consumes this dynamically constructed icon URL.
+    source=re.sub(r'(const url=kind=>)([^\n]+?);',r'\1globalThis.resolveOfflineAsset(\2);',source)
+    return source
+
 if '<script src="hex-loader.js"></script>' in html:
     # Compile the same adapter as the web entry, without fetch/dynamic scripts on file://.
     engine=subprocess.check_output(['node','-e',"const fs=require('fs');process.stdout.write(require('./dist/hex-map.js').transform(fs.readFileSync('./dist/game.js','utf8')));"],cwd=root,encoding='utf-8')
     loader=(dist/'hex-loader.js').read_text(encoding='utf-8')
-    modules=json.loads(re.search(r'for\(const file of (\[[^\]]+\])\)',loader).group(1).replace("'",'"'))
-    raw=(dist/'game.js').read_text(encoding='utf-8')
+    module_list=re.search(r'const modules=(\[[^\]]+\])',loader) or re.search(r'for\(const file of (\[[^\]]+\])\)',loader)
+    modules=json.loads(module_list.group(1).replace("'",'"'))
+    if 'promo-mode.js' not in modules: modules.append('promo-mode.js')
+    raw=offline_source((dist/'game.js').read_text(encoding='utf-8'))
+    engine=offline_source(engine)
     boot='{const params=new URLSearchParams(location.search),lab=params.get("lab")==="1"||params.get("weaponlab")==="1",engine=document.createElement("script");engine.textContent=lab?'+json.dumps(raw,ensure_ascii=False)+':'+json.dumps(engine,ensure_ascii=False)+';document.body.append(engine);}'
-    bootstrap='<script>'+boot.replace('</script','<\\/script')+'</script>'+''.join('<script src="'+name+'"></script>' for name in modules)+'<script>HexMap.ready=true;</script>'
+    bootstrap='<script>'+boot.replace('</script',r'<\/script')+'</script>'+''.join('<script src="'+name+'"></script>' for name in modules)+'<script>HexMap.ready=true;</script>'
     html=html.replace('<script src="hex-loader.js"></script>',bootstrap)
 html=html.replace('<head>','<head><style id="talents-inline-style">'+(dist/'talents.css').read_text(encoding='utf-8')+'</style>')
-html=html.replace('<link rel="stylesheet" href="style.css">','<style>'+(dist/'style.css').read_text(encoding='utf-8')+'</style>')
-html=html.replace('<link rel="stylesheet" href="industrial-ui.css">','<style>'+(dist/'industrial-ui.css').read_text(encoding='utf-8')+'</style>')
+html=re.sub(r'<link rel="stylesheet" href="([^"]+)">',lambda m:'<style>'+(dist/m.group(1)).read_text(encoding='utf-8')+'</style>',html)
+# Inline CSS font URLs for file://, with the same licensed subsets.
+html=re.sub(r"url\(['\"]?(assets/fonts/[^)'\"]+)['\"]?\)",lambda m:'url("'+assets[m.group(1)]+'")',html)
+for license_file in (dist/'assets/fonts').glob('*-OFL.txt'):
+    (release/license_file.name).write_bytes(license_file.read_bytes())
 # Discover every included module so scene, rain, hex and lab code also ships offline.
-assets={asset.relative_to(dist).as_posix():'data:image/png;base64,'+base64.b64encode(asset.read_bytes()).decode('ascii') for asset in (dist/'assets').rglob('*.png')}
-assets.update({asset.relative_to(dist).as_posix():'data:audio/wav;base64,'+base64.b64encode(asset.read_bytes()).decode('ascii') for asset in (dist/'assets').rglob('*.wav')})
-assets.update({'audio/'+asset.name:'data:audio/mpeg;base64,'+base64.b64encode(asset.read_bytes()).decode('ascii') for asset in (dist/'audio').glob('*.mp3')})
 for name in dict.fromkeys(re.findall(r'<script src="([^"]+)"></script>',html)):
-    source=(dist/name).read_text(encoding='utf-8').replace('</script','<\\/script')
-    for path,data in assets.items():source=source.replace(path,data)
+    source=offline_source((dist/name).read_text(encoding='utf-8')).replace('</script',r'<\/script')
     html=html.replace('<script src="'+name+'"></script>','<script>'+source+'</script>')
 
-# The compiled game is already inline; resolve any asset paths it uses as well.
-for path,data in assets.items():html=html.replace(path,data)
+# Static HTML attributes are resolved independently of JavaScript literals.
+html=re.sub(r'((?:src|href)=")([^"]+)(")',lambda m:m.group(1)+assets.get(m.group(2),m.group(2))+m.group(3),html)
+resource_bootstrap='''(()=>{const assets=ASSETS;globalThis.resolveOfflineAsset=value=>assets[value]||value;const nativeFetch=globalThis.fetch.bind(globalThis);globalThis.fetch=(input,init)=>nativeFetch(typeof input==='string'?resolveOfflineAsset(input):input,init);const descriptor=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,'src');Object.defineProperty(HTMLImageElement.prototype,'src',{...descriptor,set(value){descriptor.set.call(this,resolveOfflineAsset(value));}});})();'''.replace('ASSETS',json.dumps(assets,separators=(',',':')))
+html=html.replace('<head>','<head><script>'+resource_bootstrap.replace('</script',r'<\/script')+'</script>',1)
 audio=base64.b64encode((dist/'audio/normal-theme.mp3').read_bytes()).decode('ascii')
 html=html.replace('src="audio/normal-theme.mp3"','src="data:audio/mpeg;base64,'+audio+'"')
 (release/'game.html').write_text(html,encoding='utf-8')

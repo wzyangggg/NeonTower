@@ -14,25 +14,25 @@ check(TERRAIN_CATALOG.length===39&&new Set(TERRAIN_CATALOG.map(d=>d.id)).size===
 check(TERRAIN_CATALOG.every(d=>d.desc.length<=16&&d.implementation.length>d.desc.length),'separate short player text and implementation');
 // Unified gold shop and separate bar lifecycle.
 setup();floor=2;reward();check(terrainView==='equipment'&&$('overlay').innerHTML.includes('普通商店')&&!$('overlay').innerHTML.includes('酒吧层')&&!barItems.length,'even floor opens ordinary shop without bar');cash=100;
-check(buyShopExpansion()&&cash===92&&shopTerrainPlan.tiles.length===12,'gold expansion reserves terrain');
+check(!$('overlay').innerHTML.includes('shop-expand')&&!shopTerrainPlan&&cash===100,'no paid expansion entry or terrain reservation');
 pendingEquipment={};leaveShop();check(state==='upgrade'&&floor===2,'pending comparison blocks exit');pendingEquipment=null;leaveShop();check(state==='descent'&&floor===3,'ordinary exit descends once');leaveShop();check(floor===3,'cannot exit twice');
 setup();reward();check(terrainView==='equipment','odd floor ordinary directly');
 for(const d of TERRAIN_CATALOG){
  reset();state='upgrade';cash=999;if(d.kind==='拆除')addTrap();
  const key=d.kind==='稀有被动'?'terrainPassive':d.kind==='拆除'?'erase':terrainItemKey(d);
- if(d.fixed){check(buyShopExpansion(),'permanent expansion');continue;}
+ if(d.fixed||d.kind==='地块建造'){check(!terrainDefUsable(d),'construction excluded from shop '+d.name);continue;}
  const u={key,terrainId:d.id,name:d.name,desc:d.desc,amount:1};u.price=shopPrice(u);u.sold=false;shopItems=[u];
+ if(d.kind==='稀有被动'){check(!shopUsable(u)&&!buyShopItem(0)&&cash===999,'terrain bonus removed from shop '+d.name);continue;}
  check(buyShopItem(0)&&cash===999-u.price,'actual gold purchase '+d.name);const wallet=cash;check(!buyShopItem(0)&&cash===wallet,'no duplicate charge');
  if(d.kind==='稀有被动'){check(terrainHas(d.name)&&!terrainDefUsable(d)&&pendingEquipment?.passive,'one-time passive reveal');check(confirmEquipmentPurchase(),'dismiss paid passive');}
 }
 for(let level=1;level<=5;level++){
- reset();state='upgrade';cash=999;shopLevel=level;const count=tiles.length,offer=shopExpansion();
- check(offer.amount===level+2&&offer.price===shopPrice({key:'floor'}),'shop level increases expansion without extra pack charge');
- check(buyShopExpansion()&&cash===999-offer.price&&shopTerrainPlan.tiles.length===count+offer.amount&&tiles.length===count,'purchase reserves the advertised number of tiles once');
- terrainChange=shopTerrainPlan;shopTerrainPlan=null;finishTerrainChange();check(tiles.length===count+offer.amount,'landing commits upgraded expansion');
- reset();state='upgrade';cash=100;shopLevel=level;tiles=[];for(let y=grid.minY;y<=grid.maxY;y++)for(let x=grid.minX;x<=grid.maxX;x++)tiles.push({x,y});tiles.pop();
- const partial=shopExpansion();check(partial.amount===1&&partial.price===Math.ceil(shopPrice({key:'floor'})/(level+2))&&buyShopExpansion()&&cash===100-partial.price,'partial map charges level-adjusted partial price');
- check(!buyShopExpansion()&&shopExpansion().amount===0&&shopExpansion().price===0,'reserved full map rejects expansion');
+ reset();state='upgrade';cash=999;shopLevel=level;const count=tiles.length;
+ for(const key of ['floor','medical','shield','cashTile','shockTile','coverTile']){
+  const u={key,amount:3,name:'旧格子商品',price:8,sold:false};shopItems=[u];
+  check(!shopUsable(u)&&!buyShopItem(0)&&cash===999&&tiles.length===count&&!shopTerrainPlan&&!u.sold,'stale construction offer cannot charge or reserve terrain '+key);
+ }
+ renderShop();check(!$('overlay').innerHTML.includes('shop-expand')&&!$('overlay').innerHTML.includes('扩容提升'),'shop has no expansion button or upgrade promise');
 }
 setup();give('钱袋许可','流水作业');check(!terrainHas('钱袋许可')&&terrainHas('流水作业')&&!terrainDefUsable(terrainDef('钱袋许可')),'exclusive replacement and no buyback');
 setup();const plannedMed=tiles.find(t=>t.medical);plannedMed.healProgress=15;state='upgrade';applyReward({key:'floor',amount:3,name:'扩建'});give('急救箱');near(plannedMed.healProgress,22.5,'actual producer keeps percentage');near(shopTerrainPlan.tiles.find(t=>t.medical).healProgress,22.5,'reserved terrain keeps percentage');terrainChange=shopTerrainPlan;shopTerrainPlan=null;finishTerrainChange();near(tiles.find(t=>t.medical).healProgress,22.5,'landing cannot undo passive progress');
@@ -66,8 +66,8 @@ setup();give('加固框架','反应装甲','维修装置','重建结构','碎片
 setup();t={x:0,y:0,coverTile:true,coverHp:4};tiles=[t];give('加固框架');resolveEnemyCover({...enemy(430,300),type:'humanoid'},220,300);check(!coverAlive(t),'boss crushes reinforced maximum hp');
 // All effects can render without growing geometry caches every frame.
 setup();for(const d of TERRAIN_CATALOG.filter(d=>d.kind==='稀有被动'))grantTerrainPassive(d.name);tiles=[tile('medical'),tile('shieldTile',1),tile('cashTile',-1),{x:0,y:1,shockTile:true},{x:1,y:1,coverTile:true,coverHp:coverMaximum()}];tiles[0].supplyQueue=[{kind:'nutrition',amount:.02}];tiles[0].medPack=true;tiles[1].supplyQueue=[{kind:'shock',amount:0}];tiles[1].medPack=true;tiles[2].supplyQueue=[{kind:'cash',amount:8}];tiles[2].medPack=true;draw();const meshes=renderer.residentMeshes.size;for(let i=0;i<5;i++)draw();check(meshes===renderer.residentMeshes.size&&renderer.data.slice(0,renderer.count).every(Number.isFinite),'stable resident visuals');
-const chargeMesh=renderer.residentMeshes.get('terrain:shock-pickup');check(chargeMesh?.count===2,'shock tile and industrial supply share solid product mesh');
+const chargeMesh=renderer.residentMeshes.get('pickup-chip:#6daee9');check(chargeMesh?.count===2,'shock tile and industrial supply share solid product mesh');
 tiles[1].pickup={x:425,y:350,speed:80};renderer.begin();drawTerrainEffects();check(chargeMesh.count===1&&chargeMesh.instances[3]===100&&Math.abs(chargeMesh.instances[11]-53)<1e-6,'industrial shock model follows supply attraction');
 reset();check(!barItems.length&&!terrainPassives.size&&!terrainPurchased.size&&terrainRun.move===0&&!terrainRun.areas.length,'restart clears entire terrain build');
-console.log('Terrain economy: 39 gold transactions, unified ordinary shop and separate bar, reserves/partial expansion, all passive families, queues/snapshots, timed-only growth, slow-time, proc guards, shock/cover mechanics and resident rendering passed');
+console.log('Terrain economy: construction excluded, stale offers rejected, ordinary shop and separate bar, all passive families, queues/snapshots, timed-only growth, slow-time, proc guards, shock/cover mechanics and resident rendering passed');
 }`,sandbox);

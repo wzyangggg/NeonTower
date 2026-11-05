@@ -1,0 +1,137 @@
+{
+  "submission": {
+    "time": 1793788643.6224215,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\seeker\\source.png",
+    "sha256": "65a0ac4b7e39ca97a6a13a93514a3a0586638a023f4e2d22802fe8cf35cad026"
+  },
+  "layers": [
+    {
+      "size": "2172x724",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\seeker\\layers\\layer-00.png"
+    },
+    {
+      "size": "793x770",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          52,
+          165,
+          423,
+          528
+        ],
+        "normalized": [
+          24,
+          228,
+          195,
+          729
+        ]
+      },
+      "name": "Rocket storage case with 2 missiles",
+      "description": "Extract the full rocket storage case containing two green-tipped missiles, all dark outlines, no blue frame and dark navy tile background, preserve original art without redesign",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\seeker\\layers\\layer-01.png"
+    },
+    {
+      "size": "780x806",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          479,
+          163,
+          830,
+          522
+        ],
+        "normalized": [
+          221,
+          225,
+          382,
+          721
+        ]
+      },
+      "name": "Rocket impact cracked ground",
+      "description": "Extract the full rocket, cracked stone platform, yellow spark impact effect, all dark outlines, no blue frame and dark navy tile background, preserve original art without redesign",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\seeker\\layers\\layer-02.png"
+    },
+    {
+      "size": "795x753",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          911,
+          179,
+          1274,
+          523
+        ],
+        "normalized": [
+          419,
+          247,
+          587,
+          722
+        ]
+      },
+      "name": "Large rocket with orange burst",
+      "description": "Extract the full large green-tipped rocket, surrounding orange explosion burst effects, all dark outlines, no blue frame and dark navy tile background, preserve original art without redesign",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\seeker\\layers\\layer-03.png"
+    },
+    {
+      "size": "794x712",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          1337,
+          193,
+          1683,
+          503
+        ],
+        "normalized": [
+          616,
+          267,
+          775,
+          695
+        ]
+      },
+      "name": "Rocket with cyan turn trail",
+      "description": "Extract the full rocket, cyan curved speed trail, all dark outlines, no blue frame and dark navy tile background, preserve original art without redesign",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\seeker\\layers\\layer-04.png"
+    },
+    {
+      "size": "810x695",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          1750,
+          175,
+          2120,
+          492
+        ],
+        "normalized": [
+          806,
+          242,
+          976,
+          680
+        ]
+      },
+      "name": "Three rockets with star burst",
+      "description": "Extract all three green-tipped rockets, yellow star burst effect, two cyan speed trails, all dark outlines, no blue frame and dark navy tile background, preserve original art without redesign",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\seeker\\layers\\layer-05.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 6,
+    "output_tokens": 26674,
+    "total_tokens": 26674
+  }
+}

@@ -1,0 +1,6 @@
+Extract exactly five independent transparent foreground layers. Keep entire object, effects, sparks, speed trails and dark outlines. Remove navy tile background, frames and outer background. Preserve art without redesign.
+sniper-1 <bbox>0 165 199 790</bbox>
+sniper-2 <bbox>200 165 399 790</bbox>
+sniper-3 <bbox>400 165 599 790</bbox>
+sniper-4 <bbox>600 165 799 790</bbox>
+sniper-5 <bbox>800 165 999 790</bbox>

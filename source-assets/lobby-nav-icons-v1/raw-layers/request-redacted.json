@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract the nine complete foreground icons below, one independent transparent PNG per exact ID, in this order. Keep source outline, shape, color, highlights and all parts. Remove only the flat taupe background including the hole in the badge loop and gaps in the microscope and chip pins. Do not remove the cyan lit doorway or green hatch interior. No labels, redraw, or new objects.\ncharacter_bear <bbox>40 42 335 319</bbox>\ncharacter_helmet <bbox>365 43 635 310</bbox>\ncharacter_badge <bbox>705 15 940 316</bbox>\nbattle_elevator <bbox>40 352 327 620</bbox>\nbattle_hatch <bbox>352 354 656 620</bbox>\nbattle_down_button <bbox>696 366 950 620</bbox>\nresearch_flask <bbox>55 669 310 957</bbox>\nresearch_microscope <bbox>365 649 625 960</bbox>\nresearch_chip <bbox>680 674 966 958</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-nav-icons-v1\\source.png",
+  "sha256": "4999c80208dc5c070bca34aee8bcb31b28719e3ae2221433adbdc29aea24eb74"
+}

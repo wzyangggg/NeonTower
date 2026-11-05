@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly five independent transparent foreground layers. Keep entire object, effects, sparks, speed trails and dark outlines. Remove navy tile background, frames and outer background. Preserve art without redesign.\nrocket-1 <bbox>0 165 199 790</bbox>\nrocket-2 <bbox>200 165 399 790</bbox>\nrocket-3 <bbox>400 165 599 790</bbox>\nrocket-4 <bbox>600 165 799 790</bbox>\nrocket-5 <bbox>800 165 999 790</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rocket\\source.png",
+  "sha256": "f4a920019e2a6329c103333c71231517e90d9e1b05204bb0e6036497d32d240c"
+}

@@ -82,7 +82,7 @@ function updateVirusBoss(dt){
  // Substeps keep planted feet stable after slower frames.
  const steps=Math.max(1,Math.ceil(dt/(1/120))),h=dt/steps;
  for(let n=0;n<steps;n++){
-  for(const e of livingViruses()){const coverX=e.x,coverY=e.y;
+  for(const e of livingViruses()){if(globalThis.ElectricTiles?.frozen(e))continue;const coverX=e.x,coverY=e.y;
   if(e.splitPreparing){e.splitAge+=h;e.splitWhite=Math.min(1,e.splitAge/VIRUS_SPLIT_WHITEN);if(e.splitAge>=VIRUS_SPLIT_WHITEN+VIRUS_SPLIT_HOLD)completeVirusSplit(e);continue;}
   if(e.splitFade>0){e.splitFade=Math.max(0,e.splitFade-h);e.splitWhite=e.splitFade/VIRUS_SPLIT_FADE;}
   e.t+=h;e.patternAge+=h;e.flash=Math.max(0,(e.flash||0)-h);e.birthFlash=Math.max(0,e.birthFlash-h);
@@ -90,7 +90,7 @@ function updateVirusBoss(dt){
   if(e.patrolOffset){e.patrolOffset.x*=Math.exp(-h*1.8);e.patrolOffset.y*=Math.exp(-h*1.8);e.x+=e.patrolOffset.x;e.y+=e.patrolOffset.y;}
   resolveEnemyCover(e,coverX,coverY);updateVirusGait(e,h);
   if(e.patternAge>=8){e.patternAge-=8;e.pattern=(e.pattern+1)%3;e.fire=Math.max(e.fire,.8);}
-  e.fire-=h;e.warn=e.fire<.55;
+  e.fire=attackCooldown(e.fire,h,.55);e.warn=e.fire<.55;
   if(e.fire<=0){fireVirusPattern(e);e.fire+=e.pattern===0?3.2:e.pattern===1?1.1:2.8;}
   if(Math.hypot(p.x-e.x,p.y-e.y)<e.r+drinkPlayerRadius()-4+7){hurt(e);if(state!=='combat')return;}
   }

@@ -1,0 +1,726 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      251,
+      252,
+      251
+    ],
+    [
+      241,
+      239,
+      241
+    ],
+    [
+      250,
+      241,
+      190
+    ],
+    [
+      250,
+      238,
+      98
+    ],
+    [
+      236,
+      220,
+      208
+    ],
+    [
+      253,
+      212,
+      58
+    ],
+    [
+      248,
+      185,
+      104
+    ],
+    [
+      251,
+      182,
+      21
+    ],
+    [
+      203,
+      237,
+      142
+    ],
+    [
+      208,
+      206,
+      210
+    ],
+    [
+      194,
+      191,
+      200
+    ],
+    [
+      186,
+      180,
+      181
+    ],
+    [
+      133,
+      240,
+      201
+    ],
+    [
+      130,
+      193,
+      96
+    ],
+    [
+      12,
+      228,
+      240
+    ],
+    [
+      8,
+      195,
+      214
+    ],
+    [
+      200,
+      163,
+      163
+    ],
+    [
+      247,
+      160,
+      20
+    ],
+    [
+      160,
+      157,
+      169
+    ],
+    [
+      153,
+      149,
+      158
+    ],
+    [
+      234,
+      123,
+      120
+    ],
+    [
+      239,
+      129,
+      22
+    ],
+    [
+      159,
+      115,
+      98
+    ],
+    [
+      192,
+      117,
+      33
+    ],
+    [
+      139,
+      144,
+      150
+    ],
+    [
+      133,
+      130,
+      141
+    ],
+    [
+      122,
+      118,
+      130
+    ],
+    [
+      135,
+      113,
+      106
+    ],
+    [
+      67,
+      151,
+      115
+    ],
+    [
+      2,
+      142,
+      167
+    ],
+    [
+      109,
+      111,
+      119
+    ],
+    [
+      17,
+      118,
+      140
+    ],
+    [
+      205,
+      89,
+      172
+    ],
+    [
+      215,
+      85,
+      52
+    ],
+    [
+      121,
+      104,
+      108
+    ],
+    [
+      126,
+      85,
+      69
+    ],
+    [
+      92,
+      94,
+      99
+    ],
+    [
+      82,
+      82,
+      86
+    ],
+    [
+      73,
+      70,
+      77
+    ],
+    [
+      63,
+      63,
+      69
+    ],
+    [
+      222,
+      46,
+      56
+    ],
+    [
+      206,
+      34,
+      35
+    ],
+    [
+      160,
+      39,
+      100
+    ],
+    [
+      159,
+      27,
+      27
+    ],
+    [
+      85,
+      49,
+      56
+    ],
+    [
+      87,
+      45,
+      11
+    ],
+    [
+      107,
+      28,
+      56
+    ],
+    [
+      86,
+      23,
+      17
+    ],
+    [
+      20,
+      97,
+      96
+    ],
+    [
+      23,
+      73,
+      77
+    ],
+    [
+      45,
+      56,
+      59
+    ],
+    [
+      49,
+      46,
+      50
+    ],
+    [
+      48,
+      43,
+      38
+    ],
+    [
+      30,
+      44,
+      47
+    ],
+    [
+      41,
+      37,
+      40
+    ],
+    [
+      42,
+      34,
+      29
+    ],
+    [
+      28,
+      34,
+      35
+    ],
+    [
+      37,
+      29,
+      35
+    ],
+    [
+      30,
+      29,
+      30
+    ],
+    [
+      36,
+      27,
+      22
+    ],
+    [
+      45,
+      17,
+      27
+    ],
+    [
+      26,
+      25,
+      25
+    ],
+    [
+      19,
+      24,
+      25
+    ],
+    [
+      16,
+      15,
+      17
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "damage",
+      "label": "damage",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          66,
+          52,
+          287,
+          283
+        ],
+        "normalized": [
+          53,
+          41,
+          228,
+          225
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        758,
+        797
+      ],
+      "normalized": "damage-original.png",
+      "variants": {
+        "32": "damage-32.png",
+        "48": "damage-48.png"
+      }
+    },
+    {
+      "id": "rate",
+      "label": "rate",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          358,
+          70,
+          590,
+          274
+        ],
+        "normalized": [
+          285,
+          56,
+          470,
+          218
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        741,
+        654
+      ],
+      "normalized": "rate-original.png",
+      "variants": {
+        "32": "rate-32.png",
+        "48": "rate-48.png"
+      }
+    },
+    {
+      "id": "crit",
+      "label": "crit",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          668,
+          53,
+          896,
+          279
+        ],
+        "normalized": [
+          533,
+          42,
+          714,
+          222
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        753,
+        751
+      ],
+      "normalized": "crit-original.png",
+      "variants": {
+        "32": "crit-32.png",
+        "48": "crit-48.png"
+      }
+    },
+    {
+      "id": "crit_damage",
+      "label": "crit_damage",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          976,
+          55,
+          1186,
+          284
+        ],
+        "normalized": [
+          778,
+          44,
+          945,
+          226
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        683,
+        742
+      ],
+      "normalized": "crit_damage-original.png",
+      "variants": {
+        "32": "crit_damage-32.png",
+        "48": "crit_damage-48.png"
+      }
+    },
+    {
+      "id": "spread",
+      "label": "spread",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          36,
+          386,
+          295,
+          558
+        ],
+        "normalized": [
+          29,
+          308,
+          234,
+          444
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        890,
+        589
+      ],
+      "normalized": "spread-original.png",
+      "variants": {
+        "32": "spread-32.png",
+        "48": "spread-48.png"
+      }
+    },
+    {
+      "id": "speed",
+      "label": "speed",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          344,
+          401,
+          593,
+          531
+        ],
+        "normalized": [
+          274,
+          320,
+          472,
+          423
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        825,
+        430
+      ],
+      "normalized": "speed-original.png",
+      "variants": {
+        "32": "speed-32.png",
+        "48": "speed-48.png"
+      }
+    },
+    {
+      "id": "blast",
+      "label": "blast",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          644,
+          355,
+          903,
+          596
+        ],
+        "normalized": [
+          514,
+          283,
+          719,
+          474
+        ]
+      },
+      "alphaTrim": [
+        2,
+        5,
+        765,
+        714
+      ],
+      "normalized": "blast-original.png",
+      "variants": {
+        "32": "blast-32.png",
+        "48": "blast-48.png"
+      }
+    },
+    {
+      "id": "knock",
+      "label": "knock",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          949,
+          388,
+          1225,
+          552
+        ],
+        "normalized": [
+          757,
+          309,
+          976,
+          439
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        953,
+        565
+      ],
+      "normalized": "knock-original.png",
+      "variants": {
+        "32": "knock-32.png",
+        "48": "knock-48.png"
+      }
+    },
+    {
+      "id": "recoil",
+      "label": "recoil",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          41,
+          683,
+          291,
+          880
+        ],
+        "normalized": [
+          33,
+          545,
+          231,
+          701
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        852,
+        667
+      ],
+      "normalized": "recoil-original.png",
+      "variants": {
+        "32": "recoil-32.png",
+        "48": "recoil-48.png"
+      }
+    },
+    {
+      "id": "heavy",
+      "label": "heavy",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          343,
+          649,
+          589,
+          891
+        ],
+        "normalized": [
+          274,
+          518,
+          469,
+          710
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        771,
+        758
+      ],
+      "normalized": "heavy-original.png",
+      "variants": {
+        "32": "heavy-32.png",
+        "48": "heavy-48.png"
+      }
+    },
+    {
+      "id": "move",
+      "label": "move",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-11.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          658,
+          667,
+          903,
+          880
+        ],
+        "normalized": [
+          525,
+          532,
+          719,
+          701
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        825,
+        720
+      ],
+      "normalized": "move-original.png",
+      "variants": {
+        "32": "move-32.png",
+        "48": "move-48.png"
+      }
+    },
+    {
+      "id": "pickup",
+      "label": "pickup",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-12.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          948,
+          680,
+          1216,
+          880
+        ],
+        "normalized": [
+          756,
+          542,
+          969,
+          701
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        842,
+        629
+      ],
+      "normalized": "pickup-original.png",
+      "variants": {
+        "32": "pickup-32.png",
+        "48": "pickup-48.png"
+      }
+    },
+    {
+      "id": "inv",
+      "label": "inv",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\raw-layers\\layer-13.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          51,
+          963,
+          281,
+          1215
+        ],
+        "normalized": [
+          41,
+          768,
+          223,
+          968
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        697,
+        760
+      ],
+      "normalized": "inv-original.png",
+      "variants": {
+        "32": "inv-32.png",
+        "48": "inv-48.png"
+      }
+    }
+  ]
+}

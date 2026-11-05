@@ -1,0 +1,54 @@
+{
+  "tool": "built-in image_gen",
+  "promptTemplate": "Use case: stylized-concept. Asset type: single transparent inventory item PNG for a game UI. Subject: {subject}. Draw ONE item only. Chunky compact proportions like small cozy game tool icons, large recognizable head/body, short handle, no elongated realistic weapon proportions. Premium hand placed pixel art, coherent approximately 48x48 pixel design enlarged with nearest neighbor, visible crisp square pixel steps, dark plum 1-2 pixel outline, 4-5 flat shades per material, top-left highlight, saturated restrained violet teal gold palette. Center full item within square frame with generous transparent margin, item occupies 72 percent of image, slight diagonal three-quarter view. No text, no labels, no border, no card, no floor shadow, no glow, no gradient background, no anti-aliased smooth painting. True transparent background.",
+  "items": [
+    {
+      "id": "sword",
+      "subject": "short broad sword, chunky silver blade, violet grip and small teal gem",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a19e9a-9320-7f82-841b-b4d86c6660bb\\exec-e2ad11b5-fae7-4fe5-b176-8fcfb80dbb66.png",
+      "file": "sword.png"
+    },
+    {
+      "id": "axe",
+      "subject": "compact woodcutting axe, golden steel head and short purple wooden handle",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a19e9a-9320-7f82-841b-b4d86c6660bb\\exec-259d90e9-d1d7-4fed-b652-b415fa413952.png",
+      "file": "axe.png"
+    },
+    {
+      "id": "hammer",
+      "subject": "compact heavy hammer, dark iron block head, cyan metal bands, short brown handle",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a19e9a-9320-7f82-841b-b4d86c6660bb\\exec-3b874c0a-b45b-4251-97cc-d4ef18e15f70.png",
+      "file": "hammer.png"
+    },
+    {
+      "id": "shield",
+      "subject": "small broad shield, purple enamel, golden rim, cyan central gem",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a19e9a-9320-7f82-841b-b4d86c6660bb\\exec-be126d08-2604-433d-ace4-a7305043a1cc.png",
+      "file": "shield.png"
+    },
+    {
+      "id": "potion",
+      "subject": "round red healing potion in a squat glass bottle with cork and gold neck band",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a19e9a-9320-7f82-841b-b4d86c6660bb\\exec-79908816-405d-4c1e-97f7-050923b0d38f.png",
+      "file": "potion.png"
+    },
+    {
+      "id": "crystal",
+      "subject": "cluster of three golden yellow crystal shards on a small dark gray rock base",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a19e9a-9320-7f82-841b-b4d86c6660bb\\exec-449f63c5-909a-44a9-8443-dc3696ec64f8.png",
+      "file": "crystal.png"
+    },
+    {
+      "id": "key",
+      "subject": "small ornate golden key, purple diamond inset in the broad bow",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a19e9a-9320-7f82-841b-b4d86c6660bb\\exec-9bb9fb34-3314-422d-9d08-a7cc286d1766.png",
+      "file": "key.png"
+    },
+    {
+      "id": "chest",
+      "subject": "squat wooden treasure chest, warm reddish wood, golden fittings and cyan latch",
+      "source": "C:\\Users\\Administrator\\.codex\\generated_images\\01a19e9a-9320-7f82-841b-b4d86c6660bb\\exec-2b3df46f-8c0b-477e-833c-9e50630842e7.png",
+      "file": "chest.png"
+    }
+  ]
+}

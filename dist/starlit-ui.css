@@ -1,50 +1,50 @@
 /* Reference study: midnight slate, champagne orbits and cool indigo glass. */
 :root{--acid:#ffe6a3;--star-ink:#fff4d9;--star-muted:#bdc9df;--star-line:#e9c98988;--star-panel:#171f36ed}
 body{background:radial-gradient(ellipse at 50% 45%,#1d294b,#0b1020 65%,#060912);color:var(--star-ink)}
-#viewport{box-shadow:0 0 85px #547cff26,0 0 0 1px #879dc43d}
-#viewport .overlay,#viewport .pause-panel,#viewport .equipment-test,#viewport .skill-panel{isolation:isolate;background:radial-gradient(ellipse at 20% 18%,#49649b3d,transparent 55%),linear-gradient(155deg,#19243bef,#0e1628f2 62%,#151e35f7);color:var(--star-ink)}
-#viewport .overlay::before,#viewport .skill-panel::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(circle,#ffe9bca8 0 .7px,transparent 1.2px),radial-gradient(circle,#b9d9ff88 0 1px,transparent 1.6px),radial-gradient(circle,#fff1c455 0 .6px,transparent 1.1px);background-size:67px 89px,113px 137px,41px 53px;background-position:12px 17px,49px 71px,22px 31px;opacity:.6}
-#viewport .overlay::after{content:"";position:absolute;z-index:-1;width:84%;aspect-ratio:1;top:17%;left:8%;border:1px solid #efcf866b;border-radius:50%;box-shadow:0 0 22px #efc57512,inset 0 0 25px #efc5750d;transform:rotate(-24deg) scaleY(1.18);pointer-events:none}
-#viewport .skill-panel{background:radial-gradient(ellipse at 20% 18%,#2b3d62,transparent 70%),linear-gradient(155deg,#1a263e,#0e1628 62%,#151e35)}
-#viewport.shopping .skill-wallet{visibility:hidden}
-#viewport .overlay h2{color:#fff1bc;text-shadow:0 0 24px #a9cbff40,0 2px 1px #172447;font-family:"Noto Serif SC","Songti SC",SimSun,serif;letter-spacing:.12em}
-#viewport .tag{color:#f2d59e;letter-spacing:.3em}
-#viewport .overlay:not(.shop)>.tag::before{content:"✦　☾　✦";display:block;font:32px/1.8 Georgia,serif;letter-spacing:.2em;color:#ffe7a0;text-shadow:0 0 9px #ffdb8b99,0 0 25px #ffc38255;margin-bottom:12px}
-#viewport .overlay p,#viewport .shop-help{color:#cbd6e8}
-#viewport .overlay small{color:#aabbd4}
-#viewport .primary,#viewport .skill-panel footer .primary{background:linear-gradient(180deg,#6f94cd,#3f5c9c 62%,#293c72);color:#fff5d8;border:1px solid #b5d5f2;border-radius:999px;box-shadow:inset 0 0 0 3px #c7e6ff29,inset 0 2px 9px #d2eeff40,0 0 17px #79adf52b,0 4px 0 #142440;text-shadow:0 1px 4px #1c2c51;letter-spacing:.07em}
-#viewport button:focus-visible,#viewport a:focus-visible{outline:2px solid #ffecb2;outline-offset:3px}
-#viewport .primary:hover{filter:brightness(1.12)}
-#viewport .primary:active{transform:translateY(1px)}
-#viewport .snake-entry{color:#c7d5ea;border-bottom-color:#9bb4d044}
-#viewport .menu-extras{width:100%;max-width:280px;margin-top:12px;color:#a8b9d4;font-size:11px;flex-shrink:0}
-#viewport .menu-extras summary{cursor:pointer;padding:9px;letter-spacing:.13em;color:#d7b98b}
-#viewport .menu-extras[open]{max-height:170px;overflow-y:auto;border:1px solid #d9b87a44;border-radius:12px;background:#111d33ed}
-#viewport .menu-extras .snake-entry{display:block;margin:0;padding:6px;font-size:10px}
-#viewport .hud{background:linear-gradient(#101a2fdd,transparent);padding-bottom:18px}
-#viewport .floorinfo strong{color:#ffebaf;text-shadow:0 0 12px #ffcc7d44}
-#viewport .floorinfo>span,#viewport .wavehud span{color:#d0ddef}
-#viewport .actions button,#viewport .test-open,#viewport .skill-wallet,#viewport .skill-entry{background:linear-gradient(#334865e8,#19263de8);border:1px solid #9db9d18c;color:#ffe9b7;border-radius:999px;box-shadow:inset 0 1px 5px #bddbff20,0 2px 10px #060e2055}
-#viewport .bottomhud{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));padding:11px 9px;border:1px solid #91afce66;border-radius:14px;background:linear-gradient(120deg,#1d2c43ef,#111c30f2);color:#cbd8e9;box-shadow:inset 0 1px 8px #bfdfff12}
-#viewport .bottomhud b,#viewport .cashhud{color:#ffdf94!important}
-#viewport .wavehud b,#viewport .toast{color:#ffe7ab;text-shadow:0 0 13px #8dadcf44,0 2px 4px #101a2c}
-#viewport .choice,#viewport .shop-buy.weapon-card,#viewport .weapon-compare-head>div,#viewport .skill-row{border:1px solid #9db4cb99;border-radius:13px;background:linear-gradient(155deg,#6c8eae40,#354b6b8c 48%,#17243dd9);box-shadow:inset 0 1px 1px #fff5d977,inset 0 -8px 0 #9bbada12,0 5px 13px #07101e55;color:#fff0d6}
-#viewport .shop-buy.weapon-card{border-color:color-mix(in srgb,var(--rarity) 60%,#f9d9a4);border-top-width:1px;background:radial-gradient(ellipse at 50% 35%,color-mix(in srgb,var(--rarity) 20%,transparent),transparent 68%),linear-gradient(155deg,#6286aa38,#2b405f99 55%,#18243ed9)}
-#viewport .choice:hover:not(:disabled){border-color:#ffe7ac;box-shadow:inset 0 0 18px #fbdcaf19,0 0 13px #f9dd9329}
-#viewport .choice b,#viewport .weapon-card b,#viewport .weapon-card .weapon-grade{color:color-mix(in srgb,var(--rarity,#ffe3a3) 65%,#fff0cd)}
-#viewport .choice span,#viewport .shop-equipped,#viewport .equipment-attributes dt,#viewport .weapon-compare-head span{color:#cbd8eb}
-#viewport .shop-price{color:#ffe4a1;text-shadow:0 0 9px #f7c88333}
-#viewport .shop-buy.sold{opacity:.48}
-#viewport .shop-equipment-icon,#viewport .weapon-compare-head .shop-equipment-icon{border-radius:50%;border-width:1px;background:radial-gradient(circle,#ffe4b21a,#3d587955 60%,#19274088);box-shadow:inset 0 0 12px #ffedbf19,0 0 13px color-mix(in srgb,var(--rarity) 27%,transparent)}
-#viewport .shop-equipment-icon::after{width:7px;height:7px;top:4px;right:4px;clip-path:polygon(50% 0,62% 36%,100% 50%,62% 64%,50% 100%,38% 64%,0 50%,38% 36%);background:#ffe8a9;filter:drop-shadow(0 0 3px #ffda84)}
-#viewport .shop-upgrade,#viewport .terrain-expand,#viewport .all-icons-controls{border:1px solid #d3b38366;border-radius:12px;background:#2b405b99;color:#e2eaf5}
-#viewport .shop-upgrade span{color:#c5d2e6}
-#viewport .shop-upgrade button,#viewport #shop-reroll,#viewport #bar-reroll,#viewport #equipment-cancel,#viewport .skill-panel button,#viewport .test-content select{background:linear-gradient(#354c6c,#1d2e49);border:1px solid #8baac888;border-radius:10px;color:#e1ecfa}
-#viewport .skill-panel nav .selected{background:linear-gradient(#577caf,#334e7d);border-color:#ffe3ad;color:#fff2cb;box-shadow:0 0 12px #f3c58f22}
-#viewport .skill-panel h2{color:#ffe6ad;font-family:"Noto Serif SC",SimSun,serif;letter-spacing:.1em}
-#viewport .skill-budget strong,#viewport .skill-row p{color:#ffe4a7}
-#viewport .skill-panel header small,#viewport .skill-budget small,#viewport .skill-row small,#viewport .skill-row-heading span,#viewport .skill-controls span,#viewport .skill-panel footer p{color:#bfcee3}
-#viewport .equipment-attributes>div,#viewport .equipment-special-effects{border-color:#879fbe4d}
-#viewport .joy{background:#35538366;border-color:#a4c9eb88;box-shadow:0 0 18px #87bfff22}
-#viewport .joy i{background:#9acbff44;border-color:#b5dfffaa}
-@media(max-height:730px){#viewport .overlay:not(.shop){padding:18px}#viewport .overlay:not(.shop) h2{font-size:34px;margin:12px 0 6px}#viewport .overlay:not(.shop) p{font-size:11px;line-height:1.8;margin:8px 0}#viewport .overlay:not(.shop) .primary{margin:12px 0}#viewport .menu-extras{margin-top:4px}}
+:is(#viewport,.difficulty-transition-cover){box-shadow:0 0 85px #547cff26,0 0 0 1px #879dc43d}
+:is(#viewport,.difficulty-transition-cover) .overlay,:is(#viewport,.difficulty-transition-cover) .pause-panel,:is(#viewport,.difficulty-transition-cover) .equipment-test,:is(#viewport,.difficulty-transition-cover) .skill-panel{isolation:isolate;background:radial-gradient(ellipse at 20% 18%,#49649b3d,transparent 55%),linear-gradient(155deg,#19243bef,#0e1628f2 62%,#151e35f7);color:var(--star-ink)}
+:is(#viewport,.difficulty-transition-cover) .overlay::before,:is(#viewport,.difficulty-transition-cover) .skill-panel::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(circle,#ffe9bca8 0 .7px,transparent 1.2px),radial-gradient(circle,#b9d9ff88 0 1px,transparent 1.6px),radial-gradient(circle,#fff1c455 0 .6px,transparent 1.1px);background-size:67px 89px,113px 137px,41px 53px;background-position:12px 17px,49px 71px,22px 31px;opacity:.6}
+:is(#viewport,.difficulty-transition-cover) .overlay::after{content:"";position:absolute;z-index:-1;width:84%;aspect-ratio:1;top:17%;left:8%;border:1px solid #efcf866b;border-radius:50%;box-shadow:0 0 22px #efc57512,inset 0 0 25px #efc5750d;transform:rotate(-24deg) scaleY(1.18);pointer-events:none}
+:is(#viewport,.difficulty-transition-cover) .skill-panel{background:radial-gradient(ellipse at 20% 18%,#2b3d62,transparent 70%),linear-gradient(155deg,#1a263e,#0e1628 62%,#151e35)}
+:is(#viewport,.difficulty-transition-cover).shopping .skill-wallet{visibility:hidden}
+:is(#viewport,.difficulty-transition-cover) .overlay h2{color:#fff1bc;text-shadow:0 0 24px #a9cbff40,0 2px 1px #172447;font-family:"Noto Serif SC","Songti SC",SimSun,serif;letter-spacing:.12em}
+:is(#viewport,.difficulty-transition-cover) .tag{color:#f2d59e;letter-spacing:.3em}
+:is(#viewport,.difficulty-transition-cover) .overlay:not(.shop)>.tag::before{content:"✦　☾　✦";display:block;font:32px/1.8 Georgia,serif;letter-spacing:.2em;color:#ffe7a0;text-shadow:0 0 9px #ffdb8b99,0 0 25px #ffc38255;margin-bottom:12px}
+:is(#viewport,.difficulty-transition-cover) .overlay p,:is(#viewport,.difficulty-transition-cover) .shop-help{color:#cbd6e8}
+:is(#viewport,.difficulty-transition-cover) .overlay small{color:#aabbd4}
+:is(#viewport,.difficulty-transition-cover) .primary,:is(#viewport,.difficulty-transition-cover) .skill-panel footer .primary{background:linear-gradient(180deg,#6f94cd,#3f5c9c 62%,#293c72);color:#fff5d8;border:1px solid #b5d5f2;border-radius:999px;box-shadow:inset 0 0 0 3px #c7e6ff29,inset 0 2px 9px #d2eeff40,0 0 17px #79adf52b,0 4px 0 #142440;text-shadow:0 1px 4px #1c2c51;letter-spacing:.07em}
+:is(#viewport,.difficulty-transition-cover) button:focus-visible,:is(#viewport,.difficulty-transition-cover) a:focus-visible{outline:2px solid #ffecb2;outline-offset:3px}
+:is(#viewport,.difficulty-transition-cover) .primary:hover{filter:brightness(1.12)}
+:is(#viewport,.difficulty-transition-cover) .primary:active{transform:translateY(1px)}
+:is(#viewport,.difficulty-transition-cover) .snake-entry{color:#c7d5ea;border-bottom-color:#9bb4d044}
+:is(#viewport,.difficulty-transition-cover) .menu-extras{width:100%;max-width:280px;margin-top:12px;color:#a8b9d4;font-size:11px;flex-shrink:0}
+:is(#viewport,.difficulty-transition-cover) .menu-extras summary{cursor:pointer;padding:9px;letter-spacing:.13em;color:#d7b98b}
+:is(#viewport,.difficulty-transition-cover) .menu-extras[open]{max-height:170px;overflow-y:auto;border:1px solid #d9b87a44;border-radius:12px;background:#111d33ed}
+:is(#viewport,.difficulty-transition-cover) .menu-extras .snake-entry{display:block;margin:0;padding:6px;font-size:10px}
+:is(#viewport,.difficulty-transition-cover) .hud{background:linear-gradient(#101a2fdd,transparent);padding-bottom:18px}
+:is(#viewport,.difficulty-transition-cover) .floorinfo strong{color:#ffebaf;text-shadow:0 0 12px #ffcc7d44}
+:is(#viewport,.difficulty-transition-cover) .floorinfo>span,:is(#viewport,.difficulty-transition-cover) .wavehud span{color:#d0ddef}
+:is(#viewport,.difficulty-transition-cover) .actions button,:is(#viewport,.difficulty-transition-cover) .test-open,:is(#viewport,.difficulty-transition-cover) .skill-wallet,:is(#viewport,.difficulty-transition-cover) .skill-entry{background:linear-gradient(#334865e8,#19263de8);border:1px solid #9db9d18c;color:#ffe9b7;border-radius:999px;box-shadow:inset 0 1px 5px #bddbff20,0 2px 10px #060e2055}
+:is(#viewport,.difficulty-transition-cover) .bottomhud{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));padding:11px 9px;border:1px solid #91afce66;border-radius:14px;background:linear-gradient(120deg,#1d2c43ef,#111c30f2);color:#cbd8e9;box-shadow:inset 0 1px 8px #bfdfff12}
+:is(#viewport,.difficulty-transition-cover) .bottomhud b,:is(#viewport,.difficulty-transition-cover) .cashhud{color:#ffdf94!important}
+:is(#viewport,.difficulty-transition-cover) .wavehud b,:is(#viewport,.difficulty-transition-cover) .toast{color:#ffe7ab;text-shadow:0 0 13px #8dadcf44,0 2px 4px #101a2c}
+:is(#viewport,.difficulty-transition-cover) .choice,:is(#viewport,.difficulty-transition-cover) .shop-buy.weapon-card,:is(#viewport,.difficulty-transition-cover) .weapon-compare-head>div,:is(#viewport,.difficulty-transition-cover) .skill-row{border:1px solid #9db4cb99;border-radius:13px;background:linear-gradient(155deg,#6c8eae40,#354b6b8c 48%,#17243dd9);box-shadow:inset 0 1px 1px #fff5d977,inset 0 -8px 0 #9bbada12,0 5px 13px #07101e55;color:#fff0d6}
+:is(#viewport,.difficulty-transition-cover) .shop-buy.weapon-card{border-color:color-mix(in srgb,var(--rarity) 60%,#f9d9a4);border-top-width:1px;background:radial-gradient(ellipse at 50% 35%,color-mix(in srgb,var(--rarity) 20%,transparent),transparent 68%),linear-gradient(155deg,#6286aa38,#2b405f99 55%,#18243ed9)}
+:is(#viewport,.difficulty-transition-cover) .choice:hover:not(:disabled){border-color:#ffe7ac;box-shadow:inset 0 0 18px #fbdcaf19,0 0 13px #f9dd9329}
+:is(#viewport,.difficulty-transition-cover) .choice b,:is(#viewport,.difficulty-transition-cover) .weapon-card b,:is(#viewport,.difficulty-transition-cover) .weapon-card .weapon-grade{color:color-mix(in srgb,var(--rarity,#ffe3a3) 65%,#fff0cd)}
+:is(#viewport,.difficulty-transition-cover) .choice span,:is(#viewport,.difficulty-transition-cover) .shop-equipped,:is(#viewport,.difficulty-transition-cover) .equipment-attributes dt,:is(#viewport,.difficulty-transition-cover) .weapon-compare-head span{color:#cbd8eb}
+:is(#viewport,.difficulty-transition-cover) .shop-price{color:#ffe4a1;text-shadow:0 0 9px #f7c88333}
+:is(#viewport,.difficulty-transition-cover) .shop-buy.sold{opacity:.48}
+:is(#viewport,.difficulty-transition-cover) .shop-equipment-icon,:is(#viewport,.difficulty-transition-cover) .weapon-compare-head .shop-equipment-icon{border-radius:50%;border-width:1px;background:radial-gradient(circle,#ffe4b21a,#3d587955 60%,#19274088);box-shadow:inset 0 0 12px #ffedbf19,0 0 13px color-mix(in srgb,var(--rarity) 27%,transparent)}
+:is(#viewport,.difficulty-transition-cover) .shop-equipment-icon::after{width:7px;height:7px;top:4px;right:4px;clip-path:polygon(50% 0,62% 36%,100% 50%,62% 64%,50% 100%,38% 64%,0 50%,38% 36%);background:#ffe8a9;filter:drop-shadow(0 0 3px #ffda84)}
+:is(#viewport,.difficulty-transition-cover) .shop-upgrade,:is(#viewport,.difficulty-transition-cover) .terrain-expand,:is(#viewport,.difficulty-transition-cover) .all-icons-controls{border:1px solid #d3b38366;border-radius:12px;background:#2b405b99;color:#e2eaf5}
+:is(#viewport,.difficulty-transition-cover) .shop-upgrade span{color:#c5d2e6}
+:is(#viewport,.difficulty-transition-cover) .shop-upgrade button,:is(#viewport,.difficulty-transition-cover) #shop-reroll,:is(#viewport,.difficulty-transition-cover) #bar-reroll,:is(#viewport,.difficulty-transition-cover) #equipment-cancel,:is(#viewport,.difficulty-transition-cover) .skill-panel button,:is(#viewport,.difficulty-transition-cover) .test-content select{background:linear-gradient(#354c6c,#1d2e49);border:1px solid #8baac888;border-radius:10px;color:#e1ecfa}
+:is(#viewport,.difficulty-transition-cover) .skill-panel nav .selected{background:linear-gradient(#577caf,#334e7d);border-color:#ffe3ad;color:#fff2cb;box-shadow:0 0 12px #f3c58f22}
+:is(#viewport,.difficulty-transition-cover) .skill-panel h2{color:#ffe6ad;font-family:"Noto Serif SC",SimSun,serif;letter-spacing:.1em}
+:is(#viewport,.difficulty-transition-cover) .skill-budget strong,:is(#viewport,.difficulty-transition-cover) .skill-row p{color:#ffe4a7}
+:is(#viewport,.difficulty-transition-cover) .skill-panel header small,:is(#viewport,.difficulty-transition-cover) .skill-budget small,:is(#viewport,.difficulty-transition-cover) .skill-row small,:is(#viewport,.difficulty-transition-cover) .skill-row-heading span,:is(#viewport,.difficulty-transition-cover) .skill-controls span,:is(#viewport,.difficulty-transition-cover) .skill-panel footer p{color:#bfcee3}
+:is(#viewport,.difficulty-transition-cover) .equipment-attributes>div,:is(#viewport,.difficulty-transition-cover) .equipment-special-effects{border-color:#879fbe4d}
+:is(#viewport,.difficulty-transition-cover) .joy{background:#35538366;border-color:#a4c9eb88;box-shadow:0 0 18px #87bfff22}
+:is(#viewport,.difficulty-transition-cover) .joy i{background:#9acbff44;border-color:#b5dfffaa}
+@media(max-height:730px){:is(#viewport,.difficulty-transition-cover) .overlay:not(.shop){padding:18px}:is(#viewport,.difficulty-transition-cover) .overlay:not(.shop) h2{font-size:34px;margin:12px 0 6px}:is(#viewport,.difficulty-transition-cover) .overlay:not(.shop) p{font-size:11px;line-height:1.8;margin:8px 0}:is(#viewport,.difficulty-transition-cover) .overlay:not(.shop) .primary{margin:12px 0}:is(#viewport,.difficulty-transition-cover) .menu-extras{margin-top:4px}}

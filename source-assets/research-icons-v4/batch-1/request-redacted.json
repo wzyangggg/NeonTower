@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract ONLY the listed objects as separate transparent foreground layers from this 3-column 7-row atlas. Preserve exact original design, outline, colors and details. Remove gray background and all interior holes. One complete icon per layer; paired guns/missiles and energy arcs/rings are part of their respective icon. Do not extract any unlisted objects. Use exact English names below. Regions in normalized 0-999 coordinates:\npistol: <bbox>0 0 333 143</bbox>\nsmg: <bbox>333 0 666 143</bbox>\nuzi: <bbox>666 0 999 143</bbox>\nrifle: <bbox>0 143 333 285</bbox>\nsniper: <bbox>333 143 666 285</bbox>\nrocket: <bbox>666 143 999 285</bbox>\nseeker: <bbox>0 285 333 428</bbox>\nlaser: <bbox>333 285 666 428</bbox>\ntesla: <bbox>666 285 999 428</bbox>\nboomerang: <bbox>0 428 333 571</bbox>\nbee: <bbox>333 428 666 571</bbox>\nsword: <bbox>666 428 999 571</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v4\\source.png",
+  "sha256": "af456ec26953571a23002a055a3d074d02efe380ad8b82fabefa6e572d31a183"
+}

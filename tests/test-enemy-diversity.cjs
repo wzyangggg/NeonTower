@@ -1,0 +1,21 @@
+const fs=require('node:fs'),vm=require('node:vm');
+const elements={};const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,createShader:()=>({}),createProgram:()=>({}),createBuffer:()=>({})},{get:(t,k)=>t[k]||(()=>{})});
+function el(){return {style:{},classList:{add(){},remove(){}},firstElementChild:{style:{}},addEventListener(){},getBoundingClientRect:()=>({left:0,top:0,width:390,height:390}),getContext:()=>gl};}
+const sandbox={console,Math,Float32Array,performance:{now:()=>0},localStorage:{getItem:()=>0,setItem(){}},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},window:{innerHeight:800,devicePixelRatio:1,addEventListener(){}},document:{querySelector:()=>el(),getElementById:id=>elements[id]??=el(),querySelectorAll:()=>[]}};
+vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/hex-map.js','utf8')+'\n'+fs.readFileSync('dist/terrain-generators.js','utf8'),sandbox);for(const file of ['music','renderer','game','humanoid','cowboy','snake','virus','crimson-mech','drone-boss','ufo-boss'])vm.runInContext(file==='game'?require('../dist/hex-map.js').transform(fs.readFileSync('dist/game.js','utf8')):fs.readFileSync('dist/'+file+'.js','utf8'),sandbox);
+vm.runInContext(`{
+function check(v,m){if(!v)throw Error(m)}
+function setup(){reset();state='combat';floor=13;timedRoom={duration:45,remaining:45,nextWaveAt:999};spawnQueue=[];turrets=[];tiles=[];enemies=[];missiles=[];bullets=[];shootTimer=chaserTimer=999;p.inv=999;p.x=500;p.y=300;}
+setup();fire({type:'fighter',x:100,y:300});check(missiles.length===1&&!bullets.length,'fighter launches missile');const m=missiles[0];check(m.speed===35&&m.accelerating,'slow launch');updateMissiles(.2);const first=m.x-100;updateMissiles(.2);check(m.x-100-first>first&&m.speed>35,'accelerates');
+setup();launchMissile({type:'fighter',x:100,y:300});const a=missiles[0];updateMissiles(.8);const distance=a.x-100;
+setup();launchMissile({type:'fighter',x:100,y:300});for(let i=0;i<80;i++)updateMissiles(.01);check(Math.abs(missiles[0].x-100-distance)<1e-7,'integrated acceleration frame independent');
+setup();p.x=210;p.inv=0;launchMissile({type:'fighter',x:100,y:300});const hp=p.hp;updateMissiles(1.2);check(p.hp<hp&&!missiles.length,'swept missile damage');
+setup();const eye={type:'laser',x:100,y:200,hp:100,max:100,r:14,seed:0,t:0,fire:99};enemies=[eye];p.x=325;p.y=300;updateLaser(eye,.1);const locked=[eye.groundX,eye.groundY];p.x=425;updateLaser(eye,.9);check(eye.laserMode==='firing'&&eye.groundX===locked[0],'first beam hits original floor point');updateLaser(eye,.2);check(eye.groundX===locked[0],'initial firing hold');updateLaser(eye,.12);check(eye.groundX>locked[0]&&eye.groundX<p.x,'foot tracking has finite speed');
+p.x=200;p.y=eye.y+(eye.groundY-eye.y)*(p.x-eye.x)/(eye.groundX-eye.x);check(!beamHits(eye),'ground beam cannot damage entire horizontal projection');
+p.x=eye.groundX;p.y=eye.groundY;check(beamHits(eye),'ground footprint damage');p.inv=0;const before=p.hp;updateLaser(eye,.01);check(p.hp<before,'floor spot applies damage');
+paused=true;const snapshot=JSON.stringify(eye);step(.5);check(JSON.stringify(eye)===snapshot,'pause freezes laser');paused=false;updateLaser(eye,2);check(eye.laserMode==='idle','attack ends');
+setup();const stopped={type:'laser',x:100,y:300,hp:100};p.x=450;p.y=300;tiles=[{x:0,y:0,coverTile:true,coverHp:coverMaximum()}];updateLaser(stopped,1.1);check(stopped.groundBlocked&&!beamHits(stopped),'cover blocks eye damage');stopped.hp=0;const dead=JSON.stringify(stopped);updateLaser(stopped,2);check(JSON.stringify(stopped)===dead,'dead eye cancels attack');
+setup();for(const f of [7,8,12,13,23]){floor=f;const roster=buildNormalRoster();check(roster.some(e=>e.type==='fighter'),'fighter in campaign '+f);if(f>=12)check(roster.some(e=>e.type==='laser'),'laser in campaign '+f);check(roster.length===normalRoomRosterSize(),'fixed total');}
+setup();enemies=[eye];eye.laserMode='warning';eye.laserTimer=.5;eye.groundX=325;eye.groundY=300;draw();eye.laserMode='firing';draw();check(renderer.data.slice(0,renderer.count).every(Number.isFinite),'finite eye beam geometry');
+console.log('Fighter acceleration, timestep independence, swept damage, laser charge lock/first hit/tracking/ground-only damage/pause and campaign integration passed');
+}`,sandbox);

@@ -84,7 +84,7 @@ function updateSnakeBoss(dt){
   for(const e of parts){const old=coverPositions.get(e);resolveEnemyCover(e,old.x,old.y);}
   const keep=snakeBoss.travel-parts[parts.length-1].offset-SNAKE_GAP;while(trail.length>2&&trail[trail.length-2].at<keep)trail.pop();
   // Only roaming emits new bullets. Chase raises spikes and uses body contact.
-  if(!chase){snakeBoss.fire-=h;if(snakeBoss.fire<=0){snakeBoss.fire=2.6;for(const e of parts)if(e.shooter){const phase=e.seed+snakeBoss.age*.22;for(let i=0;i<8;i++)bullet(e.x,e.y,phase+i*TAU/8,78,'#ffad62',4);e.shotFlashUntil=snakeBoss.age+.16;}}}
+  if(!chase){snakeBoss.fire=attackCooldown(snakeBoss.fire,h);if(snakeBoss.fire<=0){snakeBoss.fire=2.6;for(const e of parts)if(e.shooter){const phase=e.seed+snakeBoss.age*.22;for(let i=0;i<8;i++)bullet(e.x,e.y,phase+i*TAU/8,78,'#ffad62',4);e.shotFlashUntil=snakeBoss.age+.16;}}}
  }
  for(const e of parts){e.t+=dt;if(e.snakeDanger&&Math.hypot(p.x-e.x,p.y-e.y)<e.r+drinkPlayerRadius()-4+7)hurt(e);}
 }

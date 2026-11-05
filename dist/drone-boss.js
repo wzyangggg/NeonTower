@@ -61,7 +61,7 @@ function explodeDroneMinion(e){
 }
 function updateDroneMinions(dt){
  const boss=droneBoss;if(!boss||boss.hp<=0)return;
- for(const e of livingDroneMinions()){if(e.terrainStun>0)continue;let coverX=e.x,coverY=e.y;
+ for(const e of livingDroneMinions()){if(e.terrainStun>0||globalThis.ElectricTiles?.frozen(e))continue;let coverX=e.x,coverY=e.y;
   e.t+=dt;e.flash=Math.max(0,e.flash-dt);e.repairing=false;
   // Old aircraft leave without a death attack or reward; production is finite.
   if(e.t>=20){e.hp=0;continue;}
@@ -104,7 +104,7 @@ function updateDroneMinions(dt){
    if(e.fire<=0&&e.rounds===0){e.rounds=3;e.roundGap=0;e.fire=3.4;e.warn=false;}
    while(e.rounds>0&&e.roundGap<=0){
     bullet(e.x,e.y,e.aim,175,'#88dfff',3,4);const b=bullets.at(-1);b.droneShooter=true;b.life=6;
-    e.rounds--;e.roundGap+=.16;e.flash=.1;beep(260,.035,'triangle',.012);
+    e.rounds--;e.roundGap+=.16;e.flash=.1;enemyShotSound();
    }
   }
   if(Math.hypot(p.x-e.x,p.y-e.y)<e.r+5+drinkPlayerRadius()-4){if(e.role==='suicide'){e.hp=0;explodeDroneMinion(e);}hurt(e);if(state!=='combat')return;}
@@ -128,12 +128,12 @@ function fireDroneBoss(e){
  }else if(e.pattern===2){
   for(let i=0;i<4;i++)bullet(e.x,e.y,e.t*.65+i*TAU/4,155,'#82eaff',4,5);
  }else launchDroneSawVolley(e);
- e.flash=.13;e.attacks++;beep(e.pattern===1?240:145,.07,'triangle',.023);
+ e.flash=.13;e.attacks++;e.pattern===0||e.pattern===2?enemyShotSound():beep(e.pattern===1?240:145,.07,'triangle',.023);
 }
 function droneBombImpact(h){
  if(h.detonated)return;h.detonated=true;
  for(let i=0;i<8;i++)bullet(h.x,h.y,i*TAU/8+Math.PI/8,135,'#ffb675',4,5);
- burst(h.x,h.y,'#ffd49a',10);beep(65,.12,'sawtooth',.035);
+ burst(h.x,h.y,'#ffd49a',10);explosionSound();
 }
 function updateDroneBoss(dt){
  const e=droneBoss;if(!e||e.hp<=0)return;
@@ -161,7 +161,7 @@ function updateDroneBoss(dt){
   e.x=Math.max(A.x+90,Math.min(A.x+A.w-90,e.x));e.y=Math.max(A.y+90,Math.min(A.y+A.h-90,e.y));
   resolveEnemyCover(e,coverX,coverY);
   const target=Math.atan2(p.x-e.x,(p.y-e.y)*1.06),delta=Math.atan2(Math.sin(target-e.angle),Math.cos(target-e.angle));e.angle+=delta*Math.min(1,h*5);
-  e.fire-=h;e.warn=e.fire<.5;
+  e.fire=attackCooldown(e.fire,h,.5);e.warn=e.fire<.5;
   // Three locked drops per bombing pass, spaced far enough to retain exits.
   if(e.fire<=0){if(e.pattern===3?e.patternAge<1:e.pattern!==1||e.patternAge<3.3)fireDroneBoss(e);e.fire+=([.85,1.15,.48,1.2][e.pattern])*(e.enraged?.8:1);}
   if(Math.hypot(p.x-e.x,p.y-e.y)<e.r+drinkPlayerRadius()-4+7){hurt(e);if(state!=='combat')return;}

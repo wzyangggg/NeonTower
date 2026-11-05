@@ -16,7 +16,7 @@ for(let route=0;route<8;route++){
   const bossStage=stage/11,variant=(route>>(bossStage-1))&1;
   if(stage%11===0)Math.random=()=>variant?.999999:0;
   startWave();Math.random=originalRandom;
-  if(stage%11){ordinary++;check(!campaignBoss&&!enemies.some(e=>e.type==='boss'),'ordinary round '+stage);if(state==='bossIntro')finishBossIntro();enemies=[];spawnQueue=[];missiles=[];if(state==='survival')finishSurvival();else beginStageClear();}
+  if(stage%11){ordinary++;check(!campaignBoss&&!enemies.some(e=>e.type==='boss'),'ordinary round '+stage);if(state==='bossIntro')finishBossIntro();enemies=[];spawnQueue=[];missiles=[];if(state==='drinkArrival'){step(DRINK_TRUCK_ARRIVAL);check(terrainView==='drinkChoice'&&drinkTruck.offers.length===3,'peaceful drink stop');chooseTruckDrink(0);resetDrinks();}else if(state==='survival')finishSurvival();else beginStageClear();}
   else{
    const expected=variants[bossStage-1][variant];
    check(ordinary===10&&campaignBoss===bossStage&&state==='bossIntro','ten rounds before each boss');ordinary=0;
@@ -60,10 +60,10 @@ for(let route=0;route<8;route++){
    check(bossesDefeated===bossStage,'actual friendly damage completes boss '+expected);
    check(!ufoBoss&&!droneBoss&&!humanoidBoss&&!snakeBoss&&!virusBoss&&!enemies.length&&!droneSaws.length,'all boss entities and minions cleaned');
    if(oldBoss?.crimson)check(!oldBoss.crimsonRockets.length,'crimson fire cleaned');
-   if(stage===33){check(state==='won'&&$('overlay').innerHTML.includes('30')&&$('wave').textContent==='三场 BOSS 已击败','third victory ends run');const saved=floor;step(99);check(state==='won'&&floor===saved,'no further floors or shop');check(!music.active,'victory stops music');break;}
+   if(stage===33){check(state==='stageClear'&&stageSettlement.finalCampaign,'final boss displays victory stats');step(stageClearLeft);continueStageResult();check(state==='won'&&$('overlay').innerHTML.includes('30')&&$('wave').textContent==='三场 BOSS 已击败','third victory ends run');const saved=floor;step(99);check(state==='won'&&floor===saved,'no further floors or shop');check(!music.active,'victory stops music');break;}
    check(state==='stageClear'&&music.track==='normal'&&campaignBossKind==='','early boss returns to normal theme');
   }
-  step(stageClearLeft);check(state==='upgrade','shop between rounds');leaveShop();
+  step(stageClearLeft);continueStageResult();check(state==='upgrade','shop between rounds');leaveShop();
  }
 }
 reset();check(floor===1&&bossesDefeated===0&&campaignBoss===0&&campaignBossKind===''&&!snakeBoss&&!virusBoss&&!humanoidBoss&&!droneBoss&&!ufoBoss,'replay resets campaign');

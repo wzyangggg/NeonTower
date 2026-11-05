@@ -6,7 +6,7 @@
  const hash=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
  const ext=g=>({b:(g.minY-.5)*54*1.06,f:(g.maxY+.5)*54*1.06,e:(g.maxX+.5)*54});
  StreetScene.names.abyss='太空电梯 · 夜城';
- Object.defineProperty(StreetScene,'revision',{get(){return this.place==='abyss'?'orbital-34-'+this.look:revision.call(this);},configurable:true});
+ Object.defineProperty(StreetScene,'revision',{get(){return this.place==='abyss'?'orbital-39-'+this.look:revision.call(this);},configurable:true});
  Object.assign(StreetScene,{
   lighting(r){base.lighting.call(this,r);if(this.place==='abyss'){r.scenePerspective=false;r.cameraScale=1;r.sceneGrade=.25;r.sceneFogDensity=.00065;r.sceneFogColor=this.look==='green'?[.025,.32,.19]:this.look==='blue'?[.08,.025,.5]:[.105,.095,.48];r.topLight=[.65,.72,.85];r.rearLeftColor=[.16,.52,.72];r.rearRightColor=[.46,.34,.48];r.clubCyan=.65;r.clubMagenta=.35;}},
   // Flat-section member: width lies IN the truss plane; thickness lies normal to it.
@@ -101,7 +101,7 @@
    const towers=[[-575,-140,b-260,190,1700,190],[560,-90,b-380,185,2000,180],[-535,-330,f+275,190,2050,165],[570,-440,f+390,225,2300,195],[-300,250,b-1050,235,2600,230],[230,450,b-1320,250,2850,230],[-840,60,b-770,245,2700,240],[900,140,b-940,270,2950,250],[-750,-720,f+850,270,2350,250],[810,-850,f+970,290,2500,270],[-90,730,b-1930,265,3200,245],[80,240,b-940,160,2450,160],[650,800,b-2250,290,3500,270]];
    // A continuous small-scale city under the entire lift, arranged in real depth.
    const lowerCity=[];for(let row=0;row<8;row++)for(let col=0;col<9;col++){
-    const seed=row*139+col*73,x=-760+col*185+(row%2)*38+(hash(seed)-.5)*34,y=-1440-(row%3)*170-hash(seed+29)*160,screenDepth=row===6&&col===4?730:-660+row*215+(hash(seed+11)-.5)*65,z=(screenDepth+y*(440/Math.hypot(700,440)))/(700/Math.hypot(700,440)),w=95+hash(seed+13)*52,h=400+hash(seed+19)*510,d=90+hash(seed+23)*58;
+    const seed=row*139+col*73,x=-760+col*185+(row%2)*38+(hash(seed)-.5)*34,y=-1150-(row%3)*80-hash(seed+29)*100,screenDepth=row===6&&col===4?730:-660+row*215+(hash(seed+11)-.5)*65,z=(screenDepth+y*(440/Math.hypot(700,440)))/(700/Math.hypot(700,440)),w=65+hash(seed+13)*38,h=180+hash(seed+19)*260,d=60+hash(seed+23)*40;
     lowerCity.push({x,y,z,w,h,d,row,col});towers.push([x,y,z,w,h,d]);
    }
    this.lowerCityTops=lowerCity.map(({x,y,z})=>[x,y,z]);
@@ -120,6 +120,8 @@
     const [a,b,c,d]=face,normal=Array.from(r.data.slice(wallStart+3,wallStart+6)),at=(u,v)=>a.map((x,i)=>(1-v)*(x+(b[i]-x)*u)+v*(d[i]+(c[i]-d[i])*u)+normal[i]*.35),p=at(u0,v0),q=at(u1,v1),t=q.map((x,i)=>x-p[i]),length=Math.hypot(...t),side=[normal[1]*t[2]-normal[2]*t[1],normal[2]*t[0]-normal[0]*t[2],normal[0]*t[1]-normal[1]*t[0]].map(x=>x/length*1.7),offset=(p,s)=>p.map((x,i)=>x+side[i]*s),start=r.count;
     r.emissiveQuad(offset(p,-1),offset(q,-1),offset(q,1),offset(p,1),color);this.facadeAttachments.push({start,wallStart,kind});
    };
+   // Fixed building identities: warm shop lights punctuate the cool city haze.
+   const neonColors=['#ffc94d','#45d9ff','#ff7840','#66aaff','#ff65b6','#ffd96a','#52dce8'];
    this.towerOrientations=[];
    for(let k=0;k<towers.length;k++){
     const towerStart=r.count,posterStart=posters.length;
@@ -131,7 +133,7 @@
      const ring=round?Array.from({length:16},(_,j)=>[Math.cos(j*Math.PI/8)*hw,Math.sin(j*Math.PI/8)*hd]):[[-hw+cut,-hd],[hw-cut,-hd],[hw,-hd+cut],[hw,hd-cut],[hw-cut,hd],[-hw+cut,hd],[-hw,hd-cut],[-hw,-hd+cut]];
      const taper=round?1:.73+(j%2)*.16,lean=round?0:(k%2?1:-1)*w*.065;
      // Every wall is planar; its crown and setbacks supply the cut silhouette.
-     const low=ring.map(([a,b])=>[cx+a,yy,z+b]),high=ring.map(([a,b])=>[cx+a*taper+lean,yy+h/5,z+b*taper]),light=k%5===0?'#e9ba8b':k%5===1?'#57c9f5':k%5===2?'#779cff':k%5===3?'#9cb9f7':'#ca91d4';
+     const low=ring.map(([a,b])=>[cx+a,yy,z+b]),high=ring.map(([a,b])=>[cx+a*taper+lean,yy+h/5,z+b*taper]),light=neonColors[k%neonColors.length];
      for(let n=0;n<ring.length;n++){
       const next=(n+1)%ring.length,face=[low[n],low[next],high[next],high[n]],wallStart=r.count;r.quad(...face,n%3===0?'#485879':n%3===1?'#23344f':'#35496b');
       const dx=low[next][0]-low[n][0],dz=low[next][2]-low[n][2],fw=Math.hypot(dx,dz),front=-dx/fw;
@@ -142,18 +144,18 @@
        if(seed<.32){if(front>.88)stats.darkBands++;continue;}
        if(seed>.69){if(attach(face,wallStart,.5,v,fw*taper*.86,thick,light,'band')){stats.lightBands++;stats.bandWidths.push(thick);}}
        if(front>.88&&seed<.77){const cols=round?2:5,ww=fw*taper/(cols+1)*(.42+seed*.18),hh=7+hash(k*73+row+j*91)*10;
-        for(let col=0;col<cols;col++){if(hash(k*171+j*181+row*11+col*31)<.24)continue;const shade=(row+col+k)%5===0?'#dfb59e':(row+col+k)%5===1?'#70c9e9':(row+col+k)%5===2?'#728dce':(row+col+k)%5===3?'#8cace9':'#b69cd3';if(attach(face,wallStart,(col+1)/(cols+1),v,ww,hh,shade)){stats.windows++;stats.windowPanes++;}}
+        for(let col=0;col<cols;col++){if(hash(k*171+j*181+row*11+col*31)<.24)continue;const shade=(row+col+k)%5===0?'#ffd486':(row+col+k)%5===1?'#70c9e9':(row+col+k)%5===2?'#728dce':(row+col+k)%5===3?'#ff9a60':'#ed83c4';if(attach(face,wallStart,(col+1)/(cols+1),v,ww,hh,shade)){stats.windows++;stats.windowPanes++;}}
        }
       }
       // Landmark facades: cascading light curtains and diagonal cuts on real wall faces.
-      if(!round&&front>.95&&[4,12].includes(k))attach(face,wallStart,.5,.5,fw*taper*.72,h/5*.84,k===4?'#56b9e6':'#a481ff','waterfall');
+      if(!round&&front>.95&&[4,12].includes(k))attach(face,wallStart,.5,.5,fw*taper*.72,h/5*.84,k===4?'#ffb33f':'#ff659b','waterfall');
       if(!round&&front>.95&&[5,14].includes(k)){
-       cutLight(face,wallStart,.12,.12,.85,.88,'#f89ccd');cutLight(face,wallStart,.72,.12,.28,.86,'#96a9ff');
+       cutLight(face,wallStart,.12,.12,.85,.88,'#ffc94d');cutLight(face,wallStart,.72,.12,.28,.86,'#ff8752');
       }
-      if(k===11&&front>.95)attach(face,wallStart,.5,.5,fw*taper*.86,h/5*.94,'#7951d8','glitch');
-      if(k===10&&front>.95){for(const u of [.18,.39,.6,.81]){const points=[[u,.04],[u,.30],[u+.055,.42],[u+.055,.66],[u-.035,.78],[u-.035,.96]];for(let n=1;n<points.length;n++)cutLight(face,wallStart,...points[n-1],...points[n],u<.5?'#c2a3ff':'#e5b7e9','kink-light');}}
+      if(k===11&&front>.95)attach(face,wallStart,.5,.5,fw*taper*.86,h/5*.94,'#ff7148','glitch');
+      if(k===10&&front>.95){for(const u of [.18,.39,.6,.81]){const points=[[u,.04],[u,.30],[u+.055,.42],[u+.055,.66],[u-.035,.78],[u-.035,.96]];for(let n=1;n<points.length;n++)cutLight(face,wallStart,...points[n-1],...points[n],u<.5?'#ffcf59':'#ff82bb','kink-light');}}
       // Large colored glazing lies on this same plane rather than floating in front.
-      if(!round&&front>.95&&j===4&&!feature){if(attach(face,wallStart,.23,.56,fw*taper*.2,h/5*.56,k%2?'#54519a':'#246e96','panel'))stats.windowPanes++;}
+      if(!round&&front>.95&&j===4&&!feature){if(attach(face,wallStart,.23,.56,fw*taper*.2,h/5*.56,k%3===0?'#d85e31':k%3===1?'#b94689':'#246e96','panel'))stats.windowPanes++;}
      }
      for(let n=1;n<ring.length-1;n++)r.quad(high[0],high[n],high[n+1],high[0],'#596c86');
     }
@@ -166,7 +168,7 @@
     if([0,1,2,8].includes(k)){
      const width=w*.68,height=width*2.9,cy=top-height*.65-35-(k===5?220:k===10?1000:k===12?850:0),pf=profile(cy-height*.25),pz=z+Math.max(pf.d,d*1.05)/2+8,px=x+pf.dx;
      r.box(px,cy,pz-3,width+10,height+10,7,'#152438');posters.push({x:px,y:cy,z:pz+1,w:width,h:height,slot:k===4?0:k===5?1:k===12?3:k%4,yaw:0});
-     for(const side of [-1,1])r.emissiveBox(px+side*(width/2+3),cy,pz+2,1.8,height+5,1,k%2?'#dc6da9':'#6dbed5');
+     for(const side of [-1,1])r.emissiveBox(px+side*(width/2+3),cy,pz+2,1.8,height+5,1,neonColors[k%neonColors.length]);
     }
     // Rotate the complete building, including facade details, crowns and ad frames.
     // Independent angles expose side walls without tilting the vertical skyline.
@@ -193,7 +195,7 @@
    for(const [yy,rr]of [[-300,112],[175,92]])litSphere(tx,yy,tz,rr,1,.82,1,16,32,'#ffc780');
    beam([tx,250,tz],[tx,460,tz],8,8,'#97a2b3');r.emissiveBox(tx,438,tz,5,38,5,'#ff9a65');
    // Tapered needle with cyan outline and sloping crown.
-   const nx=440,nz=b-1250;for(let j=0;j<9;j++){const yy=-2200+j*290,ww=180-j*14;r.box(nx,yy+145,nz,ww,290,ww*.72,'#334965');if(j%3!==1){r.emissiveBox(nx,yy+255,nz+ww*.36+1,ww*.66,10+j*2,1,j%2?'#68bce9':'#df8bc9');stats.lightBands++;}}
+   const nx=440,nz=b-1250;for(let j=0;j<9;j++){const yy=-2200+j*290,ww=180-j*14;r.box(nx,yy+145,nz,ww,290,ww*.72,'#334965');if(j%3!==1){r.emissiveBox(nx,yy+255,nz+ww*.36+1,ww*.66,10+j*2,1,j%2?'#68bce9':'#ffc952');stats.lightBands++;}}
    for(const side of [-1,1])beam([nx+side*27,410,nz+30],[nx,740,nz],3,3,'#81dcff');
    // Rounded stacks: changing diameters create a curved silhouette and continuous floors.
    const stackStart=r.count,dx=790,dz=b-420;for(let j=0;j<14;j++){const yy=-1950+j*155,rr=125*Math.sin((j/18+.15)*Math.PI);litSphere(dx,yy,dz,rr,1,.7,.85,8,24,'#e2b4fb');}
@@ -219,6 +221,8 @@
    this.rainCurtainGeometry=new Float32Array(rain);this.rainForegroundCount=0;
    // World-upright chamfered lightboxes with recessed printed/emissive fascia.
    const signs=[{x:-280,y:245,z:b-320,w:154,h:154,slot:0,yaw:0,shape:'disc',thickness:24},{x:185,y:100,z:b-300,w:96,h:310,slot:1,yaw:0,shape:'asymmetric',thickness:37},{x:-185,y:100,z:b-300,w:88,h:360,slot:2,yaw:0,shape:'capsule',thickness:29},{x:285,y:260,z:b-320,w:150,h:166,slot:3,yaw:0,shape:'hexagon',thickness:33}],signData=[],signRanges=[];
+   // The hex scene removes the lift and its attached lightboxes together.
+   if(this.omitLiftSigns)signs.length=0;
    for(const [i,q]of signs.entries()){
     const side=q.x<0?-1:1,P=(x,y,depth)=>[q.x+x,q.y+y,q.z+depth],hw=q.w*.5,hh=q.h*.5,backZ=-q.thickness-1;
     const outline=(w,h,inset=0)=>{
@@ -234,7 +238,7 @@
      r.quad(a,b2,back[next],back[n],outer[n][1]>0?'#7f829c':'#41435d');r.quad(la,lb,b2,a,n%2?'#8b86a2':'#60637f');r.quad(P(...pane[n],-2),P(...pane[next],-2),lb,la,'#252c47');
     }
     for(let n=1;n<N-1;n++)r.quad(back[0],back[n+1],back[n],back[0],'#363b55');r.markFloor(bodyStart);
-    for(let n=0;n<N;n++)if(q.shape==='disc'||n%2||n===4){const start=r.count;beam(P(...lip[n],-.6),P(...lip[(n+1)%N],-.6),1.3,.8,i%2?'#ed8cbb':'#80d5ed');r.markEmissive(start);}
+    for(let n=0;n<N;n++)if(q.shape==='disc'||n%2||n===4){const start=r.count;beam(P(...lip[n],-.6),P(...lip[(n+1)%N],-.6),1.3,.8,['#ffcf55','#ff8745','#80d5ed','#ff76be'][i]);r.markEmissive(start);}
     q.depth=q.thickness;q.worldUpright=true;q.shellOutline=outer;q.panelOutline=pane;q.shellRange=[bodyStart,r.count];q.panelHalfWidth=hw-5;q.panelHalfHeight=hh-5;q.backZ=backZ;
     const start=signData.length/5,add=([x,y])=>{const u=(x/(hw-5)+1)*.5,v=(1-y/(hh-5))*.5;signData.push(...P(x,y,-1.5),(q.slot%2)*.5+.004+u*.492,Math.floor(q.slot/2)*.5+.004+v*.492);};
     for(let n=1;n<pane.length-1;n++){add(pane[0]);add(pane[n]);add(pane[n+1]);}signRanges.push({start,count:signData.length/5-start});
@@ -248,8 +252,30 @@
    const holo=[];this.hologramPlacements=[{x:-280,y:125,z:b-400,w:155,h:250,slot:3,yaw:.22},{x:300,y:95,z:b-350,w:175,h:230,slot:1,yaw:-.3},{x:200,y:-900,z:f+350,w:250,h:180,slot:0,yaw:.1}];
    for(const q of this.hologramPlacements){const cs=Math.cos(q.yaw),sn=Math.sin(q.yaw);for(const [u,v]of [[0,0],[1,0],[1,1],[0,0],[1,1],[0,1]])holo.push(q.x+(u-.5)*q.w*cs,q.y+(.5-v)*q.h,q.z-(u-.5)*q.w*sn,(q.slot+.015+u*.97)/4,.01+v*.98);}
    this.hologramGeometry=new Float32Array(holo);
-   r.box(0,-2810,-3000,14000,25,14000,'#17243d');
-   for(let k=0;k<24;k++){const x=-1900+k*179%3800,z=-2700+k*281%5400,h=90+k*41%310;r.box(x,-2780+h/2,z,92,h,100,'#293b58');}
+   r.box(0,-2810,-3000,14000,25,14000,'#101923');
+   for(let k=0;k<24;k++){const x=-1900+k*179%3800,z=-2700+k*281%5400,h=90+k*41%310;r.box(x,-1535+h/2,z,92,h,100,'#293b58');}
+   // Thousands of tiny, static lamps sit on the distant city floor. Irregular
+   // blocks, dark courtyards and dotted avenues read as a city, not sky particles.
+   const groundLights=[];let groundLamps=0;
+   const lamp=(x,y,z,size,seed)=>{
+    const colors=['#ffdc96','#eab86b','#ffe9bc','#c69963','#91c8ce'],color=colors[hash(seed+17)>.91?4:Math.floor(hash(seed+31)*4)];
+    groundLights.push(x,y,z,...r.color(color),size*4.8);groundLamps++;
+   };
+   for(let row=0;row<32;row++)for(let col=0;col<24;col++){
+    const seed=9000+row*197+col*73,bx=-1680+col*140,bz=-2400+row*140;
+    if(hash(seed+3)<.13)continue; // Unlit blocks and gaps keep the light field organic.
+    const roof=-1527+hash(seed+7)*18,density=28+Math.floor(hash(seed+5)*23);
+    for(let n=0;n<density;n++){
+     const key=seed+n*37,x=bx+16+hash(key+1)*106,z=bz+16+hash(key+2)*106;
+     lamp(x,roof,z,1.4+hash(key+4)*1.8,key);
+    }
+    // Street lamps trace broken parallel routes between the clusters of windows.
+    for(let n=0;n<7;n++){
+     if(hash(seed+n*11)>.17)lamp(bx+5,-1520,bz+n*20,1.8,seed+n*13);
+     if(row%3===0&&hash(seed+n*19)>.24)lamp(bx+n*20,-1519,bz+5,2,seed+n*23);
+    }
+   }
+   this.groundLightGeometry=new Float32Array(groundLights);stats.groundLamps=groundLamps;
    // Tag all city surfaces and window lights for view-distance fog in the shader.
    // The elevator, its glass and actors are deliberately outside this city range.
    this.cityFogRange=[sceneStart,r.count];
@@ -310,13 +336,13 @@
   },
   draw(r,grid,time){if(this.place!=='abyss')return base.draw.call(this,r,grid,time);
    const {b,f,e}=ext(grid),t=this.clock??(typeof window!=='undefined'&&window.sceneLab?performance.now()/1000:time),p=this.palette;r.sceneTime=t;r.setFloorGlyphs(this.floorGlyphGeometry);r.setGlassCircuits(this.glassCircuitGeometry,t);r.setSideSigns(this.sideSignGeometry,t,this.sideSignRanges);if(this.rain)r.setRainCurtains(this.rainCurtainGeometry,t,this.rainCurtainLayers);r.setBillboards(this.billboardGeometry);r.setBrandBillboard(this.brandGeometry);r.setHolograms(this.hologramGeometry,t);if(this.worldClockState)r.setWorldClock(this.worldClockState,this.worldClockGeometry);
-   this.drawTraffic(r,t);
+   r.setCityLights(this.groundLightGeometry);this.drawTraffic(r,t);
    // Visible projectors and fan-shaped light volumes beneath floating ad screens.
    for(const q of this.hologramPlacements){const yy=q.y-q.h*.68;r.box(q.x,yy,q.z,25,9,18,'#34435e');r.glow(q.x,yy+6,q.z,12,'#72e3ff');r.transparentQuad([q.x-6,yy+5,q.z],[q.x+6,yy+5,q.z],[q.x+q.w*.47,q.y-q.h*.38,q.z],[q.x-q.w*.47,q.y-q.h*.38,q.z],'#4ccfff',[.18,.18,.015,.015]);}
    // Rain and fog occupy several true depth layers rather than a flat screen filter.
    const fogColors=this.look==='green'?['#00a553','#00ce81','#45cf23']:this.look==='blue'?['#1800dc','#1739ff','#7c16ed']:['#182ab5','#3842d5','#7945c9'];
-   for(const [i,[y,z,rx,rz,a]]of [[-2300,-600,2500,1800,.76],[-1300,b-400,1600,900,.55],[-650,b-280,1050,540,.32]].entries())this.pool(r,0,y,z,rx,rz,fogColors[i],a);
-   this.pool(r,420,-1050,f+180,950,650,this.look==='green'?'#06c983':'#2600ff',.4);
+   // Preserve the colored haze as thick volumes, with soft surface intersections.
+   r.cityFogVolumes=[...[[ -2300,-600,2500,1800,.76],[-1300,b-400,1600,900,.55],[-650,b-280,1050,540,.32]].map(([y,z,rx,rz,opacity],i)=>({center:[0,y,z],radii:[rx,420,rz],color:fogColors[i],opacity})),{center:[420,-1050,f+180],radii:[950,380,650],color:this.look==='green'?'#06c983':'#2600ff',opacity:.4}];
    for(const x of [-e-26,e+26])for(const z of [b-24,f+24])r.glow(x,44,z+18,13,'#edb96c');
    // Narrow wet highlights follow safety strips; leave the aiming area uncluttered.
    this.pool(r,-270,3.2,b+37,150,58,'#8fd7e7',.1);this.pool(r,270,3.2,b+37,145,58,'#ce86bf',.1);this.pool(r,0,3.2,f-20,320,45,'#e3b66c',.08);

@@ -1,0 +1,10 @@
+Extract ONLY the listed objects as separate transparent foreground layers from this 3-column 7-row atlas. Preserve exact original design, outline, colors and details. Remove gray background and all interior holes. One complete icon per layer; paired guns/missiles and energy arcs/rings are part of their respective icon. Do not extract any unlisted objects. Use exact English names below. Regions in normalized 0-999 coordinates:
+shotgun: <bbox>0 571 333 714</bbox>
+shotgun_tower: <bbox>333 571 666 714</bbox>
+sniper_tower: <bbox>666 571 999 714</bbox>
+electric_tower: <bbox>0 714 333 856</bbox>
+missile_tower: <bbox>333 714 666 856</bbox>
+healing_tower: <bbox>666 714 999 856</bbox>
+shield_tower: <bbox>0 856 333 999</bbox>
+slow_field: <bbox>333 856 666 999</bbox>
+repair_turret: <bbox>666 856 999 999</bbox>

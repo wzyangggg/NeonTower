@@ -1,0 +1,7 @@
+Built-in imagegen. Use case: stylized-concept. Three independent transparent PNGs; no slicing or image edits.
+
+A single tiny game-ready rubble sprite, isolated centered on genuinely transparent background. Strict overhead orthographic view of one broken low-poly gray geometric block lying on ground, with small visible beveled side facets giving convincing faux 3D depth. Matte charcoal gray, top face medium dark gray, side faces slightly darker, very subtle short contact shadow. Quiet low contrast, no bright white faces, no outlines, no glow, no colored accents. Minimal flat shaded polygon surfaces, no grain or photoreal texture, simple readable silhouette at 12 pixels. Object fills 75 percent of square canvas. No floor, no text, no other objects.
+
+Variant A: squat chipped cuboid with an asymmetric corner missing, broad pentagonal top face.
+Variant B: elongated broken rectangular wedge, oblique fractured end, narrow trapezoid top face.
+Variant C: short angular triangular prism fragment, three large irregular bevel facets, compact triangular silhouette.

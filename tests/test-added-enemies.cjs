@@ -6,6 +6,8 @@ vm.createContext(sandbox);for(const file of ['music','renderer','game','humanoid
 
 vm.runInContext(`{
 function check(v,m){if(!v)throw Error(m)}
+// Isolated coverage of ground enemy behavior and its original unlock table.
+GROUND_ENEMIES.enabled=true;
 function mob(type,x=525,y=300){return {type,x,y,homeX:x,homeY:y,hp:100,max:100,r:19,t:0,fire:99,seed:.4};}
 function setup(){reset();floor=17;state='combat';timedRoom={duration:45,remaining:45,nextWaveAt:999};spawnQueue=[{type:'eye',side:0}];tiles=[];turrets=[];shootTimer=999;p.x=325;p.y=300;p.inv=999;}
 const seen=new Set();for(let f=1;f<=30;f++){setup();floor=f;const roster=buildNormalRoster();check(roster.filter(isMeleeEnemy).length===roster.length*.6,'contact share '+f);for(const e of roster){seen.add(e.type);if(ADDED_ENEMIES[e.type])check(f>=ADDED_ENEMIES[e.type].unlock,'unlock '+f);}}

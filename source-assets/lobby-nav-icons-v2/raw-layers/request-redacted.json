@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly two transparent PNG foreground layers with exact IDs. Keep original outlines, shape, highlights and colors. Remove taupe background including the badge loop hole and small enclosed spaces between the swords. Keep both swords together as one icon, including both tips, guards and grips.\ncharacter_bear_badge <bbox>105 62 407 899</bbox>\nbattle_crossed_swords <bbox>550 143 943 880</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-nav-icons-v2\\source.png",
+  "sha256": "40e2b6dcadae9880fe6ac3d6ab4455f542086fd9c2c432a26c4df2dcb5d31b27"
+}

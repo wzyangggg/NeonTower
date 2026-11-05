@@ -1,0 +1,606 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      248,
+      242,
+      241
+    ],
+    [
+      252,
+      240,
+      178
+    ],
+    [
+      241,
+      213,
+      175
+    ],
+    [
+      252,
+      204,
+      92
+    ],
+    [
+      246,
+      183,
+      115
+    ],
+    [
+      244,
+      176,
+      64
+    ],
+    [
+      238,
+      156,
+      118
+    ],
+    [
+      228,
+      150,
+      47
+    ],
+    [
+      204,
+      200,
+      202
+    ],
+    [
+      191,
+      174,
+      178
+    ],
+    [
+      114,
+      217,
+      211
+    ],
+    [
+      83,
+      165,
+      161
+    ],
+    [
+      168,
+      151,
+      163
+    ],
+    [
+      186,
+      144,
+      103
+    ],
+    [
+      118,
+      145,
+      147
+    ],
+    [
+      51,
+      149,
+      143
+    ],
+    [
+      234,
+      124,
+      123
+    ],
+    [
+      234,
+      123,
+      45
+    ],
+    [
+      184,
+      125,
+      105
+    ],
+    [
+      193,
+      118,
+      34
+    ],
+    [
+      205,
+      98,
+      166
+    ],
+    [
+      173,
+      94,
+      78
+    ],
+    [
+      180,
+      98,
+      35
+    ],
+    [
+      158,
+      88,
+      36
+    ],
+    [
+      143,
+      128,
+      136
+    ],
+    [
+      132,
+      117,
+      126
+    ],
+    [
+      126,
+      101,
+      126
+    ],
+    [
+      124,
+      99,
+      95
+    ],
+    [
+      110,
+      94,
+      103
+    ],
+    [
+      105,
+      86,
+      100
+    ],
+    [
+      43,
+      117,
+      111
+    ],
+    [
+      78,
+      85,
+      88
+    ],
+    [
+      178,
+      68,
+      200
+    ],
+    [
+      157,
+      71,
+      43
+    ],
+    [
+      130,
+      58,
+      152
+    ],
+    [
+      131,
+      65,
+      27
+    ],
+    [
+      96,
+      78,
+      86
+    ],
+    [
+      103,
+      62,
+      63
+    ],
+    [
+      81,
+      66,
+      70
+    ],
+    [
+      74,
+      55,
+      62
+    ],
+    [
+      145,
+      43,
+      165
+    ],
+    [
+      115,
+      42,
+      119
+    ],
+    [
+      95,
+      43,
+      52
+    ],
+    [
+      93,
+      31,
+      83
+    ],
+    [
+      68,
+      47,
+      54
+    ],
+    [
+      71,
+      34,
+      34
+    ],
+    [
+      71,
+      24,
+      63
+    ],
+    [
+      66,
+      25,
+      18
+    ],
+    [
+      33,
+      69,
+      64
+    ],
+    [
+      52,
+      44,
+      45
+    ],
+    [
+      53,
+      35,
+      36
+    ],
+    [
+      56,
+      27,
+      24
+    ],
+    [
+      46,
+      27,
+      25
+    ],
+    [
+      54,
+      22,
+      23
+    ],
+    [
+      54,
+      21,
+      15
+    ],
+    [
+      47,
+      21,
+      19
+    ],
+    [
+      41,
+      21,
+      18
+    ],
+    [
+      51,
+      17,
+      25
+    ],
+    [
+      48,
+      18,
+      16
+    ],
+    [
+      48,
+      17,
+      15
+    ],
+    [
+      48,
+      16,
+      11
+    ],
+    [
+      42,
+      17,
+      15
+    ],
+    [
+      38,
+      17,
+      14
+    ],
+    [
+      38,
+      12,
+      10
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "silver_sword",
+      "label": "银刃短剑",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          54,
+          42,
+          384,
+          390
+        ],
+        "normalized": [
+          42,
+          34,
+          300,
+          315
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        775,
+        817
+      ],
+      "normalized": "silver_sword-original.png",
+      "variants": {
+        "32": "silver_sword-32.png",
+        "48": "silver_sword-48.png"
+      }
+    },
+    {
+      "id": "gold_saber",
+      "label": "金色弯刀",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          462,
+          23,
+          806,
+          386
+        ],
+        "normalized": [
+          362,
+          19,
+          631,
+          312
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        731,
+        771
+      ],
+      "normalized": "gold_saber-original.png",
+      "variants": {
+        "32": "gold_saber-32.png",
+        "48": "gold_saber-48.png"
+      }
+    },
+    {
+      "id": "crystal_sword",
+      "label": "水晶短剑",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          901,
+          40,
+          1241,
+          392
+        ],
+        "normalized": [
+          707,
+          32,
+          973,
+          317
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        738,
+        763
+      ],
+      "normalized": "crystal_sword-original.png",
+      "variants": {
+        "32": "crystal_sword-32.png",
+        "48": "crystal_sword-48.png"
+      }
+    },
+    {
+      "id": "orange_pistol",
+      "label": "橙色手枪",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          46,
+          463,
+          383,
+          777
+        ],
+        "normalized": [
+          36,
+          376,
+          300,
+          629
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        816,
+        759
+      ],
+      "normalized": "orange_pistol-original.png",
+      "variants": {
+        "32": "orange_pistol-32.png",
+        "48": "orange_pistol-48.png"
+      }
+    },
+    {
+      "id": "silver_revolver",
+      "label": "银色左轮",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          445,
+          462,
+          810,
+          779
+        ],
+        "normalized": [
+          349,
+          375,
+          635,
+          631
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        780,
+        678
+      ],
+      "normalized": "silver_revolver-original.png",
+      "variants": {
+        "32": "silver_revolver-32.png",
+        "48": "silver_revolver-48.png"
+      }
+    },
+    {
+      "id": "teal_pistol",
+      "label": "能量手枪",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          884,
+          466,
+          1242,
+          782
+        ],
+        "normalized": [
+          693,
+          378,
+          973,
+          633
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        815,
+        721
+      ],
+      "normalized": "teal_pistol-original.png",
+      "variants": {
+        "32": "teal_pistol-32.png",
+        "48": "teal_pistol-48.png"
+      }
+    },
+    {
+      "id": "wood_rifle",
+      "label": "木托步枪",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          14,
+          863,
+          406,
+          1143
+        ],
+        "normalized": [
+          11,
+          700,
+          318,
+          926
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        896,
+        639
+      ],
+      "normalized": "wood_rifle-original.png",
+      "variants": {
+        "32": "wood_rifle-32.png",
+        "48": "wood_rifle-48.png"
+      }
+    },
+    {
+      "id": "purple_rifle",
+      "label": "紫晶步枪",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          430,
+          870,
+          831,
+          1147
+        ],
+        "normalized": [
+          337,
+          706,
+          651,
+          929
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        886,
+        614
+      ],
+      "normalized": "purple_rifle-original.png",
+      "variants": {
+        "32": "purple_rifle-32.png",
+        "48": "purple_rifle-48.png"
+      }
+    },
+    {
+      "id": "teal_carbine",
+      "label": "青色卡宾枪",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          860,
+          875,
+          1262,
+          1147
+        ],
+        "normalized": [
+          675,
+          710,
+          989,
+          929
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        919,
+        623
+      ],
+      "normalized": "teal_carbine-original.png",
+      "variants": {
+        "32": "teal_carbine-32.png",
+        "48": "teal_carbine-48.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "mapping": "screen plane: +X right, +Y up; ground-plane player-to-target projection using active renderer VP and viewport aspect",
+  "target": "same nearest attackable target used by held weapon; hidden enemies/traps follow combatTargets exclusions",
+  "head": "keep camera-facing pose; gaze never changes head rotation",
+  "idle": "smoothly return pupils to center when no target",
+  "runtime": "dist/character-gaze.js; direction is available in CharacterGaze.current",
+  "fox": {
+    "eyeMaterial": "Mat_FoxEye",
+    "pupilSize": 0.676,
+    "travelRatio": 0.55,
+    "movementRange": 0.2,
+    "white": [
+      0.9339623,
+      0.9164405,
+      0.86788005
+    ],
+    "pupil": [
+      0.015,
+      0.01,
+      0.005
+    ],
+    "pupilTexture": "Assets/Res/Textures/UI/UIParticles/fx_circle.png",
+    "eyeWhiteTexture": "missing in source; use uniform white tint fallback",
+    "uv": "per-eye local 0..1; verify mirrored island signs before binding"
+  },
+  "bunny": {
+    "status": "copied FBX/material currently uses body atlas shader, no independent eye material; isolate eye UV/geometry before binding"
+  },
+  "status": "Live game target-to-screen gaze controller and eye GLSL are implemented and tested. Fox/bunny renderers and their eye material bindings are not yet in the game avatar menu; existing cat eye art is unchanged."
+}

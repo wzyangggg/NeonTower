@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const media={src:'audio/relentless-minor.mp3',currentTime:19,paused:false,loads:0,pause(){this.paused=true;},load(){this.loads++;this.currentTime=0;}};
+const sandbox={Float32Array,Uint8Array};vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/music.js','utf8')+';globalThis.Music=GameMusic;',sandbox);
+const music=new sandbox.Music(media);
+music.setTrack({id:'difficulty-1',src:null});assert.equal(media.src,'audio/relentless-minor.mp3');assert.equal(media.loads,0);assert.equal(media.currentTime,19);
+music.setTrack({id:'difficulty-1',src:'audio/normal-theme.mp3'});assert.equal(media.src,'audio/normal-theme.mp3');assert.equal(media.currentTime,0);
+media.currentTime=31;music.setTrack({id:'difficulty-1',src:'audio/normal-theme.mp3'});assert.equal(media.currentTime,31);assert.equal(media.loads,1,'frame synchronization never reloads the same album');
+music.setTrack({id:'difficulty-2',src:'audio/relentless-minor.mp3'});assert.equal(media.currentTime,0);media.currentTime=7;
+music.setTrack({id:'difficulty-1',src:'audio/normal-theme.mp3'});assert.equal(media.currentTime,31,'album playback resumes independently');
+music.setTrack('boss');assert.equal(media.currentTime,19,'fallback also resumes independently');
+assert.equal(new Set(Object.keys(music.positions)).size,3);
+console.log('PASS album routing: empty configuration retains existing BGM, supplied local files switch once, independent resume and fallback positions');

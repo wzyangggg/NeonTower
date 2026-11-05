@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose the supplied flat neon music advertisement into independent complete RGBA layers. Preserve exact original flat colors, silhouettes, and details. No redesign. Reconstruct parts hidden by foreground where needed. Every foreground layer must have genuinely transparent background, no dark panel or other objects. Return these named layers, each independently usable:\nheadphones: complete white/purple/magenta over-ear headphones only, right side <bbox>540 100 900 780</bbox>, remove all text, music notes, record, equalizer, background panels and outer atmospheric glow.\nheadline: only the complete exact two-line words NEON RHYTHM, white flat letter faces and magenta/purple outline <bbox>20 200 610 700</bbox>, transparent gaps and outside, no panel, headphones or other objects.\nsubtitle: only exact words LIVE TONIGHT, yellow lettering <bbox>200 700 700 880</bbox>, no enclosing banner, no arrows or background.\nrecord: only the complete dark purple vinyl disc with magenta center at lower right <bbox>760 570 990 900</bbox>, reconstruct full circle behind headphones, no headphones or orbit streak or panel.\nnotes: only the two yellow musical notes upper right <bbox>880 100 990 440</bbox>, isolated with transparent background, no headphones or panel.\nDo not group different requested subjects into one foreground layer. Background/reference composite may be layer zero; all other layers must be separated subjects as specified.\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\neon-music-flat\\source.png",
+  "sha256": "fef763529b1e5e3c6ef2c2d9346b704c065196448a6e12adc3f73b1a1dcb41ba"
+}

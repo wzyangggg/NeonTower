@@ -1,0 +1,137 @@
+{
+  "submission": {
+    "time": 1793788696.3381834,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\tesla\\source.png",
+    "sha256": "ea20ec62e79018b362c3480a1d21abc60c5356ad643c009e493721aec0399674"
+  },
+  "layers": [
+    {
+      "size": "2172x724",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\tesla\\layers\\layer-00.png"
+    },
+    {
+      "size": "812x835",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          62,
+          174,
+          408,
+          528
+        ],
+        "normalized": [
+          29,
+          240,
+          188,
+          729
+        ]
+      },
+      "name": "tesla-1 skill symbol",
+      "description": "Extract the complete tesla-1 skill symbol, keep all lightning beams, dark outlines, do not include any background or frame elements",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\tesla\\layers\\layer-01.png"
+    },
+    {
+      "size": "842x816",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          485,
+          172,
+          836,
+          513
+        ],
+        "normalized": [
+          223,
+          238,
+          385,
+          709
+        ]
+      },
+      "name": "tesla-2 skill symbol",
+      "description": "Extract the complete tesla-2 skill symbol, keep all lightning trails, purple orbs, dark outlines, do not include any background or frame elements",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\tesla\\layers\\layer-02.png"
+    },
+    {
+      "size": "802x791",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          897,
+          158,
+          1274,
+          528
+        ],
+        "normalized": [
+          413,
+          218,
+          587,
+          729
+        ]
+      },
+      "name": "tesla-3 skill symbol",
+      "description": "Extract the complete tesla-3 skill symbol, keep the full lightning shape, two metal cylinders, dark outlines, do not include any background or frame elements",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\tesla\\layers\\layer-03.png"
+    },
+    {
+      "size": "843x856",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          1337,
+          162,
+          1690,
+          520
+        ],
+        "normalized": [
+          616,
+          224,
+          778,
+          718
+        ]
+      },
+      "name": "tesla-4 skill symbol",
+      "description": "Extract the complete tesla-4 skill symbol, keep the metal plate, orange lightning sparks, purple lightning arcs, dark outlines, do not include any background or frame elements",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\tesla\\layers\\layer-04.png"
+    },
+    {
+      "size": "839x818",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          1754,
+          167,
+          2121,
+          527
+        ],
+        "normalized": [
+          808,
+          231,
+          977,
+          728
+        ]
+      },
+      "name": "tesla-5 skill symbol",
+      "description": "Extract the complete tesla-5 skill symbol, keep all four orbs, three lightning trails, dark outlines, do not include any background or frame elements",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\tesla\\layers\\layer-05.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 6,
+    "output_tokens": 27991,
+    "total_tokens": 27991
+  }
+}

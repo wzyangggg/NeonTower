@@ -1,0 +1,803 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition except shield, independently generated with native transparency",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      254,
+      254,
+      254
+    ],
+    [
+      250,
+      248,
+      249
+    ],
+    [
+      242,
+      242,
+      244
+    ],
+    [
+      245,
+      242,
+      208
+    ],
+    [
+      243,
+      248,
+      63
+    ],
+    [
+      229,
+      224,
+      230
+    ],
+    [
+      233,
+      217,
+      164
+    ],
+    [
+      220,
+      204,
+      192
+    ],
+    [
+      246,
+      186,
+      24
+    ],
+    [
+      202,
+      218,
+      164
+    ],
+    [
+      202,
+      197,
+      207
+    ],
+    [
+      197,
+      191,
+      202
+    ],
+    [
+      186,
+      181,
+      193
+    ],
+    [
+      180,
+      173,
+      181
+    ],
+    [
+      138,
+      219,
+      128
+    ],
+    [
+      167,
+      168,
+      175
+    ],
+    [
+      27,
+      231,
+      241
+    ],
+    [
+      34,
+      181,
+      145
+    ],
+    [
+      202,
+      152,
+      80
+    ],
+    [
+      157,
+      154,
+      167
+    ],
+    [
+      144,
+      142,
+      158
+    ],
+    [
+      136,
+      137,
+      144
+    ],
+    [
+      178,
+      109,
+      75
+    ],
+    [
+      128,
+      122,
+      127
+    ],
+    [
+      117,
+      118,
+      131
+    ],
+    [
+      111,
+      107,
+      118
+    ],
+    [
+      50,
+      136,
+      87
+    ],
+    [
+      8,
+      136,
+      140
+    ],
+    [
+      103,
+      105,
+      118
+    ],
+    [
+      32,
+      107,
+      91
+    ],
+    [
+      93,
+      95,
+      109
+    ],
+    [
+      89,
+      89,
+      98
+    ],
+    [
+      41,
+      90,
+      73
+    ],
+    [
+      127,
+      61,
+      80
+    ],
+    [
+      80,
+      70,
+      90
+    ],
+    [
+      71,
+      69,
+      83
+    ],
+    [
+      63,
+      69,
+      79
+    ],
+    [
+      60,
+      54,
+      67
+    ],
+    [
+      50,
+      58,
+      64
+    ],
+    [
+      45,
+      47,
+      54
+    ],
+    [
+      41,
+      36,
+      43
+    ],
+    [
+      26,
+      54,
+      41
+    ],
+    [
+      30,
+      33,
+      36
+    ],
+    [
+      27,
+      27,
+      29
+    ],
+    [
+      22,
+      20,
+      24
+    ],
+    [
+      21,
+      18,
+      16
+    ],
+    [
+      19,
+      14,
+      19
+    ],
+    [
+      18,
+      14,
+      13
+    ],
+    [
+      17,
+      10,
+      13
+    ],
+    [
+      17,
+      11,
+      10
+    ],
+    [
+      9,
+      65,
+      62
+    ],
+    [
+      9,
+      32,
+      27
+    ],
+    [
+      13,
+      14,
+      13
+    ],
+    [
+      14,
+      10,
+      13
+    ],
+    [
+      14,
+      10,
+      9
+    ],
+    [
+      13,
+      8,
+      7
+    ],
+    [
+      10,
+      9,
+      9
+    ],
+    [
+      11,
+      7,
+      9
+    ],
+    [
+      13,
+      7,
+      6
+    ],
+    [
+      9,
+      6,
+      5
+    ],
+    [
+      9,
+      3,
+      6
+    ],
+    [
+      6,
+      5,
+      5
+    ],
+    [
+      6,
+      3,
+      2
+    ],
+    [
+      1,
+      1,
+      1
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "health",
+      "label": "health",
+      "sourceLayer": "../seedream-layers/layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          69,
+          73,
+          293,
+          290
+        ],
+        "normalized": [
+          55,
+          58,
+          234,
+          231
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        716,
+        694
+      ],
+      "normalized": "health-original.png",
+      "variants": {
+        "32": "health-32.png",
+        "48": "health-48.png"
+      }
+    },
+    {
+      "id": "shield",
+      "label": "shield",
+      "sourceLayer": "../independent-originals/shield.png",
+      "sourceBoundingBox": null,
+      "alphaTrim": [
+        240,
+        101,
+        1011,
+        1191
+      ],
+      "normalized": "shield-original.png",
+      "variants": {
+        "32": "shield-32.png",
+        "48": "shield-48.png"
+      }
+    },
+    {
+      "id": "grenade",
+      "label": "grenade",
+      "sourceLayer": "../seedream-layers/layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          689,
+          72,
+          876,
+          286
+        ],
+        "normalized": [
+          549,
+          57,
+          699,
+          228
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        712,
+        815
+      ],
+      "normalized": "grenade-original.png",
+      "variants": {
+        "32": "grenade-32.png",
+        "48": "grenade-48.png"
+      }
+    },
+    {
+      "id": "builder-outfit",
+      "label": "builder-outfit",
+      "sourceLayer": "../seedream-layers/layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          957,
+          68,
+          1193,
+          289
+        ],
+        "normalized": [
+          763,
+          54,
+          951,
+          230
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        800,
+        743
+      ],
+      "normalized": "builder-outfit-original.png",
+      "variants": {
+        "32": "builder-outfit-32.png",
+        "48": "builder-outfit-48.png"
+      }
+    },
+    {
+      "id": "ranger-outfit",
+      "label": "ranger-outfit",
+      "sourceLayer": "../seedream-layers/layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          57,
+          355,
+          293,
+          588
+        ],
+        "normalized": [
+          45,
+          283,
+          234,
+          469
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        758,
+        751
+      ],
+      "normalized": "ranger-outfit-original.png",
+      "variants": {
+        "32": "ranger-outfit-32.png",
+        "48": "ranger-outfit-48.png"
+      }
+    },
+    {
+      "id": "casual-outfit",
+      "label": "casual-outfit",
+      "sourceLayer": "../seedream-layers/layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          354,
+          358,
+          598,
+          587
+        ],
+        "normalized": [
+          282,
+          285,
+          477,
+          468
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        798,
+        743
+      ],
+      "normalized": "casual-outfit-original.png",
+      "variants": {
+        "32": "casual-outfit-32.png",
+        "48": "casual-outfit-48.png"
+      }
+    },
+    {
+      "id": "light-armor",
+      "label": "light-armor",
+      "sourceLayer": "../seedream-layers/layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          660,
+          367,
+          894,
+          576
+        ],
+        "normalized": [
+          526,
+          293,
+          713,
+          459
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        811,
+        726
+      ],
+      "normalized": "light-armor-original.png",
+      "variants": {
+        "32": "light-armor-32.png",
+        "48": "light-armor-48.png"
+      }
+    },
+    {
+      "id": "heavy-armor",
+      "label": "heavy-armor",
+      "sourceLayer": "../seedream-layers/layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          956,
+          355,
+          1195,
+          589
+        ],
+        "normalized": [
+          762,
+          283,
+          953,
+          470
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        725,
+        716
+      ],
+      "normalized": "heavy-armor-original.png",
+      "variants": {
+        "32": "heavy-armor-32.png",
+        "48": "heavy-armor-48.png"
+      }
+    },
+    {
+      "id": "flamboyant-outfit",
+      "label": "flamboyant-outfit",
+      "sourceLayer": "../seedream-layers/layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          64,
+          646,
+          284,
+          903
+        ],
+        "normalized": [
+          51,
+          515,
+          226,
+          720
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        683,
+        796
+      ],
+      "normalized": "flamboyant-outfit-original.png",
+      "variants": {
+        "32": "flamboyant-outfit-32.png",
+        "48": "flamboyant-outfit-48.png"
+      }
+    },
+    {
+      "id": "armored-mount",
+      "label": "armored-mount",
+      "sourceLayer": "../seedream-layers/layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          344,
+          684,
+          599,
+          866
+        ],
+        "normalized": [
+          274,
+          545,
+          478,
+          691
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        823,
+        586
+      ],
+      "normalized": "armored-mount-original.png",
+      "variants": {
+        "32": "armored-mount-32.png",
+        "48": "armored-mount-48.png"
+      }
+    },
+    {
+      "id": "swift-mount",
+      "label": "swift-mount",
+      "sourceLayer": "../seedream-layers/layer-11.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          652,
+          697,
+          901,
+          857
+        ],
+        "normalized": [
+          520,
+          556,
+          719,
+          683
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        834,
+        536
+      ],
+      "normalized": "swift-mount-original.png",
+      "variants": {
+        "32": "swift-mount-32.png",
+        "48": "swift-mount-48.png"
+      }
+    },
+    {
+      "id": "combat-mount",
+      "label": "combat-mount",
+      "sourceLayer": "../seedream-layers/layer-12.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          947,
+          665,
+          1202,
+          854
+        ],
+        "normalized": [
+          755,
+          530,
+          959,
+          681
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        859,
+        637
+      ],
+      "normalized": "combat-mount-original.png",
+      "variants": {
+        "32": "combat-mount-32.png",
+        "48": "combat-mount-48.png"
+      }
+    },
+    {
+      "id": "support-mount",
+      "label": "support-mount",
+      "sourceLayer": "../seedream-layers/layer-13.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          43,
+          991,
+          302,
+          1160
+        ],
+        "normalized": [
+          34,
+          790,
+          241,
+          925
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        876,
+        572
+      ],
+      "normalized": "support-mount-original.png",
+      "variants": {
+        "32": "support-mount-32.png",
+        "48": "support-mount-48.png"
+      }
+    },
+    {
+      "id": "attack-drone",
+      "label": "attack-drone",
+      "sourceLayer": "../seedream-layers/layer-14.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          348,
+          978,
+          598,
+          1158
+        ],
+        "normalized": [
+          278,
+          780,
+          477,
+          923
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        843,
+        607
+      ],
+      "normalized": "attack-drone-original.png",
+      "variants": {
+        "32": "attack-drone-32.png",
+        "48": "attack-drone-48.png"
+      }
+    },
+    {
+      "id": "guard-drone",
+      "label": "guard-drone",
+      "sourceLayer": "../seedream-layers/layer-15.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          647,
+          975,
+          891,
+          1169
+        ],
+        "normalized": [
+          516,
+          778,
+          711,
+          932
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        808,
+        644
+      ],
+      "normalized": "guard-drone-original.png",
+      "variants": {
+        "32": "guard-drone-32.png",
+        "48": "guard-drone-48.png"
+      }
+    },
+    {
+      "id": "support-drone",
+      "label": "support-drone",
+      "sourceLayer": "../seedream-layers/layer-16.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          946,
+          973,
+          1212,
+          1168
+        ],
+        "normalized": [
+          754,
+          776,
+          967,
+          931
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        856,
+        629
+      ],
+      "normalized": "support-drone-original.png",
+      "variants": {
+        "32": "support-drone-32.png",
+        "48": "support-drone-48.png"
+      }
+    }
+  ]
+}

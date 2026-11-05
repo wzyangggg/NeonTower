@@ -1,0 +1,26 @@
+#postfx-panel{position:fixed;z-index:10001;right:calc(50vw - min(50vw,28.125dvh) + 10px);top:calc(60px + env(safe-area-inset-top));color:#dff8ff;font:11px/1.4 sans-serif;max-width:calc(100% - 20px);text-align:left;touch-action:pan-y}
+#postfx-panel>summary{margin-left:auto;width:max-content;cursor:pointer;padding:6px 10px;background:#101b2bea;border:1px solid #5d93b1;border-radius:4px;list-style:none}
+#postfx-panel[open]{width:218px;background:#0b1423fa;border:1px solid #538ca7;border-radius:6px;box-shadow:0 8px 30px #0009}
+#postfx-panel[open]>summary{border:0;color:#74e7ff}
+.postfx-controls{padding:4px 8px 8px;max-height:min(40dvh,340px);overflow:auto;overscroll-behavior:contain}
+#postfx-panel fieldset{margin:4px 0;padding:6px;border:1px solid #354b66;border-radius:4px;min-width:0}
+.postfx-group{margin:3px 0;border-bottom:1px solid #354b66}
+.postfx-group>summary{padding:4px 2px;cursor:pointer;color:#8ce8ff}
+#postfx-panel legend{padding:0 4px;color:#8ce8ff}
+.postfx-toggle{display:flex;align-items:center;gap:7px;cursor:pointer}
+#postfx-panel input[type=checkbox]{width:16px;height:16px;accent-color:#53d7ff;margin:0}
+.postfx-slider{display:block;margin:3px 0 0}
+.postfx-slider>span{display:flex;align-items:center;gap:9px}
+#postfx-panel input[type=range]{min-width:0;width:100%;height:20px;accent-color:#52d9ff;cursor:pointer;touch-action:pan-y}
+#postfx-panel output{min-width:35px;text-align:right;font-variant-numeric:tabular-nums;color:#92e7ff}
+#postfx-panel button{background:#203650;border:1px solid #638ba8;color:#e5f6ff;padding:6px 10px;border-radius:4px;cursor:pointer}
+#postfx-panel small{display:block;margin-top:7px;color:#9db0c4}
+#postfx-filter-defs{position:absolute;pointer-events:none}
+#postfx-scanlines,#postfx-vignette{position:absolute;inset:0;z-index:10000;pointer-events:none;border-radius:inherit}
+#postfx-scanlines{top:calc(-1 * var(--scan-step,2px));bottom:calc(-1 * var(--scan-step,2px));background-image:linear-gradient(to bottom,transparent 0%,#000 100%);background-repeat:repeat;animation:postfx-scan-scroll .5s linear infinite;animation-play-state:paused}
+@keyframes postfx-scan-scroll{from{transform:translateY(0)}to{transform:translateY(var(--scan-step,2px))}}
+#postfx-vignette{background:radial-gradient(ellipse at center,transparent 25%,#000 100%)}
+
+#postfx-panel input[type=color]{width:100%;min-width:0;height:27px;padding:1px;background:#203650;border:1px solid #638ba8;border-radius:3px;cursor:pointer}
+
+#postfx-panel select{display:block;width:100%;min-width:0;margin-top:5px;padding:6px 3px;background:#16273d;border:1px solid #638ba8;border-radius:3px;color:#e5f6ff;font:inherit;cursor:pointer}

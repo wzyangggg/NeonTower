@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <g fill="#e3edf0" transform="rotate(-14 128 128)">
+    <!-- Compact safety cap, pull ring and long release lever. -->
+    <path d="M103 38h42v21h-42zM98 61h55v13H98z"/>
+    <path fill-rule="evenodd" d="M170 23a23 23 0 1 1 0 46 23 23 0 0 1 0-46Zm0 10a13 13 0 1 0 0 26 13 13 0 0 0 0-26Z"/>
+    <path d="m144 46 23 12 18 29 8 72-12 2-10-69-16-21-17-8z"/>
+    <!-- Canister body: top/bottom rolled rims, broad bands and cut-out marks. -->
+    <path d="M78 79q47-13 94 0v13q-47 12-94 0z"/>
+    <path fill-rule="evenodd" d="M78 102q47 10 94 0v100q0 17-47 17t-47-17V102Zm13 18v9h68v-9H91Zm23 25-13 29h15l-3 20 27-35h-17l6-14h-15Zm-23 55v7h68v-7H91Z"/>
+    <path d="M76 220q49 12 98 0v10q-49 14-98 0z"/>
+  </g>
+</svg>

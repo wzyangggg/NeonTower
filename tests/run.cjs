@@ -1,6 +1,11 @@
-for(const test of ['test-builder.cjs','test-hex-city.cjs','test-hex-terrain.cjs','test-enemy-transports.cjs','test-hex-campaign.cjs']){const r=require('node:child_process').spawnSync(process.execPath,[require('node:path').join(__dirname,test)],{cwd:require('node:path').resolve(__dirname,'..'),stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
+{const r=require('node:child_process').spawnSync(process.execPath,['tests/test-specializations.cjs'],{cwd:require('node:path').resolve(__dirname,'..'),stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
+for(const test of ['test-research-wallet.cjs','test-difficulty-music.cjs','test-difficulty.cjs','test-geometry-buffers.cjs','test-baked-particles.cjs']){const r=require('node:child_process').spawnSync(process.execPath,[require('node:path').join(__dirname,test)],{cwd:require('node:path').resolve(__dirname,'..'),stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
+{const r=require('node:child_process').spawnSync(process.execPath,[require('node:path').join(__dirname,'test-bomb-equipment.cjs')],{cwd:require('node:path').resolve(__dirname,'..'),stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
+{const r=require('node:child_process').spawnSync(process.execPath,[require('node:path').join(__dirname,'test-clock-repair.cjs')],{cwd:require('node:path').resolve(__dirname,'..'),stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
+for(const test of ['test-economy-pool.cjs','test-terrain-seed.cjs','test-terrain-generators.cjs','test-defense-towers.cjs','test-more-towers.cjs','test-designer-bomb-migration.cjs','test-pickup-feedback.cjs','test-missile-tile.cjs','test-bomb-facilities.cjs','test-strong-forecast.cjs','test-energy-disabled.cjs','test-energy.cjs','test-stealth-drone.cjs','test-enemy-diversity.cjs','test-rail-room.cjs','test-spider-pressure.cjs','test-bridge-pressure.cjs','test-bridge-room.cjs','test-saw-room.cjs','test-enemy-flight.cjs','test-machine-turret.cjs','test-drink-truck.cjs','test-enemy-waves.cjs','test-tile-feedback.cjs','test-music-ownership.cjs','test-particle-surfaces.cjs','test-fruit-model-assets.cjs','test-electric-tiles.cjs','test-farm-shapes.cjs','test-builder.cjs','test-hex-city.cjs','test-hex-terrain.cjs','test-hex-special.cjs','test-enemy-transports.cjs','test-hex-campaign.cjs']){const r=require('node:child_process').spawnSync(process.execPath,[require('node:path').join(__dirname,test)],{cwd:require('node:path').resolve(__dirname,'..'),stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
 {const r=require('node:child_process').spawnSync(process.execPath,[require('node:path').join(__dirname,'test-talents.cjs')],{cwd:require('node:path').resolve(__dirname,'..'),stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
 const {spawnSync}=require('node:child_process');const path=require('node:path');const root=path.resolve(__dirname,'..');for(const n of [52,54,55,56,57,58,59,60,61,62,63,64,69,70,73,74,75,76,77,78,80,82,84,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,104,105,106,107,108,109,110,111,112,114,122,123,124,125,127,128,129,130,131,132,137,138,139,140,141,142,143,144,145,146,147,148,149,151,152,156,157,160,162,164,165,167,171,177,181,183,184,185,186,187,188]){const r=spawnSync(process.execPath,[path.join(__dirname,'test-'+n+'.cjs')],{cwd:root,stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
+
 
 {const r=spawnSync(process.execPath,[path.join(__dirname,"test-humanoid.cjs")],{cwd:root,stdio:"inherit"});if(r.status!==0)process.exit(r.status||1)}
 
@@ -85,3 +90,9 @@ const {spawnSync}=require('node:child_process');const path=require('node:path');
 {const r=spawnSync(process.execPath,[path.join(__dirname,"test-juicy-pistol.cjs")],{cwd:root,stdio:"inherit"});if(r.status!==0)process.exit(r.status||1)}
 
 {const r=spawnSync(process.execPath,[path.join(__dirname,"test-death-feedback.cjs")],{cwd:root,stdio:"inherit"});if(r.status!==0)process.exit(r.status||1)}
+
+{const r=spawnSync(process.execPath,[path.join(__dirname,'test-game-feedback.cjs')],{cwd:root,stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
+
+{const r=spawnSync(process.execPath,[path.join(__dirname,'test-tower-range.cjs')],{cwd:root,stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}
+
+{const r=spawnSync(process.execPath,[path.join(__dirname,'test-cash-crystals.cjs')],{cwd:root,stdio:'inherit'});if(r.status!==0)process.exit(r.status||1)}

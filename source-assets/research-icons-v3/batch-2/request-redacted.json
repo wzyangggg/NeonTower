@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract ONLY the listed objects as separate transparent foreground layers from this 3-column 7-row atlas. Preserve exact original design, outline, colors and details. Remove gray background and all interior holes. One complete icon per layer; paired guns/missiles and energy arcs/rings are part of their respective icon. Do not extract any unlisted objects. Use exact English names below. Regions in normalized 0-999 coordinates:\nshotgun: <bbox>0 571 333 714</bbox>\nshotgun_tower: <bbox>333 571 666 714</bbox>\nsniper_tower: <bbox>666 571 999 714</bbox>\nelectric_tower: <bbox>0 714 333 856</bbox>\nmissile_tower: <bbox>333 714 666 856</bbox>\nhealing_tower: <bbox>666 714 999 856</bbox>\nshield_tower: <bbox>0 856 333 999</bbox>\nslow_field: <bbox>333 856 666 999</bbox>\nrepair_turret: <bbox>666 856 999 999</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\source.png",
+  "sha256": "f72bff65aedbb8df282515034d62b09045e00153d50ac1a113f22bf780c9911f"
+}

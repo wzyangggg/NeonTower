@@ -1,0 +1,12 @@
+{
+  "controls": {
+    "speed": 0.15,
+    "flow-scale": 3.05,
+    "rim-scale": 0.75,
+    "rim-strength": 1.3,
+    "dots": 3,
+    "white": 1.8,
+    "shine": true,
+    "back-light": true
+  }
+}

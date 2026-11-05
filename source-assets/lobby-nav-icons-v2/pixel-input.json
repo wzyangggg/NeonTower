@@ -1,0 +1,73 @@
+{
+  "layers": [
+    {
+      "size": "795x746",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          986,
+          134,
+          1661,
+          769
+        ],
+        "normalized": [
+          556,
+          151,
+          936,
+          867
+        ]
+      },
+      "name": "battle_crossed_swords",
+      "description": "Extract both crossed swords together as one complete icon, including both silver blade tips, golden diamond guards and purple wrapped grips, keep original outlines, shape, highlights and colors, do not include any taupe background content",
+      "background": "transparent",
+      "path": "raw-layers/layer-02.png"
+    },
+    {
+      "size": "596x853",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          202,
+          63,
+          710,
+          791
+        ],
+        "normalized": [
+          114,
+          71,
+          400,
+          892
+        ]
+      },
+      "name": "character_bear_badge",
+      "description": "Extract the complete cartoon bear head badge, including the purple lanyard loop, golden square buckle, purple badge body, brown smiling bear head and cyan bottom highlight, keep original outlines, shape, highlights and colors, do not include any taupe background content",
+      "background": "transparent",
+      "path": "raw-layers/layer-01.png"
+    },
+    {
+      "size": "670x764",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          75,
+          846,
+          380,
+          1194
+        ],
+        "normalized": [
+          60,
+          675,
+          303,
+          952
+        ]
+      },
+      "name": "research_flask",
+      "description": "Extract the full purple flask icon, keep its original outline, shape, color, highlights and all parts, exclude any background content.",
+      "background": "transparent",
+      "path": "../lobby-nav-icons-v1/raw-layers/layer-01.png"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+Extract the nine complete foreground icons below, one independent transparent PNG per exact ID, in this order. Keep source outline, shape, color, highlights and all parts. Remove only the flat taupe background including the hole in the badge loop and gaps in the microscope and chip pins. Do not remove the cyan lit doorway or green hatch interior. No labels, redraw, or new objects.
+character_bear <bbox>40 42 335 319</bbox>
+character_helmet <bbox>365 43 635 310</bbox>
+character_badge <bbox>705 15 940 316</bbox>
+battle_elevator <bbox>40 352 327 620</bbox>
+battle_hatch <bbox>352 354 656 620</bbox>
+battle_down_button <bbox>696 366 950 620</bbox>
+research_flask <bbox>55 669 310 957</bbox>
+research_microscope <bbox>365 649 625 960</bbox>
+research_chip <bbox>680 674 966 958</bbox>

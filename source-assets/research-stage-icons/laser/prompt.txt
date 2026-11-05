@@ -1,0 +1,6 @@
+Extract exactly five isolated transparent foreground layers. Keep the complete skill symbols including all beams, arcs, trails and dark outlines. Remove the navy tile background, all frames and outer background. Preserve original artwork without redesign.
+laser-1 <bbox>0 195 199 750</bbox>
+laser-2 <bbox>200 195 399 750</bbox>
+laser-3 <bbox>400 195 599 750</bbox>
+laser-4 <bbox>600 195 799 750</bbox>
+laser-5 <bbox>800 195 999 750</bbox>

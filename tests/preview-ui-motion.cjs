@@ -1,0 +1,22 @@
+const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({headless:true,channel:'msedge'});try{
+ const page=await browser.newPage({viewport:{width:390,height:844}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:4173/');await page.waitForFunction(()=>HexMap.ready);
+ await page.evaluate(()=>document.getElementById('skill-wallet').click());assert.equal(await page.locator('#skill-panel').evaluate(el=>getComputedStyle(el).animationName),'ui-side-in');
+ await page.locator('#skill-close').click();assert.equal(await page.locator('.skill-panel.ui-exit-copy').getAttribute('data-exit-direction'),'right');await page.waitForTimeout(230);
+ await page.locator('#start').click();await page.waitForFunction(()=>ElectricEditor.preparing);await page.waitForTimeout(320);
+ await page.evaluate(()=>{ElectricEditor.reset();paused=false;state='upgrade';terrainView='equipment';cash=999;shopItems=[{key:'weapon',weapon:createWeapon('pulse',1),price:12,sold:false}];renderShop();});
+ assert.equal(await page.locator('#overlay').getAttribute('data-motion-kind'),'shop');
+ assert.equal(await page.locator('#overlay>.shop-panel').evaluate(el=>getComputedStyle(el).animationName),'ui-bottom-in');
+ await page.waitForTimeout(320);await page.evaluate(()=>renderShop());assert.equal(await page.locator('#overlay').evaluate(el=>el.classList.contains('ui-overlay-enter')),false);
+ await page.evaluate(()=>{const i=shopItems.findIndex(u=>['weapon','armor','shoes','drone','shovel'].includes(u.key));buyShopItem(i);});
+ assert.equal(await page.locator('#overlay').getAttribute('data-motion-kind'),'reveal');assert.equal(await page.locator('.weapon-compare-head>:last-child').evaluate(el=>getComputedStyle(el).animationName),'ui-side-in');
+ await page.waitForTimeout(300);await page.screenshot({path:'tests/ui-motion-reveal-390x844.png'});
+ await page.evaluate(()=>cancelEquipmentPurchase());await page.waitForTimeout(300);await page.locator('#shop-leave').click();
+ assert.equal(await page.locator('.overlay.ui-exit-copy').getAttribute('data-exit-direction'),'down');await page.waitForFunction(()=>!document.querySelector('.ui-exit-copy'));
+ await page.emulateMedia({reducedMotion:'reduce'});await page.evaluate(()=>{ElectricEditor.reset();floor++;startWave();});await page.waitForFunction(()=>ElectricEditor.preparing);
+ assert.equal(await page.locator('#electric-panel').evaluate(el=>getComputedStyle(el).animationName),'none');
+ await page.evaluate(()=>UIMotion.exit(document.getElementById('electric-panel')));assert.equal(await page.locator('.ui-exit-copy').count(),0);
+ assert.deepEqual(errors,[]);console.log('UI motion: skill side entry/exit, shop entry without replay on refresh, equipment reveal, shop exit cleanup, reduced motion and real WebGL passed.');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

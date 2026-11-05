@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>星云流纹测试</title>
+<style>
+  :root { color-scheme: dark; font: 15px system-ui, sans-serif; background: #09091a; color: #f1eaff; }
+  body { margin: 0; }
+  main { width: min(640px, calc(100% - 32px)); margin: 24px auto; }
+  header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  h1 { margin: 0; font-size: 22px; }
+  a, label { color: #c7b9e1; }
+  canvas { display: block; width: 100%; aspect-ratio: 1; background: #05051c; outline: 1px solid #4d3469; }
+  fieldset { border: 0; padding: 0; margin: 16px 0 0; }
+  .controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+  label { display: flex; align-items: center; gap: 8px; }
+  input { width: 105px; accent-color: #d37cff; }
+  button { font: inherit; padding: 6px 12px; border: 1px solid #654885; border-radius: 5px; background: #231536; color: inherit; cursor: pointer; }
+</style>
+<main>
+  <header><h1>星云流纹测试</h1><a href="./">返回游戏</a></header>
+  <canvas id="surface" aria-label="紫粉色星云流纹的平面预览"></canvas>
+  <fieldset id="controls" aria-label="预览参数" disabled>
+    <div class="controls">
+      <button id="play" type="button">暂停</button>
+      <label>流速 <input id="speed" type="range" min="0.1" max="2.5" step="0.05" value="0.65"></label>
+      <label>纹理密度 <input id="density" type="range" min="0.6" max="1.8" step="0.05" value="1"></label>
+    </div>
+  </fieldset>
+  <p id="status" role="status" hidden></p>
+</main>
+<script src="./nebula-flow-lab.js" defer></script>
+</html>

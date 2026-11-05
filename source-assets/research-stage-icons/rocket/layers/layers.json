@@ -1,0 +1,137 @@
+{
+  "submission": {
+    "time": 1793788643.6660154,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rocket\\source.png",
+    "sha256": "f4a920019e2a6329c103333c71231517e90d9e1b05204bb0e6036497d32d240c"
+  },
+  "layers": [
+    {
+      "size": "2172x724",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rocket\\layers\\layer-00.png"
+    },
+    {
+      "size": "790x764",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          53,
+          182,
+          413,
+          528
+        ],
+        "normalized": [
+          24,
+          251,
+          190,
+          729
+        ]
+      },
+      "name": "Rocket 1",
+      "description": "Extract the complete single rocket with its orange flame effect, all dark outlines, do not include blue frame or dark navy tile background",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rocket\\layers\\layer-01.png"
+    },
+    {
+      "size": "855x809",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          462,
+          181,
+          835,
+          534
+        ],
+        "normalized": [
+          213,
+          250,
+          384,
+          738
+        ]
+      },
+      "name": "Rocket 2",
+      "description": "Extract the complete two rockets with orange flame effects, all dark outlines, do not include blue frame or dark navy tile background",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rocket\\layers\\layer-02.png"
+    },
+    {
+      "size": "874x821",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          877,
+          166,
+          1270,
+          537
+        ],
+        "normalized": [
+          404,
+          229,
+          585,
+          742
+        ]
+      },
+      "name": "Rocket 3",
+      "description": "Extract the complete three rockets with blue flame effects, all dark outlines, do not include blue frame or dark navy tile background",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rocket\\layers\\layer-03.png"
+    },
+    {
+      "size": "839x827",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          1338,
+          182,
+          1685,
+          525
+        ],
+        "normalized": [
+          616,
+          251,
+          776,
+          725
+        ]
+      },
+      "name": "Rocket 4",
+      "description": "Extract the complete rocket, explosion fire effect and cracked stone platform, all dark outlines, do not include blue frame or dark navy tile background",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rocket\\layers\\layer-04.png"
+    },
+    {
+      "size": "872x782",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          1748,
+          182,
+          2123,
+          519
+        ],
+        "normalized": [
+          805,
+          251,
+          977,
+          717
+        ]
+      },
+      "name": "Rocket 5",
+      "description": "Extract the complete rocket, three separated small warheads, yellow speed trails and spark effect, all dark outlines, do not include blue frame or dark navy tile background",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rocket\\layers\\layer-05.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 6,
+    "output_tokens": 28054,
+    "total_tokens": 28054
+  }
+}

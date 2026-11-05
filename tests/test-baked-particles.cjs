@@ -1,0 +1,10 @@
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+const ctx=vm.createContext({Float32Array});vm.runInContext(fs.readFileSync('dist/renderer.js','utf8')+';globalThis.Renderer=Elevator3D',ctx);
+const r=Object.assign(Object.create(ctx.Renderer.prototype),{residentProgram:{},transparentData:new Float32Array(7),transparentCount:0,colors:{}});
+let builds=0;const build=()=>{builds++;r.transparentQuad([0,0,0],[1,0,0],[1,1,0],[0,1,0],'#ffffff',[0,.5,1,.5]);};
+const pose=[2,0,0,10,0,3,0,20,0,0,1,30];r.particleSurface('quad',build,pose,'#ff0000',.5);r.particleSurface('quad',build,pose,'#00ff00',1);
+assert.equal(builds,1);assert.equal(r.transparentCount,0);const output=r.particleSurfaceSnapshot();assert.equal(output.length,84);assert.deepEqual(Array.from(output.slice(0,7)),[10,20,30,1,0,0,0]);assert.deepEqual(Array.from(output.slice(7,14)),[12,20,30,1,0,0,.25]);assert.deepEqual(Array.from(output.slice(42,49)),[10,20,30,0,1,0,0]);
+const mesh=r.particleBakes.get('quad'),data=mesh.data;for(let i=0;i<100;i++){mesh.count=0;r.particleSurface('quad',build,pose,'#0000ff',i/100);}assert.equal(mesh.data,data);assert.equal(builds,1);assert.equal(mesh.count,1);
+const old=r.transparentData;r.particleSurface('invisible',build,pose,'#ffffff',0);assert.equal(builds,1);assert.throws(()=>r.particleSurface('throws',()=>{throw Error('expected');},pose,'#ffffff'));assert.equal(r.transparentData,old);assert.equal(r.transparentCount,0);assert(!r.particleBakes.has('throws'));
+r.residentProgram={};r.particleSurface('quad',build,pose,'#ffffff');assert.equal(builds,2);assert.notEqual(r.particleBakes.get('quad'),mesh);assert.equal(r.particleBakes.size,1);
+console.log('Baked surfaces: immutable shared geometry, independent poses/RGBA, frame reuse, invisible effects, failed-build cleanup and new context invalidation passed');

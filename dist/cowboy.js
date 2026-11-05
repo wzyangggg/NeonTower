@@ -3,10 +3,12 @@ const COWBOY_SCALE=.675,COWBOY_SPEED=230,COWBOY_CLEARANCE=145;
 const COWBOY_ATTACKS=['dualshoot','skyshoot','strafe','spinshoot'];
 const COWBOY_NAMES={dualshoot:'双炮点射',skyshoot:'高抛落弹',strafe:'移动双炮连射',spinshoot:'旋转双炮弹幕'};
 function cowboySound(kind){
+ if(kind==='shot'){enemyShotSound();return;}
+ if(kind==='impact'){explosionSound();return;}
  if(!sound||!audio||audio.state==='suspended')return;
  const t=audio.currentTime,heavy=kind==='impact',move=kind==='move',warn=kind==='warn';
  for(const [type,from,to,volume,duration] of heavy?[['triangle',150,38,.11,.24],['sawtooth',700,55,.045,.15]]:move?[['sine',650,1400,.03,.13]]:warn?[['triangle',520,880,.045,.12]]:[['square',1100,180,.022,.045],['triangle',180,65,.06,.09]]){
-  const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(from,t);o.frequency.exponentialRampToValueAtTime(to,t+duration);g.gain.setValueAtTime(.001,t);g.gain.linearRampToValueAtTime(volume,t+.002);g.gain.exponentialRampToValueAtTime(.001,t+duration);o.connect(g);g.connect(audio.destination);o.onended=()=>{o.disconnect();g.disconnect();};o.start(t);o.stop(t+duration+.01);
+  const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(from,t);o.frequency.exponentialRampToValueAtTime(to,t+duration);g.gain.setValueAtTime(.001,t);g.gain.linearRampToValueAtTime(volume,t+.002);g.gain.exponentialRampToValueAtTime(.001,t+duration);o.connect(g);g.connect(soundOutput());o.onended=()=>{o.disconnect();g.disconnect();};o.start(t);o.stop(t+duration+.01);
  }
 }
 function cowboyGunEvent(e,s,shot){

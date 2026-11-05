@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly five isolated transparent foreground layers. Keep the complete skill symbol including bullets, sparks, trails and dark outlines. Remove the navy tile background, all frames and outer background. Preserve original artwork without redesign.\nuzi-1 <bbox>0 165 199 790</bbox>\nuzi-2 <bbox>200 165 399 790</bbox>\nuzi-3 <bbox>400 165 599 790</bbox>\nuzi-4 <bbox>600 165 799 790</bbox>\nuzi-5 <bbox>800 165 999 790</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\uzi\\source.png",
+  "sha256": "dd031e2daa33fb4b100635d23a2dcde892a26025f6b82166308dbefe14731655"
+}

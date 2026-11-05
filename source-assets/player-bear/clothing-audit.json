@@ -1,0 +1,17 @@
+{
+  "hem": {
+    "vertices": 204,
+    "meanDisplacement": 0.0,
+    "maxDisplacement": 0.0
+  },
+  "middle": {
+    "vertices": 287,
+    "meanDisplacement": 0.0017991580974158182,
+    "maxDisplacement": 0.01387171696774234
+  },
+  "collar": {
+    "vertices": 261,
+    "meanDisplacement": 0.029618502164481905,
+    "maxDisplacement": 0.06567145807747439
+  }
+}

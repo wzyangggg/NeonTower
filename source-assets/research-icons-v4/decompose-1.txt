@@ -1,0 +1,13 @@
+Extract ONLY the listed objects as separate transparent foreground layers from this 3-column 7-row atlas. Preserve exact original design, outline, colors and details. Remove gray background and all interior holes. One complete icon per layer; paired guns/missiles and energy arcs/rings are part of their respective icon. Do not extract any unlisted objects. Use exact English names below. Regions in normalized 0-999 coordinates:
+pistol: <bbox>0 0 333 143</bbox>
+smg: <bbox>333 0 666 143</bbox>
+uzi: <bbox>666 0 999 143</bbox>
+rifle: <bbox>0 143 333 285</bbox>
+sniper: <bbox>333 143 666 285</bbox>
+rocket: <bbox>666 143 999 285</bbox>
+seeker: <bbox>0 285 333 428</bbox>
+laser: <bbox>333 285 666 428</bbox>
+tesla: <bbox>666 285 999 428</bbox>
+boomerang: <bbox>0 428 333 571</bbox>
+bee: <bbox>333 428 666 571</bbox>
+sword: <bbox>666 428 999 571</bbox>

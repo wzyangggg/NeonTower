@@ -14,7 +14,7 @@ setup();nearMiss();updateSkateReward(.5);close(skateJumpHeight(),0,'lands after 
 setup();nearMiss();equipItem('shoes',createShoes('runner'));check(!skateInvulnerable()&&!p.skateTrickLeft&&!p.grazeStacks,'swap clears trick and immunity');
 setup();nearMiss();startFloorTracking();check(!skateInvulnerable()&&!p.skateTrickLeft,'floor resets trick');nearMiss();beginStageClear();check(!skateInvulnerable()&&!p.skateTrickLeft,'clear removes trick');
 setup();nearMiss();state='upgrade';const remaining=p.skateTrickLeft;step(.1);close(p.skateTrickLeft,remaining,'shop freezes animation');reset();check(!skateInvulnerable()&&!p.skateTrickLeft&&!cashPopups.length,'restart clears animation and label');
-setup();const card=equipmentAttributeCard('shoes',shoes,'已装备');check(card.includes('特技')&&card.includes('0.5')&&card.includes('0.5'),'actual timing on card');
+setup();const card=equipmentAttributeCard('shoes',shoes,'已装备');check(card.includes('靠近危险源就会使用特技的滑板')&&!card.includes('冷却'),'simple skateboard card');
 time=.1;const c=skateFlowColor(2);time+=.01;const d=skateFlowColor(2);check(c!==d,'flow changes smoothly between sub-frame times');const rgb=x=>[1,3,5].map(i=>parseInt(x.slice(i,i+2),16));check(rgb(c).every((v,i)=>Math.abs(v-rgb(d)[i])<5),'no discrete color jumps');
 function boardHeight(){renderer.count=0;renderer.projectileCount=0;drawSkateboard(0,0);let max=-Infinity;for(let i=1;i<renderer.count;i+=9)max=Math.max(max,renderer.data[i]);return max;}
 p.skateTrickLeft=0;const resting=boardHeight();p.skateTrickLeft=.25;const airborne=boardHeight();check(airborne>resting+25,'actual board geometry rises');

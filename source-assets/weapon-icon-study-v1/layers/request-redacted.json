@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose this 3 by 3 inventory weapon sheet into exactly NINE complete separate foreground object layers, plus background if required. Preserve the exact original illustrated shapes, outlines, colors, highlights and details. Do not redesign, repaint or add weapons. Remove all taupe background, shadows and any text from foreground layers, including holes inside guards and trigger loops; transparent background. Each whole weapon is ONE layer (not parts). Names and approximate search regions in normalized 0-999 coordinates:\nsilver_sword: top left <bbox>0 0 333 333</bbox>\ngold_saber: top middle <bbox>333 0 666 333</bbox>\ncrystal_sword: top right <bbox>666 0 999 333</bbox>\norange_pistol: middle left <bbox>0 333 333 666</bbox>\nsilver_revolver: middle center <bbox>333 333 666 666</bbox>\nteal_pistol: middle right <bbox>666 333 999 666</bbox>\nwood_rifle: bottom left <bbox>0 666 333 999</bbox>\npurple_rifle: bottom middle <bbox>333 666 666 999</bbox>\nteal_carbine: bottom right <bbox>666 666 999 999</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\weapon-icon-study-v1\\source.png",
+  "sha256": "8703f101e44a5c75e7a2f7b217e4d957a2da1a33e4b99f98b4863898c8270f5a"
+}

@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose this atlas into exactly 16 independent transparent complete foreground layers plus background. Preserve the exact shapes, dark outlines, colors and details from the source. Remove all background including holes inside handles and rings. Keep the entire physical object intact per layer, no redrawing and no neighboring objects. IDs and regions, normalized 0-999, in order:\nhealth <bbox>3 3 247 247</bbox>\nshield <bbox>253 3 497 247</bbox>\ngrenade <bbox>503 3 747 247</bbox>\nbuilder-outfit <bbox>753 3 997 247</bbox>\nranger-outfit <bbox>3 253 247 497</bbox>\ncasual-outfit <bbox>253 253 497 497</bbox>\nlight-armor <bbox>503 253 747 497</bbox>\nheavy-armor <bbox>753 253 997 497</bbox>\nflamboyant-outfit <bbox>3 503 247 747</bbox>\narmored-mount <bbox>253 503 497 747</bbox>\nswift-mount <bbox>503 503 747 747</bbox>\ncombat-mount <bbox>753 503 997 747</bbox>\nsupport-mount <bbox>3 753 247 997</bbox>\nattack-drone <bbox>253 753 497 997</bbox>\nguard-drone <bbox>503 753 747 997</bbox>\nsupport-drone <bbox>753 753 997 997</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\shop-drop-icons\\source.png",
+  "sha256": "3d91789b2c2db158bbe1559688e84289fa54da02ea7287da9444eadb779d395f"
+}

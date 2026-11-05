@@ -1,0 +1,17 @@
+Decompose this atlas into exactly 16 independent transparent complete foreground layers plus background. Preserve the exact shapes, dark outlines, colors and details from the source. Remove all background including holes inside handles and rings. Keep the entire physical object intact per layer, no redrawing and no neighboring objects. IDs and regions, normalized 0-999, in order:
+health <bbox>3 3 247 247</bbox>
+shield <bbox>253 3 497 247</bbox>
+grenade <bbox>503 3 747 247</bbox>
+builder-outfit <bbox>753 3 997 247</bbox>
+ranger-outfit <bbox>3 253 247 497</bbox>
+casual-outfit <bbox>253 253 497 497</bbox>
+light-armor <bbox>503 253 747 497</bbox>
+heavy-armor <bbox>753 253 997 497</bbox>
+flamboyant-outfit <bbox>3 503 247 747</bbox>
+armored-mount <bbox>253 503 497 747</bbox>
+swift-mount <bbox>503 503 747 747</bbox>
+combat-mount <bbox>753 503 997 747</bbox>
+support-mount <bbox>3 753 247 997</bbox>
+attack-drone <bbox>253 753 497 997</bbox>
+guard-drone <bbox>503 753 747 997</bbox>
+support-drone <bbox>753 753 997 997</bbox>

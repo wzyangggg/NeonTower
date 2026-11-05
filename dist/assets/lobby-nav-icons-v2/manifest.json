@@ -1,0 +1,426 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      251,
+      251,
+      251
+    ],
+    [
+      242,
+      239,
+      241
+    ],
+    [
+      250,
+      241,
+      189
+    ],
+    [
+      241,
+      226,
+      184
+    ],
+    [
+      249,
+      206,
+      156
+    ],
+    [
+      251,
+      201,
+      78
+    ],
+    [
+      245,
+      178,
+      110
+    ],
+    [
+      247,
+      169,
+      31
+    ],
+    [
+      194,
+      220,
+      230
+    ],
+    [
+      208,
+      199,
+      208
+    ],
+    [
+      209,
+      181,
+      225
+    ],
+    [
+      195,
+      181,
+      181
+    ],
+    [
+      85,
+      239,
+      237
+    ],
+    [
+      12,
+      245,
+      240
+    ],
+    [
+      24,
+      176,
+      185
+    ],
+    [
+      1,
+      162,
+      171
+    ],
+    [
+      230,
+      147,
+      172
+    ],
+    [
+      234,
+      148,
+      29
+    ],
+    [
+      228,
+      124,
+      181
+    ],
+    [
+      222,
+      123,
+      41
+    ],
+    [
+      173,
+      149,
+      188
+    ],
+    [
+      152,
+      137,
+      140
+    ],
+    [
+      180,
+      118,
+      222
+    ],
+    [
+      200,
+      117,
+      21
+    ],
+    [
+      137,
+      124,
+      162
+    ],
+    [
+      136,
+      119,
+      182
+    ],
+    [
+      131,
+      113,
+      164
+    ],
+    [
+      123,
+      111,
+      125
+    ],
+    [
+      49,
+      133,
+      155
+    ],
+    [
+      3,
+      144,
+      163
+    ],
+    [
+      1,
+      145,
+      164
+    ],
+    [
+      197,
+      93,
+      248
+    ],
+    [
+      194,
+      97,
+      65
+    ],
+    [
+      197,
+      69,
+      233
+    ],
+    [
+      192,
+      63,
+      203
+    ],
+    [
+      122,
+      101,
+      143
+    ],
+    [
+      153,
+      85,
+      26
+    ],
+    [
+      161,
+      67,
+      139
+    ],
+    [
+      117,
+      64,
+      48
+    ],
+    [
+      183,
+      48,
+      208
+    ],
+    [
+      163,
+      44,
+      196
+    ],
+    [
+      143,
+      39,
+      182
+    ],
+    [
+      136,
+      37,
+      144
+    ],
+    [
+      117,
+      43,
+      161
+    ],
+    [
+      95,
+      42,
+      73
+    ],
+    [
+      111,
+      26,
+      133
+    ],
+    [
+      87,
+      24,
+      82
+    ],
+    [
+      60,
+      36,
+      56
+    ],
+    [
+      57,
+      22,
+      36
+    ],
+    [
+      61,
+      16,
+      48
+    ],
+    [
+      42,
+      15,
+      17
+    ],
+    [
+      47,
+      10,
+      21
+    ],
+    [
+      40,
+      8,
+      12
+    ],
+    [
+      37,
+      8,
+      13
+    ],
+    [
+      27,
+      8,
+      12
+    ],
+    [
+      40,
+      4,
+      19
+    ],
+    [
+      37,
+      4,
+      17
+    ],
+    [
+      32,
+      3,
+      16
+    ],
+    [
+      32,
+      3,
+      3
+    ],
+    [
+      27,
+      3,
+      9
+    ],
+    [
+      27,
+      1,
+      10
+    ],
+    [
+      27,
+      0,
+      6
+    ],
+    [
+      23,
+      1,
+      7
+    ],
+    [
+      17,
+      0,
+      2
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "battle_crossed_swords",
+      "label": "battle_crossed_swords",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v2/raw-layers/layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          986,
+          134,
+          1661,
+          769
+        ],
+        "normalized": [
+          556,
+          151,
+          936,
+          867
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        793,
+        745
+      ],
+      "normalized": "battle_crossed_swords-original.png",
+      "variants": {
+        "32": "battle_crossed_swords-32.png",
+        "48": "battle_crossed_swords-48.png"
+      }
+    },
+    {
+      "id": "character_bear_badge",
+      "label": "character_bear_badge",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v2/raw-layers/layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          202,
+          63,
+          710,
+          791
+        ],
+        "normalized": [
+          114,
+          71,
+          400,
+          892
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        595,
+        852
+      ],
+      "normalized": "character_bear_badge-original.png",
+      "variants": {
+        "32": "character_bear_badge-32.png",
+        "48": "character_bear_badge-48.png"
+      }
+    },
+    {
+      "id": "research_flask",
+      "label": "research_flask",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          75,
+          846,
+          380,
+          1194
+        ],
+        "normalized": [
+          60,
+          675,
+          303,
+          952
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        669,
+        763
+      ],
+      "normalized": "research_flask-original.png",
+      "variants": {
+        "32": "research_flask-32.png",
+        "48": "research_flask-48.png"
+      }
+    }
+  ]
+}

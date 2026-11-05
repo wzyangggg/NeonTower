@@ -1,0 +1,27 @@
+{
+  "source": "NeonTowerCat_EyeModified.fbx",
+  "output": "C:/Users/Administrator/Documents/maya/projects/default/scenes/Cat/NeonTowerCat_EyesRigged.fbx",
+  "meshes": [
+    {
+      "name": "R_Eye",
+      "vertices": 19,
+      "eye": true,
+      "weightTransferMaxDistance": 0,
+      "material": "NeonCat_DynamicEye_R_Eye"
+    },
+    {
+      "name": "NeonTowerCat_Mesh",
+      "vertices": 2111,
+      "eye": false,
+      "weightTransferMaxDistance": 2.391694351899787e-06,
+      "material": "NeonCat_Body"
+    },
+    {
+      "name": "L_Eye",
+      "vertices": 19,
+      "eye": true,
+      "weightTransferMaxDistance": 0,
+      "material": "NeonCat_DynamicEye_L_Eye"
+    }
+  ]
+}

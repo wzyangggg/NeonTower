@@ -1,0 +1,10 @@
+Decompose this 3 by 3 inventory weapon sheet into exactly NINE complete separate foreground object layers, plus background if required. Preserve the exact original illustrated shapes, outlines, colors, highlights and details. Do not redesign, repaint or add weapons. Remove all taupe background, shadows and any text from foreground layers, including holes inside guards and trigger loops; transparent background. Each whole weapon is ONE layer (not parts). Names and approximate search regions in normalized 0-999 coordinates:
+silver_sword: top left <bbox>0 0 333 333</bbox>
+gold_saber: top middle <bbox>333 0 666 333</bbox>
+crystal_sword: top right <bbox>666 0 999 333</bbox>
+orange_pistol: middle left <bbox>0 333 333 666</bbox>
+silver_revolver: middle center <bbox>333 333 666 666</bbox>
+teal_pistol: middle right <bbox>666 333 999 666</bbox>
+wood_rifle: bottom left <bbox>0 666 333 999</bbox>
+purple_rifle: bottom middle <bbox>333 666 666 999</bbox>
+teal_carbine: bottom right <bbox>666 666 999 999</bbox>

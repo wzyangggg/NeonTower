@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly five isolated transparent foreground layers. Keep the complete skill symbols including all beams, arcs, trails and dark outlines. Remove the navy tile background, all frames and outer background. Preserve original artwork without redesign.\nboomerang-1 <bbox>0 195 199 750</bbox>\nboomerang-2 <bbox>200 195 399 750</bbox>\nboomerang-3 <bbox>400 195 599 750</bbox>\nboomerang-4 <bbox>600 195 799 750</bbox>\nboomerang-5 <bbox>800 195 999 750</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\boomerang\\source.png",
+  "sha256": "6de391148be8c89c6dae3312e64bc9e1c919e252aabea2b9fb90104cefa9d4a9"
+}

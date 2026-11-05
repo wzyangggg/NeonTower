@@ -144,7 +144,7 @@
 .shop-equipment-icon svg{display:block;position:static;width:48px;height:48px;overflow:visible}
 .shop-equipment-icon::after{content:"";position:absolute;top:3px;right:3px;width:7px;height:8px;background:var(--rarity,#86e6db);clip-path:polygon(0 0,100% 0,100% 100%)}
 
-.shop-buy.weapon-card[data-tier="1"]{--rarity:#c8d8de!important}
+.shop-buy.weapon-card[data-tier="1"]{--rarity:#a8b7b5!important}
 
 /* Every purchasable stock category shares the same framed icon; compact for expansion. */
 .terrain-expand{grid-template-columns:44px 1fr auto;column-gap:8px;align-items:center}
@@ -163,3 +163,54 @@
 .sound-settings{max-height:calc(100dvh - 115px - env(safe-area-inset-top));overflow-y:auto;overscroll-behavior:contain}.casing-sound-library{border-top:1px solid #597b9055;margin-top:18px;padding-top:14px}.casing-sound-library label{display:block;font-size:12px;color:#e2eff6;margin-bottom:10px}.casing-sound-library select{width:100%;min-height:36px;background:#172936;color:#e2eff6;border:1px solid #536e80;font-size:12px;padding:5px}.casing-sound-buttons{display:flex;gap:6px;margin:10px 0}.casing-sound-buttons button{flex:1;font-size:11px}.casing-sound-library small{margin:8px 0 12px}
 
 .boss-health-track{position:relative;overflow:visible}.boss-health-track>#boss-health-fill{transition:none;border-radius:2px}.boss-health-track>#boss-health-edge{position:absolute;top:-4px;width:2px;height:22px;background:#fffdf3;box-shadow:0 0 8px #fff5c9;transform:translateX(-1px);opacity:0}.boss-health-track>#boss-health-drops{position:absolute;inset:0;pointer-events:none}.boss-health-track>#boss-health-drops>i{position:absolute;top:0;height:100%;background:#fff5d7;box-shadow:0 -5px 0 #fff0c929,0 -10px 0 #fff0c914;transition:none;transform-origin:left center}
+
+/* Separate lock controls prevent a lock tap from buying the stock. */
+.shop-stock-slot{position:relative;display:flex;flex-direction:column;min-width:0}.shop-stock-slot>.shop-buy{width:100%;flex:1}.shop-purchase-row>.shop-lock{position:static;display:flex;align-items:center;justify-content:center;width:32px;height:43px;min-height:43px;padding:5px;border:1px solid #50606b;border-radius:0;background:#182127;color:#bdc9d0;touch-action:pan-y}.shop-stock-slot.locked .shop-lock{border-color:#fff;background:#fff;color:#111}.shop-purchase-row>.shop-lock:disabled{opacity:.4}
+
+.shop-lock-icon{display:block;flex:none;width:19px;height:19px;pointer-events:none}.shop-lock>span{pointer-events:none}
+
+/* High rarity cards: dark purple/gold, glitter only, including the GPU fallback. */
+.shop-quality :is([data-tier="4"],[data-tier="5"]) .shop-item-fx::before,
+.shop-quality :is([data-tier="4"],[data-tier="5"]) .shop-item-fx::after{display:none}
+.shop-quality [data-tier="4"]:not(:disabled){background:#21152f}
+.shop-quality [data-tier="5"]:not(:disabled){background:#302411}
+
+/* Pause controls share the portrait game's cyan plate styling. */
+:is(#viewport,.difficulty-transition-cover) .pause-panel{z-index:35;background:#050b12c9;padding:20px;box-sizing:border-box;overflow:auto}
+.pause-card{width:min(310px,100%);box-sizing:border-box;padding:28px 22px 18px;border:1px solid #4c8499;background:linear-gradient(145deg,#172733f5,#0b141ff5);box-shadow:0 20px 70px #0008,0 0 30px #57bed914;display:flex;flex-direction:column;gap:24px}
+.pause-eyebrow{font-size:10px;letter-spacing:2px;color:#86a6b5}.pause-card #pause-title{font-size:30px;letter-spacing:5px;color:#bcefff}.pause-volume{padding:14px;border:1px solid #35505f;background:#07101a66}.pause-volume-heading{display:flex;align-items:center;gap:10px;font-size:13px}.pause-volume-heading output{margin-left:auto;color:#a5eaff;font-variant-numeric:tabular-nums}.pause-volume input{width:100%;height:32px;margin:8px 0 0;accent-color:#69d9f4;cursor:pointer;touch-action:pan-y}.pause-icon svg,.pause-action svg{width:26px;height:26px;flex-shrink:0}.pause-volume-heading .pause-icon{display:grid;place-items:center;min-width:44px;min-height:44px;padding:6px;background:#162d3c;border:1px solid #486c80;color:#bcefff}.pause-icon.is-muted{opacity:.5}.pause-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pause-actions .pause-action{margin:0;min-height:92px;padding:14px 6px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;font-size:13px;border:1px solid #4d788e;background:#172a39;color:#c9edfa}.pause-actions .primary{background:#64c8e4;color:#07151e;border-color:#a9efff}.pause-action:hover,.pause-icon:hover{filter:brightness(1.16)}.pause-card button:focus-visible,.pause-volume input:focus-visible{outline:2px solid #dbf8ff;outline-offset:4px}.pause-home-note{font-size:11px;color:#91a4b2}.pause-card svg{pointer-events:none}@media(max-height:600px){.pause-card{padding:18px;gap:15px}.pause-actions .pause-action{min-height:76px}}
+
+.pause-actions{grid-template-columns:repeat(2,minmax(0,1fr))}:is(#viewport,.difficulty-transition-cover) .pause-actions .pause-action{min-width:0;width:100%;letter-spacing:0;min-height:92px}
+
+.energy-hud{position:absolute;top:calc(151px + env(safe-area-inset-top));left:14px;z-index:4;padding:5px 9px;border:1px solid #87e9ff66;border-radius:6px;background:#101d31db;color:#87e9ff;font-size:12px;font-variant-numeric:tabular-nums;pointer-events:none}
+
+.normal-time-track{display:none}.survival-clock.normal-timer{top:var(--timer-top,164px);width:min(76%,340px);height:57px;transform:translateX(-50%) scale(var(--timer-scale,1));container-type:normal}.normal-timer #clock-spectrum{display:none}.normal-timer .clock-face{inset:0 0 18px;flex-direction:row;justify-content:space-between;gap:8px}.normal-timer small{font-size:15px;font-weight:800}.normal-timer strong{flex-direction:row;gap:4px}.normal-timer b{font:800 21px/1 monospace;letter-spacing:0}.normal-timer span{font-size:11px;margin:0}.normal-timer .normal-time-track{display:block;position:absolute;bottom:0;left:0;right:0;height:11px;overflow:hidden;border:1px solid #8bcbd06b;border-radius:6px;background:#071820dc;box-shadow:0 2px 9px #0008}.normal-time-track i{display:block;height:100%;background:linear-gradient(90deg,#43bfc2,#b9fff0);transform-origin:left;transform:scaleX(var(--remaining,1))}.normal-timer.urgent .normal-time-track i{background:#ffb477}
+
+.normal-timer .clock-face{display:block}.normal-timer small{position:absolute;left:var(--timer-label-left,0%);top:50%;transform:translate(var(--timer-label-shift,0%),-50%);font-size:var(--timer-label-size,15px);line-height:1.1}.normal-timer strong{position:absolute;right:0;top:50%;transform:translateY(-50%);opacity:var(--timer-number-opacity,1)}
+
+/* Final seconds: blink the complete timer strip; pause holds the visual phase. */
+@keyframes deadline-warning{0%,100%{opacity:1;filter:drop-shadow(0 0 5px #ff8855aa)}50%{opacity:.35;filter:none}}
+.survival-clock.urgent{animation:deadline-warning .65s ease-in-out infinite}
+.paused .survival-clock.urgent{animation-play-state:paused}
+
+.cash-popup.cash-pickup-popup{font:900 20px/1.15 monospace;color:#85ffac;text-shadow:0 2px 2px #082a19,0 0 8px #42ff8666}
+
+.cash-popup.stage-cue-popup{font:900 clamp(44px,12vw,68px)/1 "Microsoft YaHei",sans-serif;color:#fff2ae!important;-webkit-text-stroke:1px #704c12;text-shadow:0 3px 2px #151522,0 0 12px #ffbd4599,0 0 26px #ffbd4544;z-index:4}
+
+/* Clockwise radial cooldown wipe above the player health bar. */
+.bomb-cooldown{position:absolute;width:42px;height:42px;z-index:1;pointer-events:none;transform:translate(-50%,-100%);border:1px solid #657b83;border-radius:0;background:#102025;overflow:hidden;box-shadow:0 1px 3px #0009}
+.bomb-cooldown[hidden]{display:none}
+.bomb-cooldown img{display:block;width:100%;height:100%;padding:3px;box-sizing:border-box}
+.bomb-cd-mask{position:absolute;inset:0;background:conic-gradient(from 0deg,transparent 0deg var(--bomb-cd-angle,0deg),#07121de0 var(--bomb-cd-angle,0deg) 360deg)}
+.bomb-cooldown.ready{border-color:#9de4c6;box-shadow:0 0 5px #9de4c655}
+
+.bomb-cooldown{opacity:.65}
+.cash-popup.bomb-name-popup{font:900 24px/1.2 "Microsoft YaHei",sans-serif;color:#fff2ae!important;letter-spacing:1px;text-shadow:0 2px 2px #102025,0 0 8px #ffd45c99;z-index:3}
+
+.player-avatar-setting{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0;color:#cde8df;font-size:13px}.player-avatar-setting select{max-width:65%;padding:7px;border:1px solid #46766a;border-radius:6px;background:#142c2b;color:#d8f7ea;font:inherit}
+
+.cat-emission-setting{display:grid;gap:8px;margin:12px 0;color:#cde8df;font-size:13px}.cat-emission-setting span{display:flex;justify-content:space-between}.cat-emission-setting input{width:100%;accent-color:#9de4c6}
+
+.eye-appearance-settings{margin:10px 0;padding:10px;border:1px solid #46766a;color:#cde8df;font-size:13px}.eye-appearance-settings label{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:8px;margin:8px 0}.eye-appearance-settings input[type=range]{width:100%;accent-color:#9de4c6}.eye-appearance-settings input[type=color]{width:42px;height:28px;border:0;padding:0;background:none}
+
+#pause-panel .pause-card{max-height:calc(100% - 8px);overflow-y:auto;overscroll-behavior:contain;flex-shrink:0}.eye-appearance-settings small{font-size:11px;color:#92afa6}

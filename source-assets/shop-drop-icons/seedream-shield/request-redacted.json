@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly one foreground layer named shield from <bbox>253 3 497 247</bbox>, row 1 column 2, plus background. Preserve the entire object: its central bright blue/cyan glass plate is a SOLID, FULLY OPAQUE colored area and integral to the shield. Preserve its cyan fill, white highlights, silver and graphite frame, bolts and dark outline. Only remove the warm-gray exterior background. There are no holes in this shield. No other objects in the foreground layer.\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\shop-drop-icons\\source.png",
+  "sha256": "3d91789b2c2db158bbe1559688e84289fa54da02ea7287da9444eadb779d395f"
+}

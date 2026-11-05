@@ -1,7 +1,19 @@
 'use strict';
-// One routed player; each theme resumes its own position across boss transitions.
+// Current theme remains the fallback; configured difficulty albums keep independent playback positions.
 class GameMusic {
- constructor(media){this.track='normal';this.positions={};this.media=media;this.media.loop=true;this.media.volume=.35;this.gain=null;this.context=null;this.analyser=null;this.frequencyData=null;this.bandRanges=[];this.waveform=new Float32Array(96);this.timeData=new Uint8Array(2048);this.bands=new Float32Array(24);this.bass=0;this.projectionEnergy=0;this.target=null;this.pendingPlay=false;this.playbackRevision=0;this.enabled=true;this.active=false;this.shopping=false;}
+ constructor(media){this.track='boss';this.positions={};this.media=media;this.media.loop=true;this.media.volume=.32;this.gain=null;this.context=null;this.analyser=null;this.frequencyData=null;this.bandRanges=[];this.waveform=new Float32Array(96);this.timeData=new Uint8Array(2048);this.bands=new Float32Array(24);this.bass=0;this.projectionEnergy=0;this.target=null;this.pendingPlay=false;this.playbackRevision=0;this.enabled=true;this.active=false;this.shopping=false;}
+ bindPlaybackOwner(){
+  if(this.playbackOwnerBound)return;this.playbackOwnerBound=true;
+  this.foreground=typeof document==='undefined'||!document.hasFocus||document.hasFocus();this.ownsPlayback=true;this.announcedPlayback=false;
+  try{if(typeof BroadcastChannel!=='undefined'){this.playbackChannel=new BroadcastChannel('neon-tower-music');this.playbackChannel.onmessage=event=>{if(event.data==='playing'){this.ownsPlayback=false;this.sync();}};}}catch{}
+  if(typeof window!=='undefined'&&window.addEventListener){
+   window.addEventListener('blur',()=>{this.foreground=false;this.sync();});
+   window.addEventListener('focus',()=>{this.foreground=true;this.ownsPlayback=true;this.sync();});
+   window.addEventListener('pagehide',()=>{this.foreground=false;this.sync();});
+   window.addEventListener('pageshow',()=>{this.foreground=typeof document==='undefined'||!document.hasFocus||document.hasFocus();this.ownsPlayback=true;this.sync();});
+  }
+  if(typeof document!=='undefined'&&document.addEventListener)document.addEventListener('visibilitychange',()=>this.sync());
+ }
  unlock(context){
   if(context&&!this.gain&&context.createMediaElementSource){
    try{const source=context.createMediaElementSource(this.media),gain=context.createGain();gain.gain.value=0;
@@ -13,12 +25,14 @@ class GameMusic {
   }
   this.sync();
  }
- setState({enabled,active,shopping,track='normal'}){this.enabled=enabled;this.active=active;this.shopping=shopping;this.setTrack(track);this.sync();}
+ setState({enabled,active,shopping,track='boss'}){this.enabled=enabled;this.active=active;this.shopping=shopping;this.setTrack(track);this.sync();}
  setTrack(track){
-  if(track===this.track)return;
+  const definition=track&&typeof track==='object'&&track.src?track:null,src=definition?.src||'audio/relentless-minor.mp3';
+  track=definition?.id||'boss'; // Unconfigured albums and legacy callers retain the current theme.
+  if(track===this.track&&(!definition||this.trackSource===src))return;
   this.positions??={};if(this.track)this.positions[this.track]=this.media.currentTime||0;
   this.track=track;this.playbackRevision++;if(this.media.pause)this.media.pause();
-  this.media.src=track==='boss'?'audio/relentless-minor.mp3':'audio/normal-theme.mp3';
+  this.trackSource=src;this.media.src=src;
   if(this.media.load)this.media.load();
   this.media.currentTime=this.positions[track]||0;
   this.bands.fill(0);this.waveform.fill(0);this.bass=0;this.projectionEnergy=0;
@@ -35,7 +49,10 @@ class GameMusic {
  }
  spectrumAt(position){const index=Math.max(0,Math.min(1,position))*(this.bands.length-1),left=Math.floor(index),right=Math.min(this.bands.length-1,left+1);return this.bands[left]+(this.bands[right]-this.bands[left])*(index-left);}
  sync(){
-  const playing=this.enabled&&this.active,target=playing?(this.shopping?.12:.35):0;
+  this.bindPlaybackOwner();
+  const playing=this.enabled&&this.active&&this.foreground&&this.ownsPlayback&&(typeof document==='undefined'||!document.hidden),target=playing?(this.shopping?.12:.32)*(this.volume??1):0;
+  if(playing&&!this.announcedPlayback){this.announcedPlayback=true;try{this.playbackChannel?.postMessage('playing');}catch{}}
+  if(!playing)this.announcedPlayback=false;
   if(target!==this.target){
    if(this.gain){const param=this.gain.gain,now=this.context.currentTime;if(param.cancelAndHoldAtTime)param.cancelAndHoldAtTime(now);else{param.cancelScheduledValues(now);param.setValueAtTime(param.value,now);}param.linearRampToValueAtTime(target,now+.35);}
    else this.media.volume=target;
@@ -44,7 +61,7 @@ class GameMusic {
   if(!playing){this.playbackRevision++;if(this.media.pause)this.media.pause();return;}
   if(this.media.paused&&!this.pendingPlay&&this.media.play){
    this.pendingPlay=true;const revision=this.playbackRevision;
-   try{Promise.resolve(this.media.play()).then(()=>{if(revision!==this.playbackRevision&&(!this.enabled||!this.active))this.media.pause();}).catch(()=>{}).finally(()=>{this.pendingPlay=false;if(revision!==this.playbackRevision)this.sync();});}
+   try{Promise.resolve(this.media.play()).then(()=>{if(revision!==this.playbackRevision)this.sync();}).catch(()=>{}).finally(()=>{this.pendingPlay=false;if(revision!==this.playbackRevision)this.sync();});}
    catch{this.pendingPlay=false;}
   }
  }

@@ -1,0 +1,7 @@
+/* Local OFL fonts. Build with npm run build; full sources never ship in dist. */
+@font-face{font-family:NeonUI;src:url('assets/fonts/glow-medium.woff2') format('woff2');font-weight:100 599;font-style:normal;font-display:swap}
+@font-face{font-family:NeonUI;src:url('assets/fonts/glow-bold.woff2') format('woff2');font-weight:600 900;font-style:normal;font-display:swap}
+@font-face{font-family:NeonNumbers;src:url('assets/fonts/rajdhani-numbers.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0024-0025,U+002B-002F,U+003A,U+00D7}
+/* Override legacy font shorthands, including dynamically inserted talent CSS.
+   Size, weight, spacing and layout remain owned by each existing component. */
+html body,body :where(*):not(svg *){font-family:NeonNumbers,NeonUI,"Microsoft YaHei",system-ui,sans-serif!important}

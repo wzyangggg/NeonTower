@@ -21,7 +21,7 @@ function spawnUFOBoss(){
  enemies=[ufoBoss];deployUFOWave(ufoBoss);
 }
 function updateUFOBoss(dt){
- const e=ufoBoss;if(!e||e.hp<=0)return;const coverX=e.x,coverY=e.y;e.t+=dt;
+ const e=ufoBoss;if(!e||e.hp<=0)return;if(!globalThis.ElectricTiles?.frozen(e)){const coverX=e.x,coverY=e.y;e.t+=dt;
  // The mother moves toward the player, naturally competing for nearest targeting.
  const dx=p.x-e.x,dy=p.y-e.y,d=Math.hypot(dx,dy),move=Math.min(Math.max(0,d-100),58*dt);
  if(d){e.x+=dx/d*move;e.y+=dy/d*move;}
@@ -31,8 +31,8 @@ function updateUFOBoss(dt){
   e.hadWave=false;e.rebuild=UFO_REBUILD_TIME;
   burst(e.x,e.y,'#baffef',24);beep(250,.18,'triangle',.03);
  }else if(e.rebuild!==null){e.rebuild=Math.max(0,e.rebuild-dt);if(e.rebuild===0)deployUFOWave(e);}
- updateUFOFire(e,dt,true);
- for(const child of livingUFOMinions()){if(child.terrainStun>0)continue;let coverX=child.x,coverY=child.y;
+ updateUFOFire(e,dt,true);}
+ for(const child of livingUFOMinions()){if(child.terrainStun>0||globalThis.ElectricTiles?.frozen(child))continue;let coverX=child.x,coverY=child.y;
   child.t+=dt;
   const before=child.launchLeft,launch=Math.min(dt,before);child.launchLeft=Math.max(0,before-launch);
   const travel=child.launchDistance*(before**3-child.launchLeft**3)/UFO_LAUNCH_DURATION**3;
@@ -47,7 +47,7 @@ function updateUFOBoss(dt){
  }
 }
 function updateUFOFire(e,dt,mother){
- e.fire-=dt;e.warn=e.fire<.6;
+ e.fire=attackCooldown(e.fire,dt,.6);e.warn=e.fire<.6;
  if(e.fire<=0){
   const aim=Math.atan2(p.y-e.y,p.x-e.x),count=mother?5:3;
   for(let i=0;i<count;i++){const a=aim+(i-(count-1)/2)*.22;bullets.push({x:e.x,y:e.y,vx:Math.cos(a)*(mother?145:175),vy:Math.sin(a)*(mother?145:175),r:mother?5:4,life:6,c:mother?'#95ffc2':'#ffe58b'});}
@@ -100,11 +100,11 @@ function buildUFOGlass(){
 let ufoShieldCells=null;
 function ufoHexShieldCells(){
  if(ufoShieldCells)return ufoShieldCells;
- // Dual of a subdivided icosahedron: 150 hexagons and 12 pole pentagons.
+ // Dual of a subdivided icosahedron: 30 hexagons and 12 pole pentagons, shared with the player shield.
  const f=(1+Math.sqrt(5))/2,unit=a=>{const length=Math.hypot(...a);return a.map(v=>v/length);};
  const vertices=[[-1,f,0],[1,f,0],[-1,-f,0],[1,-f,0],[0,-1,f],[0,1,f],[0,-1,-f],[0,1,-f],[f,0,-1],[f,0,1],[-f,0,-1],[-f,0,1]].map(unit);
  let faces=[[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];
- for(let step=0;step<2;step++){
+ for(let step=0;step<1;step++){
   const cache=new Map(),mid=(a,b)=>{const key=Math.min(a,b)+','+Math.max(a,b);if(!cache.has(key)){cache.set(key,vertices.length);vertices.push(unit(vertices[a].map((v,i)=>v+vertices[b][i])));}return cache.get(key);};
   faces=faces.flatMap(([a,b,c])=>{const ab=mid(a,b),bc=mid(b,c),ca=mid(c,a);return [[a,ab,ca],[b,bc,ab],[c,ca,bc],[ab,bc,ca]];});
  }

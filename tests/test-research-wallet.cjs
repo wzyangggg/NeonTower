@@ -1,0 +1,16 @@
+const assert=require('node:assert/strict');
+let levels={};global.Specializations={ids:['pistol','electric_tower'],level:id=>levels[id]||0,set(id,n){levels[id]=n;return true;}};
+const {createStore}=require('../dist/talents.js');
+let raw=null;const storage={getItem:()=>raw,setItem:(key,value)=>{raw=value;}},store=createStore(storage);
+assert(store.credit(1000));const stale=store.draft();
+assert(store.purchaseResearch('pistol',0));assert.equal(store.view().balance,980);assert.equal(store.view().research.pistol,1);
+assert.equal(store.purchaseResearch('pistol',0),false);assert.equal(store.purchaseResearch('pistol',3),false);assert.equal(store.purchaseResearch('unknown',0),false);assert.equal(store.save(stale),false);
+for(let n=1;n<5;n++)assert(store.purchaseResearch('pistol',n));assert.equal(store.view().balance,500);assert.equal(store.purchaseResearch('pistol',5),false);
+assert(store.credit(1));assert.equal(store.view().research.pistol,5);
+const draft=store.draft();assert(store.change(draft,'damage',1));assert(store.save(draft));assert.equal(store.view().research.pistol,5);assert.equal(store.view().balance,496);
+const refund=store.draft();store.reset(refund);assert(store.save(refund));assert.equal(store.view().balance,501);assert.equal(store.view().research.pistol,5);
+const reopened=createStore(storage);assert.equal(reopened.researchLevel('pistol'),5);assert.equal(reopened.view().balance,501);
+const concurrent=createStore(storage),oldDraft=reopened.draft();assert(concurrent.purchaseResearch('electric_tower',0));assert.equal(reopened.save(oldDraft),false);assert.equal(reopened.researchLevel('electric_tower'),1);
+let poorRaw=JSON.stringify({version:1,balance:19,earned:19,levels:{},paid:{},revision:0});levels={};const poor=createStore({getItem:()=>poorRaw,setItem:(k,v)=>{poorRaw=v;}});assert.equal(poor.purchaseResearch('pistol',0),false);assert.equal(poor.view().balance,19);
+const blocked=createStore({getItem(){throw Error('denied')},setItem(){throw Error('denied')}});assert(blocked.credit(100));assert(blocked.purchaseResearch('pistol',0));assert.equal(blocked.view().balance,80);assert.equal(blocked.researchLevel('pistol'),1);assert(blocked.warning);
+console.log('Research wallet: costs, sequential purchase, cap, insufficient balance, duplicate clicks, stale drafts, shared credits/refunds, reload, concurrent stores and storage failure passed');

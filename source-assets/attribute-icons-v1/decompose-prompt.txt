@@ -1,0 +1,14 @@
+Decompose into exactly 13 separate transparent foreground layers, plus background. Preserve original artwork shapes, details and colors, do not redraw. Each complete icon including associated trails, rings, chain, cubes belongs to ONE layer. Remove neutral background completely including inner holes. Use EXACT English IDs as follows. Coordinates normalized 0..999:
+damage: <bbox>0 0 249 249</bbox>
+rate: <bbox>250 0 499 249</bbox>
+crit: <bbox>500 0 749 249</bbox>
+crit_damage: <bbox>750 0 999 249</bbox>
+spread: <bbox>0 250 249 499</bbox>
+speed: <bbox>250 250 499 499</bbox>
+blast: <bbox>500 250 749 499</bbox>
+knock: <bbox>750 250 999 499</bbox>
+recoil: <bbox>0 500 249 749</bbox>
+heavy: <bbox>250 500 499 749</bbox>
+move: <bbox>500 500 749 749</bbox>
+pickup: <bbox>750 500 999 749</bbox>
+inv: <bbox>0 750 249 999</bbox>

@@ -1,0 +1,152 @@
+{
+  "sourceRoot": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden",
+  "converter": "tools/export-fruit-fbx.py",
+  "models": {
+    "apple": {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Apple_01.fbx",
+      "lod": 0,
+      "model": "Apple_01_LOD0",
+      "output": "dist/assets/fruits/apple.json",
+      "vertices": 3696,
+      "triangles": 1232,
+      "sha256": "7772d9d6d08f36afbe012dd8d3efc62d521f6f0c92391794c8078c24ec8208b2",
+      "bounds": {
+        "min": [
+          -0.4348728,
+          0.0,
+          -0.4097491
+        ],
+        "max": [
+          0.4348728,
+          1.0,
+          0.4097491
+        ]
+      }
+    },
+    "watermelon": {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Watermelon_01.fbx",
+      "lod": 0,
+      "model": "Watermelon_01_LOD0",
+      "output": "dist/assets/fruits/watermelon.json",
+      "vertices": 11076,
+      "triangles": 3692,
+      "sha256": "ad12b3e3e5189330851a41f7013494f77433931a78ee190fcd1f662165aa763d",
+      "bounds": {
+        "min": [
+          -0.3422942,
+          0.0,
+          -0.3395121
+        ],
+        "max": [
+          0.3422942,
+          1.0,
+          0.3395121
+        ]
+      }
+    },
+    "banana": {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Banana_01.fbx",
+      "lod": 0,
+      "model": "Banana_01_LOD0",
+      "output": "dist/assets/fruits/banana.json",
+      "vertices": 3072,
+      "triangles": 1024,
+      "sha256": "3dfe9e90e854bae2d3bc029708740eba8ccb85fb96d4bbf60cca1cfe738d8290",
+      "bounds": {
+        "min": [
+          -0.1287698,
+          0.0,
+          -0.5
+        ],
+        "max": [
+          0.1287698,
+          0.5332837,
+          0.5
+        ]
+      }
+    },
+    "grape": {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Grape_05.fbx",
+      "lod": 0,
+      "model": "Grape_05_LOD0",
+      "output": "dist/assets/fruits/grape.json",
+      "vertices": 8352,
+      "triangles": 2784,
+      "sha256": "b47c66cfdf6b2a246b5c702fcf826a5c1754fbfe0681a8b2e727525c5ee7cf72",
+      "bounds": {
+        "min": [
+          -0.3592071,
+          0.0,
+          -0.5
+        ],
+        "max": [
+          0.3592071,
+          0.7944751,
+          0.5
+        ]
+      }
+    }
+  },
+  "files": [
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Apple_01.fbx",
+      "archive": "source-assets/fruits/Models/Apple_01.fbx",
+      "sha256": "7772d9d6d08f36afbe012dd8d3efc62d521f6f0c92391794c8078c24ec8208b2"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Apple_01.fbx.meta",
+      "archive": "source-assets/fruits/Models/Apple_01.fbx.meta",
+      "sha256": "3a24acbd1b5554e6d7c866e0969845d52acaad5d461cdc1c72c1545c726b2fa2"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Watermelon_01.fbx",
+      "archive": "source-assets/fruits/Models/Watermelon_01.fbx",
+      "sha256": "ad12b3e3e5189330851a41f7013494f77433931a78ee190fcd1f662165aa763d"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Watermelon_01.fbx.meta",
+      "archive": "source-assets/fruits/Models/Watermelon_01.fbx.meta",
+      "sha256": "e1d1287feb8d480618dba4c186ff53ebe83bd2497fe401b81b36e0b28c3a306c"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Banana_01.fbx",
+      "archive": "source-assets/fruits/Models/Banana_01.fbx",
+      "sha256": "3dfe9e90e854bae2d3bc029708740eba8ccb85fb96d4bbf60cca1cfe738d8290"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Banana_01.fbx.meta",
+      "archive": "source-assets/fruits/Models/Banana_01.fbx.meta",
+      "sha256": "ce4c3ac32637b41e8aec74b01e19a4eab2f755520340de9c983cf96f471ccaa6"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Grape_05.fbx",
+      "archive": "source-assets/fruits/Models/Grape_05.fbx",
+      "sha256": "b47c66cfdf6b2a246b5c702fcf826a5c1754fbfe0681a8b2e727525c5ee7cf72"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Models\\Grape_05.fbx.meta",
+      "archive": "source-assets/fruits/Models/Grape_05.fbx.meta",
+      "sha256": "1307d78f4b33842c3611bede03aed5dc8ec4fe2db7ee0d6031f5db1007889efd"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Materials\\Mat_Garden.mat",
+      "archive": "source-assets/fruits/Materials/Mat_Garden.mat",
+      "sha256": "2649e3bc9ed8148172c50b242c1ed3de127dd9971865958762bdbb95a26f38fa"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Materials\\Mat_Garden.mat.meta",
+      "archive": "source-assets/fruits/Materials/Mat_Garden.mat.meta",
+      "sha256": "dfbd666e5c89946fad458fed41db99985ddd54b925f7302b3c25cbcda905228e"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Textures\\Garden-Palette.png",
+      "archive": "source-assets/fruits/Textures/Garden-Palette.png",
+      "sha256": "2640657c0c60982f50fd707c348023ba44ab7b60678aed00ae234d431acb728e"
+    },
+    {
+      "source": "H:\\UnityProject\\TaptapJam\\TaptapJamProject\\TaptapGameJam\\Assets\\Models\\Back Garden\\Textures\\Garden-Palette.png.meta",
+      "archive": "source-assets/fruits/Textures/Garden-Palette.png.meta",
+      "sha256": "2f462b3fd5edf15d3122bf77874d65379df4d13134ca25d48058ecfb78cc5676"
+    }
+  ]
+}

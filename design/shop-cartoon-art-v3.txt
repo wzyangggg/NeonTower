@@ -1,0 +1,11 @@
+2026-11-02 商品重绘v3，使用内置image_gen，以用户附图作为风格参考（dist/assets/shop-pixel/style-reference.jpg）。本地未发布。
+资源：dist/assets/shop-pixel/{rocket,pistol,sniper}-v3-source.png 高清原稿；对应-v3-36.png为36×36七色成品。
+表现：粗深灰褐描边、圆润卡通比例、斜向三分之四视角、暖色材质、大块高光。保留三种浅色背景和圆框。
+运行 node tools/build-shop-pixel.cjs v3 可从原稿重建36×36七色资源。
+验证：npm run check、node --check dist/shop-pixel-preview.js、preview-shop-pixel.cjs通过，源图36×36、颜色<=7、320/390/1280布局及零页面错误；已查看390截图。36像素会损失高清原稿部分手绘细节。
+共同生成提示词：
+Create ONE new game inventory weapon icon. The attached image is STYLE REFERENCE ONLY: match its charming hand-drawn cozy cartoon tool icons, thick soft charcoal-brown outlines, rounded chunky toy-like proportions, warm saturated material colors, just 2 or 3 large flat cel-shaded facets and a single broad cream highlight. Slight diagonal three-quarter view pointing upper-right. Clean strong silhouette designed to remain readable at 36x36 pixels. Enlarge simplified shapes and remove all small mechanical details. Large solid color regions, no speckles, no texture, no small screws, no patterned grip, no tiny lines, no photorealism, no metallic noise, no text, no frame, no other objects. Do not copy the tool subjects or heading from the reference. Complete weapon centered in central 78% of image with ample margin for circular crop. Uniform solid pastel background edge to edge. Square composition. 
+各主题：
+rocket: Subject: a friendly chunky rocket launcher, broad golden yellow tube with one orange-red band and a dark open muzzle, short purple grip. Rounded cylinders and broad warm golden highlight, like the reference golden shovel and purple handle. Background solid powder blue #bde6f2.
+pistol: Subject: a friendly compact toy-like pistol, rounded coral red upper slide, short charcoal grey muzzle, warm tan wooden grip, one broad golden cream highlight. Like the reference red-handled tools. Background solid pale peach #ffd7ba.
+sniper: Subject: a friendly chunky sniper rifle with an obvious large round scope, short stout long barrel, muted blue-grey metal body and rounded warm golden wooden stock and grip, one coral red scope band. Make its proportions bold enough for a tiny icon. Like the reference axe steel and wooden handles. Background solid light lavender #ddd2f5.

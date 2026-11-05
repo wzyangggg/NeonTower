@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly five independent transparent foreground layers. Keep entire object, effects, sparks, speed trails and dark outlines. Remove navy tile background, frames and outer background. Preserve art without redesign.\nsniper-1 <bbox>0 165 199 790</bbox>\nsniper-2 <bbox>200 165 399 790</bbox>\nsniper-3 <bbox>400 165 599 790</bbox>\nsniper-4 <bbox>600 165 799 790</bbox>\nsniper-5 <bbox>800 165 999 790</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\sniper\\source.png",
+  "sha256": "c82a0be3382b5698bc54556ce8e9167341f0e02bbf4ce7ec6370784ba49e5a9a"
+}

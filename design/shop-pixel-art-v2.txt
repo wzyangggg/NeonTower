@@ -1,0 +1,10 @@
+2026-11-02 商品像素美术重绘 v2（内置 image_gen）。本地试样，未发布。
+交付：dist/assets/shop-pixel/rocket-v2-36.png、pistol-v2-36.png、sniper-v2-36.png，实际36×36、各最多七色；v2-source.png保留生成原稿。
+36像素按2倍显示在76px圆框中；三张背景分别为浅蓝、浅桃、浅紫。tools/build-shop-pixel.cjs将重绘稿规范化为固定36×36栅格与七色调色板，运行时不再缩小原稿，无平滑插值。
+验证：npm run check、node --check dist/shop-pixel-preview.js、preview-shop-pixel.cjs通过；校验源图实际36×36与canvas唯一颜色数<=7，320/390/1280布局无溢出、无页面错误；已查看390商店截图。非手机实机。
+共同生成提示词：
+Use case: stylized-concept. Generate ONE ultra-low-resolution game inventory sprite designed on an EXACT 36 by 36 logical pixel grid, enlarged with nearest-neighbor integer scale to fill the square image. Every logical pixel must be one solid square color. This is a fresh redraw for a tiny 36x36 icon, not a detailed illustration. Use only 6 total flat colors including background and dark navy contour. Huge contiguous color clusters, 1 logical pixel thick outline, no isolated noise pixels, no dithering, NO gradients, NO antialiasing, NO lighting effects, NO tiny texture, NO fine machinery, no text, no UI, no frame. A simple chunky cartoon weapon, side view facing right, a strong instantly readable silhouette centered inside the middle 28x22 logical pixels so it also fits a circle crop. Uniform solid colored background to all edges. 
+独立主题提示词：
+rocket: A chunky lime-green rocket launcher with a wide cylindrical tube, an orange rocket tip on right, one blocky grip below, one cream highlight stripe. Navy outline and shadow. Solid pastel sky blue background #BDE6F2.
+pistol: A chunky coral-orange pistol with a large short rectangular slide pointing right, a yellow top highlight, a chunky turquoise grip pointing downward. Navy outline and shadow. Solid pastel peach background #FFD7BA.
+sniper: A simple chunky turquoise sniper rifle with long straight barrel extending right, one obvious fat rectangular scope on top, yellow stock on left, blocky grip. Navy outline and shadow. Solid pastel lavender background #DDD2F5.

@@ -1,0 +1,27 @@
+{
+  "id": "floor_expansion",
+  "name": "扩建地板",
+  "enabledInGame": true,
+  "category": "terrain",
+  "playerDescription": "增加场地格子，扩建后随机发现地形。商店基础扩建3格，奖励扩建6格。",
+  "developerDescription": "现有游戏规则：商店基础扩建3格，每格1建材；地图剩余不足时按实际格数收费。奖励扩建6格。预留相邻未开发格，按扩地随机表决定特殊地形与危险机关，下一层落地闪烁后统一提交。地图固定13列×11行。\n本条目的格子表示扩建形状草稿，不是建筑占地；当前游戏仍使用原有随机扩地规则，绘制形状与开关尚未连接到扩建逻辑。",
+  "cells": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "effectMode": "none",
+  "effectCells": [],
+  "range": 0,
+  "resolvedEffectCells": [],
+  "rangeOrigin": "footprint-center"
+}

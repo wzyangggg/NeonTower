@@ -1,0 +1,3 @@
+Extract exactly two transparent PNG foreground layers with exact IDs. Keep original outlines, shape, highlights and colors. Remove taupe background including the badge loop hole and small enclosed spaces between the swords. Keep both swords together as one icon, including both tips, guards and grips.
+character_bear_badge <bbox>105 62 407 899</bbox>
+battle_crossed_swords <bbox>550 143 943 880</bbox>

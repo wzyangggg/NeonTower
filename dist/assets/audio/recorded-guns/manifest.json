@@ -1,0 +1,116 @@
+{
+  "pistol": {
+    "source": "Pistol 01/Pistol Single Shot.wav",
+    "duration": 0.55,
+    "peak": 0.4759,
+    "gainDb": -4.06
+  },
+  "smg": {
+    "source": "Submachine Gun_01/SMG Single Shot.wav",
+    "duration": 0.28,
+    "peak": 0.4006,
+    "gainDb": -5.85
+  },
+  "uzi": {
+    "source": "Submachine Gun_03/SMG Single Shot.wav",
+    "duration": 0.28,
+    "peak": 0.5568,
+    "gainDb": -3.02
+  },
+  "rifle": {
+    "source": "Assault Rifle 01/AR Single Shot.wav",
+    "duration": 0.48,
+    "peak": 0.6056,
+    "gainDb": -2.12
+  },
+  "machine": {
+    "source": "M4 AR/M4 Single Shot.wav",
+    "duration": 0.38,
+    "peak": 0.3624,
+    "gainDb": -6.71
+  },
+  "shotgun": {
+    "source": "Shotgun 01/Shotgun Boom 101.wav",
+    "duration": 0.72,
+    "peak": 0.2937,
+    "gainDb": -10.62
+  },
+  "sniper": {
+    "source": "Sniper Semi Auto/Sniper Single Shot.wav",
+    "duration": 0.8,
+    "peak": 0.3343,
+    "gainDb": -9.43
+  },
+  "barrett": {
+    "source": "Sniper Semi Auto/Sniper Single Shot 3.wav",
+    "duration": 0.9,
+    "peak": 0.3356,
+    "gainDb": -9.48
+  },
+  "magnum": {
+    "source": "Magnum Revolver/Revolver Single Shot.wav",
+    "duration": 0.65,
+    "peak": 0.3178,
+    "gainDb": -7.97
+  },
+  "armor-1": {
+    "source": "Body armor Impact/Body armor 1.wav",
+    "duration": 0.0988,
+    "peak": 0.6316,
+    "gainDb": 0.72
+  },
+  "armor-2": {
+    "source": "Body armor Impact/Body armor 2.wav",
+    "duration": 0.1215,
+    "peak": 0.6368,
+    "gainDb": 2.09
+  },
+  "armor-3": {
+    "source": "Body armor Impact/Body armor 3.wav",
+    "duration": 0.1113,
+    "peak": 0.6396,
+    "gainDb": 1.14
+  },
+  "armor-4": {
+    "source": "Body armor Impact/Body armor 4.wav",
+    "duration": 0.1516,
+    "peak": 0.6899,
+    "gainDb": 1.45
+  },
+  "armor-5": {
+    "source": "Body armor Impact/Body armor 5.wav",
+    "duration": 0.0941,
+    "peak": 0.5942,
+    "gainDb": 0.81
+  },
+  "armor-6": {
+    "source": "Body armor Impact/Body armor 6.wav",
+    "duration": 0.1008,
+    "peak": 0.6422,
+    "gainDb": 0.64
+  },
+  "armor-7": {
+    "source": "Body armor Impact/Body armor 7.wav",
+    "duration": 0.1056,
+    "peak": 0.6232,
+    "gainDb": 1.63
+  },
+  "armor-8": {
+    "source": "Body armor Impact/Body armor 8.wav",
+    "duration": 0.1546,
+    "peak": 0.7,
+    "gainDb": 1.49
+  },
+  "armor-9": {
+    "source": "Body armor Impact/Body armor 9.wav",
+    "duration": 0.0821,
+    "peak": 0.5463,
+    "gainDb": -0.09
+  },
+  "armor-10": {
+    "source": "Body armor Impact/Body armor 10.wav",
+    "duration": 0.0886,
+    "peak": 0.5236,
+    "gainDb": 0.23
+  }
+}

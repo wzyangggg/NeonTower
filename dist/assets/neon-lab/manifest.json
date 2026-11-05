@@ -1,0 +1,113 @@
+{
+  "source": "source-assets/neon-music-flat/source.png",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "method": "Seedream layer_decomposition; no local extraction",
+  "layers": [
+    {
+      "name": "record",
+      "file": "record.png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          1203,
+          616,
+          1500,
+          871
+        ],
+        "normalized": [
+          783,
+          602,
+          976,
+          850
+        ]
+      },
+      "original_png": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\neon-music-flat\\layers\\layer-01.png",
+      "pixel_size": "740x639"
+    },
+    {
+      "name": "subtitle",
+      "file": "subtitle.png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          322,
+          748,
+          1044,
+          882
+        ],
+        "normalized": [
+          210,
+          730,
+          679,
+          860
+        ]
+      },
+      "original_png": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\neon-music-flat\\layers\\layer-02.png",
+      "pixel_size": "892x165",
+      "glow_variant": {
+        "file": "subtitle-glow.png",
+        "method": "built-in image_gen edit of isolated original lettering",
+        "alignment": "original and edited solid glyph core pixel bounds; glow quad expands with padding",
+        "prompts": "source-assets/neon-music-flat/font-glow-prompts.md"
+      }
+    },
+    {
+      "name": "headline",
+      "file": "headline.png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          67,
+          234,
+          929,
+          710
+        ],
+        "normalized": [
+          44,
+          229,
+          604,
+          692
+        ]
+      },
+      "original_png": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\neon-music-flat\\layers\\layer-03.png",
+      "pixel_size": "904x498",
+      "glow_variant": {
+        "file": "headline-glow.png",
+        "method": "built-in image_gen edit of isolated original lettering",
+        "alignment": "original and edited solid glyph core pixel bounds; glow quad expands with padding",
+        "prompts": "source-assets/neon-music-flat/font-glow-prompts.md"
+      }
+    },
+    {
+      "name": "headphones",
+      "file": "headphones.png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          830,
+          116,
+          1385,
+          787
+        ],
+        "normalized": [
+          540,
+          113,
+          901,
+          768
+        ]
+      },
+      "original_png": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\neon-music-flat\\layers\\layer-05.png",
+      "pixel_size": "662x801"
+    }
+  ],
+  "procedural": [
+    "backing panel",
+    "moving pop dots",
+    "individual music-note particles",
+    "letter light sweep"
+  ],
+  "runtime_glow": "Baked font PNG variants; one texture lookup per textured fragment, no blur/bloom pass; original textures retained for comparison toggle; upload capped to 1024px longest edge."
+}

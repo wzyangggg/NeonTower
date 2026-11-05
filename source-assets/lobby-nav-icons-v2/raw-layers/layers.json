@@ -1,0 +1,68 @@
+{
+  "submission": {
+    "time": 1793787035.5104046,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-nav-icons-v2\\source.png",
+    "sha256": "40e2b6dcadae9880fe6ac3d6ab4455f542086fd9c2c432a26c4df2dcb5d31b27"
+  },
+  "layers": [
+    {
+      "size": "1774x887",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-nav-icons-v2\\raw-layers\\layer-00.png"
+    },
+    {
+      "size": "596x853",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          202,
+          63,
+          710,
+          791
+        ],
+        "normalized": [
+          114,
+          71,
+          400,
+          892
+        ]
+      },
+      "name": "character_bear_badge",
+      "description": "Extract the complete cartoon bear head badge, including the purple lanyard loop, golden square buckle, purple badge body, brown smiling bear head and cyan bottom highlight, keep original outlines, shape, highlights and colors, do not include any taupe background content",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-nav-icons-v2\\raw-layers\\layer-01.png"
+    },
+    {
+      "size": "795x746",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          986,
+          134,
+          1661,
+          769
+        ],
+        "normalized": [
+          556,
+          151,
+          936,
+          867
+        ]
+      },
+      "name": "battle_crossed_swords",
+      "description": "Extract both crossed swords together as one complete icon, including both silver blade tips, golden diamond guards and purple wrapped grips, keep original outlines, shape, highlights and colors, do not include any taupe background content",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-nav-icons-v2\\raw-layers\\layer-02.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 3,
+    "output_tokens": 14305,
+    "total_tokens": 14305
+  }
+}

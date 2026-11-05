@@ -1,0 +1,466 @@
+{
+  "layers": [
+    {
+      "size": "781x660",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          87,
+          42,
+          298,
+          221
+        ],
+        "normalized": [
+          85,
+          27,
+          290,
+          143
+        ]
+      },
+      "name": "pistol",
+      "description": "Extract the pistol icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-01.png"
+    },
+    {
+      "size": "799x596",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          392,
+          39,
+          639,
+          223
+        ],
+        "normalized": [
+          383,
+          25,
+          623,
+          145
+        ]
+      },
+      "name": "smg",
+      "description": "Extract the smg icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-02.png"
+    },
+    {
+      "size": "836x720",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          721,
+          26,
+          956,
+          229
+        ],
+        "normalized": [
+          704,
+          17,
+          933,
+          148
+        ]
+      },
+      "name": "uzi",
+      "description": "Extract the uzi paired dual guns icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-03.png"
+    },
+    {
+      "size": "816x563",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          51,
+          251,
+          328,
+          442
+        ],
+        "normalized": [
+          50,
+          163,
+          319,
+          287
+        ]
+      },
+      "name": "rifle",
+      "description": "Extract the rifle icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-04.png"
+    },
+    {
+      "size": "885x491",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          368,
+          254,
+          648,
+          410
+        ],
+        "normalized": [
+          359,
+          165,
+          632,
+          266
+        ]
+      },
+      "name": "sniper",
+      "description": "Extract the sniper icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-05.png"
+    },
+    {
+      "size": "857x526",
+      "output_format": "png",
+      "z_index": 6,
+      "bounding_box": {
+        "absolute": [
+          696,
+          250,
+          976,
+          422
+        ],
+        "normalized": [
+          680,
+          163,
+          952,
+          274
+        ]
+      },
+      "name": "rocket",
+      "description": "Extract the rocket launcher icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-06.png"
+    },
+    {
+      "size": "823x681",
+      "output_format": "png",
+      "z_index": 7,
+      "bounding_box": {
+        "absolute": [
+          68,
+          465,
+          288,
+          647
+        ],
+        "normalized": [
+          66,
+          303,
+          280,
+          421
+        ]
+      },
+      "name": "seeker",
+      "description": "Extract the seeker dual missile icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-07.png"
+    },
+    {
+      "size": "847x591",
+      "output_format": "png",
+      "z_index": 8,
+      "bounding_box": {
+        "absolute": [
+          376,
+          463,
+          622,
+          634
+        ],
+        "normalized": [
+          367,
+          301,
+          606,
+          412
+        ]
+      },
+      "name": "laser",
+      "description": "Extract the laser gun icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-08.png"
+    },
+    {
+      "size": "886x562",
+      "output_format": "png",
+      "z_index": 9,
+      "bounding_box": {
+        "absolute": [
+          703,
+          468,
+          958,
+          630
+        ],
+        "normalized": [
+          687,
+          305,
+          935,
+          410
+        ]
+      },
+      "name": "tesla",
+      "description": "Extract the tesla gun with yellow lightning arc icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-09.png"
+    },
+    {
+      "size": "803x632",
+      "output_format": "png",
+      "z_index": 10,
+      "bounding_box": {
+        "absolute": [
+          64,
+          671,
+          305,
+          860
+        ],
+        "normalized": [
+          63,
+          437,
+          297,
+          559
+        ]
+      },
+      "name": "boomerang",
+      "description": "Extract the boomerang icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-10.png"
+    },
+    {
+      "size": "835x626",
+      "output_format": "png",
+      "z_index": 11,
+      "bounding_box": {
+        "absolute": [
+          386,
+          677,
+          626,
+          857
+        ],
+        "normalized": [
+          377,
+          441,
+          610,
+          557
+        ]
+      },
+      "name": "bee",
+      "description": "Extract the bee robot icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-11.png"
+    },
+    {
+      "size": "855x670",
+      "output_format": "png",
+      "z_index": 12,
+      "bounding_box": {
+        "absolute": [
+          719,
+          676,
+          958,
+          863
+        ],
+        "normalized": [
+          702,
+          440,
+          935,
+          561
+        ]
+      },
+      "name": "sword",
+      "description": "Extract the pink crystal sword icon, preserve its exact original design, outline, colors and all details, as a transparent foreground layer, no other unrelated elements included.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-1\\layer-12.png"
+    },
+    {
+      "size": "736x380",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          53,
+          903,
+          326,
+          1044
+        ],
+        "normalized": [
+          52,
+          588,
+          317,
+          679
+        ]
+      },
+      "name": "shotgun",
+      "description": "Extract the shotgun icon, preserve exact original design, outline, colors and all details, as a separate transparent foreground layer, exclude any other unrelated elements.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-2\\layer-01.png"
+    },
+    {
+      "size": "575x456",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          390,
+          894,
+          608,
+          1067
+        ],
+        "normalized": [
+          381,
+          582,
+          593,
+          694
+        ]
+      },
+      "name": "shotgun_tower",
+      "description": "Extract the shotgun_tower icon, preserve exact original design, outline, colors and all details, as a separate transparent foreground layer, exclude any other unrelated elements.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-2\\layer-02.png"
+    },
+    {
+      "size": "726x493",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          690,
+          883,
+          960,
+          1067
+        ],
+        "normalized": [
+          674,
+          575,
+          937,
+          694
+        ]
+      },
+      "name": "sniper_tower",
+      "description": "Extract the sniper_tower icon, preserve exact original design, outline, colors and all details, as a separate transparent foreground layer, exclude any other unrelated elements.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-2\\layer-03.png"
+    },
+    {
+      "size": "482x536",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          94,
+          1086,
+          275,
+          1287
+        ],
+        "normalized": [
+          92,
+          707,
+          268,
+          837
+        ]
+      },
+      "name": "electric_tower",
+      "description": "Extract the electric_tower icon, preserve exact original design, outline, colors and all details, as a separate transparent foreground layer, exclude any other unrelated elements.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-2\\layer-04.png"
+    },
+    {
+      "size": "477x483",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          409,
+          1094,
+          602,
+          1289
+        ],
+        "normalized": [
+          399,
+          712,
+          587,
+          839
+        ]
+      },
+      "name": "missile_tower",
+      "description": "Extract the missile_tower icon, preserve exact original design, outline, colors and all details, as a separate transparent foreground layer, exclude any other unrelated elements.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-2\\layer-05.png"
+    },
+    {
+      "size": "540x503",
+      "output_format": "png",
+      "z_index": 6,
+      "bounding_box": {
+        "absolute": [
+          728,
+          1098,
+          932,
+          1287
+        ],
+        "normalized": [
+          711,
+          715,
+          909,
+          837
+        ]
+      },
+      "name": "healing_tower",
+      "description": "Extract the healing_tower icon, preserve exact original design, outline, colors and all details, as a separate transparent foreground layer, exclude any other unrelated elements.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-2\\layer-06.png"
+    },
+    {
+      "size": "669x593",
+      "output_format": "png",
+      "z_index": 7,
+      "bounding_box": {
+        "absolute": [
+          76,
+          1318,
+          288,
+          1505
+        ],
+        "normalized": [
+          74,
+          858,
+          280,
+          979
+        ]
+      },
+      "name": "shield_tower",
+      "description": "Extract the shield_tower icon, preserve exact original design, outline, colors and all details, as a separate transparent foreground layer, exclude any other unrelated elements.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-2\\layer-07.png"
+    },
+    {
+      "size": "654x533",
+      "output_format": "png",
+      "z_index": 8,
+      "bounding_box": {
+        "absolute": [
+          389,
+          1323,
+          616,
+          1508
+        ],
+        "normalized": [
+          380,
+          861,
+          601,
+          981
+        ]
+      },
+      "name": "slow_field",
+      "description": "Extract the slow_field icon, preserve exact original design, outline, colors and all details, as a separate transparent foreground layer, exclude any other unrelated elements.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-2\\layer-08.png"
+    },
+    {
+      "size": "774x575",
+      "output_format": "png",
+      "z_index": 9,
+      "bounding_box": {
+        "absolute": [
+          718,
+          1326,
+          962,
+          1508
+        ],
+        "normalized": [
+          701,
+          863,
+          938,
+          981
+        ]
+      },
+      "name": "repair_turret",
+      "description": "Extract the repair_turret icon, preserve exact original design, outline, colors and all details, as a separate transparent foreground layer, exclude any other unrelated elements.",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-icons-v3\\batch-2\\layer-09.png"
+    }
+  ]
+}

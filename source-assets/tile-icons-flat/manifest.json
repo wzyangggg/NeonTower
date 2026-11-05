@@ -1,0 +1,26 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "C:/Users/Administrator/Pictures/纯色平面UI参考.jpg",
+  "assets": [
+    {
+      "kind": "freeze_bomb",
+      "prompt": "Use the attached icon sheet ONLY as a STYLE REFERENCE. Generate ONE new flat game pictogram, not a sheet. Match its bold chunky flat silhouettes, simple rounded/sharp geometry and substantial solid areas balanced by large transparent negative-space cutouts. The icon must be a SINGLE UNIFORM SOLID COLOR, not white. Exactly flat uniform fill, with transparent holes and transparent background. NO shading, NO gradients, NO highlights, NO 3D, NO bevels, NO material texture, NO neon bloom, NO glow, NO drop shadows. Absolutely no background panel or border. No text. Center the symbol on a square canvas; keep the complete design inside the central 70% with transparent margins. This must look like one of the reference sheet's simple pictograms recolored. It is a raster PNG asset generated as an image, not vector output. Subject: a simple six-armed snowflake/ice ability emblem. Use only solid cyan #70DDEB. Alternate broad solid crystal arms and broad hollow crystal arms, one compact solid center with a clear hexagonal transparent cutout. Simple thick shapes, no delicate thin branches. Filled versus hollow rhythm like the reference shield and flame symbols.",
+      "generated": "C:\\Users\\Administrator\\.codex\\generated_images\\01a17605-ec5f-72c0-85bc-e5847260d852\\exec-e8113bc6-174f-44e8-ae83-a865d81d9416.png"
+    },
+    {
+      "kind": "laser_bomb",
+      "prompt": "Generate ONE finished raster game UI pictogram on a truly transparent RGBA background. Use the two attached tiny icons ONLY for COMPOSITION: one strong diagonal laser comes from the upper right and hits a single concentrated impact point near the lower left; a compact angular star-shaped impact and several short sharp shards shoot out around that lower-left contact point. The impact is offset near (28% width, 72% height), not in the center. The main diagonal beam runs from (78%,20%) to the impact, thick at the top-right and tapering toward the contact, with one slim parallel transparent slit separating two solid sections of the SAME beam. Four to six chunky pointed impact shards, asymmetrical and short compared with the main beam, make the contact readable. This must read as ONE laser striking a point, NOT a sun, rotor, propeller, symmetric fan, or plain diagonal bar. Important STYLE requirement: flat bold solid-color silhouette game pictogram, SINGLE uniform pink-purple #EC72CA fill, transparent negative-space gaps between some solid shards, absolutely NO gradients, NO white highlights, NO shading, NO 3D, NO glow, NO soft blur, NO painted texture, NO colored square background, NO border, NO lettering. Reference backgrounds and multicolor lighting must not be copied. Generous fully transparent outer margins, all shapes inside the middle 78% of square canvas. Clean and legible at a 30-pixel display size.",
+      "generated": "C:\\Users\\Administrator\\.codex\\generated_images\\01a17605-ec5f-72c0-85bc-e5847260d852\\exec-cd6a2cf8-c92b-46d2-8aad-9bf90108d7ed.png",
+      "revision": "upper-right beam to lower-left impact burst, user composition references",
+      "compositionReferences": [
+        "codex-clipboard-55e39b6b-5a82-44ea-ad04-34784fe602f5.png",
+        "codex-clipboard-192975a5-58ce-49fd-b4f2-d289477d4eb6.png"
+      ]
+    },
+    {
+      "kind": "missile_bomb",
+      "prompt": "Use the attached icon sheet ONLY as a STYLE REFERENCE. Generate ONE new flat game pictogram, not a sheet. Match its bold chunky flat silhouettes, simple rounded/sharp geometry and substantial solid areas balanced by large transparent negative-space cutouts. The icon must be a SINGLE UNIFORM SOLID COLOR, not white. Exactly flat uniform fill, with transparent holes and transparent background. NO shading, NO gradients, NO highlights, NO 3D, NO bevels, NO material texture, NO neon bloom, NO glow, NO drop shadows. Absolutely no background panel or border. No text. Center the symbol on a square canvas; keep the complete design inside the central 70% with transparent margins. This must look like one of the reference sheet's simple pictograms recolored. It is a raster PNG asset generated as an image, not vector output. Subject: a single missile/rocket weapon pictogram pointing diagonally up-right. Use only solid orange-gold #F4AE61. Thick solid nose and fuselage with one large circular transparent porthole. Side fins and a short exhaust use alternating solid masses and hollow triangular/ribbon cutouts. Simple compact silhouette with no tiny parts, comparable in simplicity to the reference axe/hammer/flame.",
+      "generated": "C:\\Users\\Administrator\\.codex\\generated_images\\01a17605-ec5f-72c0-85bc-e5847260d852\\exec-90b4049c-9863-4526-a5b0-c8be710c6507.png"
+    }
+  ]
+}

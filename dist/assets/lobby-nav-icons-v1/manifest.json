@@ -1,0 +1,606 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      243,
+      236,
+      215
+    ],
+    [
+      246,
+      229,
+      106
+    ],
+    [
+      231,
+      205,
+      173
+    ],
+    [
+      253,
+      204,
+      44
+    ],
+    [
+      243,
+      185,
+      106
+    ],
+    [
+      226,
+      161,
+      162
+    ],
+    [
+      250,
+      179,
+      26
+    ],
+    [
+      239,
+      157,
+      26
+    ],
+    [
+      147,
+      237,
+      182
+    ],
+    [
+      59,
+      246,
+      244
+    ],
+    [
+      5,
+      249,
+      248
+    ],
+    [
+      5,
+      224,
+      216
+    ],
+    [
+      175,
+      182,
+      167
+    ],
+    [
+      169,
+      157,
+      176
+    ],
+    [
+      32,
+      165,
+      144
+    ],
+    [
+      0,
+      170,
+      175
+    ],
+    [
+      224,
+      136,
+      102
+    ],
+    [
+      217,
+      132,
+      22
+    ],
+    [
+      205,
+      108,
+      157
+    ],
+    [
+      199,
+      104,
+      35
+    ],
+    [
+      147,
+      132,
+      168
+    ],
+    [
+      138,
+      128,
+      138
+    ],
+    [
+      153,
+      107,
+      146
+    ],
+    [
+      174,
+      97,
+      34
+    ],
+    [
+      119,
+      119,
+      150
+    ],
+    [
+      114,
+      109,
+      124
+    ],
+    [
+      108,
+      95,
+      125
+    ],
+    [
+      97,
+      90,
+      106
+    ],
+    [
+      31,
+      126,
+      167
+    ],
+    [
+      49,
+      119,
+      62
+    ],
+    [
+      82,
+      91,
+      109
+    ],
+    [
+      32,
+      92,
+      135
+    ],
+    [
+      164,
+      78,
+      107
+    ],
+    [
+      109,
+      80,
+      122
+    ],
+    [
+      94,
+      78,
+      111
+    ],
+    [
+      86,
+      81,
+      97
+    ],
+    [
+      151,
+      64,
+      121
+    ],
+    [
+      90,
+      64,
+      89
+    ],
+    [
+      106,
+      51,
+      90
+    ],
+    [
+      108,
+      39,
+      114
+    ],
+    [
+      74,
+      77,
+      106
+    ],
+    [
+      69,
+      68,
+      76
+    ],
+    [
+      70,
+      54,
+      82
+    ],
+    [
+      60,
+      52,
+      56
+    ],
+    [
+      62,
+      43,
+      68
+    ],
+    [
+      61,
+      38,
+      38
+    ],
+    [
+      58,
+      27,
+      38
+    ],
+    [
+      54,
+      18,
+      34
+    ],
+    [
+      30,
+      72,
+      94
+    ],
+    [
+      19,
+      54,
+      78
+    ],
+    [
+      24,
+      34,
+      48
+    ],
+    [
+      34,
+      21,
+      28
+    ],
+    [
+      38,
+      13,
+      18
+    ],
+    [
+      37,
+      8,
+      15
+    ],
+    [
+      38,
+      11,
+      8
+    ],
+    [
+      32,
+      10,
+      12
+    ],
+    [
+      26,
+      11,
+      15
+    ],
+    [
+      37,
+      5,
+      19
+    ],
+    [
+      32,
+      6,
+      14
+    ],
+    [
+      34,
+      5,
+      8
+    ],
+    [
+      30,
+      4,
+      9
+    ],
+    [
+      28,
+      5,
+      10
+    ],
+    [
+      27,
+      2,
+      7
+    ],
+    [
+      21,
+      2,
+      5
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "character_bear",
+      "label": "character_bear",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          57,
+          58,
+          415,
+          393
+        ],
+        "normalized": [
+          45,
+          46,
+          331,
+          313
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        799,
+        744
+      ],
+      "normalized": "character_bear-original.png",
+      "variants": {
+        "32": "character_bear-32.png",
+        "48": "character_bear-48.png"
+      }
+    },
+    {
+      "id": "character_helmet",
+      "label": "character_helmet",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          465,
+          61,
+          787,
+          380
+        ],
+        "normalized": [
+          371,
+          49,
+          628,
+          303
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        692,
+        691
+      ],
+      "normalized": "character_helmet-original.png",
+      "variants": {
+        "32": "character_helmet-32.png",
+        "48": "character_helmet-48.png"
+      }
+    },
+    {
+      "id": "character_badge",
+      "label": "character_badge",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          892,
+          24,
+          1171,
+          390
+        ],
+        "normalized": [
+          711,
+          19,
+          934,
+          311
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        658,
+        869
+      ],
+      "normalized": "character_badge-original.png",
+      "variants": {
+        "32": "character_badge-32.png",
+        "48": "character_badge-48.png"
+      }
+    },
+    {
+      "id": "battle_elevator",
+      "label": "battle_elevator",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          57,
+          452,
+          403,
+          769
+        ],
+        "normalized": [
+          45,
+          360,
+          321,
+          613
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        720,
+        662
+      ],
+      "normalized": "battle_elevator-original.png",
+      "variants": {
+        "32": "battle_elevator-32.png",
+        "48": "battle_elevator-48.png"
+      }
+    },
+    {
+      "id": "battle_hatch",
+      "label": "battle_hatch",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          450,
+          454,
+          816,
+          770
+        ],
+        "normalized": [
+          359,
+          362,
+          651,
+          614
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        718,
+        620
+      ],
+      "normalized": "battle_hatch-original.png",
+      "variants": {
+        "32": "battle_hatch-32.png",
+        "48": "battle_hatch-48.png"
+      }
+    },
+    {
+      "id": "battle_down_button",
+      "label": "battle_down_button",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          882,
+          467,
+          1184,
+          771
+        ],
+        "normalized": [
+          703,
+          372,
+          944,
+          615
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        715,
+        718
+      ],
+      "normalized": "battle_down_button-original.png",
+      "variants": {
+        "32": "battle_down_button-32.png",
+        "48": "battle_down_button-48.png"
+      }
+    },
+    {
+      "id": "research_flask",
+      "label": "research_flask",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          75,
+          846,
+          380,
+          1194
+        ],
+        "normalized": [
+          60,
+          675,
+          303,
+          952
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        669,
+        763
+      ],
+      "normalized": "research_flask-original.png",
+      "variants": {
+        "32": "research_flask-32.png",
+        "48": "research_flask-48.png"
+      }
+    },
+    {
+      "id": "research_microscope",
+      "label": "research_microscope",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          468,
+          821,
+          776,
+          1195
+        ],
+        "normalized": [
+          373,
+          655,
+          619,
+          953
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        673,
+        820
+      ],
+      "normalized": "research_microscope-original.png",
+      "variants": {
+        "32": "research_microscope-32.png",
+        "48": "research_microscope-48.png"
+      }
+    },
+    {
+      "id": "research_chip",
+      "label": "research_chip",
+      "sourceLayer": "../../../source-assets/lobby-nav-icons-v1/raw-layers/layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          860,
+          851,
+          1204,
+          1193
+        ],
+        "normalized": [
+          686,
+          679,
+          960,
+          951
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        718,
+        715
+      ],
+      "normalized": "research_chip-original.png",
+      "variants": {
+        "32": "research_chip-32.png",
+        "48": "research_chip-48.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "floor_expansion_bend",
+  "name": "三格弯折",
+  "enabledInGame": true,
+  "category": "terrain",
+  "playerDescription": "扩张可行走地板，可能开出陷阱或路障。",
+  "developerDescription": "游戏扩建类型：floorBend。按此形状增加3个相邻可行走格，必须连接已有场地且不与已开发格重叠，可能随机生成陷阱或路障。\n此形状直接读取游戏当前定义。设计台的修改与开关暂存为草稿，尚未应用到游戏扩建逻辑。",
+  "cells": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  "effectMode": "none",
+  "effectCells": [],
+  "range": 0,
+  "resolvedEffectCells": [],
+  "rangeOrigin": "footprint-center"
+}

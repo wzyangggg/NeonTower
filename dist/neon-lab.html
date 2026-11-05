@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>霓虹投影 · 动画测试</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#080c18;color:#ddfaff;font:14px system-ui}iframe{display:block;border:0;width:100vw;height:100dvh}header{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(94vw,420px);padding:12px 15px;background:#10142be8;border:1px solid #3a7188;border-radius:10px;backdrop-filter:blur(12px)}h1{font-size:16px;margin:0 0 5px}p{font-size:12px;color:#a0bdcd;margin:0;line-height:1.6}footer{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);width:min(94vw,420px);background:#10142bee;border:1px solid #3a7188;border-radius:10px;padding:12px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center}label{font-size:12px;white-space:nowrap;display:flex;align-items:center;gap:4px}input{accent-color:#1deafa}button{background:#183248;border:1px solid #568198;border-radius:5px;color:#dffcff;padding:7px 12px;font:inherit;font-size:12px;cursor:pointer}#status{color:#7cf2ce}body.clean header,body.clean footer label{display:none}body.clean footer{width:auto;background:#10142b99}button:focus-visible{outline:2px solid #ff38de}
+</style>
+<iframe id="scene" title="游戏夜城与全息广告测试场景" src="/?lab=1&amp;scene=abyss&amp;look=violet&amp;rain=0"></iframe>
+<header><h1>NEON RHYTHM · 投影动画测试</h1><p>Flat 色块 / 流动波普 / 音符粒子 / 文字扫光</p><p id="status">正在加载夜城与独立图层…</p></header>
+<footer><label><input id="dots" type="checkbox" checked>波普流动</label><label><input id="notes" type="checkbox" checked>音符粒子</label><label><input id="letters" type="checkbox" checked>文字流光</label><label><input id="glow" type="checkbox" checked>字体辉光</label><label><input id="spatial" type="checkbox" checked>空间错层</label><button id="pause">暂停动画</button><button id="view">查看近景</button><button id="clean">隐藏说明</button></footer>
+<script src="neon-lab.js"></script></html>

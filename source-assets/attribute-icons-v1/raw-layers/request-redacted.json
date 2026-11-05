@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose into exactly 13 separate transparent foreground layers, plus background. Preserve original artwork shapes, details and colors, do not redraw. Each complete icon including associated trails, rings, chain, cubes belongs to ONE layer. Remove neutral background completely including inner holes. Use EXACT English IDs as follows. Coordinates normalized 0..999:\ndamage: <bbox>0 0 249 249</bbox>\nrate: <bbox>250 0 499 249</bbox>\ncrit: <bbox>500 0 749 249</bbox>\ncrit_damage: <bbox>750 0 999 249</bbox>\nspread: <bbox>0 250 249 499</bbox>\nspeed: <bbox>250 250 499 499</bbox>\nblast: <bbox>500 250 749 499</bbox>\nknock: <bbox>750 250 999 499</bbox>\nrecoil: <bbox>0 500 249 749</bbox>\nheavy: <bbox>250 500 499 749</bbox>\nmove: <bbox>500 500 749 749</bbox>\npickup: <bbox>750 500 999 749</bbox>\ninv: <bbox>0 750 249 999</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\attribute-icons-v1\\source.png",
+  "sha256": "ea4f66e90d157aa173b9e88ec0ea93b5276b3438e2183937c8da8e563a104752"
+}

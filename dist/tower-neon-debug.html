@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>底座霓虹 · 独立调试台</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101623;color:#e6efff;font:15px/1.6 system-ui,sans-serif}main{max-width:720px;margin:40px auto;padding:28px}h1{font-size:26px;margin:0 0 8px}p{color:#aabbd2}a{color:#82e9ff}section{background:#1a2436;border:1px solid #34465d;border-radius:16px;padding:24px;margin:24px 0}label{display:grid;grid-template-columns:1fr 80px;gap:8px;margin:0 0 22px}label:last-child{margin-bottom:0}output{text-align:right;color:#8df6e3;font-variant-numeric:tabular-nums}input{grid-column:1/-1;width:100%;accent-color:#75e8d1;cursor:pointer}small{color:#9cacc3}button{padding:10px 16px;border-radius:8px;background:#273951;color:#e6efff;border:1px solid #55708e;font:inherit;cursor:pointer}nav{display:flex;gap:10px;flex-wrap:wrap}#status{font-size:13px;color:#8df6e3}#values{overflow-wrap:anywhere;color:#9cacc3;font-size:12px} @media(max-width:500px){main{margin:12px auto;padding:18px}section{padding:18px}}
+</style>
+<main>
+<h1>底座霓虹调试台</h1>
+<p>在游戏外调整六边形填充。把这个页面与游戏并排打开，拖动滑条即可同步；参数自动保存。</p>
+<p><a href="/" target="neon-game">打开游戏窗口 ↗</a> · 游戏需与本页使用同一浏览器、同一地址。首次使用请刷新游戏一次。</p>
+<section id="controls">
+<label>中心亮度 <output for="center"></output><input id="center" type="range" min="0" max="3" step="0.01"></label>
+<label>中段亮度 <output for="middle"></output><input id="middle" type="range" min="0" max="3" step="0.01"></label>
+<label>边缘亮度 <output for="edge"></output><input id="edge" type="range" min="0" max="3" step="0.01"></label>
+<label>中段位置 <output for="radius"></output><input id="radius" type="range" min="0.15" max="0.95" step="0.01"></label>
+<label>填充不透明度 <output for="opacity"></output><input id="opacity" type="range" min="0" max="1" step="0.01"></label>
+<label>颜色提白 <output for="white"></output><input id="white" type="range" min="0" max="1" step="0.01"></label>
+</section>
+<small>想要中间亮、外围暗：保持中心亮度 ＞ 中段亮度 ＞ 边缘亮度。中段位置越大，亮色区域越宽。整体太暗时先提高中段亮度。</small>
+<section><nav><button id="bright">明亮渐变</button><button id="soft">柔和渐变</button><button id="reset">恢复默认</button><button id="copy">复制参数</button></nav><p id="status" role="status"></p><div id="values"></div></section>
+</main>
+<script src="tower-neon-debug.js"></script>
+</html>

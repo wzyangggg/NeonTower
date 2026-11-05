@@ -1,0 +1,1476 @@
+{
+  "assumptions": {
+    "horizon": 30,
+    "baselineBountyShare": 0.6,
+    "buyEveryFloors": 2,
+    "rerollEveryFloors": 3,
+    "baselineMiners": 0,
+    "modifiers": false,
+    "note": "Income ceiling uses the entire finite roster, not guaranteed in-timer kills; boss rows count the fixed completion bonus only. Purchases use rounded mean current-tier price. Miner sensitivity assumes timely pickup and full timer."
+  },
+  "upgradeCosts": [
+    187,
+    267,
+    667,
+    1067
+  ],
+  "prices": [
+    {
+      "level": 1,
+      "weapon": 20,
+      "armor": 8,
+      "shoes": 7,
+      "drone": 12,
+      "bomb": 10
+    },
+    {
+      "level": 2,
+      "weapon": 30,
+      "armor": 12,
+      "shoes": 11,
+      "drone": 19,
+      "bomb": 15
+    },
+    {
+      "level": 3,
+      "weapon": 44,
+      "armor": 17,
+      "shoes": 15,
+      "drone": 27,
+      "bomb": 22
+    },
+    {
+      "level": 4,
+      "weapon": 62,
+      "armor": 23,
+      "shoes": 21,
+      "drone": 39,
+      "bomb": 31
+    },
+    {
+      "level": 5,
+      "weapon": 84,
+      "armor": 31,
+      "shoes": 29,
+      "drone": 54,
+      "bomb": 42
+    }
+  ],
+  "rows": [
+    {
+      "floor": 1,
+      "kind": "normal",
+      "pool": 60,
+      "oldIncome": 120,
+      "income": 84,
+      "duration": 20
+    },
+    {
+      "floor": 2,
+      "kind": "normal",
+      "pool": 60,
+      "oldIncome": 120,
+      "income": 120,
+      "duration": 22
+    },
+    {
+      "floor": 3,
+      "kind": "normal",
+      "pool": 60,
+      "oldIncome": 120,
+      "income": 120,
+      "duration": 24
+    },
+    {
+      "floor": 4,
+      "kind": "normal",
+      "pool": 60,
+      "oldIncome": 120,
+      "income": 120,
+      "duration": 26
+    },
+    {
+      "floor": 5,
+      "kind": "normal",
+      "pool": 60,
+      "oldIncome": 120,
+      "income": 153,
+      "duration": 28
+    },
+    {
+      "floor": 6,
+      "kind": "saw",
+      "pool": 0,
+      "oldIncome": 32,
+      "income": 32,
+      "duration": 15
+    },
+    {
+      "floor": 7,
+      "kind": "drink",
+      "pool": 0,
+      "oldIncome": 0,
+      "income": 0,
+      "duration": 0
+    },
+    {
+      "floor": 8,
+      "kind": "normal",
+      "pool": 60,
+      "oldIncome": 120,
+      "income": 153,
+      "duration": 34
+    },
+    {
+      "floor": 9,
+      "kind": "normal",
+      "pool": 60,
+      "oldIncome": 120,
+      "income": 153,
+      "duration": 36
+    },
+    {
+      "floor": 10,
+      "kind": "normal",
+      "pool": 60,
+      "oldIncome": 120,
+      "income": 153,
+      "duration": 38
+    },
+    {
+      "floor": 11,
+      "kind": "boss",
+      "pool": 0,
+      "oldIncome": 20,
+      "income": 20,
+      "duration": 0
+    },
+    {
+      "floor": 12,
+      "kind": "normal",
+      "pool": 100,
+      "oldIncome": 200,
+      "income": 270,
+      "duration": 42
+    },
+    {
+      "floor": 13,
+      "kind": "normal",
+      "pool": 100,
+      "oldIncome": 200,
+      "income": 315,
+      "duration": 44
+    },
+    {
+      "floor": 14,
+      "kind": "normal",
+      "pool": 100,
+      "oldIncome": 200,
+      "income": 315,
+      "duration": 46
+    },
+    {
+      "floor": 15,
+      "kind": "normal",
+      "pool": 100,
+      "oldIncome": 200,
+      "income": 315,
+      "duration": 48
+    },
+    {
+      "floor": 16,
+      "kind": "normal",
+      "pool": 100,
+      "oldIncome": 200,
+      "income": 355,
+      "duration": 50
+    },
+    {
+      "floor": 17,
+      "kind": "saw",
+      "pool": 0,
+      "oldIncome": 54,
+      "income": 54,
+      "duration": 15
+    },
+    {
+      "floor": 18,
+      "kind": "drink",
+      "pool": 0,
+      "oldIncome": 0,
+      "income": 0,
+      "duration": 0
+    },
+    {
+      "floor": 19,
+      "kind": "normal",
+      "pool": 100,
+      "oldIncome": 200,
+      "income": 355,
+      "duration": 56
+    },
+    {
+      "floor": 20,
+      "kind": "normal",
+      "pool": 100,
+      "oldIncome": 200,
+      "income": 355,
+      "duration": 58
+    },
+    {
+      "floor": 21,
+      "kind": "normal",
+      "pool": 100,
+      "oldIncome": 200,
+      "income": 355,
+      "duration": 60
+    },
+    {
+      "floor": 22,
+      "kind": "boss",
+      "pool": 0,
+      "oldIncome": 20,
+      "income": 20,
+      "duration": 0
+    },
+    {
+      "floor": 23,
+      "kind": "normal",
+      "pool": 150,
+      "oldIncome": 300,
+      "income": 533,
+      "duration": 60
+    },
+    {
+      "floor": 24,
+      "kind": "normal",
+      "pool": 150,
+      "oldIncome": 300,
+      "income": 556,
+      "duration": 60
+    },
+    {
+      "floor": 25,
+      "kind": "normal",
+      "pool": 150,
+      "oldIncome": 300,
+      "income": 556,
+      "duration": 60
+    },
+    {
+      "floor": 26,
+      "kind": "normal",
+      "pool": 150,
+      "oldIncome": 300,
+      "income": 556,
+      "duration": 60
+    },
+    {
+      "floor": 27,
+      "kind": "normal",
+      "pool": 150,
+      "oldIncome": 300,
+      "income": 556,
+      "duration": 60
+    },
+    {
+      "floor": 28,
+      "kind": "saw",
+      "pool": 0,
+      "oldIncome": 76,
+      "income": 76,
+      "duration": 15
+    },
+    {
+      "floor": 29,
+      "kind": "drink",
+      "pool": 0,
+      "oldIncome": 0,
+      "income": 0,
+      "duration": 0
+    },
+    {
+      "floor": 30,
+      "kind": "normal",
+      "pool": 150,
+      "oldIncome": 300,
+      "income": 556,
+      "duration": 60
+    },
+    {
+      "floor": 31,
+      "kind": "normal",
+      "pool": 150,
+      "oldIncome": 300,
+      "income": 556,
+      "duration": 60
+    },
+    {
+      "floor": 32,
+      "kind": "normal",
+      "pool": 150,
+      "oldIncome": 300,
+      "income": 616,
+      "duration": 60
+    },
+    {
+      "floor": 33,
+      "kind": "boss",
+      "pool": 0,
+      "oldIncome": 20,
+      "income": 20,
+      "duration": 0
+    }
+  ],
+  "baseline": {
+    "ratio": 0.6,
+    "buy": true,
+    "miners": 0,
+    "upgrades": [
+      4,
+      9,
+      15,
+      23
+    ],
+    "wallet": 1553,
+    "spent": 666,
+    "mined": 0,
+    "ledger": [
+      {
+        "floor": 1,
+        "earned": 50,
+        "mine": 0,
+        "wallet": 50,
+        "level": 1
+      },
+      {
+        "floor": 2,
+        "earned": 72,
+        "mine": 0,
+        "wallet": 111,
+        "level": 1
+      },
+      {
+        "floor": 3,
+        "earned": 72,
+        "mine": 0,
+        "wallet": 178,
+        "level": 1
+      },
+      {
+        "floor": 4,
+        "earned": 72,
+        "mine": 0,
+        "wallet": 52,
+        "level": 2
+      },
+      {
+        "floor": 5,
+        "earned": 92,
+        "mine": 0,
+        "wallet": 144,
+        "level": 2
+      },
+      {
+        "floor": 6,
+        "earned": 32,
+        "mine": 0,
+        "wallet": 149,
+        "level": 2
+      },
+      {
+        "floor": 7,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 149,
+        "level": 2
+      },
+      {
+        "floor": 8,
+        "earned": 92,
+        "mine": 0,
+        "wallet": 222,
+        "level": 2
+      },
+      {
+        "floor": 9,
+        "earned": 92,
+        "mine": 0,
+        "wallet": 39,
+        "level": 3
+      },
+      {
+        "floor": 10,
+        "earned": 92,
+        "mine": 0,
+        "wallet": 104,
+        "level": 3
+      },
+      {
+        "floor": 11,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 124,
+        "level": 3
+      },
+      {
+        "floor": 12,
+        "earned": 162,
+        "mine": 0,
+        "wallet": 247,
+        "level": 3
+      },
+      {
+        "floor": 13,
+        "earned": 189,
+        "mine": 0,
+        "wallet": 436,
+        "level": 3
+      },
+      {
+        "floor": 14,
+        "earned": 189,
+        "mine": 0,
+        "wallet": 596,
+        "level": 3
+      },
+      {
+        "floor": 15,
+        "earned": 189,
+        "mine": 0,
+        "wallet": 106,
+        "level": 4
+      },
+      {
+        "floor": 16,
+        "earned": 213,
+        "mine": 0,
+        "wallet": 280,
+        "level": 4
+      },
+      {
+        "floor": 17,
+        "earned": 54,
+        "mine": 0,
+        "wallet": 334,
+        "level": 4
+      },
+      {
+        "floor": 18,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 277,
+        "level": 4
+      },
+      {
+        "floor": 19,
+        "earned": 213,
+        "mine": 0,
+        "wallet": 490,
+        "level": 4
+      },
+      {
+        "floor": 20,
+        "earned": 213,
+        "mine": 0,
+        "wallet": 664,
+        "level": 4
+      },
+      {
+        "floor": 21,
+        "earned": 213,
+        "mine": 0,
+        "wallet": 859,
+        "level": 4
+      },
+      {
+        "floor": 22,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 840,
+        "level": 4
+      },
+      {
+        "floor": 23,
+        "earned": 320,
+        "mine": 0,
+        "wallet": 93,
+        "level": 5
+      },
+      {
+        "floor": 24,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 349,
+        "level": 5
+      },
+      {
+        "floor": 25,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 683,
+        "level": 5
+      },
+      {
+        "floor": 26,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 965,
+        "level": 5
+      },
+      {
+        "floor": 27,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 1273,
+        "level": 5
+      },
+      {
+        "floor": 28,
+        "earned": 76,
+        "mine": 0,
+        "wallet": 1297,
+        "level": 5
+      },
+      {
+        "floor": 29,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 1297,
+        "level": 5
+      },
+      {
+        "floor": 30,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 1553,
+        "level": 5
+      }
+    ]
+  },
+  "perfect": {
+    "ratio": 1,
+    "buy": true,
+    "miners": 0,
+    "upgrades": [
+      2,
+      5,
+      12,
+      16
+    ],
+    "wallet": 4250,
+    "spent": 768,
+    "mined": 0,
+    "ledger": [
+      {
+        "floor": 1,
+        "earned": 84,
+        "mine": 0,
+        "wallet": 84,
+        "level": 1
+      },
+      {
+        "floor": 2,
+        "earned": 120,
+        "mine": 0,
+        "wallet": 6,
+        "level": 2
+      },
+      {
+        "floor": 3,
+        "earned": 120,
+        "mine": 0,
+        "wallet": 118,
+        "level": 2
+      },
+      {
+        "floor": 4,
+        "earned": 120,
+        "mine": 0,
+        "wallet": 221,
+        "level": 2
+      },
+      {
+        "floor": 5,
+        "earned": 153,
+        "mine": 0,
+        "wallet": 107,
+        "level": 3
+      },
+      {
+        "floor": 6,
+        "earned": 32,
+        "mine": 0,
+        "wallet": 101,
+        "level": 3
+      },
+      {
+        "floor": 7,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 101,
+        "level": 3
+      },
+      {
+        "floor": 8,
+        "earned": 153,
+        "mine": 0,
+        "wallet": 228,
+        "level": 3
+      },
+      {
+        "floor": 9,
+        "earned": 153,
+        "mine": 0,
+        "wallet": 369,
+        "level": 3
+      },
+      {
+        "floor": 10,
+        "earned": 153,
+        "mine": 0,
+        "wallet": 495,
+        "level": 3
+      },
+      {
+        "floor": 11,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 515,
+        "level": 3
+      },
+      {
+        "floor": 12,
+        "earned": 270,
+        "mine": 0,
+        "wallet": 79,
+        "level": 4
+      },
+      {
+        "floor": 13,
+        "earned": 315,
+        "mine": 0,
+        "wallet": 394,
+        "level": 4
+      },
+      {
+        "floor": 14,
+        "earned": 315,
+        "mine": 0,
+        "wallet": 670,
+        "level": 4
+      },
+      {
+        "floor": 15,
+        "earned": 315,
+        "mine": 0,
+        "wallet": 967,
+        "level": 4
+      },
+      {
+        "floor": 16,
+        "earned": 355,
+        "mine": 0,
+        "wallet": 216,
+        "level": 5
+      },
+      {
+        "floor": 17,
+        "earned": 54,
+        "mine": 0,
+        "wallet": 270,
+        "level": 5
+      },
+      {
+        "floor": 18,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 192,
+        "level": 5
+      },
+      {
+        "floor": 19,
+        "earned": 355,
+        "mine": 0,
+        "wallet": 547,
+        "level": 5
+      },
+      {
+        "floor": 20,
+        "earned": 355,
+        "mine": 0,
+        "wallet": 850,
+        "level": 5
+      },
+      {
+        "floor": 21,
+        "earned": 355,
+        "mine": 0,
+        "wallet": 1179,
+        "level": 5
+      },
+      {
+        "floor": 22,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 1147,
+        "level": 5
+      },
+      {
+        "floor": 23,
+        "earned": 533,
+        "mine": 0,
+        "wallet": 1680,
+        "level": 5
+      },
+      {
+        "floor": 24,
+        "earned": 556,
+        "mine": 0,
+        "wallet": 2158,
+        "level": 5
+      },
+      {
+        "floor": 25,
+        "earned": 556,
+        "mine": 0,
+        "wallet": 2714,
+        "level": 5
+      },
+      {
+        "floor": 26,
+        "earned": 556,
+        "mine": 0,
+        "wallet": 3218,
+        "level": 5
+      },
+      {
+        "floor": 27,
+        "earned": 556,
+        "mine": 0,
+        "wallet": 3748,
+        "level": 5
+      },
+      {
+        "floor": 28,
+        "earned": 76,
+        "mine": 0,
+        "wallet": 3772,
+        "level": 5
+      },
+      {
+        "floor": 29,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 3772,
+        "level": 5
+      },
+      {
+        "floor": 30,
+        "earned": 556,
+        "mine": 0,
+        "wallet": 4250,
+        "level": 5
+      }
+    ]
+  },
+  "hoard": {
+    "ratio": 0.4,
+    "buy": false,
+    "miners": 0,
+    "upgrades": [
+      5,
+      10,
+      17,
+      25
+    ],
+    "wallet": 813,
+    "spent": 0,
+    "mined": 0,
+    "ledger": [
+      {
+        "floor": 1,
+        "earned": 34,
+        "mine": 0,
+        "wallet": 34,
+        "level": 1
+      },
+      {
+        "floor": 2,
+        "earned": 48,
+        "mine": 0,
+        "wallet": 82,
+        "level": 1
+      },
+      {
+        "floor": 3,
+        "earned": 48,
+        "mine": 0,
+        "wallet": 130,
+        "level": 1
+      },
+      {
+        "floor": 4,
+        "earned": 48,
+        "mine": 0,
+        "wallet": 178,
+        "level": 1
+      },
+      {
+        "floor": 5,
+        "earned": 61,
+        "mine": 0,
+        "wallet": 52,
+        "level": 2
+      },
+      {
+        "floor": 6,
+        "earned": 32,
+        "mine": 0,
+        "wallet": 84,
+        "level": 2
+      },
+      {
+        "floor": 7,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 84,
+        "level": 2
+      },
+      {
+        "floor": 8,
+        "earned": 61,
+        "mine": 0,
+        "wallet": 145,
+        "level": 2
+      },
+      {
+        "floor": 9,
+        "earned": 61,
+        "mine": 0,
+        "wallet": 206,
+        "level": 2
+      },
+      {
+        "floor": 10,
+        "earned": 61,
+        "mine": 0,
+        "wallet": 0,
+        "level": 3
+      },
+      {
+        "floor": 11,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 20,
+        "level": 3
+      },
+      {
+        "floor": 12,
+        "earned": 108,
+        "mine": 0,
+        "wallet": 128,
+        "level": 3
+      },
+      {
+        "floor": 13,
+        "earned": 126,
+        "mine": 0,
+        "wallet": 254,
+        "level": 3
+      },
+      {
+        "floor": 14,
+        "earned": 126,
+        "mine": 0,
+        "wallet": 380,
+        "level": 3
+      },
+      {
+        "floor": 15,
+        "earned": 126,
+        "mine": 0,
+        "wallet": 506,
+        "level": 3
+      },
+      {
+        "floor": 16,
+        "earned": 142,
+        "mine": 0,
+        "wallet": 648,
+        "level": 3
+      },
+      {
+        "floor": 17,
+        "earned": 54,
+        "mine": 0,
+        "wallet": 35,
+        "level": 4
+      },
+      {
+        "floor": 18,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 35,
+        "level": 4
+      },
+      {
+        "floor": 19,
+        "earned": 142,
+        "mine": 0,
+        "wallet": 177,
+        "level": 4
+      },
+      {
+        "floor": 20,
+        "earned": 142,
+        "mine": 0,
+        "wallet": 319,
+        "level": 4
+      },
+      {
+        "floor": 21,
+        "earned": 142,
+        "mine": 0,
+        "wallet": 461,
+        "level": 4
+      },
+      {
+        "floor": 22,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 481,
+        "level": 4
+      },
+      {
+        "floor": 23,
+        "earned": 213,
+        "mine": 0,
+        "wallet": 694,
+        "level": 4
+      },
+      {
+        "floor": 24,
+        "earned": 222,
+        "mine": 0,
+        "wallet": 916,
+        "level": 4
+      },
+      {
+        "floor": 25,
+        "earned": 222,
+        "mine": 0,
+        "wallet": 71,
+        "level": 5
+      },
+      {
+        "floor": 26,
+        "earned": 222,
+        "mine": 0,
+        "wallet": 293,
+        "level": 5
+      },
+      {
+        "floor": 27,
+        "earned": 222,
+        "mine": 0,
+        "wallet": 515,
+        "level": 5
+      },
+      {
+        "floor": 28,
+        "earned": 76,
+        "mine": 0,
+        "wallet": 591,
+        "level": 5
+      },
+      {
+        "floor": 29,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 591,
+        "level": 5
+      },
+      {
+        "floor": 30,
+        "earned": 222,
+        "mine": 0,
+        "wallet": 813,
+        "level": 5
+      }
+    ]
+  },
+  "sameOutputHoard": {
+    "ratio": 0.6,
+    "buy": false,
+    "miners": 0,
+    "upgrades": [
+      3,
+      8,
+      14,
+      21
+    ],
+    "wallet": 2219,
+    "spent": 0,
+    "mined": 0,
+    "ledger": [
+      {
+        "floor": 1,
+        "earned": 50,
+        "mine": 0,
+        "wallet": 50,
+        "level": 1
+      },
+      {
+        "floor": 2,
+        "earned": 72,
+        "mine": 0,
+        "wallet": 122,
+        "level": 1
+      },
+      {
+        "floor": 3,
+        "earned": 72,
+        "mine": 0,
+        "wallet": 7,
+        "level": 2
+      },
+      {
+        "floor": 4,
+        "earned": 72,
+        "mine": 0,
+        "wallet": 79,
+        "level": 2
+      },
+      {
+        "floor": 5,
+        "earned": 92,
+        "mine": 0,
+        "wallet": 171,
+        "level": 2
+      },
+      {
+        "floor": 6,
+        "earned": 32,
+        "mine": 0,
+        "wallet": 203,
+        "level": 2
+      },
+      {
+        "floor": 7,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 203,
+        "level": 2
+      },
+      {
+        "floor": 8,
+        "earned": 92,
+        "mine": 0,
+        "wallet": 28,
+        "level": 3
+      },
+      {
+        "floor": 9,
+        "earned": 92,
+        "mine": 0,
+        "wallet": 120,
+        "level": 3
+      },
+      {
+        "floor": 10,
+        "earned": 92,
+        "mine": 0,
+        "wallet": 212,
+        "level": 3
+      },
+      {
+        "floor": 11,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 232,
+        "level": 3
+      },
+      {
+        "floor": 12,
+        "earned": 162,
+        "mine": 0,
+        "wallet": 394,
+        "level": 3
+      },
+      {
+        "floor": 13,
+        "earned": 189,
+        "mine": 0,
+        "wallet": 583,
+        "level": 3
+      },
+      {
+        "floor": 14,
+        "earned": 189,
+        "mine": 0,
+        "wallet": 105,
+        "level": 4
+      },
+      {
+        "floor": 15,
+        "earned": 189,
+        "mine": 0,
+        "wallet": 294,
+        "level": 4
+      },
+      {
+        "floor": 16,
+        "earned": 213,
+        "mine": 0,
+        "wallet": 507,
+        "level": 4
+      },
+      {
+        "floor": 17,
+        "earned": 54,
+        "mine": 0,
+        "wallet": 561,
+        "level": 4
+      },
+      {
+        "floor": 18,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 561,
+        "level": 4
+      },
+      {
+        "floor": 19,
+        "earned": 213,
+        "mine": 0,
+        "wallet": 774,
+        "level": 4
+      },
+      {
+        "floor": 20,
+        "earned": 213,
+        "mine": 0,
+        "wallet": 987,
+        "level": 4
+      },
+      {
+        "floor": 21,
+        "earned": 213,
+        "mine": 0,
+        "wallet": 133,
+        "level": 5
+      },
+      {
+        "floor": 22,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 153,
+        "level": 5
+      },
+      {
+        "floor": 23,
+        "earned": 320,
+        "mine": 0,
+        "wallet": 473,
+        "level": 5
+      },
+      {
+        "floor": 24,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 807,
+        "level": 5
+      },
+      {
+        "floor": 25,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 1141,
+        "level": 5
+      },
+      {
+        "floor": 26,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 1475,
+        "level": 5
+      },
+      {
+        "floor": 27,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 1809,
+        "level": 5
+      },
+      {
+        "floor": 28,
+        "earned": 76,
+        "mine": 0,
+        "wallet": 1885,
+        "level": 5
+      },
+      {
+        "floor": 29,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 1885,
+        "level": 5
+      },
+      {
+        "floor": 30,
+        "earned": 334,
+        "mine": 0,
+        "wallet": 2219,
+        "level": 5
+      }
+    ]
+  },
+  "oneMiner": {
+    "ratio": 0.6,
+    "buy": true,
+    "miners": 1,
+    "upgrades": [
+      2,
+      5,
+      12,
+      16
+    ],
+    "wallet": 3475,
+    "spent": 768,
+    "mined": 2024,
+    "ledger": [
+      {
+        "floor": 1,
+        "earned": 50,
+        "mine": 40,
+        "wallet": 90,
+        "level": 1
+      },
+      {
+        "floor": 2,
+        "earned": 72,
+        "mine": 40,
+        "wallet": 4,
+        "level": 2
+      },
+      {
+        "floor": 3,
+        "earned": 72,
+        "mine": 48,
+        "wallet": 116,
+        "level": 2
+      },
+      {
+        "floor": 4,
+        "earned": 72,
+        "mine": 48,
+        "wallet": 219,
+        "level": 2
+      },
+      {
+        "floor": 5,
+        "earned": 92,
+        "mine": 56,
+        "wallet": 100,
+        "level": 3
+      },
+      {
+        "floor": 6,
+        "earned": 32,
+        "mine": 24,
+        "wallet": 118,
+        "level": 3
+      },
+      {
+        "floor": 7,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 118,
+        "level": 3
+      },
+      {
+        "floor": 8,
+        "earned": 92,
+        "mine": 64,
+        "wallet": 248,
+        "level": 3
+      },
+      {
+        "floor": 9,
+        "earned": 92,
+        "mine": 72,
+        "wallet": 400,
+        "level": 3
+      },
+      {
+        "floor": 10,
+        "earned": 92,
+        "mine": 72,
+        "wallet": 537,
+        "level": 3
+      },
+      {
+        "floor": 11,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 557,
+        "level": 3
+      },
+      {
+        "floor": 12,
+        "earned": 162,
+        "mine": 80,
+        "wallet": 93,
+        "level": 4
+      },
+      {
+        "floor": 13,
+        "earned": 189,
+        "mine": 88,
+        "wallet": 370,
+        "level": 4
+      },
+      {
+        "floor": 14,
+        "earned": 189,
+        "mine": 88,
+        "wallet": 608,
+        "level": 4
+      },
+      {
+        "floor": 15,
+        "earned": 189,
+        "mine": 96,
+        "wallet": 875,
+        "level": 4
+      },
+      {
+        "floor": 16,
+        "earned": 213,
+        "mine": 96,
+        "wallet": 78,
+        "level": 5
+      },
+      {
+        "floor": 17,
+        "earned": 54,
+        "mine": 24,
+        "wallet": 156,
+        "level": 5
+      },
+      {
+        "floor": 18,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 78,
+        "level": 5
+      },
+      {
+        "floor": 19,
+        "earned": 213,
+        "mine": 112,
+        "wallet": 403,
+        "level": 5
+      },
+      {
+        "floor": 20,
+        "earned": 213,
+        "mine": 112,
+        "wallet": 676,
+        "level": 5
+      },
+      {
+        "floor": 21,
+        "earned": 213,
+        "mine": 120,
+        "wallet": 983,
+        "level": 5
+      },
+      {
+        "floor": 22,
+        "earned": 20,
+        "mine": 0,
+        "wallet": 951,
+        "level": 5
+      },
+      {
+        "floor": 23,
+        "earned": 320,
+        "mine": 120,
+        "wallet": 1391,
+        "level": 5
+      },
+      {
+        "floor": 24,
+        "earned": 334,
+        "mine": 120,
+        "wallet": 1767,
+        "level": 5
+      },
+      {
+        "floor": 25,
+        "earned": 334,
+        "mine": 120,
+        "wallet": 2221,
+        "level": 5
+      },
+      {
+        "floor": 26,
+        "earned": 334,
+        "mine": 120,
+        "wallet": 2623,
+        "level": 5
+      },
+      {
+        "floor": 27,
+        "earned": 334,
+        "mine": 120,
+        "wallet": 3051,
+        "level": 5
+      },
+      {
+        "floor": 28,
+        "earned": 76,
+        "mine": 24,
+        "wallet": 3099,
+        "level": 5
+      },
+      {
+        "floor": 29,
+        "earned": 0,
+        "mine": 0,
+        "wallet": 3099,
+        "level": 5
+      },
+      {
+        "floor": 30,
+        "earned": 334,
+        "mine": 120,
+        "wallet": 3475,
+        "level": 5
+      }
+    ]
+  },
+  "outputComparison": {
+    "starter": {
+      "item": "pistol_t1",
+      "cash": 26,
+      "kills": 26,
+      "total": 60
+    },
+    "sameShopTierPurchase": {
+      "item": "sword_t1",
+      "cash": 40,
+      "kills": 35,
+      "total": 60
+    },
+    "cost": 20
+  },
+  "oldRush": [
+    1,
+    1,
+    2,
+    3
+  ]
+}

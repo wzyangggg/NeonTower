@@ -1,0 +1,1 @@
+{"error":{"code":"InvalidParameter","message":"The parameter `image` specified in the request are not valid: the image content could not be processed for layer decomposition. Request id: 0217937928086524e0d847e114bd906533eadfa024bfe6dcc764b","param":"image","type":"BadRequest"}}

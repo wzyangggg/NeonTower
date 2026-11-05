@@ -1,0 +1,14 @@
+const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert=require('node:assert/strict');
+(async()=>{const b=await chromium.launch({headless:true,channel:'msedge'});try{const page=await b.newPage({viewport:{width:390,height:844}}),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('http://127.0.0.1:4173/?electriclab=1');await page.waitForFunction(()=>ElectricEditor.editing&&MapIcons.ready);
+async function point(c){return page.evaluate(c=>{draw();const a=ElectricTiles.center(c),s=renderer.screenPoint(a.x-325,4,(a.y-300)*1.06),r=canvas.getBoundingClientRect();return {x:s.x+r.left,y:s.y+r.top};},c)}
+for(const kind of ['tower','apple','banana','grape','watermelon'])for(const row of [-1,0]){
+await page.evaluate(()=>{ElectricEditor.reset();ElectricTiles.reset();tiles=[];for(let y=-5;y<=5;y++)for(let x=-6;x<=6;x++)tiles.push({x,y});enemies=[];enemyTransports=[];spawnQueue=[];ElectricEditor.open();draw()});
+await page.locator('#electric-panel').evaluate(el=>Promise.all(el.getAnimations({subtree:true}).map(a=>a.finished.catch(()=>{}))));await page.locator('[data-lab-tools] summary').click();await page.locator(`[data-test-kind="${kind}"]`).click();
+const card=await page.locator(`#electric-backpack [data-kind="${kind}"]`).first().boundingBox(),target={x:0,y:row};await page.mouse.move(card.x+card.width/2,card.y+card.height/2);await page.mouse.down();await page.mouse.move(card.x+card.width/2,card.y-30,{steps:5});const dest=await point(target);await page.mouse.move(dest.x,dest.y,{steps:12});assert.equal(await page.locator('[data-placement-valid]').getAttribute('data-placement-valid'),'true');await page.mouse.up();
+assert.deepEqual(await page.evaluate(()=>{const f=ElectricTiles.list()[0];return ElectricTiles.coreCell(f)}),target,kind+' new placement follows core');
+const grab=await page.evaluate(()=>{const f=ElectricTiles.list()[0],c=ElectricTiles.coreCell(f);return f.cells.find(t=>t.x!==c.x||t.y!==c.y)}),from=await point(grab),next={x:-1,y:row+1};await page.mouse.move(from.x,from.y);await page.mouse.down();const to=await point(next);await page.mouse.move(to.x,to.y,{steps:12});assert.equal(await page.locator('[data-placement-valid]').getAttribute('data-placement-valid'),'true');await page.mouse.up();assert.deepEqual(await page.evaluate(()=>ElectricTiles.coreCell(ElectricTiles.list()[0])),next,kind+' noncore grab still drops by core');
+assert.equal(await page.evaluate(()=>renderer.gl.getError()),0);
+}
+assert.deepEqual(errors,[]);console.log('Edge core placement: tower and four farms, odd/even rows, real backpack drag and noncore-grab relocation all land by model/fruit core, zero page/GL errors passed');}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+

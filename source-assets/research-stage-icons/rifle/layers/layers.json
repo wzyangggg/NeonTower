@@ -1,0 +1,137 @@
+{
+  "submission": {
+    "time": 1793787920.4613853,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rifle\\source.png",
+    "sha256": "b856179d04aea5d289f00f830eecd528a25b116269151517ec7326195aca86bb"
+  },
+  "layers": [
+    {
+      "size": "2172x724",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rifle\\layers\\layer-00.png"
+    },
+    {
+      "size": "755x760",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          58,
+          166,
+          419,
+          530
+        ],
+        "normalized": [
+          27,
+          229,
+          193,
+          732
+        ]
+      },
+      "name": "Rifle skill icon 1",
+      "description": "Extract the complete skill symbol including two golden bullets, cyan plus sign, and all dark outlines, do not include the navy tile background and blue outer frame",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rifle\\layers\\layer-01.png"
+    },
+    {
+      "size": "814x777",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          464,
+          171,
+          842,
+          532
+        ],
+        "normalized": [
+          214,
+          236,
+          388,
+          735
+        ]
+      },
+      "name": "Rifle skill icon 2",
+      "description": "Extract the complete skill symbol including two golden bullets, cyan lightning trails, and all dark outlines, do not include the navy tile background and blue outer frame",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rifle\\layers\\layer-02.png"
+    },
+    {
+      "size": "809x771",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          902,
+          188,
+          1264,
+          530
+        ],
+        "normalized": [
+          415,
+          260,
+          582,
+          732
+        ]
+      },
+      "name": "Rifle skill icon 3",
+      "description": "Extract the complete skill symbol including two golden bullets, cracked gray metal block, and all dark outlines, do not include the navy tile background and blue outer frame",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rifle\\layers\\layer-03.png"
+    },
+    {
+      "size": "804x775",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          1327,
+          147,
+          1711,
+          518
+        ],
+        "normalized": [
+          611,
+          203,
+          788,
+          715
+        ]
+      },
+      "name": "Rifle skill icon 4",
+      "description": "Extract the complete skill symbol including one golden bullet, orange-yellow spark explosion, and all dark outlines, do not include the navy tile background and blue outer frame",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rifle\\layers\\layer-04.png"
+    },
+    {
+      "size": "856x847",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          1750,
+          152,
+          2132,
+          528
+        ],
+        "normalized": [
+          806,
+          210,
+          982,
+          729
+        ]
+      },
+      "name": "Rifle skill icon 5",
+      "description": "Extract the complete skill symbol including two golden bullets, orange-yellow spark explosion, and all dark outlines, do not include the navy tile background and blue outer frame",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\rifle\\layers\\layer-05.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 6,
+    "output_tokens": 25877,
+    "total_tokens": 25877
+  }
+}

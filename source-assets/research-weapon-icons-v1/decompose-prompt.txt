@@ -1,0 +1,14 @@
+Decompose this weapon atlas into exactly 13 complete transparent foreground item layers plus background. Preserve original shapes, dark outlines, colors, highlights and all details. Remove pale background including holes inside trigger guards and stocks. Each listed ID is ONE complete layer; paired guns and paired missiles must remain together in their respective single layer; electrical arc belongs to tesla. No redraw, no merging neighboring cells. Regions normalized 0-999:
+pistol: <bbox>0 0 250 250</bbox>
+smg: <bbox>250 0 500 250</bbox>
+uzi: <bbox>500 0 750 250</bbox>
+rifle: <bbox>750 0 999 250</bbox>
+sniper: <bbox>0 250 250 500</bbox>
+rocket: <bbox>250 250 500 500</bbox>
+seeker: <bbox>500 250 750 500</bbox>
+laser: <bbox>750 250 999 500</bbox>
+tesla: <bbox>0 500 250 750</bbox>
+boomerang: <bbox>250 500 500 750</bbox>
+bee: <bbox>500 500 750 750</bbox>
+sword: <bbox>750 500 999 750</bbox>
+shotgun: <bbox>0 750 250 999</bbox>

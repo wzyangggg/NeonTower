@@ -1,0 +1,1 @@
+Source supplied and approved by user on 2026-11-03. No new image generation used for integration. Original attachment: codex-clipboard-adac8871-5c2c-4a0a-9744-c971110d5825.png. See catalog.json and decompose-prompt.txt for the 13 attribute mappings and extraction prompt.

@@ -1,0 +1,551 @@
+{
+  "source": "source.png",
+  "items": [
+    {
+      "id": "pistol",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-01.png",
+      "zIndex": 1,
+      "sourceBoundingBox": {
+        "absolute": [
+          85,
+          34,
+          294,
+          214
+        ],
+        "normalized": [
+          83,
+          22,
+          287,
+          139
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        773,
+        667
+      ],
+      "icon": "pistol-48.png"
+    },
+    {
+      "id": "smg",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-02.png",
+      "zIndex": 2,
+      "sourceBoundingBox": {
+        "absolute": [
+          387,
+          29,
+          614,
+          232
+        ],
+        "normalized": [
+          378,
+          19,
+          600,
+          151
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        769,
+        689
+      ],
+      "icon": "smg-48.png"
+    },
+    {
+      "id": "uzi",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-03.png",
+      "zIndex": 3,
+      "sourceBoundingBox": {
+        "absolute": [
+          708,
+          21,
+          954,
+          236
+        ],
+        "normalized": [
+          691,
+          14,
+          932,
+          154
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        848,
+        737
+      ],
+      "icon": "uzi-48.png"
+    },
+    {
+      "id": "rifle",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-04.png",
+      "zIndex": 4,
+      "sourceBoundingBox": {
+        "absolute": [
+          58,
+          249,
+          317,
+          443
+        ],
+        "normalized": [
+          57,
+          162,
+          310,
+          288
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        844,
+        633
+      ],
+      "icon": "rifle-48.png"
+    },
+    {
+      "id": "sniper",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-05.png",
+      "zIndex": 5,
+      "sourceBoundingBox": {
+        "absolute": [
+          375,
+          247,
+          637,
+          428
+        ],
+        "normalized": [
+          366,
+          161,
+          622,
+          279
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        837,
+        577
+      ],
+      "icon": "sniper-48.png"
+    },
+    {
+      "id": "rocket",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-06.png",
+      "zIndex": 6,
+      "sourceBoundingBox": {
+        "absolute": [
+          703,
+          246,
+          963,
+          432
+        ],
+        "normalized": [
+          687,
+          160,
+          940,
+          281
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        844,
+        601
+      ],
+      "icon": "rocket-48.png"
+    },
+    {
+      "id": "seeker",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-07.png",
+      "zIndex": 7,
+      "sourceBoundingBox": {
+        "absolute": [
+          71,
+          458,
+          281,
+          651
+        ],
+        "normalized": [
+          69,
+          298,
+          274,
+          424
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        790,
+        725
+      ],
+      "icon": "seeker-48.png"
+    },
+    {
+      "id": "laser",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-08.png",
+      "zIndex": 8,
+      "sourceBoundingBox": {
+        "absolute": [
+          378,
+          452,
+          613,
+          623
+        ],
+        "normalized": [
+          369,
+          294,
+          599,
+          406
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        874,
+        640
+      ],
+      "icon": "laser-48.png"
+    },
+    {
+      "id": "tesla",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-09.png",
+      "zIndex": 9,
+      "sourceBoundingBox": {
+        "absolute": [
+          704,
+          448,
+          953,
+          632
+        ],
+        "normalized": [
+          688,
+          292,
+          931,
+          411
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        824,
+        608
+      ],
+      "icon": "tesla-48.png"
+    },
+    {
+      "id": "boomerang",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-10.png",
+      "zIndex": 10,
+      "sourceBoundingBox": {
+        "absolute": [
+          81,
+          667,
+          300,
+          858
+        ],
+        "normalized": [
+          79,
+          434,
+          293,
+          559
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        814,
+        710
+      ],
+      "icon": "boomerang-48.png"
+    },
+    {
+      "id": "bee",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-11.png",
+      "zIndex": 11,
+      "sourceBoundingBox": {
+        "absolute": [
+          386,
+          664,
+          612,
+          850
+        ],
+        "normalized": [
+          377,
+          432,
+          598,
+          553
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        816,
+        672
+      ],
+      "icon": "bee-48.png"
+    },
+    {
+      "id": "sword",
+      "sourceLayer": "source-assets/research-icons-v4/batch-1/layer-12.png",
+      "zIndex": 12,
+      "sourceBoundingBox": {
+        "absolute": [
+          718,
+          666,
+          954,
+          861
+        ],
+        "normalized": [
+          701,
+          434,
+          932,
+          561
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        804,
+        663
+      ],
+      "icon": "sword-48.png"
+    },
+    {
+      "id": "shotgun",
+      "sourceLayer": "source-assets/research-icons-v4/batch-2/layer-01.png",
+      "zIndex": 1,
+      "sourceBoundingBox": {
+        "absolute": [
+          58,
+          889,
+          317,
+          1050
+        ],
+        "normalized": [
+          57,
+          579,
+          310,
+          684
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        698,
+        432
+      ],
+      "icon": "shotgun-48.png"
+    },
+    {
+      "id": "shotgun_tower",
+      "sourceLayer": "source-assets/research-icons-v4/batch-2/layer-02.png",
+      "zIndex": 2,
+      "sourceBoundingBox": {
+        "absolute": [
+          388,
+          873,
+          607,
+          1068
+        ],
+        "normalized": [
+          379,
+          568,
+          593,
+          695
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        578,
+        513
+      ],
+      "icon": "shotgun_tower-48.png"
+    },
+    {
+      "id": "sniper_tower",
+      "sourceLayer": "source-assets/research-icons-v4/batch-2/layer-03.png",
+      "zIndex": 3,
+      "sourceBoundingBox": {
+        "absolute": [
+          690,
+          865,
+          952,
+          1067
+        ],
+        "normalized": [
+          674,
+          563,
+          930,
+          695
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        706,
+        543
+      ],
+      "icon": "sniper_tower-48.png"
+    },
+    {
+      "id": "electric_tower",
+      "sourceLayer": "source-assets/research-icons-v4/batch-2/layer-04.png",
+      "zIndex": 4,
+      "sourceBoundingBox": {
+        "absolute": [
+          90,
+          1082,
+          278,
+          1286
+        ],
+        "normalized": [
+          88,
+          704,
+          271,
+          837
+        ]
+      },
+      "alphaTrim": [
+        2,
+        5,
+        497,
+        540
+      ],
+      "icon": "electric_tower-48.png"
+    },
+    {
+      "id": "missile_tower",
+      "sourceLayer": "source-assets/research-icons-v4/batch-2/layer-05.png",
+      "zIndex": 5,
+      "sourceBoundingBox": {
+        "absolute": [
+          404,
+          1087,
+          611,
+          1289
+        ],
+        "normalized": [
+          395,
+          708,
+          597,
+          839
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        512,
+        499
+      ],
+      "icon": "missile_tower-48.png"
+    },
+    {
+      "id": "healing_tower",
+      "sourceLayer": "source-assets/research-icons-v4/batch-2/layer-06.png",
+      "zIndex": 6,
+      "sourceBoundingBox": {
+        "absolute": [
+          718,
+          1088,
+          928,
+          1284
+        ],
+        "normalized": [
+          701,
+          708,
+          906,
+          836
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        556,
+        520
+      ],
+      "icon": "healing_tower-48.png"
+    },
+    {
+      "id": "shield_tower",
+      "sourceLayer": "source-assets/research-icons-v4/batch-2/layer-07.png",
+      "zIndex": 7,
+      "sourceBoundingBox": {
+        "absolute": [
+          94,
+          1302,
+          274,
+          1509
+        ],
+        "normalized": [
+          92,
+          848,
+          268,
+          982
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        569,
+        652
+      ],
+      "icon": "shield_tower-48.png"
+    },
+    {
+      "id": "slow_field",
+      "sourceLayer": "source-assets/research-icons-v4/batch-2/layer-08.png",
+      "zIndex": 8,
+      "sourceBoundingBox": {
+        "absolute": [
+          369,
+          1340,
+          631,
+          1498
+        ],
+        "normalized": [
+          360,
+          872,
+          616,
+          975
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        756,
+        454
+      ],
+      "icon": "slow_field-48.png"
+    },
+    {
+      "id": "repair_turret",
+      "sourceLayer": "source-assets/research-icons-v4/batch-2/layer-09.png",
+      "zIndex": 9,
+      "sourceBoundingBox": {
+        "absolute": [
+          711,
+          1318,
+          953,
+          1508
+        ],
+        "normalized": [
+          694,
+          858,
+          931,
+          982
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        765,
+        599
+      ],
+      "icon": "repair_turret-48.png"
+    }
+  ]
+}

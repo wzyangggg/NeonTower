@@ -1,0 +1,232 @@
+{
+  "sourceAssets": "H:\\UnityProject\\TreasureIsland6000\\Assets",
+  "scope": "Appearance only; Unity prefab snapshots are reference files, not standalone runtime characters.",
+  "characters": {
+    "fox": {
+      "model": "Assets/IslandDefender/Models/FoxRigged.fbx",
+      "prefabReference": "Assets/IslandDefender/Resources/Characters/Archer/IslandDefenderFoxArcher.prefab",
+      "files": [
+        "Assets/IslandDefender/Animations/Idle.fbx",
+        "Assets/IslandDefender/Animations/Running.fbx",
+        "Assets/IslandDefender/Art/IslandDefenderCharacter.shader",
+        "Assets/IslandDefender/Models/FoxRigged.fbx",
+        "Assets/IslandDefender/Models/Materials/IslandDefenderCatEyeUV.shader",
+        "Assets/IslandDefender/Models/Materials/Mat_FoxEye.mat",
+        "Assets/IslandDefender/Models/Materials/tripo_mat_c10028e10.mat",
+        "Assets/IslandDefender/Models/Materials/tripo_mat_c10028e9.mat",
+        "Assets/IslandDefender/Models/Textures/tripo_image_c10028e9-67f7-485e-b5a3-1be69856f119_0_0 1.jpg",
+        "Assets/IslandDefender/Resources/Characters/Archer/IslandDefenderFoxArcher.prefab",
+        "Assets/Res/Textures/UI/UIParticles/fx_circle.png"
+      ],
+      "externalPrefabDependencies": [
+        {
+          "guid": "d90d197b5f47af544aff6260d9dfadf2",
+          "source": "Plugins/Animancer/Utilities/Redirect Root Motion/RedirectRootMotionToCharacterController.cs"
+        },
+        {
+          "guid": "7dcb7b54f5d7c2549addf9c610e68d1a",
+          "source": "Scripts/AnimationStateMachine/StringBasedAnimationContainer.cs"
+        },
+        {
+          "guid": "7f863c679d54d2e44b5f6ab54a03189b",
+          "source": "IslandDefender/Resources/Characters/Stickman/IslandDefenderStickmanArcher.prefab"
+        },
+        {
+          "guid": "2baf78b5e60fc7947abd4344ef5aa3bb",
+          "source": null
+        }
+      ]
+    },
+    "bunny": {
+      "model": "Assets/IslandDefender/Models/BunnyRigged.fbx",
+      "prefabReference": "Assets/Resources/Characters/IslandDefenderBombardier/IslandDefenderBombardier.prefab",
+      "files": [
+        "Assets/IslandDefender/Animations/Idle.fbx",
+        "Assets/IslandDefender/Animations/Running.fbx",
+        "Assets/IslandDefender/Art/IslandDefenderCharacter.shader",
+        "Assets/IslandDefender/Models/BunnyRigged.fbx",
+        "Assets/IslandDefender/Models/Materials/tripo_mat_c38698b2.mat",
+        "Assets/IslandDefender/Models/Materials/tripo_mat_c38698b3.mat",
+        "Assets/IslandDefender/Models/Textures/tripo_image_c38698b2-40d9-4544-8a0c-a0dfe3508a21_0_0 1.jpg",
+        "Assets/Resources/Characters/IslandDefenderBombardier/IslandDefenderBombardier.prefab"
+      ],
+      "externalPrefabDependencies": [
+        {
+          "guid": "d90d197b5f47af544aff6260d9dfadf2",
+          "source": "Plugins/Animancer/Utilities/Redirect Root Motion/RedirectRootMotionToCharacterController.cs"
+        },
+        {
+          "guid": "7dcb7b54f5d7c2549addf9c610e68d1a",
+          "source": "Scripts/AnimationStateMachine/StringBasedAnimationContainer.cs"
+        },
+        {
+          "guid": "7f863c679d54d2e44b5f6ab54a03189b",
+          "source": "IslandDefender/Resources/Characters/Stickman/IslandDefenderStickmanArcher.prefab"
+        }
+      ]
+    }
+  },
+  "files": [
+    {
+      "path": "Assets/IslandDefender/Animations/Idle.fbx",
+      "bytes": 650016,
+      "sha256": "1cb2eb5cfec05b673000f06f57c62c37770228c9896be1185d18f2f4d2ab2ff0"
+    },
+    {
+      "path": "Assets/IslandDefender/Animations/Idle.fbx.meta",
+      "bytes": 15069,
+      "sha256": "67a7ae36fe48301a01aaa76340900af5d27abe226e7a4684aea0aed34968fd0f"
+    },
+    {
+      "path": "Assets/IslandDefender/Animations/Running.fbx",
+      "bytes": 593920,
+      "sha256": "2d0c3c0dd3f44d314ed50d2103edac7aa71f49a9dd81b0420e811af2d91daf9f"
+    },
+    {
+      "path": "Assets/IslandDefender/Animations/Running.fbx.meta",
+      "bytes": 15178,
+      "sha256": "98e3a966470104dae529a1ac621d1725d201e80a9e31643f96f6da740a2eea5a"
+    },
+    {
+      "path": "Assets/IslandDefender/Art/IslandDefenderCharacter.shader",
+      "bytes": 14436,
+      "sha256": "f55993a9337778866d37d8777a06e29478419d7d820c16e4e461f81dc5a33db6"
+    },
+    {
+      "path": "Assets/IslandDefender/Art/IslandDefenderCharacter.shader.meta",
+      "bytes": 210,
+      "sha256": "b4f418356379059ab6a712752c14b939fc98b9bcd454e46e25cabf21d32bdd94"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/BunnyRigged.fbx",
+      "bytes": 1095776,
+      "sha256": "341a342d223a666f67c24cbd0ded912aef9bb1889e821bead67bf97687645d50"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/BunnyRigged.fbx.meta",
+      "bytes": 14737,
+      "sha256": "f07f2d57897529626d6ff5de3bcb1f2e95838d04cc1c1186a3899f21eeb6113a"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/FoxRigged.fbx",
+      "bytes": 1152800,
+      "sha256": "41b55e3446c193331fbf8b54ab496c6d1847b3932fcdab41a628c460a41c2d5f"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/FoxRigged.fbx.meta",
+      "bytes": 18888,
+      "sha256": "012ad11eda1737ae3febfbce6e0b1ce63ae35102fb629cc93407d9e1b20c0337"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/IslandDefenderCatEyeUV.shader",
+      "bytes": 2981,
+      "sha256": "ec554b77cb5e922ba31cb1b6ea9617920632e19a3f2d70fef213a3fa7d0e2a2f"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/IslandDefenderCatEyeUV.shader.meta",
+      "bytes": 201,
+      "sha256": "20e4b81365e3503d7a416c9c3e60ed743d14e0429d6605e48f06e61d0028f549"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/Mat_FoxEye.mat",
+      "bytes": 2803,
+      "sha256": "c6bdd58cb72d3033f5d9126bf3fb9ad2abff70357de0cdc74c3870ea6cba35e2"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/Mat_FoxEye.mat.meta",
+      "bytes": 188,
+      "sha256": "572e707fe3bfa9c6300863e8b8cf4dc8b15132d388c94c04f46c984678e33731"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/tripo_mat_c10028e10.mat",
+      "bytes": 1353,
+      "sha256": "cf23c12d0c08fbc0cbb73d294b3d92ff89992a7cafe4e0cf0cfc76858dfcfe3b"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/tripo_mat_c10028e10.mat.meta",
+      "bytes": 188,
+      "sha256": "dbbd0681163065f8846f979e2cbe796df577651f9b54105a4f220af46fa1278d"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/tripo_mat_c10028e9.mat",
+      "bytes": 1360,
+      "sha256": "a49ab23a3cb10150b249ccc4452597ee29899c800d0d830e0c7ff38817d5a9ed"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/tripo_mat_c10028e9.mat.meta",
+      "bytes": 188,
+      "sha256": "7bed96f29353171833172b48e4d8effb557821c113ccc90f3a9262a0ff193d83"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/tripo_mat_c38698b2.mat",
+      "bytes": 1350,
+      "sha256": "d8a24183eb6dfa4ddfde5dc2c65aca5656436b7dc2a9b92fe81a629bded575b4"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/tripo_mat_c38698b2.mat.meta",
+      "bytes": 188,
+      "sha256": "0e21e09d6b879087f9c8dda2f1871ab09e25d2845f9cf754fbea949334f53c41"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/tripo_mat_c38698b3.mat",
+      "bytes": 1559,
+      "sha256": "c92e0e48769f4035bf04d47bc1ac264e0a8bf25c9030f998e18b28f9c0be185f"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Materials/tripo_mat_c38698b3.mat.meta",
+      "bytes": 188,
+      "sha256": "837e161c2884479bf9b8e24c7b140b7bbc7d63661fb64e5858300ab0acf9b034"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Textures/tripo_image_c10028e9-67f7-485e-b5a3-1be69856f119_0_0 1.jpg",
+      "bytes": 324022,
+      "sha256": "ca1556c7684cab166949c4f99e3ed2919ef49cf9151250702ce2e7e02d10a372"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Textures/tripo_image_c10028e9-67f7-485e-b5a3-1be69856f119_0_0 1.jpg.meta",
+      "bytes": 2652,
+      "sha256": "a0b802177223c48cb4f3085d46596b9cfe8516b6fe5e3ac90dc99620843c9a7d"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Textures/tripo_image_c38698b2-40d9-4544-8a0c-a0dfe3508a21_0_0 1.jpg",
+      "bytes": 284615,
+      "sha256": "16bea531e57c52d9f5fa25d078a3691249fe59b2f270bc6cfc17e3ce91e3471b"
+    },
+    {
+      "path": "Assets/IslandDefender/Models/Textures/tripo_image_c38698b2-40d9-4544-8a0c-a0dfe3508a21_0_0 1.jpg.meta",
+      "bytes": 2652,
+      "sha256": "8ec4a4ab35bf3eab4f369651cab2ddf1d2c217586c0f41cb8b7c08f7e428578c"
+    },
+    {
+      "path": "Assets/IslandDefender/Resources/Characters/Archer/IslandDefenderFoxArcher.prefab",
+      "bytes": 15632,
+      "sha256": "e57812ce0346e90990bce212ce8c9f9ad62350816cb613399bec54ecc0e3bb92"
+    },
+    {
+      "path": "Assets/IslandDefender/Resources/Characters/Archer/IslandDefenderFoxArcher.prefab.meta",
+      "bytes": 154,
+      "sha256": "c6a2b6b6666d273c885790e3cd3480dbb891c843a556661b783f916468c6c1a3"
+    },
+    {
+      "path": "Assets/Res/Textures/UI/UIParticles/fx_circle.png",
+      "bytes": 4149,
+      "sha256": "10b028ffeab226a3bd0c532206c4d5023db17094d2ea7f929001f4186ff30bcb"
+    },
+    {
+      "path": "Assets/Res/Textures/UI/UIParticles/fx_circle.png.meta",
+      "bytes": 3861,
+      "sha256": "d123f0e0aa307a97ab2cebb425dd52453a4fae23989eb44452db10081968b324"
+    },
+    {
+      "path": "Assets/Resources/Characters/IslandDefenderBombardier/IslandDefenderBombardier.prefab",
+      "bytes": 16764,
+      "sha256": "6212deb3046b56cf751d6030a51ddb0cd70bfa52525007024dae065266e0cc93"
+    },
+    {
+      "path": "Assets/Resources/Characters/IslandDefenderBombardier/IslandDefenderBombardier.prefab.meta",
+      "bytes": 154,
+      "sha256": "5253fe72e3bbbc273ef2898e6e5bf1151acb40296718000aea34cb8abd2db63a"
+    }
+  ],
+  "omittedUnityDependencies": []
+}

@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly five isolated transparent foreground layers. Keep each complete skill symbol including all projectiles, sparks, trails and dark outlines together on one layer per tile. Remove the navy tile background, all frames and outer background. Preserve original artwork without redesign.\nbee-1 <bbox>0 165 199 790</bbox>\nbee-2 <bbox>200 165 399 790</bbox>\nbee-3 <bbox>400 165 599 790</bbox>\nbee-4 <bbox>600 165 799 790</bbox>\nbee-5 <bbox>800 165 999 790</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\research-stage-icons\\bee\\source.png",
+  "sha256": "36f5b19dadf359171f54f46f7da19fc6f348d1a3ea41b4d44a46de09bbef9932"
+}

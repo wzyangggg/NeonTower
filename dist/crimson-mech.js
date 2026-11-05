@@ -201,7 +201,7 @@ updateHumanoidBoss=function(dt){
   const a=e.crimsonAI;
   if(a?.enabled&&!e.slash&&!e.dash){
    if(a.phase==='attack'){a.phase='rest';a.wait=1.2;a.index=(a.index+1)%CRIMSON_ATTACKS.length;}
-   a.wait-=h;
+   a.wait-=h*(a.phase==='rest'?difficultyFactor('attack'):1);
    if(a.wait<=0){if(a.phase==='rest'){a.phase='tell';a.wait=.85;cowboySound('warn');}else{a.phase='attack';a.count++;startHumanoidSlash(e,CRIMSON_ATTACKS[a.index]);}}
   }
   if(['missiles','skyline'].includes(e.slash?.kind))updateCrimsonLaunch(e,h);else if(e.slash?.kind==='laser')updateCrimsonLaser(e,h);else crimsonOriginalUpdate(h);

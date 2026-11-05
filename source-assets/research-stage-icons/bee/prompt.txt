@@ -1,0 +1,6 @@
+Extract exactly five isolated transparent foreground layers. Keep each complete skill symbol including all projectiles, sparks, trails and dark outlines together on one layer per tile. Remove the navy tile background, all frames and outer background. Preserve original artwork without redesign.
+bee-1 <bbox>0 165 199 790</bbox>
+bee-2 <bbox>200 165 399 790</bbox>
+bee-3 <bbox>400 165 599 790</bbox>
+bee-4 <bbox>600 165 799 790</bbox>
+bee-5 <bbox>800 165 999 790</bbox>

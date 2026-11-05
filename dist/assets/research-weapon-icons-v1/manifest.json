@@ -1,0 +1,726 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      250,
+      251,
+      245
+    ],
+    [
+      239,
+      228,
+      234
+    ],
+    [
+      252,
+      236,
+      138
+    ],
+    [
+      252,
+      215,
+      81
+    ],
+    [
+      249,
+      194,
+      118
+    ],
+    [
+      251,
+      191,
+      31
+    ],
+    [
+      247,
+      158,
+      77
+    ],
+    [
+      238,
+      150,
+      7
+    ],
+    [
+      213,
+      219,
+      224
+    ],
+    [
+      203,
+      188,
+      191
+    ],
+    [
+      142,
+      218,
+      232
+    ],
+    [
+      55,
+      195,
+      210
+    ],
+    [
+      186,
+      162,
+      186
+    ],
+    [
+      186,
+      150,
+      111
+    ],
+    [
+      147,
+      144,
+      139
+    ],
+    [
+      37,
+      160,
+      170
+    ],
+    [
+      234,
+      127,
+      72
+    ],
+    [
+      225,
+      124,
+      11
+    ],
+    [
+      150,
+      126,
+      146
+    ],
+    [
+      142,
+      121,
+      104
+    ],
+    [
+      202,
+      93,
+      76
+    ],
+    [
+      195,
+      96,
+      12
+    ],
+    [
+      148,
+      95,
+      129
+    ],
+    [
+      162,
+      82,
+      19
+    ],
+    [
+      125,
+      106,
+      107
+    ],
+    [
+      118,
+      95,
+      109
+    ],
+    [
+      114,
+      84,
+      117
+    ],
+    [
+      110,
+      82,
+      84
+    ],
+    [
+      42,
+      104,
+      125
+    ],
+    [
+      86,
+      79,
+      87
+    ],
+    [
+      86,
+      72,
+      85
+    ],
+    [
+      170,
+      58,
+      109
+    ],
+    [
+      179,
+      37,
+      76
+    ],
+    [
+      125,
+      54,
+      110
+    ],
+    [
+      122,
+      52,
+      14
+    ],
+    [
+      119,
+      36,
+      91
+    ],
+    [
+      87,
+      61,
+      80
+    ],
+    [
+      83,
+      56,
+      51
+    ],
+    [
+      90,
+      39,
+      41
+    ],
+    [
+      86,
+      25,
+      69
+    ],
+    [
+      69,
+      47,
+      60
+    ],
+    [
+      67,
+      45,
+      38
+    ],
+    [
+      63,
+      38,
+      45
+    ],
+    [
+      60,
+      32,
+      42
+    ],
+    [
+      60,
+      30,
+      25
+    ],
+    [
+      60,
+      24,
+      38
+    ],
+    [
+      59,
+      15,
+      37
+    ],
+    [
+      59,
+      20,
+      13
+    ],
+    [
+      55,
+      12,
+      13
+    ],
+    [
+      41,
+      37,
+      44
+    ],
+    [
+      46,
+      21,
+      22
+    ],
+    [
+      45,
+      17,
+      18
+    ],
+    [
+      47,
+      13,
+      16
+    ],
+    [
+      47,
+      13,
+      9
+    ],
+    [
+      40,
+      13,
+      13
+    ],
+    [
+      42,
+      10,
+      15
+    ],
+    [
+      43,
+      10,
+      10
+    ],
+    [
+      38,
+      9,
+      10
+    ],
+    [
+      41,
+      9,
+      6
+    ],
+    [
+      33,
+      9,
+      9
+    ],
+    [
+      39,
+      6,
+      11
+    ],
+    [
+      37,
+      5,
+      6
+    ],
+    [
+      37,
+      2,
+      2
+    ],
+    [
+      28,
+      3,
+      4
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "pistol",
+      "label": "pistol",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          48,
+          60,
+          302,
+          288
+        ],
+        "normalized": [
+          38,
+          48,
+          240,
+          229
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        736,
+        662
+      ],
+      "normalized": "pistol-original.png",
+      "variants": {
+        "32": "pistol-32.png",
+        "48": "pistol-48.png"
+      }
+    },
+    {
+      "id": "smg",
+      "label": "smg",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          333,
+          60,
+          624,
+          288
+        ],
+        "normalized": [
+          266,
+          48,
+          497,
+          229
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        805,
+        630
+      ],
+      "normalized": "smg-original.png",
+      "variants": {
+        "32": "smg-32.png",
+        "48": "smg-48.png"
+      }
+    },
+    {
+      "id": "uzi",
+      "label": "uzi",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          655,
+          47,
+          926,
+          300
+        ],
+        "normalized": [
+          522,
+          37,
+          738,
+          238
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        811,
+        758
+      ],
+      "normalized": "uzi-original.png",
+      "variants": {
+        "32": "uzi-32.png",
+        "48": "uzi-48.png"
+      }
+    },
+    {
+      "id": "rifle",
+      "label": "rifle",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          953,
+          60,
+          1232,
+          276
+        ],
+        "normalized": [
+          760,
+          48,
+          982,
+          219
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        807,
+        624
+      ],
+      "normalized": "rifle-original.png",
+      "variants": {
+        "32": "rifle-32.png",
+        "48": "rifle-48.png"
+      }
+    },
+    {
+      "id": "sniper",
+      "label": "sniper",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          23,
+          367,
+          318,
+          589
+        ],
+        "normalized": [
+          18,
+          293,
+          253,
+          469
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        907,
+        682
+      ],
+      "normalized": "sniper-original.png",
+      "variants": {
+        "32": "sniper-32.png",
+        "48": "sniper-48.png"
+      }
+    },
+    {
+      "id": "rocket",
+      "label": "rocket",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          332,
+          357,
+          619,
+          587
+        ],
+        "normalized": [
+          265,
+          285,
+          493,
+          467
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        782,
+        627
+      ],
+      "normalized": "rocket-original.png",
+      "variants": {
+        "32": "rocket-32.png",
+        "48": "rocket-48.png"
+      }
+    },
+    {
+      "id": "seeker",
+      "label": "seeker",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          655,
+          358,
+          919,
+          596
+        ],
+        "normalized": [
+          522,
+          285,
+          732,
+          474
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        779,
+        705
+      ],
+      "normalized": "seeker-original.png",
+      "variants": {
+        "32": "seeker-32.png",
+        "48": "seeker-48.png"
+      }
+    },
+    {
+      "id": "laser",
+      "label": "laser",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          966,
+          359,
+          1220,
+          588
+        ],
+        "normalized": [
+          770,
+          286,
+          972,
+          468
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        828,
+        744
+      ],
+      "normalized": "laser-original.png",
+      "variants": {
+        "32": "laser-32.png",
+        "48": "laser-48.png"
+      }
+    },
+    {
+      "id": "tesla",
+      "label": "tesla",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          39,
+          661,
+          303,
+          894
+        ],
+        "normalized": [
+          31,
+          527,
+          241,
+          712
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        757,
+        667
+      ],
+      "normalized": "tesla-original.png",
+      "variants": {
+        "32": "tesla-32.png",
+        "48": "tesla-48.png"
+      }
+    },
+    {
+      "id": "boomerang",
+      "label": "boomerang",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          349,
+          644,
+          607,
+          883
+        ],
+        "normalized": [
+          278,
+          514,
+          483,
+          703
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        791,
+        732
+      ],
+      "normalized": "boomerang-original.png",
+      "variants": {
+        "32": "boomerang-32.png",
+        "48": "boomerang-48.png"
+      }
+    },
+    {
+      "id": "bee",
+      "label": "bee",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-11.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          650,
+          644,
+          919,
+          894
+        ],
+        "normalized": [
+          518,
+          514,
+          732,
+          712
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        734,
+        685
+      ],
+      "normalized": "bee-original.png",
+      "variants": {
+        "32": "bee-32.png",
+        "48": "bee-48.png"
+      }
+    },
+    {
+      "id": "sword",
+      "label": "sword",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-12.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          961,
+          650,
+          1215,
+          895
+        ],
+        "normalized": [
+          766,
+          518,
+          968,
+          713
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        758,
+        730
+      ],
+      "normalized": "sword-original.png",
+      "variants": {
+        "32": "sword-32.png",
+        "48": "sword-48.png"
+      }
+    },
+    {
+      "id": "shotgun",
+      "label": "shotgun",
+      "sourceLayer": "../../../source-assets/research-weapon-icons-v1/layers/layer-13.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          24,
+          964,
+          307,
+          1198
+        ],
+        "normalized": [
+          19,
+          769,
+          244,
+          955
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        798,
+        660
+      ],
+      "normalized": "shotgun-original.png",
+      "variants": {
+        "32": "shotgun-32.png",
+        "48": "shotgun-48.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "characters": [
+    {
+      "kind": "fox",
+      "bones": [
+        "mixamorig:Hips",
+        "mixamorig:Spine",
+        "mixamorig:Spine1",
+        "mixamorig:Spine2",
+        "mixamorig:Neck",
+        "mixamorig:Head",
+        "mixamorig:HeadTop_End",
+        "mixamorig:LeftShoulder",
+        "mixamorig:LeftArm",
+        "mixamorig:LeftForeArm",
+        "mixamorig:LeftHand",
+        "mixamorig:RightShoulder",
+        "mixamorig:RightArm",
+        "mixamorig:RightForeArm",
+        "mixamorig:RightHand",
+        "mixamorig:LeftUpLeg",
+        "mixamorig:LeftLeg",
+        "mixamorig:LeftFoot",
+        "mixamorig:LeftToeBase",
+        "mixamorig:LeftToe_End",
+        "mixamorig:RightUpLeg",
+        "mixamorig:RightLeg",
+        "mixamorig:RightFoot",
+        "mixamorig:RightToeBase",
+        "mixamorig:RightToe_End",
+        "Tail1",
+        "Tail2",
+        "Tail3",
+        "Tail4"
+      ],
+      "meshes": [
+        {
+          "name": "polySurface103",
+          "vertices": 336,
+          "materials": [
+            "tripo_mat_c10028e9"
+          ],
+          "skinned": false,
+          "parent": "Armature",
+          "parentBone": "mixamorig:Spine2"
+        },
+        {
+          "name": "Mesh_FoxClothes",
+          "vertices": 1228,
+          "materials": [
+            "tripo_mat_c10028e9"
+          ],
+          "skinned": true,
+          "parent": "Armature",
+          "parentBone": ""
+        },
+        {
+          "name": "Mesh_FoxHat",
+          "vertices": 408,
+          "materials": [
+            "tripo_mat_c10028e9"
+          ],
+          "skinned": true,
+          "parent": "Armature",
+          "parentBone": ""
+        },
+        {
+          "name": "FoxBase",
+          "vertices": 2249,
+          "materials": [
+            "tripo_mat_c10028e10",
+            "lambert3"
+          ],
+          "skinned": true,
+          "parent": "Armature",
+          "parentBone": ""
+        }
+      ],
+      "embeddedActions": [],
+      "portableBlend": "fox-imported.blend",
+      "texturePacked": true,
+      "bounds": [
+        [
+          -0.22659406065940857,
+          -0.2297363132238388,
+          -0.00046552220010198653
+        ],
+        [
+          0.22750751674175262,
+          0.1459529548883438,
+          0.5835188031196594
+        ]
+      ]
+    },
+    {
+      "kind": "bunny",
+      "bones": [
+        "mixamorig:Hips",
+        "mixamorig:Spine",
+        "mixamorig:Spine1",
+        "mixamorig:Spine2",
+        "mixamorig:Neck",
+        "mixamorig:Head",
+        "mixamorig:HeadTop_End",
+        "mixamorig:LeftShoulder",
+        "mixamorig:LeftArm",
+        "mixamorig:LeftForeArm",
+        "mixamorig:LeftHand",
+        "mixamorig:RightShoulder",
+        "mixamorig:RightArm",
+        "mixamorig:RightForeArm",
+        "mixamorig:RightHand",
+        "mixamorig:LeftUpLeg",
+        "mixamorig:LeftLeg",
+        "mixamorig:LeftFoot",
+        "mixamorig:LeftToeBase",
+        "mixamorig:LeftToe_End",
+        "mixamorig:RightUpLeg",
+        "mixamorig:RightLeg",
+        "mixamorig:RightFoot",
+        "mixamorig:RightToeBase",
+        "mixamorig:RightToe_End"
+      ],
+      "meshes": [
+        {
+          "name": "Mesh_BunnyBackpack",
+          "vertices": 861,
+          "materials": [
+            "tripo_mat_c38698b2"
+          ],
+          "skinned": false,
+          "parent": "Armature",
+          "parentBone": "mixamorig:Spine2"
+        },
+        {
+          "name": "Mesh_BunnyShirt",
+          "vertices": 778,
+          "materials": [
+            "tripo_mat_c38698b2"
+          ],
+          "skinned": true,
+          "parent": "Armature",
+          "parentBone": ""
+        },
+        {
+          "name": "Mesh_Bunny",
+          "vertices": 3566,
+          "materials": [
+            "tripo_mat_c38698b3"
+          ],
+          "skinned": true,
+          "parent": "Armature",
+          "parentBone": ""
+        }
+      ],
+      "embeddedActions": [],
+      "portableBlend": "bunny-imported.blend",
+      "texturePacked": true,
+      "bounds": [
+        [
+          -0.24807527661323547,
+          -0.1452636420726776,
+          6.111297690125639e-09
+        ],
+        [
+          0.24899503588676453,
+          0.17841540277004242,
+          0.71240234375
+        ]
+      ]
+    }
+  ],
+  "animations": [
+    {
+      "file": "Idle.fbx",
+      "actions": [
+        {
+          "name": "Armature|mixamo.com|Layer0",
+          "frames": [
+            1.0,
+            60.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Running.fbx",
+      "actions": [
+        {
+          "name": "Armature|mixamo.com|Layer0",
+          "frames": [
+            1.0,
+            22.0
+          ]
+        }
+      ]
+    }
+  ],
+  "note": "Blender disk import only; Unity shaders and retargeting not evaluated. Fox eye-white texture GUID is missing in source project."
+}

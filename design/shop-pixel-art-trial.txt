@@ -1,0 +1,10 @@
+2026-11-02 — 商品像素美术试样，本地未发布。
+入口：http://127.0.0.1:4173/shop-pixel-preview.html
+使用当前 index 页面和实际 renderShop，独立试样脚本只在此页面替换三项商品展示。正常商店盲盒与库存不变。
+资源：dist/assets/shop-pixel/{rocket,pistol,sniper}-v1.png
+生成方式：内置 image_gen，三次独立生成，没有拆图。
+共同提示词：Use case: stylized-concept. A single game shop item illustration. Bright cheerful cartoon PIXEL ART, crisp deliberately chunky square pixels, stepped edges, small limited palette, charming arcade loot sprite, readable bold silhouette. Side view slightly angled upward, complete weapon centered with generous empty margins. Uniform pale warm ivory background #fff4d9, very subtle pixel ground shadow. No text, no border, no UI, no hands, no realistic rendering, no gradients, no extra objects. Square image.
+rocket subject: a chunky rocket launcher, lime green and sunny yellow body, coral orange rocket nose, teal grip
+pistol subject: a compact chunky pistol, coral orange and sunny yellow slide, turquoise grip, ivory highlights
+sniper subject: a long sniper rifle with prominent scope, turquoise and sky blue body, yellow stock, coral scope details
+验证：npm run check、node --check dist/shop-pixel-preview.js、tests/preview-shop-pixel.cjs 通过。真实 Edge/WebGL 320/390/1280 宽度加载三张图，无横向溢出、无页面错误；已查看 390 对照截图。非手机实机验收。
