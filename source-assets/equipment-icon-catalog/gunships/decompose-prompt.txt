@@ -1,0 +1,10 @@
+Extract exactly nine foreground layers, one complete drone in each specified box, in reading order. Preserve the original outline, rotor, tail, both side modules, colors, shading and internal transparent gaps. Exclude the navy backdrop, leave transparent outside each silhouette. Do not redraw or split components. Use the exact supplied name for each layer.
+gunship_pistol <bbox>42 51 301 292</bbox>
+gunship_smg <bbox>350 51 637 293</bbox>
+gunship_uzi <bbox>689 54 959 295</bbox>
+gunship_rifle <bbox>34 368 305 611</bbox>
+gunship_sniper <bbox>347 369 645 624</bbox>
+gunship_rocket <bbox>677 370 970 611</bbox>
+gunship_seeker <bbox>35 677 310 950</bbox>
+gunship_laser <bbox>364 681 642 954</bbox>
+gunship_tesla <bbox>681 686 966 952</bbox>

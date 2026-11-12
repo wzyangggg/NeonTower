@@ -14,12 +14,16 @@ for(let tier=1;tier<=5;tier++){
  const card=equipmentAttributeCard('armor',armor,'当前装备');check(card.includes('防弹毛衣')&&card.includes('移速-')&&card.includes('20%'),'penalty shown on card');
  mods.speed=1.3;equipItem('shoes',createShoes('runner',tier));close(movementSpeed(),195*1.3*(1+shoes.speedBonus)*.8,'shoe and permanent speed combine with penalty');
  equipItem('armor',createArmor('energy',tier));close(movementSpeed(),195*1.3*(1+shoes.speedBonus),'swapping removes penalty');
+ check(p.max===3+[0,0,1,1,2][tier-1]&&shieldMaximum()===2+[4,4,5,5,6][tier-1],'energy trades one health capacity for two shield capacity');
  close(damageInvincibility(),2.3+.3*(tier-1),'energy greatly extends invincibility');
- state='combat';p.inv=0;p.shield=1;hurt();close(p.inv,damageInvincibility(),'actual shield hit uses extended invincibility');
+ state='combat';p.inv=0;p.shield=1;p.hp=6;p.max=6;hurt();close(p.inv,damageInvincibility(),'actual shield hit uses extended invincibility');
+ check(p.shield===0&&p.hp===6,'last shield absorbs the full hit');
+ p.inv=0;hurt();check(p.hp===2,'unshielded hit deals four damage');
  p.shield=0;p.shieldCharge=0;updateEquipmentEffects(armor.shieldInterval-.01);check(p.shield===0,'energy recharge waits');updateEquipmentEffects(.02);check(p.shield===1,'energy recharges');
  while(p.shield<shieldMaximum())updateEquipmentEffects(armor.shieldInterval);updateEquipmentEffects(armor.shieldInterval);check(p.shield===shieldMaximum()&&p.shieldCharge===0,'recharge cap');
  const rolled=rollEquipmentStats('armor',createArmor('shell',tier));check(rolled.speedPenalty===.2&&rolled.effectText,'random heavy armor preserves tradeoff');
- check(equipmentAttributeCard('armor',createArmor('energy',tier),'新装备').includes('回复1格护盾'),'energy card includes recharge');
+ const energyCard=equipmentAttributeCard('armor',createArmor('energy',tier),'新装备');
+ check(energyCard.includes('回复1格护盾')&&energyCard.includes('生命受伤×4'),'energy card includes recharge and health damage risk');
 }
 reset();equipItem('armor',createArmor('chrono'));check(armor.name==='黑色风衣'&&armor.timeStop,'renamed coat keeps slow motion');
 const random=Math.random;for(let i=0;i<ARMOR_TYPES.length;i++){Math.random=()=> (i+.1)/ARMOR_TYPES.length;check(itemEquipment(equipmentShopItem('armor')).id===ARMOR_TYPES[i].id,'each remaining armor obtainable');}Math.random=random;

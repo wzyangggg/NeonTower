@@ -12,7 +12,19 @@ globalThis.ElectricTiles=(()=>{
   ['barricade_double','双格掩体',[[0,0],[1,0]]],
   ['barricade_line','三格直线掩体',[[0,0],[1,0],[2,0]]],
   ['barricade_bend','三格弯折掩体',[[0,0],[1,0],[1,1]]]
- ].map(([kind,name,cells])=>[kind,{name,cells,color:'#a8b7b5',effectMode:'none',desc:'每个占地格形成独立耐久的掩体，阻挡玩家、小怪和敌弹；友方攻击穿过，每关恢复。整组放置和拆除，占地可在设计台修改。'}]));
+ ].map(([kind,name,cells])=>[kind,{name,cells,color:'#a8b7b5',effectMode:'none',desc:`放置一个${name}。`}]));
+ const previousDescriptions=new Map([
+  ['每个占地格形成独立耐久的掩体，阻挡玩家、小怪和敌弹；友方攻击穿过，每关恢复。整组放置和拆除，占地可在设计台修改。',null],
+  ['每4秒生产1份能量，走近拾取补充30能量；库存满时停产。','每4秒生产一份30点能量的补给，满库存时停产。'],
+  ['每4秒灌溉一次，使虚线内水果格的剩余冷却减少1.5秒。','每4秒让虚线内水果格的冷却缩短1.5秒。'],
+  ['每一秒减少一次虚线内电力格的冷却，而且逐渐加快','每秒缩短虚线内电力格的冷却，效果逐渐加快。'],
+  ['每15秒产生1份脉冲，拾取后清除全屏敌弹，使周围电力武器伤害+30%，持续5秒。','每15秒产出脉冲，拾取后全屏清弹，周围电力武器伤害+30%（5秒）。'],
+  ['每10秒产出1个钟表，拾取后攻速、移速和全图补给生产速度各+10%，本层叠加，换层清零。','每10秒产出钟表，拾取后攻速、移速、全图补给产速各+10%（本层可叠加）。'],
+ ]);
+ function playerDescription(kind,description){
+  if(!previousDescriptions.has(description))return description;
+  return previousDescriptions.get(description)??barricadeDefs[kind]?.desc??description;
+ }
  // Fixed orientations make farms compete with towers for contiguous floor space.
  const fruits={
   apple:{name:'苹果农田',fruit:'苹果',cells:[[0,0],[1,0],[2,0],[0,1],[1,1],[0,2]],color:'#ff797c',interval:5,heal:1,buff:'speed',bonus:.1,desc:'每5秒产生1个苹果，吃下回复1点生命、移速+10%。'},
@@ -23,30 +35,60 @@ globalThis.ElectricTiles=(()=>{
  // A compact hexagon: rows of 2, 3 and 2 cells around the center.
  const minerCells=[];
  for(let r=-1;r<=1;r++)for(let q=Math.max(-1,-r-1);q<=Math.min(1,-r+1);q++)minerCells.push([q,r]);
+ const research=id=>globalThis.TowerResearch?.levels(id);
+ const rank=(r,id)=>r?.[id]||0;
+ const distanceTo=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+ const healthRatio=e=>e.hp/(e.max||e.hp||1);
+ const boss=e=>isBossBody(e)||e.type==='boss';
+ let towerEffects=[],breachVolleys=new Set(),fieldStates=new WeakMap(),fieldLocks=new WeakMap(),fieldEntries=new WeakMap(),repairEmergency=new WeakSet(),shieldSprintUntil=0,care=null;
+ function clearTowerEffects(){towerEffects=[];breachVolleys.clear();fieldStates=new WeakMap();fieldLocks=new WeakMap();fieldEntries=new WeakMap();repairEmergency=new WeakSet();shieldSprintUntil=0;care=null;}
+ function towerSlow(e,amount,duration){
+  const status=e.towerResearchSlows??=new Map();
+  status.set(amount,Math.max(status.get(amount)||0,time+duration));
+ }
+ function towerSlowFactor(e){
+  let factor=1;
+  for(const [amount,until] of e.towerResearchSlows||[]){
+   if(until<=time)e.towerResearchSlows.delete(amount);else factor=Math.min(factor,1-amount);
+  }
+  return factor;
+ }
+ function towerRing(at,radius,color){
+  pickupBursts.push({x:at.x,y:at.y,life:.9,color,range:radius});
+ }
+ function secondaryTowerHit(at,targets,damage,radius=0,fixedDamage=false){
+  if(!targets.length)return;
+  shots.push({beam:true,arc:true,radial:true,arcTargets:targets,x:at.x,y:at.y,originX:at.x,originY:at.y,vx:0,vy:0,life:.18,damage,
+   pierce:targets.length+1,hitTargets:new Set(),source:'tile',terrainShot:true,towerDerived:true,towerFixedDamage:fixedDamage,weaponId:'tower-research',color:'#ffe098',radius,height:12});
+ }
  const specLevel=id=>globalThis.Specializations?.level(id)||0;
- const attackRange=kind=>(globalThis.Specializations?.facilityRange({kind},defs[kind].attackRange)??defs[kind].attackRange);
+ function attackRange(kind){
+  const base=globalThis.Specializations?.facilityRange({kind},defs[kind].attackRange)??defs[kind].attackRange;
+  return kind==='healing_tower'?base+rank(research(kind),'scan'):base;
+ }
+ const towerInterval=kind=>(defs[kind].interval||0)*(1-rank(research(kind),'cycle'));
  const defs={
-  shotgun_tower:{name:'霰弹枪塔',cells:[[0,0]],color:'#ffd08a',interval:1.5,attackRange:260,effectMode:'none',desc:'每1.5秒发射5枚霰弹，合成提升伤害。'},
+  shotgun_tower:{name:'霰弹枪塔',cells:[[0,0]],color:'#ffd08a',interval:1.5,attackRange:260,effectMode:'none',desc:'每1.5秒发射5枚霰弹，升星提升伤害。'},
   sniper_tower:{name:'狙击枪塔',cells:[[0,0]],color:'#ffa1b9',interval:3,attackRange:800,effectMode:'none',desc:'每3秒狙击一次，距离越远伤害越高。'},
   slow_field:{name:'减速领域',cells:[[0,0]],color:'#b3a1ff',effectMode:'radius',range:140,desc:'范围内双方移速降低30%/40%/50%。'},
-  electric_tower:{name:'电塔',cells:[[0,0]],color:'#75dfff',interval:2,attackRange:420,effectMode:'none',desc:'每2秒释放闪电，连锁3/4/5个敌人。'},
+  electric_tower:{name:'电塔',cells:[[0,0]],color:'#75dfff',interval:2,attackRange:420,effectMode:'none',desc:'每2秒释放闪电，连锁至少3个敌人，随星级提升。'},
   shield_tower:{name:'护盾生产格',cells:[[0,0]],color:'#69f9de',interval:12,effectMode:'none',desc:'每12秒生产护盾，拾取后无敌2/3/4秒。'},
-  healing_tower:{name:'治疗塔',cells:[[0,0]],color:'#71ffad',interval:4,attackRange:420,effectMode:'none',desc:'每4秒治疗附近角色或掩体，回复1/2/3点。'},
+  healing_tower:{name:'治疗塔',cells:[[0,0]],color:'#71ffad',interval:4,attackRange:420,effectMode:'none',desc:'每4秒治疗附近角色或掩体，回复量随星级提升。'},
   missile_tower:{name:'导弹塔',cells:[[0,0]],color:'#ffb36c',interval:3,attackRange:600,effectMode:'none',desc:'每3秒发射导弹，飞得越远爆炸范围越大。'},
-  energy:{name:'能源补给站',cells:[[0,0]],color:'#87e9ff',interval:4,amount:30,effectMode:'none',desc:'每4秒生产1份能量，走近拾取补充30能量；库存满时停产。'},
+  energy:{name:'能源补给站',cells:[[0,0]],color:'#87e9ff',interval:4,amount:30,effectMode:'none',desc:'每4秒生产一份30点能量的补给，满库存时停产。'},
   tower:{name:'电浆炸弹',cells:[[0,0],[1,0],[2,0]],color:'#75dfff',interval:12,attackRange:Infinity,effectMode:'none',range:0,desc:'每12秒生产电浆炸弹，拾取电击8/12/16个敌人。'},
   freeze_bomb:{name:'冰冻炸弹',cells:[[0,0],[1,0],[2,0]],color:'#a3f4ff',interval:12,effectMode:'none',desc:'每12秒生产冰冻炸弹，拾取冻结周围敌人并清弹。'},
   laser_bomb:{name:'激光炸弹',cells:[[0,0],[1,0],[2,0]],color:'#ff80c8',interval:12,effectMode:'none',desc:'每12秒生产激光炸弹，拾取释放2/3/4道旋转激光。'},
   missile_bomb:{name:'导弹地块',cells:[[0,0],[1,0],[2,0]],color:'#ffb36c',interval:12,effectMode:'none',desc:'每12秒生产导弹补给，拾取追击3/4/5个敌人。'},
   echo:{name:'回响线圈',cells:[[0,0],[1,0]],color:'#d7b3ff',desc:'虚线内电力设施会重放它的效果。'},
   battery:{name:'电池',cells:[[0,0]],color:'#b7ec89',interval:10,desc:'开局10秒内，虚线内电力格的冷却加快30%'},
-  turbine:{name:'涡轮发电机',cells:[[0,0],[1,0],[0,1]],color:'#ffce83',interval:1,desc:'每一秒减少一次虚线内电力格的冷却，而且逐渐加快'},
+  turbine:{name:'涡轮发电机',cells:[[0,0],[1,0],[0,1]],color:'#ffce83',interval:1,desc:'每秒缩短虚线内电力格的冷却，效果逐渐加快。'},
   miner:{name:'电能矿机',cells:minerCells,color:'#ffe17a',interval:4,amount:8,desc:'每4秒产出8金币，走近拾取。'},
   ...fruits,
-  irrigator:{name:'电能灌溉机',cells:[[0,0]],color:'#7df3d4',interval:4,desc:'每4秒灌溉一次，使虚线内水果格的剩余冷却减少1.5秒。'},
-  pulse:{name:'电能脉冲',cells:[[0,0],[1,0],[1,-1],[2,-1]],color:'#a9dfff',interval:15,damageBonus:.3,boostDuration:5,desc:'每15秒产生1份脉冲，拾取后清除全屏敌弹，使周围电力武器伤害+30%，持续5秒。'},
+  irrigator:{name:'电能灌溉机',cells:[[0,0]],color:'#7df3d4',interval:4,desc:'每4秒让虚线内水果格的冷却缩短1.5秒。'},
+  pulse:{name:'电能脉冲',cells:[[0,0],[1,0],[1,-1],[2,-1]],color:'#a9dfff',interval:15,damageBonus:.3,boostDuration:5,desc:'每15秒产出脉冲，拾取后全屏清弹，周围电力武器伤害+30%（5秒）。'},
   biogenerator:{name:'生物发电机',cells:[[0,0]],color:'#f691b2',desc:'走入消耗1点生命，立即刷新周围6格的生产和供电冷却。'},
-  clockshop:{name:'钟表店',cells:[[0,0]],color:'#ffd782',interval:10,bonus:.1,desc:'每10秒产出1个钟表，拾取后攻速、移速和全图补给生产速度各+10%，本层叠加，换层清零。'},
+  clockshop:{name:'钟表店',cells:[[0,0]],color:'#ffd782',interval:10,bonus:.1,desc:'每10秒产出钟表，拾取后攻速、移速、全图补给产速各+10%（本层可叠加）。'},
   repair_turret:{name:'修理炮塔',cells:[[0,0]],color:'#54e58b',interval:25,wallBonus:2,desc:'每25秒拆除1处危险，范围内掩体耐久+2。'}
  };
  // Tile border/fill colors consistently describe rarity; product colors remain semantic.
@@ -64,13 +106,14 @@ globalThis.ElectricTiles=(()=>{
  }
  function syncAvailability(){if(typeof tiles==='undefined')return;for(const f of list())if(!enabled(f.kind))remove(f);globalThis.ElectricEditor?.refreshAvailability();}
  globalThis.addEventListener?.('storage',e=>{if(e.key==='neon-facility-designer-v1'||e.key===null)syncAvailability();});
- const DISCHARGE_TIME=.8;
+ const DISCHARGE_PULSES=6;
  // More visible cooldown fills remain underneath the core icons.
  const progressColors=Object.fromEntries(Object.entries(defs).map(([kind,def])=>[kind,'#'+[1,3,5].map(i=>Math.round(parseInt(def.rarityColor.slice(i,i+2),16)*.65).toString(16).padStart(2,'0')).join('')]));
  let roomElapsed=0,serial=0,pending=[],pulses=[],pickupBursts=[],dischargeVisual=null;
  const buffs={speed:0,attack:0,production:0,clocks:0};
  const isFruit=kind=>Object.hasOwn(fruits,kind);
  const isDefenseTower=kind=>['electric_tower','healing_tower','missile_tower','shotgun_tower','sniper_tower','slow_field'].includes(kind);
+ const isResearchTower=kind=>Object.hasOwn(globalThis.TowerResearch?.trees??{},kind);
  const isBomb=kind=>['tower','freeze_bomb','laser_bomb','missile_bomb'].includes(kind);
  const freezeStats=f=>({range:240+50*(towerLevel(f)-1),duration:1+towerLevel(f)});
  const laserStats=f=>({count:1+towerLevel(f),width:4+4*towerLevel(f),duration:3,interval:.1});
@@ -87,7 +130,7 @@ globalThis.ElectricTiles=(()=>{
   // Retire the old automatic-shield copy from saved designer profiles.
   if(kind==='shield_tower')d.playerDescription=def.desc;
   const left=new Set(d.cells.map(c=>c.join(','))),queue=[d.cells[0]];left.delete(queue[0].join(','));for(let i=0;i<queue.length;i++)for(const [q,r]of [[1,0],[-1,0],[0,1],[0,-1],[1,-1],[-1,1]]){const c=[queue[i][0]+q,queue[i][1]+r];if(left.delete(c.join(',')))queue.push(c);}if(left.size)return def;
-  return {...def,name:(isBomb(kind)||kind==='shield_tower')?def.name:typeof d.name==='string'?d.name:def.name,desc:(isBomb(kind)||isDefenseTower(kind)||kind==='shield_tower'||kind==='repair_turret'||kind==='miner')?def.desc:typeof d.playerDescription==='string'?d.playerDescription:def.desc,cells:d.cells,effectMode:['adjacent','custom','radius','global','none'].includes(d.effectMode)?d.effectMode:(def.effectMode||'adjacent'),effectCells:valid(d.effectCells)?d.effectCells:[],range:Number.isFinite(d.range)&&d.range>=0&&d.range<=1000?d.range:(def.range||0)};
+  return {...def,name:(isBomb(kind)||kind==='shield_tower')?def.name:typeof d.name==='string'?d.name:def.name,desc:(isBomb(kind)||isDefenseTower(kind)||kind==='shield_tower'||kind==='repair_turret'||kind==='miner')?def.desc:typeof d.playerDescription==='string'?playerDescription(kind,d.playerDescription):def.desc,cells:d.cells,effectMode:['adjacent','custom','radius','global','none'].includes(d.effectMode)?d.effectMode:(def.effectMode||'adjacent'),effectCells:valid(d.effectCells)?d.effectCells:[],range:Number.isFinite(d.range)&&d.range>=0&&d.range<=1000?d.range:(def.range||0)};
  }
  const producer=kind=>kind==='shield_tower'||kind==='energy'||isBomb(kind)||kind==='miner'||kind==='irrigator'||kind==='pulse'||kind==='clockshop'||isFruit(kind);
  const supplyProducer=kind=>kind==='shield_tower'||isBomb(kind)||kind==='energy'||kind==='miner'||kind==='pulse'||kind==='clockshop'||isFruit(kind);
@@ -110,24 +153,27 @@ globalThis.ElectricTiles=(()=>{
  function list(){const seen=new Set(),out=[];for(const t of tiles){const f=t.electricFacility;if(f&&!seen.has(f.id)){seen.add(f.id);out.push(f);}}return out;}
  function free(t,ignore=null){return !!t&&!terrainProtected(t)&&(!t.electricFacility||t.electricFacility===ignore)&&!t.medical&&!t.shieldTile&&!t.cashTile&&!t.shockTile&&!t.coverTile&&!t.trap&&!t.saw&&!t.flywheel&&!terrainHidden(t);}
  function canPlace(kind,anchor,ignore=null){if(!enabled(kind)||!hex())return false;const s=shape(kind,anchor);return !!s&&s.cells.every(c=>free(tiles.find(t=>key(t)===key(c)),ignore));}
- function fresh(f){delete f.specSupportClock;delete f.specAux;delete f.specTaskId;f.cool=defs[f.kind].interval||0;f.count=0;f.charges=0;f.attacks=0;f.products=0;f.produced=0;f.earned=0;f.collected=0;f.pickupCool=0;f.flash=0;f.received=0;f.occupied=false;f.lastRefreshed=0;f.damageBoostLeft=0;f.workTarget=null;f.aimLockLeft=0;}
+ function fresh(f){delete f.specSupportClock;delete f.specAux;delete f.specTaskId;f.cool=towerInterval(f.kind);f.count=0;f.charges=0;f.attacks=0;f.products=0;f.produced=0;f.earned=0;f.collected=0;f.pickupCool=0;f.flash=0;f.received=0;f.occupied=false;f.lastRefreshed=0;f.damageBoostLeft=0;f.workTarget=null;f.aimLockLeft=0;delete f.towerState;if(f.kind==='shield_tower'&&research(f.kind))f.cool=shieldInterval(f,1-.1*rank(research(f.kind),'preload'));}
  const towerLevel=f=>f.level||1;
  const towerTargetLimit=f=>8+4*(towerLevel(f)-1);
- const towerDamage=f=>(f.bombDamage??6*Math.pow(1.8,towerLevel(f)-1))*(f.damageBoostLeft>0?1+defs.pulse.damageBonus:1);
- function place(kind,anchor,level=1){if(!canPlace(kind,anchor)||!Number.isInteger(level)||level<1||level>3)return null;const s=shape(kind,anchor),f={id:++serial,kind,level,anchor:{...anchor},...s};fresh(f);for(const c of s.cells)tiles.find(t=>key(t)===key(c)).electricFacility=f;renderer.sceneKey=null;if(kind==='repair_turret')syncWalls();return f;}
+ const towerDamage=f=>(f.bombDamage??6*Math.pow(1.8,Math.min(3,towerLevel(f))-1)*(1+.25*Math.max(0,towerLevel(f)-3)))*(f.damageBoostLeft>0?1+defs.pulse.damageBonus:1);
+ function place(kind,anchor,level=1){if(!canPlace(kind,anchor)||!Number.isInteger(level)||level<1||level>3&&!isDefenseTower(kind)&&!isResearchTower(kind))return null;const s=shape(kind,anchor),f={id:++serial,kind,level,anchor:{...anchor},...s};fresh(f);for(const c of s.cells)tiles.find(t=>key(t)===key(c)).electricFacility=f;renderer.sceneKey=null;if(kind==='repair_turret')syncWalls();return f;}
  function canMerge(source,target){return !source?.initialCore&&!target?.initialCore&&!!source&&!!target&&!!defs[source.kind]&&enabled(source.kind)&&source!==target&&source.kind===target.kind&&towerLevel(source)===towerLevel(target)&&towerLevel(target)<3&&list().includes(target);}
- function merge(source,target){if(!canMerge(source,target))return false;if(list().includes(source))remove(source);pending=pending.filter(q=>q.tower!==target);target.level=towerLevel(target)+1;target.flash=.5;renderer.sceneKey=null;return target;}
+ function merge(source,target){if(!canMerge(source,target))return false;if(list().includes(source))remove(source);return raiseLevel(target);}
+ function raiseLevel(target){pending=pending.filter(q=>q.tower!==target);target.level=towerLevel(target)+1;target.flash=.5;renderer.sceneKey=null;return target;}
+ function upgradeTower(target){return target&&(isDefenseTower(target.kind)||isResearchTower(target.kind))&&list().includes(target)?raiseLevel(target):false;}
  function remove(f){if(!f||f.initialCore)return;for(const t of tiles)if(t.electricFacility===f)delete t.electricFacility;pending=pending.filter(e=>e.tower!==f&&e.source!==f);renderer.sceneKey=null;if(f.kind==='repair_turret')syncWalls();}
- function move(f,anchor){if(f.initialCore)return false;if(!list().includes(f)||!canPlace(f.kind,anchor,f))return false;for(const t of tiles)if(t.electricFacility===f)delete t.electricFacility;const s=shape(f.kind,anchor);Object.assign(f,{anchor:{...anchor},...s});for(const c of s.cells)tiles.find(t=>key(t)===key(c)).electricFacility=f;renderer.sceneKey=null;if(f.kind==='repair_turret'){f.workTarget=null;f.cool=defs.repair_turret.interval;syncWalls();}return true;}
+ function move(f,anchor){if(f.initialCore)return false;if(!list().includes(f)||!canPlace(f.kind,anchor,f))return false;for(const t of tiles)if(t.electricFacility===f)delete t.electricFacility;const s=shape(f.kind,anchor);Object.assign(f,{anchor:{...anchor},...s});fieldStates.delete(f);if(f.kind==='repair_turret')delete f.towerState;for(const c of s.cells)tiles.find(t=>key(t)===key(c)).electricFacility=f;renderer.sceneKey=null;if(f.kind==='repair_turret'){f.workTarget=null;f.cool=defs.repair_turret.interval;syncWalls();}return true;}
  function recipients(f){return list().filter(t=>(f.kind==='pulse'?(isBomb(t.kind)||['electric_tower','missile_tower','shotgun_tower','sniper_tower'].includes(t.kind)):f.kind==='biogenerator'?producer(t.kind)||t.kind==='turbine':f.kind==='irrigator'?isFruit(t.kind):producer(t.kind))&&f.outputs.some(c=>t.cells.some(at=>key(c)===key(at))));}
+ function fieldRadius(f){return f.range*(1+(specLevel(f.kind)>=1?.2:.08*rank(research(f.kind),'radius')));}
  function inRepairRange(f,cell,position=center(cell)){
   if(f.scopeMode==='global')return true;
-  if(f.scopeMode==='radius'){const at=facilityCenter(f);return Math.hypot(at.x-position.x,at.y-position.y)<=f.range*(f.kind==='slow_field'&&specLevel('slow_field')>=1?1.2:1);}
+  if(f.scopeMode==='radius'){const at=facilityCenter(f);return Math.hypot(at.x-position.x,at.y-position.y)<=(f.kind==='slow_field'?fieldRadius(f):f.range);}
   return f.outputs.some(c=>key(c)===key(cell));
  }
  function syncWalls(){
   const repairs=list().filter(f=>f.kind==='repair_turret'&&enabled(f.kind));
-  for(const t of tiles){const old=t.repairWallBonus||0,source=t.coverTile?repairs.find(f=>inRepairRange(f,t)):null,bonus=source?defs.repair_turret.wallBonus+(specLevel('repair_turret')>=1?2:0):0;
+  for(const t of tiles){const old=t.repairWallBonus||0,source=t.coverTile?repairs.find(f=>inRepairRange(f,t)):null,bonus=source?defs.repair_turret.wallBonus+(specLevel('repair_turret')>=1?2:rank(research('repair_turret'),'wall')):0;
    if(old===bonus)continue;
    const hp=t.coverHp??coverMaximum(t);t.repairWallBonus=bonus;
    // Preserve damage when entering/leaving an aura, and never revive a broken wall.
@@ -178,7 +224,63 @@ globalThis.ElectricTiles=(()=>{
    if(a.left<=1e-8){const target=a.target,at=repairPosition(target);if(target.tile){for(const field of ['trap','saw','orbitSaw','sawClock','flywheel'])delete target.tile[field];}else turrets=turrets.filter(t=>t!==target.turret);f.count++;burst(at.x,at.y,'#54e58b',12);renderer.sceneKey=null;a.left=Infinity;updateUI();}
   }
  }
+ function repairCover(f,t,amount){
+  t.coverHp=Math.min(coverMaximum(t),t.coverHp+amount);
+  pulses.push({from:facilityCenter(f),to:center(t),color:'#54e58b',life:.4});
+ }
+ function repairEmergencyHit(t,before){
+  if(!research('repair_turret')?.emergency||!t.coverHp||repairEmergency.has(t)||before<=coverMaximum(t)*.3||t.coverHp>coverMaximum(t)*.3)return;
+  const f=list().find(f=>f.kind==='repair_turret'&&enabled(f.kind)&&inRepairRange(f,t));
+  if(f){repairEmergency.add(t);repairCover(f,t,2);}
+ }
+ function removeHazard(f,target){
+  const at=repairPosition(target);
+  if(target.tile){for(const field of ['trap','saw','orbitSaw','sawClock','flywheel'])delete target.tile[field];}
+  else turrets=turrets.filter(t=>t!==target.turret);
+  f.count++;f.flash=.4;renderer.sceneKey=null;burst(at.x,at.y,'#54e58b',12);updateUI();
+ }
+ function researchRepair(f,dt,live,r){
+  const memo=f.towerState??={},origin=facilityCenter(f),base=defs.repair_turret.interval;
+  const targets=repairTargets(f),valid=t=>targets.some(q=>sameRepairTarget(q,t));
+  const covers=()=>tiles.filter(t=>coverAlive(t)&&!terrainHidden(t)&&t.coverHp<coverMaximum(t)&&inRepairRange(f,t));
+  if(r.mend){
+   memo.mend=(memo.mend||0)+dt;
+   if(memo.mend>=6-1e-8){memo.mend=Math.max(0,memo.mend-6);
+    const cover=covers().sort((a,b)=>a.coverHp/coverMaximum(a)-b.coverHp/coverMaximum(b)||distanceTo(center(a),origin)-distanceTo(center(b),origin))[0];
+    if(cover)repairCover(f,cover,r.mend);
+   }
+  }
+  const free=t=>!live.some(other=>sameRepairTarget(other.workTarget,t)||sameRepairTarget(other.towerState?.aux?.target,t));
+  if(memo.aux&&!valid(memo.aux.target))memo.aux=null;
+  if(!valid(f.workTarget)){
+   f.workTarget=null;
+   const open=targets.filter(free),near=t=>r.patrol&&distanceTo(repairPosition(t),p)<=[0,80,110,140][r.patrol];
+   const priority=open.filter(near).sort((a,b)=>distanceTo(repairPosition(a),p)-distanceTo(repairPosition(b),p))[0];
+   f.workTarget=priority||open[0]||null;memo.patrol=!!priority;f.cool=base;
+   if(r.arm&&f.workTarget&&!memo.aux){
+    const aux=targets.find(free);if(aux)memo.aux={target:aux,left:base};
+   }
+  }
+  function patch(at){
+   const cover=covers().sort((a,b)=>distanceTo(center(a),at)-distanceTo(center(b),at))[0];
+   if(cover)repairCover(f,cover,2);
+  }
+  const elapsed=dt/(1-.08*rank(r,'cut'));
+  if(memo.aux){
+   memo.aux.left-=elapsed*[0,.25,.35,.45][r.arm];
+   if(memo.aux.left<=1e-8){const at=repairPosition(memo.aux.target);removeHazard(f,memo.aux.target);memo.aux=null;if(r.patchAll)patch(at);}
+  }
+  if(!f.workTarget)return;
+  f.cool=Math.max(0,f.cool-elapsed);
+  if(f.cool>1e-8)return;
+  const at=repairPosition(f.workTarget);removeHazard(f,f.workTarget);
+  if(r.patch&&(memo.patrol||r.patchAll))patch(at);
+  f.workTarget=null;f.cool=base;memo.patrol=false;
+  if(r.relay&&memo.aux&&valid(memo.aux.target)){f.workTarget=memo.aux.target;f.cool=memo.aux.left;memo.aux=null;}
+ }
  function repairStep(f,dt,live){
+  const r=research(f.kind);
+  if(r){researchRepair(f,dt,live,r);return;}
   dt*=globalThis.Specializations?.stats(f.kind).rate||1;
   const targets=repairTargets(f);
   if(f.workTarget&&!targets.some(t=>sameRepairTarget(t,f.workTarget))){f.workTarget=null;f.cool=defs.repair_turret.interval;}
@@ -191,7 +293,11 @@ globalThis.ElectricTiles=(()=>{
   f.count++;f.flash=.4;f.workTarget=null;f.cool=defs.repair_turret.interval;renderer.sceneKey=null;
   burst(at.x,at.y,'#54e58b',12);updateUI();
  }
- const waiting=f=>f.kind!=='irrigator'&&(f.products>0||pending.some(q=>q.tower===f&&!q.done));
+ function shieldInterval(f,multiplier=1){
+  return defs.shield_tower.interval*(1-.05*rank(research(f.kind),'rate'))*multiplier;
+ }
+ const shieldCapacity=f=>1+rank(research(f.kind),'storage');
+ const waiting=f=>f.kind!=='irrigator'&&(research(f.kind)&&f.kind==='shield_tower'?f.products>=shieldCapacity(f):f.products>0||pending.some(q=>q.tower===f&&!q.done));
  function bioStep(f,cell){
   const occupied=key(cell)===key(f.anchor),entered=occupied&&!f.occupied;f.occupied=occupied;if(!entered)return;
   const targets=recipients(f).filter(t=>t.cool>1e-8&&!waiting(t));
@@ -202,6 +308,7 @@ globalThis.ElectricTiles=(()=>{
  }
  function supply(f){f.count++;f.flash=.3;for(const tower of recipients(f)){if(waiting(tower))continue;tower.cool=Math.max(0,tower.cool-1.5);tower.received++;tower.flash=.22;pulses.push({from:center(f.anchor),to:center(tower.anchor),life:.22});}}
  function produce(f,echo=false){
+  if(f.kind==='shield_tower'&&research(f.kind)&&f.products>=shieldCapacity(f))return false;
   f.produced++;f.flash=.3;
   if(f.kind==='irrigator'){
    f.count++;for(const fruit of recipients(f)){if(waiting(fruit))continue;fruit.cool=Math.max(0,fruit.cool-1.5);fruit.received++;fruit.flash=.25;pulses.push({from:center(f.anchor),to:center(fruit.anchor),color:defs.irrigator.color,life:.3});}
@@ -210,9 +317,24 @@ globalThis.ElectricTiles=(()=>{
  }
  function pickup(f){
   if(f.kind==='energy'&&(p.energy??ENERGY_MAX)>=ENERGY_MAX)return;
-  f.products--;f.collected++;f.pickupCool=.25;if(!f.products)f.cool=defs[f.kind].interval;
+  const r=research(f.kind);
+  f.products--;f.collected++;f.pickupCool=.25;
+  if(f.kind==='shield_tower'&&r){
+   if(f.collected===1&&r.shift)f.cool=Math.min(f.cool,shieldInterval(f,[1,.8,.65,.5][r.shift]));
+  }else if(!f.products)f.cool=defs[f.kind].interval;
   if(f.kind!=='shield_tower')pickupFeedback(f.kind,isFruit(f.kind)?PICKUP_COLORS.medical:PICKUP_COLORS[f.kind]);
-  if(f.kind==='shield_tower'){if(globalThis.Specializations)Specializations.shield(f,1+towerLevel(f));else grantTemporaryShield(1+towerLevel(f));f.count++;f.flash=.4;updateUI();return;}
+  if(f.kind==='shield_tower'){
+   if(r){
+    grantTemporaryShield(1+towerLevel(f)+.3*rank(r,'duration')+rank(r,'stable'));
+    if(r.wave){
+     const radius=[0,70,90,110][r.wave];
+     for(const e of combatTargets())if(distanceTo(p,e)<=radius)towerSlow(e,.25,1);
+     towerRing(p,radius,'#69f9de');
+    }
+    if(r.sprint)shieldSprintUntil=time+1;
+   }else if(globalThis.Specializations)Specializations.shield(f,1+towerLevel(f));else grantTemporaryShield(1+towerLevel(f));
+   f.count++;f.flash=.4;updateUI();return;
+  }
   if(f.kind==='energy'){const amount=Math.min(ENERGY_PACK,ENERGY_MAX-(p.energy??ENERGY_MAX));p.energy=(p.energy??ENERGY_MAX)+amount;cashPopups.push({text:'能量 +'+Math.round(amount),x:p.x,y:p.y,height:60,age:0,life:1});if(cashPopups.length>24)cashPopups.shift();pickupBursts.push({x:p.x,y:p.y,life:.9,color:'#87e9ff'});pickupSound('shield');updateEnergyHud();return;}
   if(f.kind==='freeze_bomb'){freezeBomb(f);pickupSound('shield');return;}
   if(f.kind==='laser_bomb'){laserBomb(f);pickupSound('shield');return;}
@@ -240,7 +362,7 @@ globalThis.ElectricTiles=(()=>{
    const target=targets[i],angle=Math.atan2(target.y-p.y,target.x-p.x)+(i-(targets.length-1)/2)*.28,speed=340;
    shots.push({tileMissile:true,homing:true,homingTarget:target,x:p.x,y:p.y,originX:p.x,originY:p.y,lastX:p.x,lastY:p.y,
     vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,speed,life:4,damage:stats.damage,blastRadius:stats.radius,hitRadius:5,pierce:1,
-    color:defs.missile_bomb.color,elementTheme:'missile',source:'tile',terrainShot:true,electricFacilityShot:true,weaponId:'tile-missile',critChance:0,height:20,trail:[]});
+    color:defs.missile_bomb.color,elementTheme:'missile',source:'tile',terrainShot:true,electricFacilityShot:true,weaponId:'tile-missile',critChance:0,height:20});
   }
   if(targets.length)f.attacks++;
   spawnElementBurst(p.x,p.y,22,'missile',.65);
@@ -252,6 +374,7 @@ globalThis.ElectricTiles=(()=>{
   if(e.id==='freeze_bomb'){
    const range=freezeStats(f).range,inside=t=>Math.hypot(t.x-p.x,t.y-p.y)<=range+(t.r||0);
    if(!targets.some(inside)&&![...bullets,...missiles,...hazards].some(inside))return false;
+   if(targets.some(t=>enemies.includes(t)&&inside(t)))globalThis.Chips?.bombHit();
   }else if(!targets.some(t=>e.id!=='missile_bomb'||enemies.includes(t)))return false;
   const first=shots.length;
   if(e.id==='tower'){if(!fireTower(f))return false;}else if(e.id==='freeze_bomb')freezeBomb(f);else if(e.id==='laser_bomb')laserBomb(f);else missileBomb(f);
@@ -264,14 +387,13 @@ globalThis.ElectricTiles=(()=>{
    s.lastX=s.x;s.lastY=s.y;let elapsed=Math.min(dt,s.life);
    for(const [pos,v,min,max]of [[s.x,s.vx,A.x,A.x+A.w],[s.y,s.vy,A.y,A.y+A.h]])if(v)elapsed=Math.min(elapsed,Math.max(0,((v>0?max:min)-pos)/v));
    s.x+=s.vx*elapsed;s.y+=s.vy*elapsed;s.life-=dt;s.blastRadius=towerMissileRadius(s);
-   s.trail.push({x:s.x,y:s.y});if(s.trail.length>14)s.trail.shift();return true;
+   return true;
   }
   const targets=combatTargets().filter(e=>enemies.includes(e));
   if(!targets.includes(s.homingTarget))s.homingTarget=targets.sort((a,b)=>Math.hypot(a.x-s.x,a.y-s.y)-Math.hypot(b.x-s.x,b.y-s.y))[0]||null;
   const elapsed=Math.min(dt,s.life),from={x:s.x,y:s.y};
   if(s.homingTarget){advanceSeekerCurve(s,elapsed,s.homingTarget);}else{s.x+=s.vx*elapsed;s.y+=s.vy*elapsed;s.homingSegments=[from,{x:s.x,y:s.y}];}
   s.lastX=from.x;s.lastY=from.y;s.life-=dt;
-  s.trail.push({x:s.x,y:s.y});if(s.trail.length>14)s.trail.shift();
   return true;
  }
  function freezeBomb(f){
@@ -314,19 +436,35 @@ globalThis.ElectricTiles=(()=>{
  }
  function fireTower(f,automatic=false){
   const origin=automatic?facilityCenter(f):{x:p.x,y:p.y},available=combatTargets(),targets=[];
+  const r=automatic?research(f.kind):null,capacity=rank(r,'capacity'),base=2+towerLevel(f);
   let from=origin;
-  while(targets.length<(automatic?2+towerLevel(f):towerTargetLimit(f))){
-   let nearest=null,distance=automatic?(targets.length?135:defs.electric_tower.attackRange):towerAttackRange();
+  while(targets.length<(automatic?base+Number(capacity>0):towerTargetLimit(f))){
+   let nearest=null,distance=automatic?(targets.length?135+12*rank(r,'reach'):defs.electric_tower.attackRange):towerAttackRange();
    for(const e of available){if(targets.includes(e))continue;const d=Math.hypot(e.x-from.x,e.y-from.y);if(d<=distance){nearest=e;distance=d;}}
    if(!nearest)break;targets.push(nearest);from=nearest;
   }
   if(!targets.length)return false;
   if(!automatic)plasmaLightningSound('bomb');
+  const mainLength=targets.length,tail=targets.at(-1);
+  if(r?.fork){
+   const extra=available.filter(e=>!targets.includes(e)&&distanceTo(tail,e)<=(135+12*rank(r,'reach'))*.75)
+    .sort((a,b)=>distanceTo(tail,a)-distanceTo(tail,b))[0];
+   if(extra)targets.push(extra);
+  }
+  if(r?.pulse&&mainLength>=3){
+   const strength=r.tail?[0,.22,.28,.34][r.tail]:[0,.08,.12,.16][rank(r,'slow')];
+   for(const e of available.filter(e=>!targets.includes(e)&&distanceTo(tail,e)<=70).sort((a,b)=>distanceTo(tail,a)-distanceTo(tail,b)).slice(0,3))towerSlow(e,strength,r.tail?1.5:1.2);
+   towerRing(tail,70,'#85eaff');
+  }
+  if(r){
+   const previous=f.towerState?.solo,solo=mainLength===1?targets[0]:null;
+   f.towerState={solo,refund:r.conduct&&solo&&solo===previous? .25:0};
+  }
   f.attacks++;const points=[origin,...targets.map(e=>({x:e.x,y:e.y}))],end=points.at(-1);
   // Plasma spreads from three player roots, then each hit can fork twice.
   // Keep the selected victims/damage order; edges describe the discharge tree.
   const arcSegments=automatic?null:targets.map((to,i)=>({from:i<3?p:targets[Math.floor((i-3)/2)],to}));
-  shots.push({beam:true,arc:true,arcTargets:targets,points,arcSegments,plasmaDischarge:!automatic,originX:origin.x,originY:origin.y,x:end.x,y:end.y,vx:0,vy:0,life:DISCHARGE_TIME,damage:towerDamage(f),pierce:targets.length,hitTargets:new Set(),damageApplied:false,color:'#85eaff',weaponId:'electric-tile',source:'tile',terrainShot:true,electricFacilityShot:true,critChance:0,critMultiplier:2,height:18});
+  shots.push({beam:true,arc:true,arcTargets:targets,points,arcSegments,plasmaDischarge:!automatic,originX:origin.x,originY:origin.y,x:end.x,y:end.y,vx:0,vy:0,...electricChainTiming(DISCHARGE_PULSES),damage:towerDamage(f),pierce:targets.length,hitTargets:new Set(),damageApplied:false,color:'#85eaff',weaponId:'electric-tile',source:'tile',terrainShot:true,electricFacilityShot:true,critChance:0,critMultiplier:2,height:18,towerArc:r?{r,base,mainLength}:null});
   return true;
  }
  // Evaluate live geometry: leaving, moving or removing a field cannot leave a stale debuff.
@@ -336,31 +474,73 @@ globalThis.ElectricTiles=(()=>{
  function slowFieldAt(cell){return list().some(f=>inSlowField(f,cell));}
  function movementFactor(unit){
   if(!['combat','survival'].includes(state))return 1;
-  let factor=1;
+  let factor=unit===p?(shieldSprintUntil>time?1.2:1):towerSlowFactor(unit),fieldFactor=1;
   for(const f of list())if(f.kind==='slow_field'&&enabled(f.kind)){
    const at=facilityCenter(f),cell=hex()?HexMap.cellAt(unit.x,unit.y):{x:Math.round((unit.x-325)/TILE),y:Math.round((unit.y-300)/TILE)};
    const inside=inSlowField(f,cell,unit);
-   if(inside){const n=specLevel('slow_field');if(unit!==p||n<2)factor=Math.min(factor,Math.max(.3,.8-.1*towerLevel(f)-(unit!==p&&n>=3?.1:0)));if(unit!==p&&n>=4){unit.specSlow=Math.max(unit.specSlow||0,1-factor);unit.specSlowUntil=time+2;}}
+   const r=research(f.kind);
+   if(!r){
+    if(inside){const n=specLevel('slow_field');if(unit!==p||n<2)fieldFactor=Math.min(fieldFactor,Math.max(.3,.8-.1*towerLevel(f)-(unit!==p&&n>=3?.1:0)));if(unit!==p&&n>=4){unit.specSlow=Math.max(unit.specSlow||0,1-fieldFactor);unit.specSlowUntil=time+2;}}
+    continue;
+   }
+   const slow=.2+.1*towerLevel(f);
+   if(unit===p){if(inside)fieldFactor=Math.min(fieldFactor,1-slow*[1,.6,.3,0][rank(r,'friend')]);continue;}
+   const enemySlow=slow+rank(r,'field');
+   if(!r.linger&&!r.core&&!r.support&&!r.intercept){if(inside)fieldFactor=Math.min(fieldFactor,1-enemySlow);continue;}
+   let units=fieldStates.get(f);if(!units)fieldStates.set(f,units=new WeakMap());
+   let memo=units.get(unit);if(!memo)units.set(unit,memo={});
+   const core=inside&&r.core&&distanceTo(at,unit)<=fieldRadius(f)*.5;
+   let amount=inside?enemySlow+(core?.05*r.core:0):0;
+   if(inside){
+    if(!memo.inside&&r.intercept&&!boss(unit)&&time>=(fieldEntries.get(unit)||0)){
+     memo.interceptUntil=time+.6;fieldEntries.set(unit,time+4);
+    }
+    if(memo.interceptUntil>time)amount+=.10;
+    if(!memo.inside&&r.tag&&time>=(unit.towerFieldMarkAt||0)&&!boss(unit))memo.mark=true;
+    if(core&&r.charge&&!boss(unit)&&time>=(fieldLocks.get(unit)||0)){
+     memo.entered??=time;
+     if(time-memo.entered>=[0,1.8,1.5,1.2][r.charge]){
+      memo.root=time+.5;memo.anchor=r.anchor?time+1.5:0;fieldLocks.set(unit,time+4);memo.entered=null;
+      towerRing(unit,32,'#b3a1ff');
+     }
+    }else memo.entered=null;
+   }else{
+    if(memo.inside&&r.linger){memo.exit=time+1.5;memo.residue=(memo.amount||slow)*.5;}
+    memo.entered=null;memo.mark=false;
+    if(memo.exit>time)amount=memo.residue;
+   }
+   memo.inside=inside;memo.amount=amount;
+   if(memo.root>time)fieldFactor=0;
+   else fieldFactor=Math.min(fieldFactor,1-Math.min(.7,amount+(memo.anchor>time?.15:0)));
   }
-  return factor;
+  return unit===p?factor*fieldFactor:Math.min(factor,fieldFactor);
  }
  const sniperDamage=(s,target)=>s.damage*(1+Math.hypot(target.x-s.originX,target.y-s.originY)/200);
  // Recoil holds the fired heading before the barrel resumes its finite turn.
  const rotatingTower=kind=>['shotgun_tower','sniper_tower','missile_tower'].includes(kind);
  function towerTracking(f,dt){
+  const r=research(f.kind),memo=f.towerState??={};
   if(!rotatingTower(f.kind))return null;
   const locked=Math.min(dt,f.aimLockLeft||0);f.aimLockLeft=Math.max(0,(f.aimLockLeft||0)-dt);dt-=locked;
   if(locked>0&&dt<=1e-8){f.aimReady=false;return null;}
-  const origin=facilityCenter(f),target=combatTargets().filter(e=>Math.hypot(e.x-origin.x,e.y-origin.y)<=attackRange(f.kind)).sort((a,b)=>Math.hypot(a.x-origin.x,a.y-origin.y)-Math.hypot(b.x-origin.x,b.y-origin.y))[0];
+  const origin=facilityCenter(f),targets=combatTargets().filter(e=>distanceTo(e,origin)<=attackRange(f.kind));
+  const priority=e=>r?.elite&&distanceTo(e,origin)>=400?(boss(e)?2:e.elite||e.strong?1:0):0;
+  const target=targets.sort((a,b)=>priority(b)-priority(a)||distanceTo(a,origin)-distanceTo(b,origin))[0];
+  if(r?.idle&&!target){memo.idle=(memo.idle||0)+dt;if(memo.idle>=2)memo.primed=true;}else memo.idle=0;
+  if(r?.radar){
+   const near=targets.some(e=>distanceTo(e,origin)<=120);
+   if(r.ready&&near&&!memo.near&&time>=(memo.readyAt||0)){f.cool=Math.max(0,f.cool-.6);memo.readyAt=time+6;}
+   memo.near=near;
+  }
   if(!target){f.aimReady=false;return null;}
-  const desired=Math.atan2(target.y-origin.y,target.x-origin.x),delta=Math.atan2(Math.sin(desired-(f.aim||0)),Math.cos(desired-(f.aim||0))),step=Math.PI*dt;
+  const desired=Math.atan2(target.y-origin.y,target.x-origin.x),delta=Math.atan2(Math.sin(desired-(f.aim||0)),Math.cos(desired-(f.aim||0))),turn=f.kind==='shotgun_tower'?1+.5*rank(r,'turn'):r?.radar&&distanceTo(target,origin)<=120?1+.15*r.radar:1,step=Math.PI*dt*turn;
   f.aim=(f.aim||0)+Math.max(-step,Math.min(step,delta));
   f.aim=Math.atan2(Math.sin(f.aim),Math.cos(f.aim));
   f.aimReady=Math.abs(Math.atan2(Math.sin(desired-f.aim),Math.cos(desired-f.aim)))<=Math.PI/90;
   return target;
  }
  function defenseStep(f,dt){
-  const specStart=shots.length;
+  const specStart=shots.length,r=research(f.kind);
   if(f.kind==='slow_field'||f.kind==='shield_tower')return;
   const tracked=towerTracking(f,dt);
   if(f.cool>1e-8)return;f.cool=0;
@@ -370,47 +550,181 @@ globalThis.ElectricTiles=(()=>{
    const targets=[];
    if(p.hp>0&&p.hp<p.max)targets.push({unit:p,at:p,max:p.max});
    for(const t of tiles)if(coverAlive(t)&&!terrainHidden(t)&&(t.coverHp??coverMaximum(t))<coverMaximum(t))targets.push({unit:t,at:center(t),max:coverMaximum(t)});
-   const sorted=targets.filter(t=>distance(t.at)<=attackRange(f.kind)).sort((a,b)=>distance(a.at)-distance(b.at));
+   const priority=t=>t.unit===p&&((f.towerState?.receiveUntil||0)>time||healthRatio(p)<=[0,.25,.40,.55][rank(r,'priority')]);
+   const sorted=targets.filter(t=>distance(t.at)<=attackRange(f.kind)+(t.unit===p?0:40*rank(r,'wallRange')))
+    .sort((a,b)=>Number(priority(b))-Number(priority(a))||distance(a.at)-distance(b.at));
    const target=sorted[0];
    if(!target)return;
-   const field=target.unit===p?'hp':'coverHp',amount=Math.min(towerLevel(f),target.max-target.unit[field]);if(globalThis.Specializations&&specLevel(f.kind)>0)Specializations.heal(f,sorted.map(t=>({...t,field:t.unit===p?'hp':'coverHp'})),towerLevel(f));else target.unit[field]+=amount;
+   const field=target.unit===p?'hp':'coverHp';
+   const amount=towerLevel(f)+rank(r,'heal')+(target.unit===p?(healthRatio(p)<=.55?rank(r,'amount'):0):rank(r,'wallAmount'));
+   if(globalThis.Specializations&&specLevel(f.kind)>0)Specializations.heal(f,sorted.map(t=>({...t,field:t.unit===p?'hp':'coverHp'})),towerLevel(f));
+   else target.unit[field]=Math.min(target.max,target.unit[field]+amount);
+   if(target.unit===p){
+    if(f.towerState)f.towerState.receiveUntil=0;
+    if(r?.care)care={f,at:time+2};
+   }else if(r?.double){
+    const extra=sorted.find(t=>t.unit!==p&&t!==target);
+    if(extra)repairCover(f,extra.unit,Math.max(1,Math.floor(amount/2)));
+   }
    f.count++;f.flash=.4;pulses.push({from:origin,to:{x:target.at.x,y:target.at.y},color:defs[f.kind].color,life:.4});
    burst(target.at.x,target.at.y,defs[f.kind].color,8);updateUI();
   }else if(f.kind==='electric_tower'){
    if(!fireTower(f,true))return;plasmaLightningSound();f.flash=.3;
   }else if(f.kind==='shotgun_tower'||f.kind==='sniper_tower'){
-   const angle=f.aim,sniper=f.kind==='sniper_tower',speed=sniper?1500:420;
+   const angle=f.aim,sniper=f.kind==='sniper_tower',memo=f.towerState??={};
+   const primed=!!(sniper&&memo.primed),speed=sniper?1500*(1+rank(r,'ballistic')+(primed?.15*rank(r,'idle'):0)):420;
+   const turn=angle-(memo.lastAim??angle),reverse=r?.reverse&&Math.abs(Math.atan2(Math.sin(turn),Math.cos(turn)))>=Math.PI/2;
+   memo.primed=false;memo.lastAim=angle;
+   const volley=!sniper&&r?{r,totals:new Map(),victims:new Set()}:null;
+   const spread=.13*(1-.08*rank(r,'choke')),pellets=sniper?1:5+2*rank(r,'wide');
    shotSound(sniper?'sniper_tower':'shotgun');
-   for(let i=0;i<(sniper?1:5);i++){
-    const aim=angle+(sniper?0:(i-2)*.13);
+   for(let i=0;i<pellets;i++){
+    const outer=!sniper&&i>=5;
+    const offset=outer?(i%2?-1:1)*(2*spread+.13*(1+Math.floor((i-5)/2))):(i-2)*spread;
+    const aim=angle+(sniper?0:offset*(2/3));
     shots.push({towerBullet:true,towerSniper:sniper,x:origin.x,y:origin.y,originX:origin.x,originY:origin.y,vx:Math.cos(aim)*speed,vy:Math.sin(aim)*speed,
-     life:attackRange(f.kind)/speed,damage:towerDamage(f)*(sniper?2:.6),hitRadius:sniper?3:4,pierce:1,hitTargets:new Set(),critChance:0,source:'tile',terrainShot:true,electricFacilityShot:true,weaponId:sniper?'sniper':'shotgun',height:32,color:defs[f.kind].color});
+     life:attackRange(f.kind)/speed,damage:towerDamage(f)*(sniper?2:.6)*(outer?.2:reverse?1.15:1)*(1+rank(r,'power')),hitRadius:sniper?3:4,
+     pierce:1+(sniper?Number(!!r?.pierce)+Number(!!r?.column):0),
+     towerShot:r?{r,volley,outer,primed,locked:tracked}:null,hitTargets:new Set(),critChance:0,source:'tile',terrainShot:true,electricFacilityShot:true,weaponId:sniper?'sniper':'shotgun',height:32,color:defs[f.kind].color});
    }
    f.attacks++;f.flash=.3;f.muzzleLeft=.11;
   }else if(f.kind==='missile_tower'){
-   const angle=f.aim,speed=300;
-   shots.push({towerMissile:true,tileMissile:true,x:origin.x,y:origin.y,originX:origin.x,originY:origin.y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,
-    life:4,damage:towerDamage(f)*2,blastRadius:30,hitRadius:5,pierce:1,critChance:0,source:'tile',terrainShot:true,electricFacilityShot:true,weaponId:'tower-missile',elementTheme:'missile',height:28,trail:[]});
+   const angle=f.aim,speed=300*(1+.1*rank(r,'speed'));
+   shots.push({towerMissile:true,tileMissile:true,towerMissileRanks:r,x:origin.x,y:origin.y,originX:origin.x,originY:origin.y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,
+    life:4,damage:towerDamage(f)*2,blastRadius:30,hitRadius:5,pierce:1,critChance:0,source:'tile',terrainShot:true,electricFacilityShot:true,weaponId:'tower-missile',elementTheme:'missile',height:28});
    f.attacks++;f.flash=.3;
   }
-  globalThis.Specializations?.afterVolley(specStart,f.kind,f.aim||0,origin);
-  if(rotatingTower(f.kind)){f.aimLockLeft=f.kind==='sniper_tower'?.32:f.kind==='shotgun_tower'?.24:.28;f.aimReady=false;}
-  f.cool=defs[f.kind].interval;
+  if(!globalThis.TowerResearch?.active)globalThis.Specializations?.afterVolley(specStart,f.kind,f.aim||0,origin);
+  if(rotatingTower(f.kind)){f.aimLockLeft=f.kind==='sniper_tower'?.32*(1-.15*rank(r,'recovery')):f.kind==='shotgun_tower'?.24:.28;f.aimReady=false;}
+  f.cool=towerInterval(f.kind)-(f.kind==='electric_tower'?f.towerState?.refund||0:0);
  }
  function towerMissileImpact(s,e){
   const dx=s.x-s.lastX,dy=s.y-s.lastY,ox=s.lastX-e.x,oy=s.lastY-e.y,r=(e.r||0)+(s.hitRadius||0),a=dx*dx+dy*dy,b=2*(ox*dx+oy*dy),c=ox*ox+oy*oy-r*r;
   const u=c<=0?0:a>0?Math.max(0,Math.min(1,(-b-Math.sqrt(Math.max(0,b*b-4*a*c)))/(2*a))):0;
   s.x=s.lastX+dx*u;s.y=s.lastY+dy*u;
  }
- const towerMissileRadius=s=>Math.min(150,30+Math.hypot(s.x-s.originX,s.y-s.originY)*.2)*(s.spec?.blast||1);
+ const longMissile=s=>Math.hypot(s.x-s.originX,s.y-s.originY)>=300;
+ const towerMissileRadius=s=>Math.min(150,30+Math.hypot(s.x-s.originX,s.y-s.originY)*.2)*(s.spec?.blast||1)*(1+(longMissile(s)?.08*rank(s.towerMissileRanks,'range'):0));
+ function missileResearch(s,x,y){
+  const r=s.towerMissileRanks;if(!r)return null;
+  const at={x,y},radius=s.blastRadius,long=longMissile(s);
+  if(r.aftershock&&long)towerEffects.push({at,radius:radius*.7,left:.45,damage:s.damage*.35});
+  if(r.zone){towerEffects.push({at,radius:radius*.5,left:1.5});towerRing(at,radius*.5,'#ffac69');}
+  return {r,at,radius,long};
+ }
+ function researchDamage(s,amount,e){
+  const projectile=s.towerShot,arc=s.towerArc,explosion=s.towerExplosion;
+  if(projectile){
+   const {r,outer,locked}=projectile,index=s.hitTargets.size,distance=Math.hypot(e.x-s.originX,e.y-s.originY);
+   if(s.towerSniper){
+    if(index)amount*=index===1?[0,.35,.5,.65][rank(r,'pierce')]:.45;
+    else{
+     if(distance>=500){amount*=1+.05*rank(r,'distance');if(r.execute&&healthRatio(e)<=.25)amount*=1.25;}
+     if(locked===e&&distance>=400&&(boss(e)||e.elite||e.strong))amount*=1+.05*rank(r,'elite');
+    }
+   }else if(!outer&&distance<=110)amount*=1+.08*rank(r,'close');
+  }
+  if(arc){
+   const {r,base,mainLength}=arc,index=s.arcTargets.indexOf(e);
+   if(index>=mainLength)amount=s.damage*.45;
+   else if(index>=base)amount=s.damage*[0,.35,.5,.65][r.capacity];
+   if(index===0)amount*=1+rank(r,'surge')+(mainLength===1?.1*rank(r,'solo'):0);
+  }
+  if(explosion){
+   const {r,at,radius,long}=explosion,fraction=distanceTo(at,e)/radius;
+   if(fraction<=1/3)amount*=1+.1*rank(r,'center');
+   if(long&&fraction>=2/3)amount*=1+.1*rank(r,'shrapnel');
+  }
+  if(!s.towerDerived&&s.terrainShot&&(projectile||arc||explosion)&&!boss(e)&&time>=(e.towerFieldHitAt||0)){
+   const fields=list().filter(f=>f.kind==='slow_field'&&enabled(f.kind)&&research(f.kind)?.support&&fieldStates.get(f)?.get(e)?.inside);
+   const bonus=Math.max(0,...fields.map(f=>.03*research(f.kind).support+(fieldStates.get(f).get(e).mark?.06:0)));
+   amount*=1+bonus;
+  }
+  if(e.towerWatchUntil>time&&['weapon','player','mount','mech'].includes(s.source)&&!s.drinkDot&&!s.specDerived)amount*=1.15;
+  return amount;
+ }
+ function researchHit(s,e,baseDamage){
+  const projectile=s.towerShot,arc=s.towerArc;
+  if(projectile){
+   const {r,outer,primed,volley}=projectile;
+   if(s.towerSniper&&(primed||r.markAny)&&r.mark&&!s.hitTargets.size)e.towerWatchUntil=time+3;
+   if(volley){
+    const first=!volley.victims.has(e);volley.victims.add(e);
+    if(first&&r.stagger)towerSlow(e,[0,.10,.15,.20][r.stagger],.8);
+    if(first&&r.gate&&volley.victims.size===3){
+     for(const target of combatTargets())if(distanceTo(e,target)<=60)towerSlow(target,.35,1);
+     towerRing(e,60,'#ffd08a');
+    }
+    if(!outer&&r.breach){
+     const total=volley.totals.get(e)||{hits:0,damage:0};
+     total.hits++;total.damage+=baseDamage;volley.totals.set(e,total);
+     if(total.hits===3)breachVolleys.add(volley);
+    }
+   }
+  }
+  if(arc){
+   const {r,mainLength}=arc,index=s.arcTargets.indexOf(e);
+   if(index<mainLength&&r.slow)towerSlow(e,[0,.08,.12,.16][r.slow],1.2);
+   if(index===mainLength-1&&mainLength>=3&&r.tail)towerSlow(e,[0,.22,.28,.34][r.tail],1.5);
+  }
+  if(!s.towerDerived&&(projectile||arc||s.towerExplosion)&&!boss(e)&&time>=(e.towerFieldHitAt||0)){
+   let marked=false,applied=false;
+   for(const f of list())if(f.kind==='slow_field'&&enabled(f.kind)&&research(f.kind)?.support){
+    const memo=fieldStates.get(f)?.get(e);
+    if(memo?.inside){applied=true;if(memo.mark){marked=true;memo.mark=false;}}
+   }
+   if(applied)e.towerFieldHitAt=time+2;
+   if(marked)e.towerFieldMarkAt=time+6;
+  }
+  if(e.towerWatchUntil>time&&['weapon','player','mount','mech'].includes(s.source)&&!s.drinkDot&&!s.specDerived)delete e.towerWatchUntil;
+ }
+ function finishResearchVolleys(){
+  if(!breachVolleys.size)return;
+  const active=new Set(shots.filter(s=>!s.towerShot?.outer).map(s=>s.towerShot?.volley));
+  for(const volley of breachVolleys){
+   if(active.has(volley))continue;
+   breachVolleys.delete(volley);
+   for(const [target,total] of volley.totals)if(total.hits>=3&&isAttackable(target))secondaryTowerHit(target,[target],total.damage*.2,0,true);
+  }
+ }
+ function tickTowerEffects(dt){
+  if(care&&time>=care.at){
+   if(list().includes(care.f)&&p.hp>0&&p.hp<p.max&&distanceTo(facilityCenter(care.f),p)<=attackRange('healing_tower')){
+    p.hp=Math.min(p.max,p.hp+1);burst(p.x,p.y,'#71ffad',8);updateUI();
+   }
+   care=null;
+  }
+  for(const effect of towerEffects){
+   effect.left-=dt;
+   if(effect.damage){
+    if(effect.left<=0){
+     const targets=combatTargets().filter(e=>distanceTo(effect.at,e)<=effect.radius);
+     secondaryTowerHit(effect.at,targets,effect.damage,effect.radius);
+     towerRing(effect.at,effect.radius,'#ffe098');
+    }
+   }else if(effect.left>0)for(const e of combatTargets())if(distanceTo(effect.at,e)<=effect.radius)towerSlow(e,.25,.1);
+  }
+  towerEffects=towerEffects.filter(q=>q.left>0);
+ }
  function update(dt){
   if(paused||!['combat','survival'].includes(state)||!Number.isFinite(dt)||dt<=0)return;
-  syncWalls();
+  syncWalls();tickTowerEffects(dt);
   // Small chronological slices keep production, supply and pickup timing consistent.
   let left=dt;while(left>1e-8){const delta=Math.min(.05,left);left-=delta;
    const live=list();pending=pending.filter(e=>live.includes(e.tower));
    const cell=hex()?HexMap.cellAt(p.x,p.y):{x:Math.round((p.x-325)/TILE),y:Math.round((p.y-300)/TILE)};
-   for(const f of live){specialSupportStep(f,delta);if(f.kind==='biogenerator')bioStep(f,cell);if(f.kind==='repair_turret')repairStep(f,delta,live);}
+   for(const f of live){
+    const r=research(f.kind);
+    if(f.kind==='healing_tower'&&r?.enter){
+     const memo=f.towerState??={},inside=distanceTo(facilityCenter(f),p)<=attackRange(f.kind);
+     if(inside&&memo.inside===false&&p.hp>0&&p.hp<p.max&&time>=(memo.enterAt||0)){
+      memo.enterAt=time+8;f.cool=Math.max(0,f.cool-.3*r.enter);
+      if(r.receive)memo.receiveUntil=time+2;
+     }
+     if(!inside||p.hp>=p.max)memo.receiveUntil=0;
+     memo.inside=inside;
+    }
+    specialSupportStep(f,delta);if(f.kind==='biogenerator')bioStep(f,cell);if(f.kind==='repair_turret')repairStep(f,delta,live);}
    for(const q of pending){q.left-=delta;if(q.left<=1e-8){produce(q.tower,true);q.done=true;}}pending=pending.filter(q=>!q.done);
    const boostedTime=Math.min(delta,Math.max(0,10-roomElapsed)),batteries=live.filter(f=>f.kind==='battery');
    for(const f of live){f.damageBoostLeft=Math.max(0,f.damageBoostLeft-delta);f.pickupCool=Math.max(0,f.pickupCool-delta);f.flash=Math.max(0,f.flash-delta);f.muzzleLeft=Math.max(0,(f.muzzleLeft||0)-delta);if(f.kind==='echo'||f.kind==='repair_turret')continue;if(f.kind==='battery'){f.cool=Math.max(0,10-roomElapsed-delta);continue;}
@@ -423,14 +737,14 @@ globalThis.ElectricTiles=(()=>{
    for(const f of live){if(f.cool>1e-8||f.kind!=='turbine')continue;supply(f);f.cool=Math.max(.8,defs.turbine.interval*Math.pow(.82,f.count));}
    // Irrigation runs before fruit production so a completed cooldown is usable this frame.
    for(const f of live)if(f.kind==='irrigator'&&f.cool<=1e-8){produce(f);f.cool=defs.irrigator.interval;}
-   for(const f of live)if(producer(f.kind)&&f.kind!=='irrigator'){if(!waiting(f)&&f.cool<=1e-8){if(produce(f)!==false)f.cool=defs[f.kind].interval;}if(f.products>0&&f.pickupCool<=1e-8&&f.cells.some(c=>{const at=center(c);return Math.hypot(p.x-at.x,p.y-at.y)<=24;}))pickup(f);}
+   for(const f of live)if(producer(f.kind)&&f.kind!=='irrigator'){if(!waiting(f)&&f.cool<=1e-8){if(produce(f)!==false)f.cool=f.kind==='shield_tower'&&research(f.kind)?shieldInterval(f):defs[f.kind].interval;}if(f.products>0&&f.pickupCool<=1e-8&&f.cells.some(c=>{const at=center(c);return distanceTo(p,at)<=(f.kind==='shield_tower'&&research(f.kind)?.emergency&&healthRatio(p)<=.25?36:24);}))pickup(f);}
    for(const q of pickupBursts)q.life-=delta;pickupBursts=pickupBursts.filter(q=>q.life>0).slice(-40);
    for(const q of pulses)q.life-=delta;pulses=pulses.filter(q=>q.life>0).slice(-60);
   }
  }
  function ensureCore(){if(typeof ENERGY_SYSTEM_ENABLED==='undefined'||!ENERGY_SYSTEM_ENABLED)return;const tile=tiles.find(t=>t.x===0&&t.y===0);if(!tile||tile.electricFacility)return;const f={id:++serial,kind:'energy',level:1,initialCore:true,anchor:{x:0,y:0},cells:[{x:0,y:0}],outputs:[],scopeMode:'none'};fresh(f);tile.terrainProtected=true;tile.electricFacility=f;renderer.sceneKey=null;}
- function startRoom({preserveRepair=false}={}){globalThis.Specializations?.clear();p.towerShieldLeft=0;roomElapsed=0;buffs.speed=buffs.attack=buffs.production=buffs.clocks=0;pending=[];pulses=[];pickupBursts=[];shots=shots.filter(s=>!s.bombLaser&&!s.tileMissile&&!s.towerBullet);for(const e of enemies)delete e.bombFrozenUntil;for(const f of list()){const target=f.workTarget,remaining=f.cool,keep=preserveRepair&&f.kind==='repair_turret'&&target&&repairTargets(f).some(t=>sameRepairTarget(t,target));fresh(f);if(keep){f.workTarget=target;f.cool=remaining;}}syncWalls();}
- function reset(){if(typeof p!=='undefined')p.towerShieldLeft=0;roomElapsed=0;buffs.speed=buffs.attack=buffs.production=buffs.clocks=0;for(const t of tiles){delete t.electricFacility;delete t.terrainProtected;}syncWalls();pending=[];pulses=[];pickupBursts=[];serial=0;globalThis.ElectricEditor?.reset();}
+ function startRoom({preserveRepair=false}={}){clearTowerEffects();globalThis.Specializations?.clear();p.towerShieldLeft=0;roomElapsed=0;buffs.speed=buffs.attack=buffs.production=buffs.clocks=0;pending=[];pulses=[];pickupBursts=[];shots=shots.filter(s=>!s.bombLaser&&!s.tileMissile&&!s.towerBullet&&!s.towerExplosion&&!s.towerArc&&!s.towerDerived);for(const e of enemies)for(const key of ['bombFrozenUntil','towerResearchSlows','towerWatchUntil','towerFieldHitAt','towerFieldMarkAt'])delete e[key];for(const f of list()){const target=f.workTarget,remaining=f.cool,keep=preserveRepair&&f.kind==='repair_turret'&&target&&repairTargets(f).some(t=>sameRepairTarget(t,target));fresh(f);if(keep){f.workTarget=target;f.cool=remaining;}}syncWalls();}
+ function reset(){clearTowerEffects();if(typeof p!=='undefined')p.towerShieldLeft=0;roomElapsed=0;buffs.speed=buffs.attack=buffs.production=buffs.clocks=0;for(const t of tiles){delete t.electricFacility;delete t.terrainProtected;}syncWalls();pending=[];pulses=[];pickupBursts=[];serial=0;globalThis.ElectricEditor?.reset();}
  function stroke(r,a,b,width,color){const dx=b[0]-a[0],dz=b[2]-a[2],length=Math.hypot(dx,dz)||1,nx=-dz/length*width,nz=dx/length*width;r.emissiveQuad([a[0]+nx,a[1],a[2]+nz],[b[0]+nx,b[1],b[2]+nz],[b[0]-nx,b[1],b[2]-nz],[a[0]-nx,a[1],a[2]-nz],color);}
  const borderMeshes=new WeakMap();
  function borderStrips(cells){
@@ -447,10 +761,7 @@ globalThis.ElectricTiles=(()=>{
  function visual(){return dischargeVisual??=modelVisual(createWeaponModel('tesla_t3'));}
  function drawShot(s){if(s.towerBullet){const r=renderer,a=[s.x-325,s.height,(s.y-300)*1.06],speed=Math.hypot(s.vx,s.vy),length=s.towerSniper?30:16;stroke(r,a,[a[0]-s.vx/speed*length,a[1],a[2]-s.vy/speed*length*1.06],s.towerSniper?1:4.5,s.color);if(!s.towerSniper)r.projectile(...a,6.5,'#fff2b8');r.glow(...a,s.towerSniper?4:8,s.color);return;}if(s.tileMissile){drawMissile(s);return;}if(s.bombLaser){const r=renderer,a=[s.originX-325,s.height,(s.originY-300)*1.06],b=[s.x-325,s.height,(s.y-300)*1.06];const fade=Math.min(1,s.life/.18),pulse=1+.06*Math.sin(time*42);r.laserFlow(a[0],a[2],b[0],b[2],a[1],s.width*.85*pulse,time,.85*fade,s.color);r.laserFlow(a[0],a[2],b[0],b[2],a[1]+.1,s.width*.18,time*1.3,.9*fade,'#fff0fa');r.glow(a[0],a[1],a[2],12,s.color);return;}drawModelShot({...s,evolution:visual()});}
  function drawMissile(s){
-  const r=renderer,x=s.x-325,z=(s.y-300)*1.06,y=s.height,angle=Math.atan2(s.vy*1.06,s.vx);
-  for(let i=0;i<s.trail.length;i++){const q=s.trail[i],u=(i+1)/s.trail.length;r.glow(q.x-325,y,(q.y-300)*1.06,3*u,'#ff923c');if(i%3===0)fxCloud(q.x-325,y,(q.y-300)*1.06,4*(1-u)+2,3,'#b7a6a0',.18*u);}
-  r.residentMesh('electric:friendly-missile',()=>{r.box(0,0,0,23,6,6,'#e6ddd2');r.box(12,0,0,7,5,5,'#ff8c37');r.box(-9,0,0,7,2,15,'#a95830');r.box(-9,0,0,7,13,2,'#a95830');r.emissiveBox(-14,0,0,6,4,4,'#fff0b5');},monsterPose(x,y,z,-angle,1.65,1.65,1.65));
-  r.glow(x-Math.cos(angle)*28,y,z-Math.sin(angle)*28,10,'#ff9d4c');
+  drawMetalMissile(s.x-325,s.height,(s.y-300)*1.06,Math.atan2(s.vy*1.06,s.vx),'blue',s);
  }
  // Blue plasma can: shared solid body, silver lid/pull tab and a front lightning label.
  function plasmaBombModel(r,kind='tower'){
@@ -544,7 +855,8 @@ globalThis.ElectricTiles=(()=>{
   r.emissiveBox(0,37,2,12,1,3,'#b9ffcd');r.emissiveBox(0,37,2,3,1,12,'#b9ffcd');
  }
  function drawRepairWork(f){
-  for(const a of f.specAux||[])if(Number.isFinite(a.left))drawRepairWork({...f,workTarget:a.target,cool:a.left,specAux:[]});
+  const aux=f.towerState?.aux;
+  for(const a of [...(f.specAux||[]),...(aux?[aux]:[])])if(Number.isFinite(a.left))drawRepairWork({...f,workTarget:a.target,cool:a.left,specAux:[],towerState:null});
   if(!f.workTarget)return;const r=renderer,at=repairPosition(f.workTarget),origin=facilityCenter(f),x=at.x-325,z=(at.y-300)*1.06,end=[x,5,z],muzzle=[origin.x-325,hex()?36:29,(origin.y-300)*1.06+15];
   monsterStrut(muzzle,end,2.3,'#54e58b');monsterStrut(muzzle,end,.7,'#d4ffe3');r.glow(x,6,z,15+Math.sin(time*17)*3,'#54e58b');
   r.residentMesh('electric:repair-work-hex',()=>{const radius=HexMap.RADIUS-3,point=(i,rad)=>{const a=Math.PI/6+i*TAU/6;return [Math.cos(a)*rad,0,Math.sin(a)*rad*1.06];};for(let i=0;i<6;i++)r.emissiveQuad(point(i,radius),point(i+1,radius),point(i+1,radius-2),point(i,radius-2),'#54e58b');},monsterPose(x,4,z));
@@ -625,6 +937,7 @@ globalThis.ElectricTiles=(()=>{
      }else r.glow(tx,35+baseLift,tz,f.flash>0?8:3,defs[f.kind].color);
     }
     if(key(cell)===key(coreCell(f))&&f.kind==='slow_field'){
+     if(f.scopeMode==='radius'&&research(f.kind)?.core)r.ring(x,5+baseLift,z,fieldRadius(f)*.5,defs.slow_field.color,1.5);
      for(const c of tiles){
       if(tintedCells.has(key(c))||!inSlowField(f,c))continue;
       const at=center(c),cx=at.x-325,cz=(at.y-300)*1.06;
@@ -647,6 +960,9 @@ globalThis.ElectricTiles=(()=>{
       const tilt=.42,c=Math.cos(tilt),s=Math.sin(tilt);
       r.residentMesh(f.kind==='tower'?'electric:plasma-bomb':'electric:'+f.kind,()=>plasmaBombModel(r,f.kind),[c,-s,0,x+s*16,s,c,0,height+16-c*16,0,0,1,z]);
       r.glow(x,height+16,z,3,defs[f.kind].color);
+      if(f.kind==='shield_tower'&&f.products>1){
+       r.residentMesh('electric:shield_tower',()=>plasmaBombModel(r,f.kind),[c,-s,0,x+s*16+12,s,c,0,height+16-c*16,0,0,1,z+10]);
+      }
      }
      else drawTilePickupChip(f.kind,x,height,z,defs[f.kind].rarityColor);
      for(let i=0;i<Math.min(6,f.products);i++)r.emissiveBox(x-10+i*4,5+baseLift,z+14,2,.15,3,defs[f.kind].color);
@@ -676,7 +992,7 @@ globalThis.ElectricTiles=(()=>{
   }
   globalThis.ElectricEditor?.draw();
  }
- return {attackRange,activateEquipmentBomb,slowFieldAt,movementFactor,sniperDamage,isDefenseTower,towerMissileImpact,towerMissileRadius,isBomb,freezeStats,laserStats,missileStats,advanceMissile,frozen,advanceLaser,laserHits,ensureCore,defs,fruits,floorDefs,barricadeDefs,free,enabled,profile,syncWalls,repairTargets,syncAvailability,isFruit,shape,list,center,facilityCenter,coreCell,canPlace,place,remove,move,canMerge,merge,towerLevel,towerTargetLimit,towerDamage,towerAttackRange,recipients,update,startRoom,reset,draw,drawShot,speedBonus:()=>buffs.speed,attackBonus:()=>buffs.attack,productionBonus:()=>buffs.production,get buffs(){return {...buffs};},open:()=>globalThis.ElectricEditor?.open(),close:()=>globalThis.ElectricEditor?.close(),get editing(){return !!globalThis.ElectricEditor?.editing;}};
+ return {finishResearchVolleys,repairEmergencyHit,researchDamage,researchHit,missileResearch,attackRange,activateEquipmentBomb,slowFieldAt,movementFactor,sniperDamage,isDefenseTower,isResearchTower,towerMissileImpact,towerMissileRadius,isBomb,freezeStats,laserStats,missileStats,advanceMissile,frozen,advanceLaser,laserHits,ensureCore,defs,fruits,floorDefs,barricadeDefs,playerDescription,free,enabled,profile,syncWalls,repairTargets,syncAvailability,isFruit,shape,list,center,facilityCenter,coreCell,canPlace,place,remove,move,canMerge,merge,upgradeTower,towerLevel,towerTargetLimit,towerDamage,towerAttackRange,recipients,update,startRoom,reset,draw,drawShot,speedBonus:()=>buffs.speed,attackBonus:()=>buffs.attack,productionBonus:()=>buffs.production,get buffs(){return {...buffs};},open:()=>globalThis.ElectricEditor?.open(),close:()=>globalThis.ElectricEditor?.close(),get editing(){return !!globalThis.ElectricEditor?.editing;}};
 })();
 
 globalThis.ElectricTiles.ensureCore();

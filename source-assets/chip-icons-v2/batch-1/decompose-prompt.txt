@@ -1,0 +1,12 @@
+Extract exactly the eleven complete colorful chip cartridges from this sheet as separate transparent PNG foreground layers. Preserve the exact source silhouettes, outline, emblem, colors, metallic contact pins, and all internal details. Remove only the warm taupe background. Include the entire chip and all its gold contacts in each layer. No redesign, no shadows, no separate emblem or contact layers. Use these exact layer names and bounds in normalized 0–999 coordinates. The final bottom-right position is empty.
+repeat <bbox>0 0 250 333</bbox>
+pierce <bbox>250 0 500 333</bbox>
+bounce <bbox>500 0 750 333</bbox>
+shotgun <bbox>750 0 999 333</bbox>
+starter <bbox>0 333 250 666</bbox>
+radius <bbox>250 333 500 666</bbox>
+power <bbox>500 333 750 666</bbox>
+large <bbox>750 333 999 666</bbox>
+guide <bbox>0 666 250 999</bbox>
+edge <bbox>250 666 500 999</bbox>
+reach <bbox>500 666 750 999</bbox>

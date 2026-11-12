@@ -1,0 +1,43 @@
+.air-boss-scene .wavehud,.air-boss-scene .bottomhud,.air-boss-scene #skill-wallet { display:none; }
+.air-boss-scene .boss-health { top:calc(111px + env(safe-area-inset-top)); }
+.air-boss-controls {
+ position:absolute;z-index:4;left:3%;right:3%;bottom:calc(9px + env(safe-area-inset-bottom));
+ padding:6px 7px 7px;border:1px solid #5b7896;background:#111a2be8;color:#e7f3ff;
+}
+.air-boss-caption { display:flex;align-items:center;gap:7px;min-height:26px;margin-bottom:5px;font-size:11px; }
+.air-boss-caption b { flex:none;color:#9ae9ff; }
+.air-boss-caption a { flex:none;margin-left:auto;padding:5px 2px;color:#9ae9ff; }
+.air-boss-moves { margin:0 0 5px;font-size:11px;color:#b6c8d7; }
+.air-boss-buttons { display:grid;grid-template-columns:minmax(0,1.45fr) 1fr .65fr;gap:4px; }
+.air-boss-buttons :is(button,select) {
+ min-width:0;min-height:34px;padding:2px;border:1px solid #466079;background:#18283b;
+ color:#e7f3ff;border-radius:3px;font-size:12px;white-space:nowrap;cursor:pointer;
+}
+.air-boss-buttons button[aria-pressed="true"],.air-boss-buttons button[data-mode] { border-color:#7de3ff;background:#203d53; }
+.air-boss-arsenal { margin-bottom:5px;font-size:12px; }
+.air-boss-arsenal summary { padding:4px 6px;cursor:pointer;color:#9ae9ff;border:1px solid #466079; }
+.air-boss-loadout { max-height:min(40dvh,350px);overflow:auto;overscroll-behavior:contain;touch-action:pan-y;padding:5px 6px; }
+.air-boss-loadout label { display:flex;align-items:center;gap:5px;min-height:28px; }
+.air-boss-loadout table { width:100%;border-collapse:collapse;text-align:center; }
+.air-boss-loadout th,.air-boss-loadout td { border-bottom:1px solid #35485c;padding:4px; }
+.air-boss-loadout th:first-child { text-align:left; }
+.air-boss-loadout input { accent-color:#7de3ff;width:17px;height:17px;vertical-align:middle; }
+.air-boss-loadout-actions { display:flex;gap:5px;padding:5px 0; }
+.air-boss-loadout-actions button,.air-boss-arsenal [data-legacy] { flex:1;min-height:30px;color:#e7f3ff;background:#203d53;border:1px solid #466079;border-radius:3px;font-size:12px; }
+.air-boss-scene.paused .air-boss-controls { visibility:hidden; }
+.boss-move-editor { margin:0 0 5px;font-size:12px; }
+.boss-move-editor summary { padding:5px 6px;border:1px solid #52728b;color:#a4e9ff;cursor:pointer; }
+.boss-move-scroll { max-height:min(30dvh,280px);overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;padding:6px 0; }
+.boss-move-editor-actions>select { flex:1.35;min-width:0;min-height:32px;background:#18283b;color:#eff7ff;border:1px solid #52728b; }
+.boss-move-editor>details { margin-top:5px; }
+.boss-move-field { display:grid;grid-template-columns:minmax(0,1fr) 66px;gap:4px 8px;margin:7px 0;align-items:center; }
+.boss-move-field>span { grid-column:1/-1; }
+.boss-move-field input[type=range] { width:100%;min-width:0;accent-color:#7de3ff; }
+.boss-move-field input[type=number] { width:100%;box-sizing:border-box;min-height:29px;color:#eff7ff;background:#18283b;border:1px solid #52728b;padding:3px; }
+.boss-move-editor-actions { display:flex;gap:5px; }
+.boss-move-editor-actions button { flex:1;min-height:32px;background:#203d53;color:#eff7ff;border:1px solid #52728b;cursor:pointer;font-size:12px; }
+.boss-move-editor-actions button:disabled { opacity:.5;cursor:default; }
+.air-boss-missile-reticle { position:absolute;z-index:3;width:33px;height:33px;border:2px solid #ff4c55;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 9px #ff4c55aa;pointer-events:none; }
+.air-boss-missile-reticle::before,.air-boss-missile-reticle::after { content:'';position:absolute;left:50%;top:50%;width:45px;height:2px;background:linear-gradient(90deg,#ff4c55 0 24%,transparent 24% 76%,#ff4c55 76%);transform:translate(-50%,-50%); }
+.air-boss-missile-reticle::after { transform:translate(-50%,-50%) rotate(90deg); }
+.boss-move-save { width:100%;border:0;padding:7px 0 2px;text-align:left;background:transparent;color:#aad4b7;font-size:11px;cursor:pointer; }

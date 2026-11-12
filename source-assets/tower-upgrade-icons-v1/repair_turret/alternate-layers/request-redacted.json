@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Remove the taupe background and extract exactly seven RGBA foreground layers with these names and original colors and silhouettes. Each layer contains its complete object; transparent background and holes, no redraw.\ncut <bbox>55 69 314 322</bbox> yellow circular saw including steel blade\nwall <bbox>382 73 621 316</bbox> masonry block with yellow brace\npatrol <bbox>667 88 961 309</bbox> inspection drone\narm <bbox>48 366 314 618</bbox> yellow robot arm on steel base\nmend <bbox>361 369 617 618</bbox> ratchet wrench\npatch <bbox>667 385 951 613</bbox> welding gun with repair plate\nemergency <bbox>48 690 307 931</bbox> hydraulic jack with lifted masonry",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\repair_turret\\source-alternate.png",
+  "sha256": "4c0dfa2eea71489efb51284d6f733974e4ace86bfdedabf1246a01caaff1bb55"
+}

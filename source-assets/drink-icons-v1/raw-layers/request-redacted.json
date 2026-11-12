@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract all 16 complete drink icons as separate foreground transparent PNG layers, named exactly as listed. Preserve each outline, original colors, material facets and highlights. Remove only the flat background, including inside handles. Do not redraw or combine icons.\ncrab <bbox>36 28 230 238</bbox>\nbelladonna <bbox>290 12 463 245</bbox>\nlead <bbox>530 22 718 238</bbox>\ngodfather <bbox>770 25 973 239</bbox>\nglass <bbox>44 260 213 487</bbox>\nlonely <bbox>309 260 439 486</bbox>\niron <bbox>518 260 734 486</bbox>\ncaramel <bbox>775 288 965 478</bbox>\nsalt <bbox>42 508 216 728</bbox>\nbit <bbox>300 503 440 728</bbox>\nredcap <bbox>536 501 700 729</bbox>\nclown <bbox>779 504 973 728</bbox>\nale <bbox>36 744 240 978</bbox>\nhive <bbox>267 742 476 977</bbox>\nhound <bbox>516 746 712 977</bbox>\nlongnight <bbox>779 742 956 978</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\source.png",
+  "sha256": "aad5ad5133d88b744fca91290416ce5c0cf417d505c57201cfaca50081234ac6"
+}

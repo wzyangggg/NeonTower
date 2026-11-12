@@ -26,7 +26,7 @@
    const playerDescription=d.playerDescription??defaults[kind]?.playerDescription??'',developerDescription=d.developerDescription??'';if(typeof playerDescription!=='string'||playerDescription.length>2000||typeof developerDescription!=='string'||developerDescription.length>6000)throw Error('描述格式或长度无效');
    const category=d.category??defaultCategory(kind);if(!Object.hasOwn(categories,category))throw Error('建筑分类无效');
    const enabledInGame=d.enabledInGame??Object.hasOwn(defaults,kind);if(typeof enabledInGame!=='boolean')throw Error('接入游戏开关必须为布尔值');
-   result[kind]={name:d.name.trim(),enabledInGame,category,playerDescription,developerDescription,cells:copy(d.cells),effectMode:d.effectMode,effectCells:copy(d.effectCells),range:d.range};
+   result[kind]={name:d.name.trim(),enabledInGame,category,playerDescription:ElectricTiles.playerDescription(kind,playerDescription),developerDescription,cells:copy(d.cells),effectMode:d.effectMode,effectCells:copy(d.effectCells),range:d.range};
   }return {version:2,facilities:result};
  }
  const escapeHTML=text=>text.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

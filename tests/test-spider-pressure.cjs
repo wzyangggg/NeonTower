@@ -9,13 +9,13 @@ assert.ok(pressure.result.firstContact===null&&pressure.result.kills>0,'starter 
 assert.ok(pressure.result.alive>0,'continuous attackers leave living pressure');
 assert.ok(pressure.result.initial.every(e=>Math.abs(e.hp-3.6)<1e-7),'first-floor spiders require four basic hits');
 vm.runInContext(`{
-reset();floor=1;startWave();step(1);paused=false;const mob=enemies.find(e=>e.type==='crawler');mob.hp=100;enemies=[mob];
+reset();floor=1;startWave();step(1);paused=false;const mob=enemies.find(e=>e.type==='crawler');mob.hp=100;enemies=[mob];const knockback=createWeaponModel('pistol_t1').knockback;
 for(const [vx,vy]of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1]]){
  const at=bridgeCellCenter(bridgeRoom.cells[1]);mob.x=at.x;mob.y=at.y;
- for(let i=0;i<50;i++){starterKnockback(mob,{vx,vy});updateStarterKnockbacks(.15);if(!HexMap.canStand(bridgeRoom.surface,mob.x,mob.y,6.99))throw Error('pistol push left supported bridge');}
+ for(let i=0;i<50;i++){applyImpactKnockback(mob,{vx,vy,knockback});updateImpactKnockbacks(.15);if(!HexMap.canStand(bridgeRoom.surface,mob.x,mob.y,6.99))throw Error('pistol push left supported bridge');}
 }
-starterKnockback(mob,{vx:1,vy:0});if(Math.abs(mob.starterKick.x-73.5)>1e-7)throw Error('bridge pistol push resistance');
+applyImpactKnockback(mob,{vx:1,vy:0,knockback});if(Math.abs(mob.starterKick.x-73.5)>1e-7)throw Error('bridge pistol push resistance');
 const kick=JSON.stringify(mob.starterKick);paused=true;step(1);if(JSON.stringify(mob.starterKick)!==kick)throw Error('pause freezes push');paused=false;
-mob.type='ironball';starterKnockback(mob,{vx:1,vy:0});if(Math.abs(mob.starterKick.x-31.5)>1e-7)throw Error('heavy ironball resists pistol');
+mob.type='ironball';delete mob.starterKick;applyImpactKnockback(mob,{vx:1,vy:0,knockback});if(Math.abs(mob.starterKick.x-31.5)>1e-7)throw Error('heavy ironball resists pistol');
 }`,sandbox);
 console.log('Spider pressure:',JSON.stringify(pressure));

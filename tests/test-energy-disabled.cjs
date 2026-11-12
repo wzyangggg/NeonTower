@@ -14,4 +14,4 @@ check($('toast').textContent===notice,'no insufficient blue notification');updat
 const original=renderer.emissiveBox;let blue=false;renderer.emissiveBox=(...args)=>{if(args[6]==='#428fff')blue=true;};drawPlayerHealthBar(0,100,0);renderer.emissiveBox=original;check(!blue,'player blue bar hidden');
 const center=tiles.find(t=>t.x===0&&t.y===0);check(builderTileAvailable(center),'initial center restored as normal usable terrain');reset();check(!ElectricTiles.list().length,'restart does not recreate energy station');
 }`,sandbox);
-console.log('Energy disabled by default: 39 weapons fire with zero energy, no HUD/bar/warnings/stats/core, ordinary center and restart passed');
+console.log('Energy disabled by default: 43 weapons fire with zero energy, no HUD/bar/warnings/stats/core, ordinary center and restart passed');

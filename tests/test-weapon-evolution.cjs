@@ -5,10 +5,27 @@ function check(v,m){if(!v)throw Error(m)}
 function enemy(x=450,y=300,hp=10000){return {type:'eye',x,y,homeX:x,homeY:y,hp,max:hp,r:12,t:0,fire:999,seed:0,terrainStun:999};}
 function setup(id){reset();sound=false;state='combat';paused=false;timedRoom=null;spawnQueue=[{type:'eye',side:0}];spawnTimer=999;weapon=createWeaponModel(id);weapon.critChance=0;shootTimer=999;drone=null;p.x=325;p.y=300;p.inv=999;enemies=[enemy()];}
 function run(seconds){for(let i=0;i<Math.ceil(seconds/.01);i++)step(.01);}
-check(WEAPON_MODELS.length===39&&new Set(WEAPON_MODELS.map(m=>m.id)).size===39,'39 unique fixed-tier models');
-check(WEAPON_MODELS.filter(m=>m.familyId==='sniper').length===3&&!WEAPON_MODELS.some(m=>m.familyId==='barrett'),'sniper and Barrett one family');
+check(WEAPON_MODELS.length===43&&new Set(WEAPON_MODELS.map(m=>m.id)).size===43,'43 unique fixed-tier models');
+check(WEAPON_MODELS.filter(m=>m.familyId==='sniper').length===4&&!WEAPON_MODELS.some(m=>m.familyId==='barrett'),'sniper and Barrett one family');
 for(let tier=1;tier<=5;tier++){shopLevel=tier;for(let i=0;i<100;i++){const u=equipmentShopItem('weapon'),m=WEAPON_MODELS.find(m=>m.id===u.equipment.itemId);check(m&&m.tier===u.equipment.tier&&m.tier<=tier&&m.tier>=Math.max(1,tier-1),'shop only real fixed-tier models');}}
 check(!WEAPON_MODELS.some(m=>m.familyId==='rocket'&&m.tier<3),'no early rockets');
+const starterDps=weaponEnergyDps(createWeaponModel('pistol_t1'));
+for(const id of ['rifle_t1','smg_t1']){
+ const w=createWeaponModel(id);
+ check(weaponEnergyDps({...w,damage:w.damage*.85,interval:w.interval*1.15})>starterDps,'even a low shop roll improves sustained DPS '+id);
+}
+for(let tier=2;tier<=3;tier++){
+ const gun=createWeaponModel('smg_t'+tier),pistol=createWeaponModel('pistol_t'+tier);
+ check(weaponEnergyDps(gun)>weaponEnergyDps(pistol),'automatic fire outpaces the same-tier unevolved pistol '+gun.itemId);
+}
+function starterKillTime(id,hp){
+ setup(id);enemies=[enemy(475,300,hp)];shootTimer=0;
+ for(let frame=1;frame<=60;frame++){step(1/60);if(!enemies.length)return frame;}
+ return Infinity;
+}
+for(const hp of [1.8,3.6]){
+ check(starterKillTime('rifle_t1',hp)<starterKillTime('pistol_t1',hp),'carbine kills early targets faster at '+hp+' HP');
+}
 for(const m of WEAPON_MODELS){setup(m.id);emitWeaponShots(weapon,0,p);check(shots.length>0&&shots.every(s=>s.evolution&&s.ownerItem===weapon&&Number.isFinite(s.damage)),'model emission metadata '+m.id);run(.08);draw();check(renderer.data.slice(0,renderer.count).every(Number.isFinite),'finite geometry '+m.id);}
 
 for(const id of ['rifle_t2','laser_t2']){setup(id);enemies=[enemy(375,300)];shootWeapon(0);check(shots.length===3&&shots.every((s,i)=>Math.abs(s.launchDelay-i*.075)<1e-8),'three sequential rounds '+id);const hp=enemies[0].hp;run(.06);const first=enemies[0].hp;check(first<hp,'first round hits before delayed rounds '+id);run(.07);const second=enemies[0].hp;check(second<first,'second round deals separate damage '+id);run(.1);check(enemies[0].hp<second,'third round deals separate damage '+id);}
@@ -40,5 +57,5 @@ setup('pistol_t3');enemies=[];updateModelGrowth(20);check(weapon.growth.value===
 setup('laser_t5');p.x=240;enemies=[enemy(430,300)];tiles.find(t=>t.x===0&&t.y===0).coverTile=true;tiles.find(t=>t.x===0&&t.y===0).coverHp=COVER_HP;shootWeapon(0);run(.02);check(enemies[0].hp<10000,'friendly continuous laser crosses cover');equipItem('shoes',createShoes('ufo',3));step(.01);check(Math.abs(shots.find(s=>s.sustain).height-(24+mountRiderLift()))<1e-8,'sustain height follows mounted gun');
 setup('sniper_t5');const trap={type:'turret',x:350,y:300,hp:100,r:20};turrets=[trap];enemies=[enemy(450,300)];shootWeapon(0);run(.15);check(trap.hp===100,'traps never receive weapon damage');
 for(const id of ['rocket_t5','laser_t5','sword_t5']){setup(id);check(takeTestEquipment('weapon',id,1)&&weapon.tier===WEAPON_MODELS.find(m=>m.id===id).tier,'F2 fixed model tier');}
-console.log('Weapon evolution: 39 models, fixed-tier shop, bursts, single rockets/shock, penetration, growth, split/sustain lasers, chain/ring, double cuts, zenith, colored movement bees and trap exclusions passed');
+console.log('Weapon evolution: 43 models, fixed-tier shop, bursts, single rockets/shock, penetration, growth, split/sustain lasers, chain/ring, double cuts, zenith, colored movement bees and trap exclusions passed');
 }`,sandbox);

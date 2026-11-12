@@ -1,0 +1,298 @@
+{
+  "submission": {
+    "time": 1793934032.185292,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\source.png",
+    "sha256": "d8480347f23c298a45a6e377c8c19e7f9510f528b8ba92d4ef9aac8141d1824d"
+  },
+  "layers": [
+    {
+      "size": "1448x1086",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-00.png"
+    },
+    {
+      "size": "728x526",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          76,
+          114,
+          365,
+          323
+        ],
+        "normalized": [
+          52,
+          105,
+          252,
+          297
+        ]
+      },
+      "name": "barrett",
+      "description": "Extract the full barrett sci-fi sniper rifle object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-01.png"
+    },
+    {
+      "size": "549x430",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          442,
+          128,
+          676,
+          311
+        ],
+        "normalized": [
+          305,
+          118,
+          467,
+          286
+        ]
+      },
+      "name": "ram",
+      "description": "Extract the full ram sci-fi bulldozer vehicle object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-02.png"
+    },
+    {
+      "size": "509x393",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          777,
+          125,
+          1007,
+          303
+        ],
+        "normalized": [
+          537,
+          115,
+          695,
+          279
+        ]
+      },
+      "name": "interceptor",
+      "description": "Extract the full interceptor sci-fi circular defense device object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-03.png"
+    },
+    {
+      "size": "545x458",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          1119,
+          112,
+          1358,
+          313
+        ],
+        "normalized": [
+          773,
+          103,
+          938,
+          288
+        ]
+      },
+      "name": "chainsaw",
+      "description": "Extract the full chainsaw sci-fi saw weapon object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-04.png"
+    },
+    {
+      "size": "392x397",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          134,
+          437,
+          313,
+          618
+        ],
+        "normalized": [
+          93,
+          402,
+          216,
+          569
+        ]
+      },
+      "name": "weakener",
+      "description": "Extract the full weakener sci-fi spherical device object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-05.png"
+    },
+    {
+      "size": "445x378",
+      "output_format": "png",
+      "z_index": 6,
+      "bounding_box": {
+        "absolute": [
+          454,
+          431,
+          670,
+          615
+        ],
+        "normalized": [
+          314,
+          397,
+          463,
+          566
+        ]
+      },
+      "name": "medic",
+      "description": "Extract the full medic sci-fi healing drone object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-06.png"
+    },
+    {
+      "size": "457x388",
+      "output_format": "png",
+      "z_index": 7,
+      "bounding_box": {
+        "absolute": [
+          785,
+          430,
+          1002,
+          614
+        ],
+        "normalized": [
+          542,
+          396,
+          692,
+          565
+        ]
+      },
+      "name": "charger",
+      "description": "Extract the full charger sci-fi power drone object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-07.png"
+    },
+    {
+      "size": "305x465",
+      "output_format": "png",
+      "z_index": 8,
+      "bounding_box": {
+        "absolute": [
+          1161,
+          419,
+          1301,
+          634
+        ],
+        "normalized": [
+          802,
+          386,
+          898,
+          584
+        ]
+      },
+      "name": "tower",
+      "description": "Extract the full tower sci-fi purple energy container object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-08.png"
+    },
+    {
+      "size": "346x491",
+      "output_format": "png",
+      "z_index": 9,
+      "bounding_box": {
+        "absolute": [
+          149,
+          729,
+          299,
+          943
+        ],
+        "normalized": [
+          103,
+          671,
+          206,
+          868
+        ]
+      },
+      "name": "freeze_bomb",
+      "description": "Extract the full freeze_bomb sci-fi blue crystal container object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-09.png"
+    },
+    {
+      "size": "295x430",
+      "output_format": "png",
+      "z_index": 10,
+      "bounding_box": {
+        "absolute": [
+          485,
+          734,
+          628,
+          944
+        ],
+        "normalized": [
+          335,
+          676,
+          434,
+          869
+        ]
+      },
+      "name": "laser_bomb",
+      "description": "Extract the full laser_bomb sci-fi red warning container object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-10.png"
+    },
+    {
+      "size": "449x389",
+      "output_format": "png",
+      "z_index": 11,
+      "bounding_box": {
+        "absolute": [
+          779,
+          736,
+          994,
+          922
+        ],
+        "normalized": [
+          538,
+          678,
+          686,
+          849
+        ]
+      },
+      "name": "missile_bomb",
+      "description": "Extract the full missile_bomb sci-fi orange warhead missile object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-11.png"
+    },
+    {
+      "size": "362x496",
+      "output_format": "png",
+      "z_index": 12,
+      "bounding_box": {
+        "absolute": [
+          1157,
+          738,
+          1310,
+          948
+        ],
+        "normalized": [
+          799,
+          680,
+          905,
+          873
+        ]
+      },
+      "name": "tentacle",
+      "description": "Extract the full tentacle sci-fi purple octopus tentacle object, preserve its exact highlights, original color and complete silhouette, no extra background elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-3-revised\\raw-layers\\layer-12.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 13,
+    "output_tokens": 53612,
+    "total_tokens": 53612
+  }
+}

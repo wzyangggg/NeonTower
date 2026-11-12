@@ -2,14 +2,14 @@
 const CRIMSON_SCALE=1.6*2/3;
 const CRIMSON_ATTACKS=['strafe','laser','missiles','skyline'];
 const CRIMSON_NAMES={strafe:'双枪扇形压制',missiles:'背部六联装 · 燃烧导弹',laser:'锁向蓄能 · 移动激光',skyline:'前方纵列 · 垂直轰炸'};
-function updateCrimsonGait(e,dt,vx,vz){
+function updateCrimsonGait(e,dt,vx,vz,scale=1){
  const g=e.gait;g.running=false;
- g.height+=(62-g.height)*Math.min(1,dt*10);
+ g.height+=(62*scale-g.height)*Math.min(1,dt*10);
  for(const leg of g.legs)if(leg.swing&&!Number.isFinite(leg.swing.duration)){leg.swing=null;leg.foot[1]=4;}
- for(const leg of g.legs)if(leg.swing){const s=leg.swing;s.age=Math.min(s.duration,s.age+dt);const t=s.age/s.duration,u=t*t*(3-2*t);leg.foot=s.from.map((v,j)=>v+(s.to[j]-v)*u);leg.foot[1]+=Math.sin(t*Math.PI)*21;leg.angle=s.angleFrom+Math.atan2(Math.sin(s.angleTo-s.angleFrom),Math.cos(s.angleTo-s.angleFrom))*u;if(t>=1){leg.foot=s.to;leg.angle=s.angleTo;leg.swing=null;}}
+ for(const leg of g.legs)if(leg.swing){const s=leg.swing;s.age=Math.min(s.duration,s.age+dt);const t=s.age/s.duration,u=t*t*(3-2*t);leg.foot=s.from.map((v,j)=>v+(s.to[j]-v)*u);leg.foot[1]+=Math.sin(t*Math.PI)*21*scale;leg.angle=s.angleFrom+Math.atan2(Math.sin(s.angleTo-s.angleFrom),Math.cos(s.angleTo-s.angleFrom))*u;if(t>=1){leg.foot=s.to;leg.angle=s.angleTo;leg.swing=null;}}
  if(g.legs.some(l=>l.swing))return;
- for(const i of [g.next,1-g.next]){const leg=g.legs[i],q=humanoidFootTarget(e,i);q[0]+=vx*.26;q[2]+=vz*.26;
-  if(Math.hypot(q[0]-leg.foot[0],q[2]-leg.foot[2])>28||Math.abs(Math.atan2(Math.sin(e.angle-leg.angle),Math.cos(e.angle-leg.angle)))>.4){leg.swing={from:[...leg.foot],to:q,age:0,duration:.36,angleFrom:leg.angle,angleTo:e.angle};g.next=1-i;break;}
+ for(const i of [g.next,1-g.next]){const leg=g.legs[i],q=humanoidLocal(e,(i===0?-14:14)*scale,4,3*scale);q[0]+=vx*.26*scale;q[2]+=vz*.26*scale;
+  if(Math.hypot(q[0]-leg.foot[0],q[2]-leg.foot[2])>28*scale||Math.abs(Math.atan2(Math.sin(e.angle-leg.angle),Math.cos(e.angle-leg.angle)))>.4){leg.swing={from:[...leg.foot],to:q,age:0,duration:.36*Math.sqrt(scale),angleFrom:leg.angle,angleTo:e.angle};g.next=1-i;break;}
  }
 }
 function stabilizeCrimsonContacts(e){
@@ -147,7 +147,7 @@ function crimsonRocketPose(point,tangent){
  let u=[v[1]*seed[2]-v[2]*seed[1],v[2]*seed[0]-v[0]*seed[2],v[0]*seed[1]-v[1]*seed[0]];
  const n=Math.hypot(...u);u=u.map(q=>q/n);
  const w=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
- return [u[0],v[0],w[0],point[0],u[1],v[1],w[1],point[1],u[2],v[2],w[2],point[2]];
+ return [v[0],w[0],u[0],point[0],v[1],w[1],u[1],point[1],v[2],w[2],u[2],point[2]];
 }
 function drawCrimsonFireCircle(x,y,z,radius,color,key){
  // Match the renderer's fixed camera. The disc's X/Z plane faces the screen.
@@ -166,8 +166,7 @@ function drawCrimsonRockets(e){
   }
   if(t>=0&&t<m.flight&&m.origin&&(!m.vertical||t<.35||t>=.55)){
    const q=crimsonRocketCurve(m,t);
-   r.residentMesh('crimson:rocket',()=>{r.box(0,0,0,7,20,7,'#c5d1d5');r.box(0,11,0,5,6,5,'#ed4a4a');r.box(0,-7,0,13,3,5,'#a82b3e');r.emissiveBox(0,-15,0,4,10,4,'#ffd08a');},crimsonRocketPose(q.point,q.tangent));
-   for(let i=1;i<=4;i++){const trail=crimsonRocketCurve(m,Math.max(m.vertical&&t>=.55?.55:0,t-i*.025)).point;r.glow(...trail,4-i*.6,'#ff794f');}
+   drawMissileModel(crimsonRocketPose(q.point,q.tangent),'red',m);
   }
   if(m.impacted){
    const fade=Math.max(0,Math.min(1,(m.flight+5-t)/.8)),radius=m.r*fade;

@@ -9,8 +9,7 @@ const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-pri
    if(level>1)await page.locator('[data-difficulty-step="1"]').click();assert.equal(await page.locator('.difficulty-stars .lit').count(),level);assert.equal(await page.locator('.disc-label b').textContent(),'Lv'+level);assert.equal(await page.locator('.difficulty-progress').isVisible(),false);
    assert.equal(await page.locator('#start').isDisabled(),level>1);
    assert.equal(await page.locator('.difficulty-panel').getAttribute('data-disc'),String(level));
-   assert.equal(await page.locator('.difficulty-track strong').textContent(),['霓虹启程','失控脉冲','蛇影回路','赤红裁决','深渊终曲'][level-1]);
-   assert.equal(await page.evaluate(()=>DIFFICULTIES[selectedDifficulty-1].bgm.src),null);
+   assert.equal(await page.locator('.difficulty-track strong').textContent(),['Pixel Battle (1)','Underground Groove (1)','Underground Groove','Mechanical Combat','Relentless Minor'][level-1]);
    if(width===390)await page.screenshot({path:`tests/difficulty-album-${level}.png`});
    if(width===390&&level===1){
     const motion=await page.evaluate(async()=>{

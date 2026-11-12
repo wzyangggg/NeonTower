@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 6 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:\nspeed <bbox>20 101 330 435</bbox> a red finned guided missile with bright long exhaust\nradar <bbox>358 76 660 431</bbox> a tilted radar dish with two orange scan arcs\nrange <bbox>688 117 957 414</bbox> a long yellow-tipped missile fuse with a small distance reticle\ncycle <bbox>17 560 307 889</bbox> a revolver-like rotary rack holding three red mini missiles\naftershock <bbox>337 563 643 875</bbox> a twin-stage orange explosion with two distinct stepped blast rings\nzone <bbox>672 561 980 890</bbox> a crater with hot red impact core and three dark hazard stakes around it",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\source.png",
+  "sha256": "b1a27ba1fb01459fb196868e723968daf9a2f5196f7db20238d9b5e710ada5a1"
+}

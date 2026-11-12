@@ -2,7 +2,7 @@
 const VIRUS_PATTERNS=['环形散射','旋转弹流','瞄准扇形'];
 const VIRUS_MAX_GENERATION=3;
 const VIRUS_SPLIT_WHITEN=.75,VIRUS_SPLIT_HOLD=.12,VIRUS_SPLIT_FADE=.9;
-function virusScale(e){return [1,.85,.75,.7][e.generation||0];}
+function virusScale(e){return e.type==='virusElite'&&e.generation===3?.58:[1,.85,.75,.7][e.generation||0];}
 function virusHealthLayout(e){return {count:Math.max(1,Math.ceil(e.max/52.5)),width:80*Math.sqrt(e.max/420)};}
 function livingViruses(){return enemies.filter(e=>e.type==='virus'&&e.hp>0);}
 function virusPatrolPose(t){return {x:325+Math.sin(t*.544)*170,y:250-Math.cos(t*.816)*65};}
@@ -29,6 +29,7 @@ function virusFootTarget(e,i,vx=0,vz=0){
  // Predict the BODY position at touchdown, rather than pushing all contacts
  // forward and clamping them around the current body (which folds rear legs).
  const dx=Math.cos(a)*34*scale+vx*.18*scale,dz=Math.sin(a)*34*scale+vz*.18*scale;
+ if(e.bridgeRoller)return [e.x-325+dx,3,(e.y-300)*1.06+dz];
  return [Math.max(A.x-325+5,Math.min(A.x+A.w-325-5,e.x-325+dx)),3,Math.max((A.y-300)*1.06+5,Math.min((A.y+A.h-300)*1.06-5,(e.y-300)*1.06+dz))];
 }
 function updateVirusGait(e,dt){
@@ -76,6 +77,33 @@ function fireVirusPattern(e){
  for(let i=start;i<bullets.length;i++){bullets[i].wallBounce=true;bullets[i].maxBounces=3;bullets[i].bounces=0;bullets[i].life=Infinity;}
  e.flash=.12;beep(140,.06,'triangle',.018);
 }
+function updateBridgeVirus(e,dt){
+ if(e.generation===2&&e.hp<=e.max*.5){
+  e.hp*=.5;
+  Object.assign(e,{max:e.hp,generation:3,r:20,gait:null,birthFlash:.7,virusShotLeft:1.15,virusAim:undefined});
+  const {x,y}=p;
+  const angle=Math.atan2(y-e.y,x-e.x)+Math.PI/2;
+  const offset=HexMap.move(bridgeRoom.surface,e.x,e.y,e.x+Math.cos(angle)*24,e.y+Math.sin(angle)*24,7);
+  enemies.push({...e,...offset,gait:null,virusShotLeft:1.65});
+  if(stageStats)stageStats.plannedTotal++;
+  beep(420,.14,'triangle',.025);
+ }
+ updateVirusGait(e,dt);
+ e.birthFlash=Math.max(0,(e.birthFlash||0)-dt);
+ e.flash=Math.max(0,(e.flash||0)-dt);
+ if(e.bridgeApproach)return;
+ e.virusShotLeft-=dt;
+ e.warn=e.virusShotLeft<=.55;
+ if(!e.warn)return;
+ e.virusAim??=Math.atan2(p.y-e.y,p.x-e.x);
+ if(e.virusShotLeft>0)return;
+ for(let i=-2;i<=2;i++)bullet(e.x,e.y,e.virusAim+i*.14,190,'#ff8d99',4);
+ e.virusShotLeft=3;
+ e.virusAim=undefined;
+ e.flash=.12;
+ e.warn=false;
+ beep(140,.06,'triangle',.018);
+}
 function updateVirusBoss(dt){
  if(!virusBoss||!livingViruses().length)return;resolveVirusSplits();
  // Fixed smooth patrol, without introducing a chase or extra boss behavior.
@@ -100,7 +128,7 @@ function updateVirusBoss(dt){
 // Fixed monster geometry is retained in GPU buffers and shared by all clones.
 function appendVirusMesh(key,build,x,y,z,hit,scale=1){renderer.residentMesh('virus:'+key,()=>{build();renderer.markPhosphor(0,.07);},monsterPose(x,y,z,0,scale,scale,scale),hit);}
 function virusJoint(x,y,z,radius,color,sy=1,hit,scale=1){appendVirusMesh('joint:'+radius+':'+color+':'+sy,()=>renderer.sphere(0,0,0,radius,color,1,sy,1,3,6),x,y,z,hit,scale);}
-function drawVirusCore(){
+function drawVirusCore(elite=false){
  const r=renderer,x=0,z=0,bob=0,base=27,head=108;
  // Contractile sheath, baseplate and collar; no eyes or mechanical guns.
  r.sphere(x,base,z,20,'#648c81',1,.32,1);
@@ -110,7 +138,7 @@ function drawVirusCore(){
  // Prolate capsid: long straight sides and pointed hexagonal end caps.
  const vertices=[];for(const height of [-31,31])for(let i=0;i<6;i++){const a=i*TAU/6+Math.PI/6;vertices.push([x+Math.cos(a)*26,head+height,z+Math.sin(a)*26]);}
  vertices.push([x,head-45,z],[x,head+45,z]);
- const faces=[],colors=['#97b8a3','#6b988b','#b1c9a8','#82aa9a'];
+ const faces=[],colors=elite?['#BEF442','#87BB28','#E4FF77','#A6D833']:['#97b8a3','#6b988b','#b1c9a8','#82aa9a'];
  for(let i=0;i<6;i++){const j=(i+1)%6;faces.push([12,j,i],[i,j,j+6],[i,j+6,i+6],[13,i+6,j+6]);}
  const edges=new Set();
  for(let i=0;i<faces.length;i++){
@@ -132,7 +160,9 @@ function drawVirusBoss(e){
   monsterStrut(leg.hip,leg.knee,3.5*scale,'#829c9b',hit);monsterStrut(leg.knee,leg.foot,2.5*scale,'#c3cda4',hit);
   virusJoint(...leg.knee,3,'#b8c1ae',1,hit,scale);virusJoint(...leg.foot,2.5,'#8eaa9e',.45,hit,scale);
  }
- r.markPhosphor(start,.07);appendVirusMesh('core',drawVirusCore,x,bob,z,hit,scale);
+ r.markPhosphor(start,.07);
+ const elite=e.type==='virusElite';
+ appendVirusMesh(elite?'elite-core':'core',()=>drawVirusCore(elite),x,bob,z,hit,scale);
  if(e.birthFlash>0){r.ring(x,4,z,(37+e.birthFlash*15)*scale,'#b8f4c7',2*scale);r.glow(x,head,z,8*scale,'#b8f4c7');}
  let light=e.flash>0?'#fff3cd':e.warn?'#ffad85':'#bb91ce';
  if(e.splitWhite>0){const w=Math.round(e.splitWhite*64)/64;light='#'+r.color(light).map(c=>Math.round((c+(1-c)*w)*255).toString(16).padStart(2,'0')).join('');}

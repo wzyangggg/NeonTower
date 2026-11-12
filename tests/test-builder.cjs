@@ -25,7 +25,7 @@ setup();const ranged=builder(),rangeCell=hover(ranged),rangeAt=builderTileCenter
 check(ADDED_ENEMIES.builder.workRange===144,'construction range doubled');
 ranged.x=rangeAt.x;ranged.y=rangeAt.y-145;updateBuilder(ranged,.01);check(!ranged.buildProgress&&!ranged.warn,'cannot start beyond 144');
 ranged.y=rangeAt.y-144;updateBuilder(ranged,1);check(ranged.warn&&ranged.buildProgress===1,'start at 144');
-starterKnockback(ranged,{vx:0,vy:-500});for(let i=0;i<15;i++){updateStarterKnockbacks(.01);updateBuilder(ranged,.01);}
+applyImpactKnockback(ranged,{vx:0,vy:-500,knockback:createWeaponModel('pistol_t1').knockback});for(let i=0;i<15;i++){updateImpactKnockbacks(.01);updateBuilder(ranged,.01);}
 check(Math.hypot(ranged.x-rangeAt.x,ranged.y-rangeAt.y)>144&&ranged.warn&&ranged.buildProgress>1.14,'pistol recoil preserves construction beyond start range');
 ranged.y=rangeAt.y-216;const heldProgress=ranged.buildProgress;updateBuilder(ranged,.1);check(ranged.warn&&ranged.buildProgress>heldProgress,'holds at 216');
 ranged.y=rangeAt.y-217;updateBuilder(ranged,.01);check(!ranged.warn&&ranged.buildProgress===0&&ranged.buildTarget===rangeCell,'beyond 216 interrupts and resets progress');

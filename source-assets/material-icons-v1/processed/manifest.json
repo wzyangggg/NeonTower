@@ -1,0 +1,516 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      252,
+      251,
+      234
+    ],
+    [
+      249,
+      239,
+      221
+    ],
+    [
+      252,
+      243,
+      154
+    ],
+    [
+      250,
+      226,
+      131
+    ],
+    [
+      250,
+      216,
+      103
+    ],
+    [
+      252,
+      209,
+      67
+    ],
+    [
+      249,
+      196,
+      53
+    ],
+    [
+      249,
+      185,
+      36
+    ],
+    [
+      224,
+      236,
+      242
+    ],
+    [
+      220,
+      213,
+      203
+    ],
+    [
+      203,
+      197,
+      200
+    ],
+    [
+      221,
+      185,
+      134
+    ],
+    [
+      170,
+      210,
+      237
+    ],
+    [
+      96,
+      213,
+      249
+    ],
+    [
+      182,
+      186,
+      204
+    ],
+    [
+      158,
+      184,
+      215
+    ],
+    [
+      237,
+      170,
+      49
+    ],
+    [
+      187,
+      169,
+      156
+    ],
+    [
+      165,
+      169,
+      189
+    ],
+    [
+      159,
+      164,
+      186
+    ],
+    [
+      155,
+      159,
+      181
+    ],
+    [
+      219,
+      128,
+      24
+    ],
+    [
+      182,
+      133,
+      58
+    ],
+    [
+      212,
+      106,
+      15
+    ],
+    [
+      185,
+      101,
+      12
+    ],
+    [
+      144,
+      159,
+      192
+    ],
+    [
+      140,
+      148,
+      173
+    ],
+    [
+      130,
+      134,
+      155
+    ],
+    [
+      109,
+      108,
+      119
+    ],
+    [
+      75,
+      138,
+      236
+    ],
+    [
+      57,
+      115,
+      220
+    ],
+    [
+      54,
+      102,
+      188
+    ],
+    [
+      37,
+      98,
+      208
+    ],
+    [
+      170,
+      86,
+      8
+    ],
+    [
+      141,
+      80,
+      9
+    ],
+    [
+      86,
+      89,
+      109
+    ],
+    [
+      96,
+      78,
+      65
+    ],
+    [
+      37,
+      91,
+      188
+    ],
+    [
+      54,
+      81,
+      131
+    ],
+    [
+      70,
+      77,
+      101
+    ],
+    [
+      66,
+      70,
+      92
+    ],
+    [
+      131,
+      55,
+      4
+    ],
+    [
+      105,
+      43,
+      5
+    ],
+    [
+      73,
+      56,
+      51
+    ],
+    [
+      73,
+      29,
+      5
+    ],
+    [
+      53,
+      58,
+      80
+    ],
+    [
+      43,
+      45,
+      62
+    ],
+    [
+      36,
+      37,
+      49
+    ],
+    [
+      45,
+      19,
+      5
+    ],
+    [
+      15,
+      77,
+      143
+    ],
+    [
+      18,
+      59,
+      128
+    ],
+    [
+      15,
+      45,
+      118
+    ],
+    [
+      11,
+      40,
+      89
+    ],
+    [
+      15,
+      31,
+      64
+    ],
+    [
+      14,
+      23,
+      46
+    ],
+    [
+      21,
+      21,
+      28
+    ],
+    [
+      17,
+      15,
+      20
+    ],
+    [
+      23,
+      11,
+      7
+    ],
+    [
+      12,
+      12,
+      17
+    ],
+    [
+      11,
+      10,
+      16
+    ],
+    [
+      21,
+      8,
+      4
+    ],
+    [
+      12,
+      7,
+      11
+    ],
+    [
+      8,
+      9,
+      15
+    ],
+    [
+      5,
+      4,
+      8
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "skill0",
+      "label": "silver training manual",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\material-icons-v1\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          49,
+          47,
+          467,
+          487
+        ],
+        "normalized": [
+          32,
+          46,
+          304,
+          476
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        718,
+        750
+      ],
+      "normalized": "skill0-original.png",
+      "variants": {
+        "32": "skill0-32.png",
+        "48": "skill0-48.png"
+      }
+    },
+    {
+      "id": "skill1",
+      "label": "blue training manual",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\material-icons-v1\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          532,
+          42,
+          979,
+          491
+        ],
+        "normalized": [
+          346,
+          41,
+          637,
+          479
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        765,
+        769
+      ],
+      "normalized": "skill1-original.png",
+      "variants": {
+        "32": "skill1-32.png",
+        "48": "skill1-48.png"
+      }
+    },
+    {
+      "id": "skill2",
+      "label": "gold training manual",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\material-icons-v1\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1033,
+          31,
+          1495,
+          501
+        ],
+        "normalized": [
+          673,
+          30,
+          973,
+          489
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        748,
+        764
+      ],
+      "normalized": "skill2-original.png",
+      "variants": {
+        "32": "skill2-32.png",
+        "48": "skill2-48.png"
+      }
+    },
+    {
+      "id": "tower0",
+      "label": "steel turret coupling",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\material-icons-v1\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          52,
+          550,
+          452,
+          974
+        ],
+        "normalized": [
+          34,
+          537,
+          294,
+          951
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        714,
+        757
+      ],
+      "normalized": "tower0-original.png",
+      "variants": {
+        "32": "tower0-32.png",
+        "48": "tower0-48.png"
+      }
+    },
+    {
+      "id": "tower1",
+      "label": "blue turret coupling",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\material-icons-v1\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          533,
+          539,
+          961,
+          979
+        ],
+        "normalized": [
+          347,
+          526,
+          626,
+          956
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        732,
+        753
+      ],
+      "normalized": "tower1-original.png",
+      "variants": {
+        "32": "tower1-32.png",
+        "48": "tower1-48.png"
+      }
+    },
+    {
+      "id": "tower2",
+      "label": "gold turret coupling",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\material-icons-v1\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1025,
+          535,
+          1472,
+          992
+        ],
+        "normalized": [
+          667,
+          522,
+          958,
+          969
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        726,
+        744
+      ],
+      "normalized": "tower2-original.png",
+      "variants": {
+        "32": "tower2-32.png",
+        "48": "tower2-48.png"
+      }
+    }
+  ]
+}

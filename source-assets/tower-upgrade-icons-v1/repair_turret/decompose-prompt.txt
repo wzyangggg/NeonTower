@@ -1,0 +1,8 @@
+Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 7 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:
+cut <bbox>18 49 240 479</bbox> a toothed circular saw blade in a yellow housing slicing a small bolt
+wall <bbox>269 70 482 457</bbox> a dark masonry block braced by a chunky yellow triangular steel support
+patrol <bbox>510 76 739 457</bbox> an amber inspection drone with a scanning lens
+arm <bbox>764 50 989 462</bbox> a jointed industrial construction arm with a steel claw
+mend <bbox>22 542 227 943</bbox> a yellow ratchet wrench wrapped by a recurring circular arrow
+patch <bbox>261 542 489 953</bbox> a yellow welder nozzle sealing a cracked metal plate
+emergency <bbox>522 540 735 952</bbox> a bright amber hydraulic jack lifting a broken block

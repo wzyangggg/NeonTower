@@ -1,0 +1,2 @@
+Extract exactly one transparent PNG foreground layer. Keep the entire compact turret, including the black outline, cannon and dark recessed muzzle, purple chassis, integrated gold up chevron, and cyan accent. Preserve the original details and colors. Remove the warm taupe background and leave the original silhouette intact.
+tower_upgrade <bbox>90 80 910 915</bbox>

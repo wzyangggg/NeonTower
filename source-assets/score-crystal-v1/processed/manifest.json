@@ -1,0 +1,426 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      251,
+      251,
+      251
+    ],
+    [
+      190,
+      246,
+      252
+    ],
+    [
+      182,
+      245,
+      252
+    ],
+    [
+      165,
+      246,
+      252
+    ],
+    [
+      178,
+      243,
+      252
+    ],
+    [
+      175,
+      240,
+      250
+    ],
+    [
+      135,
+      242,
+      253
+    ],
+    [
+      124,
+      241,
+      253
+    ],
+    [
+      128,
+      239,
+      252
+    ],
+    [
+      121,
+      240,
+      253
+    ],
+    [
+      112,
+      240,
+      253
+    ],
+    [
+      98,
+      228,
+      252
+    ],
+    [
+      41,
+      215,
+      253
+    ],
+    [
+      52,
+      202,
+      248
+    ],
+    [
+      38,
+      203,
+      251
+    ],
+    [
+      18,
+      225,
+      254
+    ],
+    [
+      21,
+      215,
+      251
+    ],
+    [
+      14,
+      183,
+      253
+    ],
+    [
+      10,
+      181,
+      252
+    ],
+    [
+      14,
+      177,
+      252
+    ],
+    [
+      12,
+      177,
+      251
+    ],
+    [
+      10,
+      178,
+      251
+    ],
+    [
+      7,
+      177,
+      251
+    ],
+    [
+      13,
+      174,
+      251
+    ],
+    [
+      11,
+      174,
+      251
+    ],
+    [
+      10,
+      174,
+      250
+    ],
+    [
+      13,
+      170,
+      250
+    ],
+    [
+      10,
+      170,
+      250
+    ],
+    [
+      8,
+      174,
+      251
+    ],
+    [
+      8,
+      173,
+      248
+    ],
+    [
+      7,
+      167,
+      251
+    ],
+    [
+      11,
+      139,
+      243
+    ],
+    [
+      12,
+      111,
+      232
+    ],
+    [
+      9,
+      83,
+      246
+    ],
+    [
+      7,
+      82,
+      247
+    ],
+    [
+      9,
+      78,
+      247
+    ],
+    [
+      7,
+      78,
+      247
+    ],
+    [
+      6,
+      78,
+      246
+    ],
+    [
+      8,
+      73,
+      246
+    ],
+    [
+      7,
+      73,
+      246
+    ],
+    [
+      6,
+      73,
+      245
+    ],
+    [
+      7,
+      69,
+      243
+    ],
+    [
+      6,
+      65,
+      239
+    ],
+    [
+      7,
+      62,
+      233
+    ],
+    [
+      9,
+      58,
+      208
+    ],
+    [
+      5,
+      60,
+      233
+    ],
+    [
+      4,
+      54,
+      214
+    ],
+    [
+      5,
+      46,
+      194
+    ],
+    [
+      4,
+      40,
+      179
+    ],
+    [
+      8,
+      38,
+      146
+    ],
+    [
+      3,
+      23,
+      94
+    ],
+    [
+      13,
+      28,
+      85
+    ],
+    [
+      4,
+      23,
+      85
+    ],
+    [
+      5,
+      22,
+      84
+    ],
+    [
+      3,
+      22,
+      85
+    ],
+    [
+      2,
+      22,
+      85
+    ],
+    [
+      3,
+      21,
+      90
+    ],
+    [
+      3,
+      21,
+      87
+    ],
+    [
+      1,
+      21,
+      91
+    ],
+    [
+      5,
+      21,
+      81
+    ],
+    [
+      3,
+      21,
+      82
+    ],
+    [
+      2,
+      20,
+      82
+    ],
+    [
+      2,
+      19,
+      84
+    ],
+    [
+      2,
+      12,
+      76
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "score_prism",
+      "label": "score_prism",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\score-crystal-v1\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          212,
+          256,
+          447,
+          637
+        ],
+        "normalized": [
+          120,
+          289,
+          252,
+          718
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        492,
+        798
+      ],
+      "normalized": "score_prism-original.png",
+      "variants": {
+        "32": "score_prism-32.png",
+        "48": "score_prism-48.png"
+      }
+    },
+    {
+      "id": "score_shard",
+      "label": "score_shard",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\score-crystal-v1\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          718,
+          272,
+          1053,
+          632
+        ],
+        "normalized": [
+          405,
+          307,
+          594,
+          713
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        667,
+        719
+      ],
+      "normalized": "score_shard-original.png",
+      "variants": {
+        "32": "score_shard-32.png",
+        "48": "score_shard-48.png"
+      }
+    },
+    {
+      "id": "score_cluster",
+      "label": "score_cluster",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\score-crystal-v1\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1259,
+          253,
+          1600,
+          637
+        ],
+        "normalized": [
+          710,
+          285,
+          902,
+          718
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        604,
+        679
+      ],
+      "normalized": "score_cluster-original.png",
+      "variants": {
+        "32": "score_cluster-32.png",
+        "48": "score_cluster-48.png"
+      }
+    }
+  ]
+}

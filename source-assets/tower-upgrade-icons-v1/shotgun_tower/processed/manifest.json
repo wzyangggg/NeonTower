@@ -1,0 +1,606 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      252,
+      251,
+      216
+    ],
+    [
+      248,
+      232,
+      203
+    ],
+    [
+      253,
+      240,
+      139
+    ],
+    [
+      252,
+      226,
+      117
+    ],
+    [
+      245,
+      209,
+      154
+    ],
+    [
+      225,
+      202,
+      174
+    ],
+    [
+      252,
+      205,
+      81
+    ],
+    [
+      251,
+      192,
+      65
+    ],
+    [
+      251,
+      187,
+      71
+    ],
+    [
+      250,
+      185,
+      47
+    ],
+    [
+      248,
+      175,
+      56
+    ],
+    [
+      245,
+      170,
+      36
+    ],
+    [
+      214,
+      177,
+      141
+    ],
+    [
+      185,
+      167,
+      170
+    ],
+    [
+      237,
+      165,
+      38
+    ],
+    [
+      236,
+      158,
+      34
+    ],
+    [
+      239,
+      144,
+      61
+    ],
+    [
+      228,
+      145,
+      24
+    ],
+    [
+      215,
+      135,
+      32
+    ],
+    [
+      168,
+      144,
+      138
+    ],
+    [
+      219,
+      119,
+      39
+    ],
+    [
+      219,
+      94,
+      42
+    ],
+    [
+      183,
+      108,
+      28
+    ],
+    [
+      170,
+      90,
+      23
+    ],
+    [
+      150,
+      134,
+      142
+    ],
+    [
+      144,
+      127,
+      132
+    ],
+    [
+      138,
+      120,
+      124
+    ],
+    [
+      128,
+      115,
+      122
+    ],
+    [
+      132,
+      106,
+      101
+    ],
+    [
+      129,
+      94,
+      75
+    ],
+    [
+      108,
+      91,
+      96
+    ],
+    [
+      102,
+      83,
+      89
+    ],
+    [
+      210,
+      61,
+      51
+    ],
+    [
+      177,
+      66,
+      30
+    ],
+    [
+      188,
+      42,
+      39
+    ],
+    [
+      171,
+      34,
+      33
+    ],
+    [
+      133,
+      69,
+      29
+    ],
+    [
+      128,
+      48,
+      24
+    ],
+    [
+      139,
+      31,
+      30
+    ],
+    [
+      117,
+      27,
+      26
+    ],
+    [
+      95,
+      78,
+      86
+    ],
+    [
+      94,
+      75,
+      77
+    ],
+    [
+      88,
+      68,
+      71
+    ],
+    [
+      80,
+      64,
+      71
+    ],
+    [
+      81,
+      53,
+      47
+    ],
+    [
+      67,
+      50,
+      54
+    ],
+    [
+      70,
+      41,
+      37
+    ],
+    [
+      72,
+      26,
+      23
+    ],
+    [
+      56,
+      36,
+      39
+    ],
+    [
+      51,
+      24,
+      27
+    ],
+    [
+      49,
+      19,
+      21
+    ],
+    [
+      51,
+      16,
+      19
+    ],
+    [
+      44,
+      16,
+      19
+    ],
+    [
+      50,
+      15,
+      18
+    ],
+    [
+      46,
+      14,
+      18
+    ],
+    [
+      42,
+      14,
+      18
+    ],
+    [
+      48,
+      13,
+      17
+    ],
+    [
+      44,
+      13,
+      16
+    ],
+    [
+      42,
+      12,
+      16
+    ],
+    [
+      43,
+      11,
+      15
+    ],
+    [
+      42,
+      8,
+      13
+    ],
+    [
+      37,
+      10,
+      14
+    ],
+    [
+      36,
+      5,
+      11
+    ],
+    [
+      29,
+      3,
+      10
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "turn",
+      "label": "快速横摆",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          53,
+          50,
+          384,
+          393
+        ],
+        "normalized": [
+          42,
+          41,
+          301,
+          319
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        752,
+        783
+      ],
+      "normalized": "turn-original.png",
+      "variants": {
+        "32": "turn-32.png",
+        "48": "turn-48.png"
+      }
+    },
+    {
+      "id": "choke",
+      "label": "集中收束",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          469,
+          106,
+          809,
+          325
+        ],
+        "normalized": [
+          368,
+          86,
+          634,
+          264
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        842,
+        543
+      ],
+      "normalized": "choke-original.png",
+      "variants": {
+        "32": "choke-32.png",
+        "48": "choke-48.png"
+      }
+    },
+    {
+      "id": "wide",
+      "label": "宽幅喷口",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          880,
+          70,
+          1241,
+          377
+        ],
+        "normalized": [
+          690,
+          57,
+          973,
+          306
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        822,
+        697
+      ],
+      "normalized": "wide-original.png",
+      "variants": {
+        "32": "wide-32.png",
+        "48": "wide-48.png"
+      }
+    },
+    {
+      "id": "close",
+      "label": "近身增压",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          34,
+          464,
+          395,
+          754
+        ],
+        "normalized": [
+          27,
+          376,
+          310,
+          612
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        820,
+        659
+      ],
+      "normalized": "close-original.png",
+      "variants": {
+        "32": "close-32.png",
+        "48": "close-48.png"
+      }
+    },
+    {
+      "id": "reverse",
+      "label": "回身首发",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          487,
+          452,
+          808,
+          727
+        ],
+        "normalized": [
+          382,
+          367,
+          633,
+          590
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        701,
+        603
+      ],
+      "normalized": "reverse-original.png",
+      "variants": {
+        "32": "reverse-32.png",
+        "48": "reverse-48.png"
+      }
+    },
+    {
+      "id": "breach",
+      "label": "破门齐射",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          878,
+          431,
+          1231,
+          766
+        ],
+        "normalized": [
+          688,
+          350,
+          965,
+          621
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        705,
+        669
+      ],
+      "normalized": "breach-original.png",
+      "variants": {
+        "32": "breach-32.png",
+        "48": "breach-48.png"
+      }
+    },
+    {
+      "id": "stagger",
+      "label": "火力压制",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          36,
+          810,
+          395,
+          1164
+        ],
+        "normalized": [
+          28,
+          657,
+          310,
+          944
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        747,
+        736
+      ],
+      "normalized": "stagger-original.png",
+      "variants": {
+        "32": "stagger-32.png",
+        "48": "stagger-48.png"
+      }
+    },
+    {
+      "id": "cycle",
+      "label": "连发机构",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          470,
+          815,
+          772,
+          1159
+        ],
+        "normalized": [
+          368,
+          661,
+          605,
+          940
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        672,
+        771
+      ],
+      "normalized": "cycle-original.png",
+      "variants": {
+        "32": "cycle-32.png",
+        "48": "cycle-48.png"
+      }
+    },
+    {
+      "id": "power",
+      "label": "重型弹丸",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\raw-layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          883,
+          838,
+          1244,
+          1127
+        ],
+        "normalized": [
+          692,
+          680,
+          975,
+          914
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        763,
+        612
+      ],
+      "normalized": "power-original.png",
+      "variants": {
+        "32": "power-32.png",
+        "48": "power-48.png"
+      }
+    }
+  ]
+}

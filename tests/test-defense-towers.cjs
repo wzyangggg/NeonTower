@@ -4,7 +4,7 @@ const gl=new Proxy({getShaderParameter:()=>true,getProgramParameter:()=>true,cre
 function el(){return {style:{},hidden:true,classList:{add(){},remove(){}},firstElementChild:{style:{}},addEventListener(){},getBoundingClientRect:()=>({left:0,top:0,width:390,height:390}),getContext:()=>gl};}
 const sandbox={Image:class {complete=true;naturalWidth=256;},HexMap:H,console,Math,Float32Array,performance:{now:()=>0},localStorage:{getItem:()=>0,setItem(){}},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},window:{innerHeight:800,devicePixelRatio:1,addEventListener(){}},document:{querySelector:()=>el(),getElementById:id=>elements[id]??=el(),querySelectorAll:()=>[]}};
 vm.createContext(sandbox);
-for(const file of ['music','renderer','map-icons','game','humanoid','cowboy','snake','virus','crimson-mech','drone-boss','ufo-boss','electric-tiles']){const src=fs.readFileSync('dist/'+file+'.js','utf8');vm.runInContext(file==='game'?H.transform(src):src,sandbox);}
+for(const file of ['music','renderer','map-icons','game','humanoid','cowboy','snake','virus','crimson-mech','drone-boss','ufo-boss','tower-research','electric-tiles']){const src=fs.readFileSync('dist/'+file+'.js','utf8');vm.runInContext(file==='game'?H.transform(src):src,sandbox);}
 
 
 vm.runInContext(`{
@@ -47,5 +47,62 @@ check(E.towerMissileRadius({x:1000,y:0,originX:0,originY:0})===150,'distance exp
  mob(350,300);E.update(.01);check(calls===1,'electric volley plays project lightning sound once');E.update(.01);check(calls===1,'no repeated sound during cooldown');
  paused=true;E.update(3);check(calls===1,'pause produces no electric sound');plasmaLightningSound=original;
 }
-console.log('Defense towers: three levels, automatic chain damage, nearest injured healing, straight distance splash, trap immunity, cooldown/ready/pause/survival/reset and legacy availability passed.');
+{
+ const trained=Object.fromEntries(Object.entries(TowerResearch.catalog).map(([kind,tree])=>[kind,Object.fromEntries(tree.nodes.map(node=>[node.id,node.max]))]));
+ function trainedRoom(){setup();TowerResearch.start(trained);p.x=100;p.y=100;}
+ for(const rank of [0,1,2,3]){
+  setup();TowerResearch.start({shotgun_tower:{wide:rank,turn:rank,gate:1}});
+  const shotgun=E.place('shotgun_tower',{x:0,y:0});
+  const enemy=mob(cx,360);E.update(.05);
+  check(Math.abs(shotgun.aim-Math.PI*.05*(1+.5*rank))<1e-8,'shotgun turn speed scales with rank');
+  enemy.x=cx+60;enemy.y=300;E.update(1.45);
+  check(shots.length===5+2*rank,'shotgun adds one outer pair per rank');
+  const pelletAngle=s=>Math.atan2(s.vy,s.vx);
+  check(shots.slice(0,5).every((s,i)=>!s.towerShot.outer&&Math.abs(pelletAngle(s)-(i-2)*.13*(2/3))<1e-8),'inner pellets use two-thirds of the original spread');
+  for(let i=5;i<shots.length;i+=2){
+   const [left,right]=shots.slice(i,i+2);
+   check(left.towerShot.outer&&right.towerShot.outer&&Math.abs(pelletAngle(left)+pelletAngle(right))<1e-8,'outer pairs are symmetric');
+   check(Math.abs(left.damage-shots[2].damage*.2)<1e-8&&left.damage===right.damage,'outer pellets keep fixed damage');
+  }
+  check(!shots[0].towerShot.r.gate,'saved gate rank is disabled in combat');
+ }
+ trainedRoom();
+ E.place('sniper_tower',{x:0,y:0});mob(cx+100,300);E.update(3);
+ check(shots[0].pierce===3,'trained sniper gains third penetration');
+ trainedRoom();
+ E.place('electric_tower',{x:0,y:0});for(const dx of [10,30,50,70,90])mob(cx+dx,300);E.update(2);
+ check(shots[0].arcTargets.length===5&&shots[0].towerArc.mainLength===4,'trained electric capacity and fork');
+ trainedRoom();
+ E.place('missile_tower',{x:0,y:0});mob(cx+150,300);E.update(3);
+ check(shots[0].vx===390&&Math.abs(E.towerMissileRadius({...shots[0],x:cx+300})-111.6)<.0001,'trained missile speed and blast radius');
+ trainedRoom();
+ E.place('healing_tower',{x:0,y:0});p.x=cx;p.y=300;p.hp=1;E.update(4);
+ check(p.hp===5,'trained healing amount');
+ trainedRoom();
+ const reserve=E.place('shield_tower',{x:0,y:0});E.update(18);
+ check(reserve.products===2,'trained shield has two reserves');
+ p.x=cx;p.y=300;E.update(.01);
+ check(p.towerShieldLeft===2.9&&reserve.products===1,'trained shield duration and pickup');
+ trainedRoom();
+ E.place('slow_field',{x:0,y:0});const victim=mob(cx+10,300);p.x=cx;p.y=300;
+ check(Math.abs(E.movementFactor(victim)-.55)<.0001&&E.movementFactor(p)===1,'trained slow field core and friend filter');
+ trainedRoom();
+ E.place('repair_turret',{x:0,y:0});const wall=tiles.find(t=>t.x===0&&t.y===1);
+ wall.coverTile=true;wall.coverHp=1;E.syncWalls();
+ check(wall.repairWallBonus===5,'trained wall bonus');
+ const oldHp=wall.coverHp;E.update(6);
+ check(wall.coverHp>oldHp,'trained repair fires exactly on schedule');
+}
+{
+ setup();TowerResearch.start(TowerResearch.effects({sniper_tower:{distance:20,rapid:40,ballistic:60,caliber:80,bounty:100}}));
+ const sniper=E.place('sniper_tower',{x:0,y:0}),enemy=mob(cx+100,300);enemy.hp=1;
+ E.update(2.54);check(!shots.length,'rapid sniper waits for modified interval');
+ E.update(.01);check(shots[0].vx===1800&&shots[0].pierce===1&&sniper.cool===2.55,'rapid route changes cadence and velocity');
+ const before=cash;step(.06);
+ check(enemy.hp<=0&&cash-before===(enemyKillReward(enemy)+2)*difficultyFactor('cash'),'bounty applies to an actual sniper kill');
+ setup();TowerResearch.start(TowerResearch.effects({sniper_tower:{distance:20,pierce:40,column:60}}));
+ E.place('sniper_tower',{x:0,y:0});mob(cx+100,300);E.update(3);
+ check(shots[0].vx===1500&&shots[0].pierce===3,'penetration route gets three hits and baseline velocity');
+}
+console.log('Defense towers: baseline behavior and trained attacks, healing, shield, slow field and repairs passed.');
 }`,sandbox);

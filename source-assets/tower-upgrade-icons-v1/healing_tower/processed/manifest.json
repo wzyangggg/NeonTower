@@ -1,0 +1,546 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      252,
+      252,
+      251
+    ],
+    [
+      251,
+      246,
+      242
+    ],
+    [
+      249,
+      241,
+      235
+    ],
+    [
+      248,
+      238,
+      223
+    ],
+    [
+      228,
+      250,
+      234
+    ],
+    [
+      204,
+      253,
+      223
+    ],
+    [
+      194,
+      253,
+      217
+    ],
+    [
+      190,
+      248,
+      213
+    ],
+    [
+      245,
+      234,
+      227
+    ],
+    [
+      243,
+      230,
+      225
+    ],
+    [
+      244,
+      228,
+      214
+    ],
+    [
+      237,
+      224,
+      218
+    ],
+    [
+      228,
+      224,
+      217
+    ],
+    [
+      239,
+      219,
+      204
+    ],
+    [
+      228,
+      216,
+      210
+    ],
+    [
+      206,
+      186,
+      183
+    ],
+    [
+      245,
+      184,
+      111
+    ],
+    [
+      172,
+      247,
+      202
+    ],
+    [
+      149,
+      245,
+      190
+    ],
+    [
+      124,
+      241,
+      180
+    ],
+    [
+      122,
+      234,
+      175
+    ],
+    [
+      125,
+      232,
+      175
+    ],
+    [
+      113,
+      231,
+      171
+    ],
+    [
+      126,
+      226,
+      174
+    ],
+    [
+      137,
+      197,
+      174
+    ],
+    [
+      100,
+      235,
+      168
+    ],
+    [
+      92,
+      218,
+      153
+    ],
+    [
+      50,
+      240,
+      149
+    ],
+    [
+      64,
+      212,
+      137
+    ],
+    [
+      82,
+      198,
+      137
+    ],
+    [
+      81,
+      180,
+      130
+    ],
+    [
+      59,
+      201,
+      130
+    ],
+    [
+      52,
+      184,
+      118
+    ],
+    [
+      221,
+      160,
+      124
+    ],
+    [
+      240,
+      127,
+      70
+    ],
+    [
+      234,
+      110,
+      64
+    ],
+    [
+      209,
+      94,
+      55
+    ],
+    [
+      174,
+      152,
+      153
+    ],
+    [
+      114,
+      149,
+      139
+    ],
+    [
+      160,
+      97,
+      72
+    ],
+    [
+      92,
+      111,
+      109
+    ],
+    [
+      41,
+      153,
+      102
+    ],
+    [
+      26,
+      150,
+      97
+    ],
+    [
+      36,
+      131,
+      91
+    ],
+    [
+      23,
+      123,
+      81
+    ],
+    [
+      47,
+      99,
+      97
+    ],
+    [
+      21,
+      102,
+      72
+    ],
+    [
+      42,
+      86,
+      89
+    ],
+    [
+      23,
+      84,
+      67
+    ],
+    [
+      139,
+      61,
+      41
+    ],
+    [
+      53,
+      27,
+      36
+    ],
+    [
+      45,
+      19,
+      30
+    ],
+    [
+      45,
+      15,
+      27
+    ],
+    [
+      45,
+      12,
+      26
+    ],
+    [
+      43,
+      16,
+      27
+    ],
+    [
+      42,
+      12,
+      25
+    ],
+    [
+      27,
+      67,
+      64
+    ],
+    [
+      24,
+      53,
+      53
+    ],
+    [
+      21,
+      40,
+      41
+    ],
+    [
+      38,
+      16,
+      26
+    ],
+    [
+      40,
+      13,
+      25
+    ],
+    [
+      39,
+      12,
+      23
+    ],
+    [
+      39,
+      9,
+      22
+    ],
+    [
+      33,
+      6,
+      17
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "scan",
+      "label": "广域扫描",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          47,
+          80,
+          406,
+          387
+        ],
+        "normalized": [
+          26,
+          90,
+          229,
+          436
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        749,
+        640
+      ],
+      "normalized": "scan-original.png",
+      "variants": {
+        "32": "scan-32.png",
+        "48": "scan-48.png"
+      }
+    },
+    {
+      "id": "priority",
+      "label": "救护优先",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          492,
+          68,
+          833,
+          379
+        ],
+        "normalized": [
+          277,
+          77,
+          470,
+          427
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        743,
+        679
+      ],
+      "normalized": "priority-original.png",
+      "variants": {
+        "32": "priority-32.png",
+        "48": "priority-48.png"
+      }
+    },
+    {
+      "id": "wallrange",
+      "label": "远程检修",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          923,
+          61,
+          1299,
+          388
+        ],
+        "normalized": [
+          520,
+          69,
+          732,
+          437
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        769,
+        667
+      ],
+      "normalized": "wallrange-original.png",
+      "variants": {
+        "32": "wallrange-32.png",
+        "48": "wallrange-48.png"
+      }
+    },
+    {
+      "id": "care",
+      "label": "持续护理",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1371,
+          76,
+          1731,
+          401
+        ],
+        "normalized": [
+          773,
+          86,
+          976,
+          452
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        766,
+        693
+      ],
+      "normalized": "care-original.png",
+      "variants": {
+        "32": "care-32.png",
+        "48": "care-48.png"
+      }
+    },
+    {
+      "id": "double",
+      "label": "双路修补",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          54,
+          507,
+          397,
+          811
+        ],
+        "normalized": [
+          30,
+          572,
+          224,
+          914
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        782,
+        691
+      ],
+      "normalized": "double-original.png",
+      "variants": {
+        "32": "double-32.png",
+        "48": "double-48.png"
+      }
+    },
+    {
+      "id": "cycle",
+      "label": "快速诊疗",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          485,
+          482,
+          825,
+          835
+        ],
+        "normalized": [
+          273,
+          543,
+          465,
+          941
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        674,
+        706
+      ],
+      "normalized": "cycle-original.png",
+      "variants": {
+        "32": "cycle-32.png",
+        "48": "cycle-48.png"
+      }
+    },
+    {
+      "id": "heal",
+      "label": "高效补片",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          930,
+          522,
+          1291,
+          806
+        ],
+        "normalized": [
+          524,
+          589,
+          728,
+          909
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        763,
+        599
+      ],
+      "normalized": "heal-original.png",
+      "variants": {
+        "32": "heal-32.png",
+        "48": "heal-48.png"
+      }
+    }
+  ]
+}

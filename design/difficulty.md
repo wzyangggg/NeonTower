@@ -28,20 +28,18 @@
 
 光盘外层新增独立光晕容器，按各档主题色生成柔光轮廓，避免光盘中心孔的mask裁掉外发光。CSS注册角度变量驱动盘面虹彩20秒匀速流动；标签与盘体位置保持固定。系统减少动态效果时停用虹彩动画，保留静态光晕。真实浏览器检查0/5秒虹彩背景变化、文字位置不变、三视口布局和减少动态效果分支。
 
-## 难度专辑与BGM预留
+## 难度专辑与BGM
 
-用户选择先预留曲名/配置，稍后提供音频；目前不制作音乐、不替换现有BGM。
-
-| 难度 | 暂定曲名 | 配色 |
+| 难度 | 曲名 | 配色 |
 |---|---|---|
-| 1 | 霓虹启程 | 蓝青 |
-| 2 | 失控脉冲 | 紫粉 |
-| 3 | 蛇影回路 | 紫橙 |
-| 4 | 赤红裁决 | 红粉 |
-| 5 | 深渊终曲 | 靛紫 |
+| 1 | Pixel Battle (1) | 蓝青 |
+| 2 | Underground Groove (1) | 紫粉 |
+| 3 | Underground Groove | 紫橙 |
+| 4 | Mechanical Combat | 红粉 |
+| 5 | Relentless Minor | 靛紫 |
 
-`dist/game.js`的`DIFFICULTY_DISCS`保存每档`bgm:{id,title,src:null}`。提供音频后填入各档本地路径（如`audio/difficulty-1.mp3`），该难度会自动使用对应曲目；未配置继续使用现有`relentless-minor.mp3`。`GameMusic`支持专辑独立播放位置、重复同步不重载，并保留失焦/静音/暂停及单页面播放所有权规则。没有添加不存在文件的请求。
+`dist/game.js` 的 `DIFFICULTY_DISCS` 配置每档曲名和音频路径。难度选择页播放当前选中的曲目，进入挑战后沿用该曲。各曲目独立记录播放位置，空配置回退到 `audio/relentless-minor.mp3`。
 
-验证：真实Edge/WebGL三尺寸、五个光盘的曲名/编号/暂空音频配置、开始/返回/解锁通过；新增`test-difficulty-music.cjs`验证空配置回退、提供文件后的切换、独立续播和回退续播，现有music-ownership及difficulty回归通过。
+`preview-menu-music.cjs` 用 Edge 验证五档实际音频播放和入场续播。`test-difficulty-music.cjs` 覆盖曲目切换、独立续播及空配置回退。
 
 内环按参考图调整为黑色（盘面直径38%的内环），Lv文字下移避开黑环；外部光晕与虹彩流动保留。

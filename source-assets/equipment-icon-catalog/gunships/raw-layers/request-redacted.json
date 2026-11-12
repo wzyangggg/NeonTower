@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly nine foreground layers, one complete drone in each specified box, in reading order. Preserve the original outline, rotor, tail, both side modules, colors, shading and internal transparent gaps. Exclude the navy backdrop, leave transparent outside each silhouette. Do not redraw or split components. Use the exact supplied name for each layer.\ngunship_pistol <bbox>42 51 301 292</bbox>\ngunship_smg <bbox>350 51 637 293</bbox>\ngunship_uzi <bbox>689 54 959 295</bbox>\ngunship_rifle <bbox>34 368 305 611</bbox>\ngunship_sniper <bbox>347 369 645 624</bbox>\ngunship_rocket <bbox>677 370 970 611</bbox>\ngunship_seeker <bbox>35 677 310 950</bbox>\ngunship_laser <bbox>364 681 642 954</bbox>\ngunship_tesla <bbox>681 686 966 952</bbox>",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\source.png",
+  "sha256": "1106b2bc5bad25167e67a0fb171e03b70e45fc150bd20bc7537b9e9e6d829c3b"
+}

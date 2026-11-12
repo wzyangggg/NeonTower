@@ -1,0 +1,48 @@
+.room-lab-mode .wavehud,
+.room-lab-mode #stage-clear,
+.room-lab-mode #survival-clock,
+.room-lab-mode #skill-wallet,
+.room-lab-mode #toast,
+.room-lab-mode #overlay:has(#restart) { display:none!important }
+#viewport.room-lab-mode:not(.title-screen,.lobby-open):has(>#skill-wallet) .hud .actions { margin-top:0 }
+.room-lab {
+ position:absolute;z-index:8;inset:0;display:grid;place-items:center;padding:14px;pointer-events:none;
+ color:#f0f7ff;font:14px/1.4 system-ui,sans-serif;
+}
+.room-lab [hidden] { display:none!important }
+.room-lab-panel {
+ --room-color:#77e4ed;
+ width:100%;max-width:475px;box-sizing:border-box;padding:15px;
+ border:1px solid #567589;border-top:2px solid var(--room-color);
+ background:linear-gradient(135deg,#101c2aee,#101121f2);box-shadow:0 10px 30px #0008;pointer-events:auto;
+}
+.room-lab header,.room-lab-controls { display:flex;align-items:center;justify-content:space-between;gap:8px }
+.room-lab h2,.room-lab p { margin:0 }
+.room-lab h2 { font-size:22px }
+.room-lab header small { color:#a0c4d3;letter-spacing:.17em;font-size:9px }
+.room-lab header a { color:#b7d9ea;font-size:11px }
+.room-lab .room-lab-intro { margin:7px 0 11px;color:#c1cddf }
+.room-lab-rooms { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px }
+.room-lab button,.room-lab select {
+ border:1px solid #496175;border-radius:3px;background:#17273a;color:#f1f6ff;
+ font:inherit;line-height:1.2;min-height:30px;cursor:pointer;
+}
+.room-lab-rooms button { display:grid;gap:3px;place-content:center;padding:5px 1px;font-size:10px;white-space:nowrap }
+.room-lab-boss { display:grid;gap:3px;place-content:center;padding:5px 1px;border:1px solid #9a7253;border-radius:3px;background:#28222a;color:#ffe2ba;text-decoration:none;font-size:10px;text-align:center }
+.room-lab-rooms small { color:var(--room-color);font-size:11px }
+.room-lab-rooms [aria-pressed=true] { border-color:var(--room-color);background:#26384d }
+.room-lab button:focus-visible,.room-lab select:focus-visible,.room-lab a:focus-visible { outline:2px solid #fff;outline-offset:2px }
+.room-lab-controls { margin-top:7px;font-size:11px }
+.room-lab-controls select,.room-lab-controls button { padding:3px 6px }
+.room-lab-status,.room-lab-metrics { padding-top:4px;font-size:11px;color:#d6e6f4;font-variant-numeric:tabular-nums }
+.room-lab-metrics { color:#abcbdb }
+.room-lab.playing { align-items:start;padding:calc(76px + env(safe-area-inset-top)) 8px 0 }
+.room-lab.playing .room-lab-panel { padding:5px 7px 6px }
+.room-lab.playing header,.room-lab.playing .room-lab-intro { display:none }
+.room-lab.playing.ended { align-items:center;padding:14px }
+.room-lab.playing.ended header { display:flex;margin-bottom:8px }
+.walk-entry { display:inline-block;margin:0 0 8px;color:#a8ddff;font-size:12px }
+.room-lab-walk :is(.hud,.bottomhud,.shield-hud,#joy,#time-stop) { display:none!important }
+.room-lab.walking { align-items:start;padding-top:calc(22px + env(safe-area-inset-top)) }
+.room-lab.walking select { flex:1;min-width:0 }
+.room-lab.walking button { min-width:38px }

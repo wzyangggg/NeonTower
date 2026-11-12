@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>爆炸烟雾调参台 · 地狱电梯</title>
+ <link rel="stylesheet" href="ember-smoke-lab.css">
+ <script defer src="ember-lab/model.js"></script>
+ <script defer src="ember-lab/gpu.js"></script>
+ <script defer src="ember-lab/render.js"></script>
+ <script defer src="ember-lab/explosions.js"></script>
+ <script defer src="ember-smoke-lab.js"></script>
+</head>
+<body>
+ <main>
+  <header>
+   <a href="/">← 地狱电梯</a>
+   <p class="eyebrow">EMBER LAB / VFX</p>
+   <h1>爆炸烟雾调参台</h1>
+   <p>固定同一次爆炸的随机种子，来回比较尖刺、翻卷和余烟。</p>
+  </header>
+  <div class="workbench">
+   <section class="preview panel" aria-labelledby="preview-heading">
+    <div class="panel-head">
+     <h2 id="preview-heading">烟雾预览</h2>
+     <div class="switch" aria-label="对照来源">
+      <button id="draft" type="button" aria-pressed="true">我的调试</button>
+      <button id="baseline" type="button" aria-pressed="false">当前游戏</button>
+     </div>
+    </div>
+    <div class="stage">
+     <canvas id="scene" aria-label="爆炸烟雾预览"></canvas>
+     <span class="stage-label">固定机位 / 彩色烟雾</span>
+    </div>
+    <div class="transport">
+     <button class="primary" id="replay" type="button">重新引爆</button>
+     <button id="play" type="button">继续</button>
+     <button id="step" type="button">下一帧</button>
+     <button id="dissipate" type="button">看消散</button>
+     <label class="speed">速度
+      <select id="rate"><option value="0.25">¼ 倍</option><option value="0.5">½ 倍</option><option value="1">原速</option></select>
+     </label>
+    </div>
+    <label class="timeline" for="frame">时间轴 <output id="time" for="frame">0.00 秒</output></label>
+    <input id="frame" type="range" min="0" max="18" step="1" value="7" aria-label="预览时间轴">
+    <div class="seed-row"><span id="seed">种子 1234</span><button id="reroll" type="button">换种子</button></div>
+    <p id="error" role="status" hidden></p>
+   </section>
+   <section class="panel tuning" aria-labelledby="tuning-heading">
+    <div class="panel-head"><h2 id="tuning-heading">形状与消散</h2><button id="reset" type="button">恢复游戏值</button></div>
+    <div class="presets">
+     <button id="soft" type="button">柔卷起点</button>
+     <button id="single" type="button">单核心对照</button>
+    </div>
+    <p class="hint">「寿命参差」决定各股烟何时开始消散。「淡出时长」决定开始消散后多久变淡。点「看消散」跳到余烟阶段。</p>
+    <div id="controls"></div>
+    <div class="export">
+     <button id="copy" type="button">复制参数</button>
+     <p id="saved" role="status">草稿保存在这个浏览器的调参页。</p>
+     <textarea id="export-value" readonly rows="5" aria-label="可复制的参数 JSON" hidden></textarea>
+    </div>
+   </section>
+  </div>
+ </main>
+</body>
+</html>

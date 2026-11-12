@@ -16,20 +16,47 @@
  const spectrum = document.createElement('canvas');
  spectrum.className = 'title-spectrum';
  spectrum.setAttribute('aria-hidden','true');
- spectrum.width = 240;
- spectrum.height = 28;
- viewport.append(spectrum);
+ spectrum.width = spectrum.height = 384;
  const spectrumContext = spectrum.getContext('2d');
- function drawSpectrum(time) {
-  if (!spectrumContext) return;
-  const {width,height} = spectrum;
-  const stride = width/music.bands.length;
-  spectrumContext.clearRect(0,0,width,height);
-  music.bands.forEach((energy,i) => {
-   const bar = 1+Math.min(1,(reduced.matches ? 0 : energy)*1.55)*(height-1);
-   spectrumContext.fillStyle = 'hsl('+((i*360/music.bands.length+time*30)%360)+' 85% 65% / '+(.32+energy*.65)+')';
-   spectrumContext.fillRect(i*stride,height-bar,stride-2,bar);
-  });
+ const spectrumPoints = Array.from({length:96},()=>({x:0,y:0}));
+ function drawSpectrum() {
+  const halo = overlay.querySelector('.difficulty-disc-halo');
+  if (!halo || !spectrumContext) return;
+  if (spectrum.parentNode !== halo) halo.prepend(spectrum);
+  const c = spectrumContext;
+  const center = spectrum.width/2;
+  c.clearRect(0,0,spectrum.width,spectrum.height);
+  const count = spectrumPoints.length;
+  for (let i=0;i<count;i++) {
+   const u = i/count;
+   const angle = u*Math.PI*2-Math.PI/2;
+   const band = 1-Math.abs(u*2-1);
+   const energy = reduced.matches ? 0 : music.spectrumAt(band);
+   const radius = center*(.802+.14*Math.min(1,energy*1.55));
+   spectrumPoints[i].x = center+Math.cos(angle)*radius;
+   spectrumPoints[i].y = center+Math.sin(angle)*radius;
+  }
+  const first = spectrumPoints[0], last = spectrumPoints[count-1];
+  c.beginPath();
+  c.moveTo((last.x+first.x)/2,(last.y+first.y)/2);
+  for (let i=0;i<count;i++) {
+   const point = spectrumPoints[i], next = spectrumPoints[(i+1)%count];
+   c.quadraticCurveTo(point.x,point.y,(point.x+next.x)/2,(point.y+next.y)/2);
+  }
+  c.closePath();
+  c.stroke();
+  c.moveTo(center*1.76,center);
+  c.arc(center,center,center*.76,0,Math.PI*2);
+  c.fill('evenodd');
+ }
+ const spectrumGradient = spectrumContext?.createLinearGradient(0,0,384,384);
+ if (spectrumGradient) {
+  spectrumGradient.addColorStop(0,'#ecffff');
+  spectrumGradient.addColorStop(.45,'#51ebf4');
+  spectrumGradient.addColorStop(1,'#31c5a1');
+  spectrumContext.fillStyle = spectrumGradient;
+  spectrumContext.strokeStyle = '#b7fff0';
+  spectrumContext.lineWidth = 1.5;
  }
  let circuitKey;
  function drawCircuit() {
@@ -283,7 +310,10 @@
    const time = reduced.matches ? 0 : performance.now()/1000;
    const spectrumVisible = viewport.matches('.lobby-open.difficulty-screen:not(.lobby-subpage)');
    if (!reduced.matches && (spectrumVisible || showWaterfall)) music.sampleSpectrum(dt);
-   if (spectrumVisible) drawSpectrum(time);
+   if (spectrumVisible) {
+    drawSpectrum();
+    globalThis.TitleMixer?.layout(viewport,overlay);
+   }
    if (useCircuit) {
     drawCircuit();
     return true;

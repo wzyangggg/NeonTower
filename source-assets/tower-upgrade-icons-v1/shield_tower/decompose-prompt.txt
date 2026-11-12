@@ -1,0 +1,8 @@
+Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 7 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:
+rate <bbox>29 75 230 459</bbox> a cyan shield plate on a gold assembly gear
+preload <bbox>280 66 467 471</bbox> a charged blue battery slotted into the foot of a shield
+storage <bbox>513 76 729 458</bbox> two distinct blue shields nested in a two-bay rack
+duration <bbox>772 63 976 481</bbox> a thick blue shield reinforced by chunky riveted steel edges
+stable <bbox>37 560 216 943</bbox> a shield front with a smooth continuous glowing cyan power ring
+wave <bbox>254 572 490 914</bbox> a blue shield emitting two sideward turquoise ripples
+sprint <bbox>520 572 734 906</bbox> a small blue shield with gold wing and three short horizontal speed streaks

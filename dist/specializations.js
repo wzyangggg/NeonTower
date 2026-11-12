@@ -5,7 +5,7 @@ globalThis.Specializations=(()=>{
  const key='hell-elevator-specializations-v1';let levels={},revision=0;const zones=[],links=[];
  try{const saved=JSON.parse(localStorage.getItem(key)||'{}');for(const id of ids)levels[id]=clamp(saved[id]);}catch{}
  function clamp(n){return Number.isInteger(n)?Math.max(0,Math.min(5,n)):0;}
- function level(id){return levels[id]||0;}
+ function level(id){return globalThis.TowerResearch?.active&&globalThis.TowerResearch.catalog[id]?0:levels[id]||0;}
  function set(id,n){if(!ids.includes(id)||!Number.isInteger(n)||n<0||n>5)return false;levels[id]=n;revision++;try{localStorage.setItem(key,JSON.stringify(levels));}catch{}return true;}
  function setAll(n){if(!Number.isInteger(n)||n<0||n>5)return false;for(const id of ids)set(id,n);return true;}
  const family=w=>w.familyId||({pulse:'pistol',barrett:'sniper'}[w.id]||w.id);
@@ -53,7 +53,7 @@ globalThis.Specializations=(()=>{
   const extra=(count,coefficient,spread=.08)=>{for(let i=0;i<count;i++){
    const q=cloneShot(base,coefficient);q.launchDelay=(base.launchDelay||0)+(i+1)*.04;
    if(q.sustain)q.launchDelay=0;
-   const a=angle+(i-(count-1)/2)*spread,v=Math.hypot(q.vx,q.vy);
+   const a=angle+(i-(count-1)/2)*spread*(2/3),v=Math.hypot(q.vx,q.vy);
    q.vx=Math.cos(a)*v;q.vy=Math.sin(a)*v;q.aim=a;
    if(q.beam&&!q.arc){const len=Math.hypot(q.x-q.originX,q.y-q.originY);q.x=q.originX+Math.cos(a)*len;q.y=q.originY+Math.sin(a)*len;}
    if(q.boomerang){const target=nearest(origin)[i+1];if(target){const aim=Math.atan2(target.y-origin.y,target.x-origin.x);q.vx=Math.cos(aim)*v;q.vy=Math.sin(aim)*v;}}
@@ -130,7 +130,7 @@ globalThis.Specializations=(()=>{
    }
   }
  }
- function factor(e){let k=time<(e.specSlowUntil||0)?1-(e.specSlow||0):1;if(time<(e.specRootUntil||0))k=0;return k;}
+ function factor(e){let k=time<(e.specSlowUntil||0)?1-(e.specSlow||0):1;if(time<(e.chipSlowUntil||0))k=Math.min(k,1-(e.chipSlow||0));if(time<(e.specRootUntil||0))k=0;return k;}
  function pulse(origin,radius){for(const e of nearest(origin,[],radius)){status(e,{slow:.4,id:'shield_tower'});}burst(origin.x,origin.y,'#69f9de',16);}
  function tick(dt){
   if(paused||!['combat','survival'].includes(state))return;

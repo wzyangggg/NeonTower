@@ -1,0 +1,148 @@
+{
+  "layers": [
+    {
+      "size": "719x752",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          49,
+          47,
+          467,
+          487
+        ],
+        "normalized": [
+          32,
+          46,
+          304,
+          476
+        ]
+      },
+      "name": "skill0",
+      "description": "Extract the full silver training manual, preserve its exact original shape, colors, highlights, dark contour, every page edge, no cropping, no recoloring, no extra elements added.",
+      "background": "transparent",
+      "path": "raw-layers/layer-01.png",
+      "label": "silver training manual"
+    },
+    {
+      "size": "766x770",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          532,
+          42,
+          979,
+          491
+        ],
+        "normalized": [
+          346,
+          41,
+          637,
+          479
+        ]
+      },
+      "name": "skill1",
+      "description": "Extract the full blue training manual, preserve its exact original shape, colors, highlights, dark contour, every page edge, no cropping, no recoloring, no extra elements added.",
+      "background": "transparent",
+      "path": "raw-layers/layer-02.png",
+      "label": "blue training manual"
+    },
+    {
+      "size": "750x766",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          1033,
+          31,
+          1495,
+          501
+        ],
+        "normalized": [
+          673,
+          30,
+          973,
+          489
+        ]
+      },
+      "name": "skill2",
+      "description": "Extract the full gold training manual, preserve its exact original shape, colors, highlights, dark contour, every page edge, no cropping, no recoloring, no extra elements added.",
+      "background": "transparent",
+      "path": "raw-layers/layer-03.png",
+      "label": "gold training manual"
+    },
+    {
+      "size": "716x758",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          52,
+          550,
+          452,
+          974
+        ],
+        "normalized": [
+          34,
+          537,
+          294,
+          951
+        ]
+      },
+      "name": "tower0",
+      "description": "Extract the full steel turret coupling, preserve its exact original shape, colors, highlights, dark contour, all coupling lugs, retain the dark material inside the recessed socket, no cropping, no recoloring, no extra elements added.",
+      "background": "transparent",
+      "path": "raw-layers/layer-04.png",
+      "label": "steel turret coupling"
+    },
+    {
+      "size": "733x754",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          533,
+          539,
+          961,
+          979
+        ],
+        "normalized": [
+          347,
+          526,
+          626,
+          956
+        ]
+      },
+      "name": "tower1",
+      "description": "Extract the full blue turret coupling, preserve its exact original shape, colors, highlights, dark contour, all coupling lugs, retain the dark material inside the recessed socket, no cropping, no recoloring, no extra elements added.",
+      "background": "transparent",
+      "path": "raw-layers/layer-05.png",
+      "label": "blue turret coupling"
+    },
+    {
+      "size": "728x746",
+      "output_format": "png",
+      "z_index": 6,
+      "bounding_box": {
+        "absolute": [
+          1025,
+          535,
+          1472,
+          992
+        ],
+        "normalized": [
+          667,
+          522,
+          958,
+          969
+        ]
+      },
+      "name": "tower2",
+      "description": "Extract the full gold turret coupling, preserve its exact original shape, colors, highlights, dark contour, all coupling lugs, retain the dark material inside the recessed socket, no cropping, no recoloring, no extra elements added.",
+      "background": "transparent",
+      "path": "raw-layers/layer-06.png",
+      "label": "gold turret coupling"
+    }
+  ]
+}

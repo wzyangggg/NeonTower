@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly the eleven complete portrait chip cartridges as separate transparent PNG foreground layers. Preserve the source silhouettes, simple clipped corners, slight bottom rim, corner markings, emblems and colors. Remove only the warm taupe background. Do not straighten, crop corners, add pins, redraw or separate the emblems. Exact names and bounds in normalized 0–999 coordinates. Last cell is empty.\nrepeat <bbox>0 37 250 335</bbox>\npierce <bbox>250 37 500 335</bbox>\nbounce <bbox>500 37 750 335</bbox>\nshotgun <bbox>750 37 999 335</bbox>\nstarter <bbox>0 345 250 640</bbox>\nradius <bbox>250 345 500 640</bbox>\npower <bbox>500 345 750 640</bbox>\nlarge <bbox>750 345 999 640</bbox>\nguide <bbox>0 645 250 945</bbox>\nedge <bbox>250 645 500 945</bbox>\nreach <bbox>500 645 750 945</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\source.png",
+  "sha256": "ff65bc3fe649dff7e25ef50baf61a9f1389dad23f6f86ef9d4a68c73465acad4"
+}

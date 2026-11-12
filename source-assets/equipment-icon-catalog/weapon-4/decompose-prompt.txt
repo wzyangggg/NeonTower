@@ -1,0 +1,9 @@
+Extract only the listed icons as independent transparent PNG layers. Preserve contours, colors and interior holes. For paired guns keep both guns in the same layer. Use exact IDs and normalized bounds:
+boomerang_t4: <bbox>0 0 250 500</bbox>
+boomerang_t5: <bbox>250 0 500 500</bbox>
+bee_t3: <bbox>500 0 750 500</bbox>
+bee_t5: <bbox>750 0 999 500</bbox>
+sword_t1: <bbox>0 500 250 999</bbox>
+sword_t2: <bbox>250 500 500 999</bbox>
+sword_t4: <bbox>500 500 750 999</bbox>
+sword_t5: <bbox>750 500 999 999</bbox>

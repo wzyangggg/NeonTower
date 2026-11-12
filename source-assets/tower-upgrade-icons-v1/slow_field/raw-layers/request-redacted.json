@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 5 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:\nradius <bbox>40 56 318 444</bbox> a violet emitter with a broad flat ring and outward ticks\nfriend <bbox>378 33 602 461</bbox> a white ally transponder with a green check symbol on a purple casing\ncore <bbox>690 57 966 447</bbox> a dense dark purple gravity sphere pulling in bright pink facets\nfield <bbox>33 548 312 929</bbox> a magnetic coil with three nested magenta field arcs\nintercept <bbox>347 589 653 900</bbox> two purple field pylons with a magenta horizontal barrier",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\slow_field\\source.png",
+  "sha256": "d5bcf5a9307022a25ce00b0295f63b05c0244cf661857b626f6885ea96890aec"
+}

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>死亡烟雾干涉测试 · 地狱电梯</title>
+ <link rel="stylesheet" href="ember-smoke-lab.css">
+ <script defer src="ember-lab/model.js"></script>
+ <script defer src="ember-lab/gpu.js"></script>
+ <script defer src="ember-lab/render.js"></script>
+ <script defer src="ember-lab/explosions.js"></script>
+ <script defer src="smoke-interference-lab.js"></script>
+ <style>
+  .source { position:absolute; transform:translate(-50%, -50%); z-index:1;
+   display:grid; place-items:center; width:32px; height:32px; min-height:0; padding:0;
+   border:1px solid #d4ddf2; border-radius:50%; font-size:13px; color:#fff; background:#111827c9;
+   cursor:grab; touch-action:none; user-select:none; }
+  .source:active { cursor:grabbing; z-index:2; }
+  .source.pending { border-style:dashed; color:#a7b2d0; }
+  .source[hidden] { display:none; }
+  #trail-source { position:absolute; z-index:1; width:8px; height:8px; border-radius:50%;
+   background:#78dfe8; transform:translate(-50%, -50%); pointer-events:none; }
+  #mode-description { min-height:2.7em; }
+  .plume-controls { display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:10px; }
+  .plume-controls > label { flex:1 1 140px; max-width:250px; }
+  .plume-controls output { float:right; }
+ </style>
+</head>
+<body>
+ <main>
+  <header>
+   <a href="/">← 地狱电梯</a>
+   <h1>死亡烟雾干涉测试</h1>
+   <p>拖动 A、B、C、D 调整爆点，松开后更新当前帧。四个爆点依次引爆，每次间隔 0.10 秒。</p>
+  </header>
+  <section class="panel" aria-label="烟雾干涉预览">
+   <div class="switch" aria-label="对照模式">
+    <button type="button" data-mode="single" aria-pressed="false">只引爆 A</button>
+    <button type="button" data-mode="separate" aria-pressed="false">独立流场</button>
+    <button type="button" data-mode="shared" aria-pressed="true">共享流场</button>
+    <button type="button" data-mode="shock" aria-pressed="false">B、C、D 仅冲击</button>
+    <button type="button" data-mode="smoke" aria-pressed="false">只看烟雾</button>
+    <label class="speed"><input id="trail" type="checkbox" checked>持续拖尾烟雾</label>
+   </div>
+   <div class="plume-controls">
+    <label>烟源方式
+     <select id="trail-motion"><option value="stationary">固定烟源 · 向上飘散</option><option value="moving">移动拖尾</option></select>
+    </label>
+    <label>上升力 <output id="rise-value"></output><input id="rise" type="range" min="0" max="3" step="0.1" value="2.2"></label>
+    <label>卷动扰动 <output id="turbulence-value"></output><input id="turbulence" type="range" min="0" max="1.2" step="0.05" value="0.55"></label>
+    <label>烟雾寿命 <output id="lifetime-value"></output><input id="lifetime" type="range" min="0.5" max="4" step="0.1" value="3"></label>
+   </div>
+   <p class="hint" id="mode-description"></p>
+   <div class="stage">
+    <canvas id="scene" aria-label="四个爆点的烟雾预览"></canvas>
+    <span id="trail-source" aria-hidden="true"></span>
+    <button type="button" class="source" id="source-a" aria-label="爆点 A，用方向键移动">A</button>
+    <button type="button" class="source" id="source-b" aria-label="爆点 B，用方向键移动">B</button>
+    <button type="button" class="source" id="source-c" aria-label="爆点 C，用方向键移动">C</button>
+    <button type="button" class="source" id="source-d" aria-label="爆点 D，用方向键移动">D</button>
+   </div>
+   <div class="transport">
+    <button class="primary" id="replay" type="button">重新引爆</button>
+    <button id="play" type="button">继续</button>
+    <button id="step" type="button">下一帧</button>
+    <label class="speed">播放速度
+     <select id="speed"><option value="1">原速</option><option value="0.5">半速</option></select>
+    </label>
+    <button id="reset-positions" type="button">复位爆点</button>
+   </div>
+   <label class="timeline" for="frame">时间轴 <output id="time" for="frame">0.47 秒</output></label>
+   <input id="frame" type="range" min="0" max="180" step="1" value="14">
+   <p id="error" role="status" hidden>无法启动烟雾预览。请确认浏览器支持 WebGL 2。</p>
+  </section>
+ </main>
+</body>
+</html>

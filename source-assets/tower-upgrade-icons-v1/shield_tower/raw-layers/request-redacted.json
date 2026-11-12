@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 7 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:\nrate <bbox>29 75 230 459</bbox> a cyan shield plate on a gold assembly gear\npreload <bbox>280 66 467 471</bbox> a charged blue battery slotted into the foot of a shield\nstorage <bbox>513 76 729 458</bbox> two distinct blue shields nested in a two-bay rack\nduration <bbox>772 63 976 481</bbox> a thick blue shield reinforced by chunky riveted steel edges\nstable <bbox>37 560 216 943</bbox> a shield front with a smooth continuous glowing cyan power ring\nwave <bbox>254 572 490 914</bbox> a blue shield emitting two sideward turquoise ripples\nsprint <bbox>520 572 734 906</bbox> a small blue shield with gold wing and three short horizontal speed streaks",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shield_tower\\source.png",
+  "sha256": "4a5397fbd46f025cbaf3e5695b7625a98b7112e16317725f154eba360fabd804"
+}

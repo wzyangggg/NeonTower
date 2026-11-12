@@ -1,0 +1,636 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      251,
+      251,
+      252
+    ],
+    [
+      243,
+      242,
+      247
+    ],
+    [
+      238,
+      238,
+      244
+    ],
+    [
+      238,
+      237,
+      227
+    ],
+    [
+      233,
+      233,
+      241
+    ],
+    [
+      232,
+      227,
+      213
+    ],
+    [
+      250,
+      201,
+      67
+    ],
+    [
+      250,
+      181,
+      29
+    ],
+    [
+      201,
+      203,
+      213
+    ],
+    [
+      182,
+      182,
+      196
+    ],
+    [
+      171,
+      172,
+      189
+    ],
+    [
+      168,
+      167,
+      179
+    ],
+    [
+      55,
+      235,
+      248
+    ],
+    [
+      158,
+      164,
+      182
+    ],
+    [
+      160,
+      161,
+      179
+    ],
+    [
+      155,
+      160,
+      179
+    ],
+    [
+      173,
+      156,
+      146
+    ],
+    [
+      153,
+      155,
+      174
+    ],
+    [
+      150,
+      151,
+      170
+    ],
+    [
+      254,
+      131,
+      9
+    ],
+    [
+      231,
+      133,
+      23
+    ],
+    [
+      253,
+      113,
+      56
+    ],
+    [
+      204,
+      100,
+      14
+    ],
+    [
+      143,
+      144,
+      161
+    ],
+    [
+      135,
+      135,
+      151
+    ],
+    [
+      125,
+      126,
+      141
+    ],
+    [
+      105,
+      114,
+      130
+    ],
+    [
+      101,
+      101,
+      115
+    ],
+    [
+      92,
+      91,
+      102
+    ],
+    [
+      83,
+      84,
+      98
+    ],
+    [
+      73,
+      78,
+      92
+    ],
+    [
+      171,
+      32,
+      103
+    ],
+    [
+      72,
+      66,
+      74
+    ],
+    [
+      64,
+      66,
+      80
+    ],
+    [
+      61,
+      59,
+      69
+    ],
+    [
+      58,
+      61,
+      75
+    ],
+    [
+      56,
+      59,
+      73
+    ],
+    [
+      55,
+      58,
+      72
+    ],
+    [
+      54,
+      55,
+      66
+    ],
+    [
+      51,
+      54,
+      68
+    ],
+    [
+      50,
+      52,
+      64
+    ],
+    [
+      48,
+      48,
+      58
+    ],
+    [
+      44,
+      45,
+      56
+    ],
+    [
+      41,
+      41,
+      48
+    ],
+    [
+      36,
+      36,
+      43
+    ],
+    [
+      32,
+      31,
+      36
+    ],
+    [
+      32,
+      24,
+      24
+    ],
+    [
+      24,
+      25,
+      30
+    ],
+    [
+      22,
+      20,
+      23
+    ],
+    [
+      20,
+      18,
+      22
+    ],
+    [
+      20,
+      18,
+      19
+    ],
+    [
+      18,
+      17,
+      20
+    ],
+    [
+      19,
+      16,
+      18
+    ],
+    [
+      17,
+      15,
+      18
+    ],
+    [
+      16,
+      15,
+      17
+    ],
+    [
+      15,
+      14,
+      17
+    ],
+    [
+      16,
+      13,
+      15
+    ],
+    [
+      14,
+      12,
+      15
+    ],
+    [
+      13,
+      12,
+      14
+    ],
+    [
+      13,
+      11,
+      13
+    ],
+    [
+      13,
+      8,
+      10
+    ],
+    [
+      9,
+      8,
+      10
+    ],
+    [
+      6,
+      6,
+      7
+    ],
+    [
+      3,
+      2,
+      3
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "pistol_t1",
+      "label": "pistol_t1",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          95,
+          90,
+          351,
+          309
+        ],
+        "normalized": [
+          48,
+          113,
+          177,
+          390
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        767,
+        659
+      ],
+      "normalized": "pistol_t1-original.png",
+      "variants": {
+        "32": "pistol_t1-32.png",
+        "48": "pistol_t1-48.png"
+      }
+    },
+    {
+      "id": "pistol_t2",
+      "label": "pistol_t2",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          490,
+          87,
+          733,
+          309
+        ],
+        "normalized": [
+          247,
+          110,
+          370,
+          390
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        733,
+        671
+      ],
+      "normalized": "pistol_t2-original.png",
+      "variants": {
+        "32": "pistol_t2-32.png",
+        "48": "pistol_t2-48.png"
+      }
+    },
+    {
+      "id": "pistol_t3",
+      "label": "pistol_t3",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          858,
+          86,
+          1117,
+          309
+        ],
+        "normalized": [
+          433,
+          108,
+          563,
+          390
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        803,
+        689
+      ],
+      "normalized": "pistol_t3-original.png",
+      "variants": {
+        "32": "pistol_t3-32.png",
+        "48": "pistol_t3-48.png"
+      }
+    },
+    {
+      "id": "pistol_t4",
+      "label": "pistol_t4",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1244,
+          81,
+          1512,
+          315
+        ],
+        "normalized": [
+          627,
+          102,
+          762,
+          397
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        835,
+        728
+      ],
+      "normalized": "pistol_t4-original.png",
+      "variants": {
+        "32": "pistol_t4-32.png",
+        "48": "pistol_t4-48.png"
+      }
+    },
+    {
+      "id": "smg_t1",
+      "label": "smg_t1",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1630,
+          83,
+          1911,
+          330
+        ],
+        "normalized": [
+          822,
+          105,
+          964,
+          416
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        782,
+        687
+      ],
+      "normalized": "smg_t1-original.png",
+      "variants": {
+        "32": "smg_t1-32.png",
+        "48": "smg_t1-48.png"
+      }
+    },
+    {
+      "id": "smg_t2",
+      "label": "smg_t2",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          49,
+          491,
+          386,
+          691
+        ],
+        "normalized": [
+          25,
+          619,
+          195,
+          871
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        959,
+        570
+      ],
+      "normalized": "smg_t2-original.png",
+      "variants": {
+        "32": "smg_t2-32.png",
+        "48": "smg_t2-48.png"
+      }
+    },
+    {
+      "id": "smg_t3",
+      "label": "smg_t3",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          455,
+          460,
+          753,
+          667
+        ],
+        "normalized": [
+          229,
+          580,
+          380,
+          841
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        854,
+        592
+      ],
+      "normalized": "smg_t3-original.png",
+      "variants": {
+        "32": "smg_t3-32.png",
+        "48": "smg_t3-48.png"
+      }
+    },
+    {
+      "id": "uzi_t2",
+      "label": "uzi_t2",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          841,
+          460,
+          1126,
+          702
+        ],
+        "normalized": [
+          424,
+          580,
+          568,
+          885
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        776,
+        659
+      ],
+      "normalized": "uzi_t2-original.png",
+      "variants": {
+        "32": "uzi_t2-32.png",
+        "48": "uzi_t2-48.png"
+      }
+    },
+    {
+      "id": "uzi_t4",
+      "label": "uzi_t4",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1224,
+          461,
+          1510,
+          702
+        ],
+        "normalized": [
+          617,
+          581,
+          761,
+          885
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        794,
+        671
+      ],
+      "normalized": "uzi_t4-original.png",
+      "variants": {
+        "32": "uzi_t4-32.png",
+        "48": "uzi_t4-48.png"
+      }
+    },
+    {
+      "id": "rifle_t1",
+      "label": "rifle_t1",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-1\\raw-layers\\layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1595,
+          468,
+          1925,
+          686
+        ],
+        "normalized": [
+          804,
+          590,
+          971,
+          865
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        866,
+        570
+      ],
+      "normalized": "rifle_t1-original.png",
+      "variants": {
+        "32": "rifle_t1-32.png",
+        "48": "rifle_t1-48.png"
+      }
+    }
+  ]
+}

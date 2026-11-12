@@ -1,0 +1,98 @@
+/* Item cards share a bright surface, clipped rays and an alpha-based icon rim. */
+@property --rarity-spin {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+[data-item-tier="1"] {--rarity-ray: #edf5fb}
+[data-item-tier="2"] {--rarity-ray: #d8f98c}
+[data-item-tier="3"] {--rarity-ray: #a9eaff}
+[data-item-tier="4"] {--rarity-ray: #f1c7ff}
+[data-item-tier="5"] {--rarity-ray: #ffe481; --rarity-rim: #ffd465}
+
+[data-item-tier] {
+  --rarity-color: var(--chip-quality, var(--rarity));
+  --rarity-surface: linear-gradient(145deg,
+    color-mix(in srgb, var(--rarity-color) 65%, white),
+    var(--rarity-color) 55%,
+    color-mix(in srgb, var(--rarity-color) 74%, #513230));
+}
+
+#viewport .shop-quality .shop-stock-slot:has([data-item-tier]),
+#viewport .weapon-compare-head > .equipment-slot-card:has([data-item-tier]) {
+  --shop-edge: var(--rarity);
+}
+
+#viewport .shop-card-hero[data-item-tier],
+#viewport .shop-loadout-slot[data-item-tier],
+.result-loot-item[data-item-tier],
+.chip-core[data-item-tier] {
+  position: relative;
+  isolation: isolate;
+  background: var(--rarity-surface);
+}
+
+#viewport .shop-card-hero[data-item-tier]::before {display: none}
+#viewport .shop-card-hero[data-item-tier] .shop-card-divider {filter: none}
+#viewport .shop-card-hero[data-item-tier] .shop-card-divider path {stroke: var(--rarity)}
+
+#viewport .shop-loadout-slot[data-item-tier],
+.result-loot-item[data-item-tier] {border-color: var(--rarity)}
+.result-loot-item[data-item-tier] {box-shadow: none}
+
+#viewport .shop-card-hero[data-item-tier] .shop-card-rarity,
+#viewport .shop-loadout-slot[data-item-tier] small {
+  background: var(--rarity);
+  color: #141b28;
+  text-shadow: none;
+}
+
+#viewport .shop-loadout-slot[data-item-tier] small {
+  padding-inline: 5px;
+  border-radius: 3px;
+  font-weight: 750;
+}
+
+#viewport .shop-loadout-slot[data-item-tier] :is(.shop-loadout-label,b),
+.result-loot-item[data-item-tier] :is(b,small) {color: #111727}
+
+.shop-loadout-slot[data-item-tier] {--rarity-center: 42%}
+.shop-loadout-emblem {display: block; flex: none}
+
+[data-item-tier]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% var(--rarity-center, 50%),
+      color-mix(in srgb, var(--rarity-ray) 58%, transparent), transparent 65%),
+    repeating-conic-gradient(from var(--rarity-spin) at 50% var(--rarity-center, 50%),
+      transparent 0deg 7deg,
+      color-mix(in srgb, var(--rarity-ray) 75%, transparent) 16deg 27deg,
+      transparent 38deg 60deg);
+  filter: blur(1.4px);
+  clip-path: inset(0);
+  mask-image: radial-gradient(ellipse at 50% var(--rarity-center, 50%),
+    black 20%, #000c 57%, #0004 100%);
+  animation: rarity-spin 15s linear infinite;
+}
+
+@keyframes rarity-spin {to {--rarity-spin: 360deg}}
+
+:is(#viewport,.difficulty-transition-cover) [data-item-tier] :is(.shop-equipment-icon img, .shop-equipment-icon svg,
+  .equipment-pixel-icon img, .shop-loadout-emblem, .chip-icon, .material-icon) {
+  --rim: var(--rarity-rim, color-mix(in srgb, var(--rarity-color) 55%, var(--rarity-ray)));
+  filter:
+    drop-shadow(.65px 0 0 var(--rim))
+    drop-shadow(-.65px 0 0 var(--rim))
+    drop-shadow(0 .65px 0 var(--rim))
+    drop-shadow(0 -.65px 0 var(--rim))
+    drop-shadow(0 0 2px var(--rarity-ray));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-item-tier]::after {animation: none}
+}

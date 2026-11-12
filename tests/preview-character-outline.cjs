@@ -5,8 +5,8 @@ const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-pri
  try{
   const page=await browser.newPage({viewport:{width:390,height:844}}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(/外描边已回退|GL_INVALID|ERROR:/.test(m.text()))errors.push(m.text());});
-  await page.goto('http://127.0.0.1:4173/?dev=1&avatar=robot&promo=1&mapseed=outline');await page.waitForFunction(()=>globalThis.ElectricEditor?.preparing);
-  await page.evaluate(()=>{window.requestAnimationFrame=()=>0;ElectricEditor.run();paused=true;document.getElementById('promo-panel').hidden=true;enemies=[];enemyTransports=[];shots=[];bullets=[];particles=[];spawnQueue=[];p.x=325;p.y=380;p.inv=0;time=2;document.getElementById('viewport').classList.remove('landing','boss-intro','survival-intro');document.getElementById('survival-clock').style.display='none';
+  await page.goto('http://127.0.0.1:4173/?dev=1&avatar=robot&mapseed=outline');await page.waitForFunction(()=>HexMap.ready);
+  await page.evaluate(()=>{window.requestAnimationFrame=()=>0;reset();state='combat';paused=true;enemyTransports=[];shots=[];bullets=[];particles=[];spawnQueue=[];p.x=325;p.y=380;p.inv=0;time=2;document.getElementById('viewport').classList.remove('landing','boss-intro','survival-intro');document.getElementById('survival-clock').style.display='none';
    enemies=['chaser','fighter','laser','boss'].map((type,i)=>({type,x:240+i%2*150,y:220+Math.floor(i/2)*100,homeX:240+i%2*150,homeY:220+Math.floor(i/2)*100,r:18,hp:40,max:40,seed:i,t:0,fire:999}));
    Object.assign(NeonPostFX.settings,{enabled:true,bloom:false,chromatic:false,scanlines:false,vignette:false,distortion:false,ao:false,shadows:false,outline:true});NeonPostFX.refresh();draw(0);
   });
@@ -26,6 +26,27 @@ const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-pri
    report.left=lightCentroid(180);report.right=lightCentroid(0);s.outlineAngle=125;report.probeGL=r.gl.getError();r.characterOutline?.dispose();c.remove();return report;
   });
   console.log(probe);assert.ok(probe.cyan>30&&probe.purple>30);assert.ok(probe.visible>30);assert.ok(probe.right>probe.left+5,'light energy moves to the source-facing side');assert.equal(probe.hidden,0);assert.ok(probe.reused);assert.equal(probe.staticUploads,0);assert.equal(probe.gl,0);assert.equal(probe.probeGL,0);
+  const equipment=await page.evaluate(()=>{
+   const gl=renderer.gl,settings=NeonPostFX.settings,canvas=renderer.canvas;
+   const read=()=>{const data=new Uint8Array(canvas.width*canvas.height*4);gl.readPixels(0,0,canvas.width,canvas.height,gl.RGBA,gl.UNSIGNED_BYTE,data);return data;};
+   const countHighlighted=()=>{
+    settings.outline=false;draw(0);const without=read();
+    settings.outline=true;draw(0);const withOutline=read();
+    gl.bindFramebuffer(gl.FRAMEBUFFER,renderer.characterOutline.frame);
+    const mask=read();gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+    let count=0;
+    for(let i=0;i<mask.length;i+=4)if(Math.abs(mask[i+2]-Math.round(EQUIPMENT_OUTLINE_GROUP*255))<=1&&withOutline[i+1]-without[i+1]>5)count++;
+    return count;
+   };
+   equipItem('shoes',createShoes('warpstar'));const star=countHighlighted();
+   shoes=null;equipItem('drone',createDrone('ram'));const companion=countHighlighted();
+   equipItem('drone',createDrone('chainsaw'));const chainsaw=countHighlighted();
+   equipItem('shoes',createShoes('warpstar'));equipItem('drone',createDrone('ram'));draw(0);
+   return {star,companion,chainsaw,gl:gl.getError()};
+  });
+  console.log(equipment);assert.ok(equipment.star>0&&equipment.companion>0&&equipment.chainsaw>0,'mount and both drone model paths receive highlight pixels');assert.equal(equipment.gl,0);
+  await page.screenshot({path:'tests/character-outline-equipment.png'});
+  await page.evaluate(()=>{shoes=null;drone=null;});
   for(const width of [390,320,1280]){await page.setViewportSize({width,height:844});await page.evaluate(()=>draw(0));await page.screenshot({path:`tests/character-outline-${width}.png`});assert.equal(await page.evaluate(()=>renderer.gl.getError()),0);}
   await page.setViewportSize({width:390,height:844});await page.evaluate(()=>{NeonPostFX.settings.cameraSize=.55;draw(0);});await page.screenshot({path:'tests/character-outline-closeup.png'});
   await page.locator('#postfx-panel > summary').click();await page.locator('.postfx-group').filter({has:page.locator('[data-setting="outline"]')}).locator('summary').click();

@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly one transparent PNG foreground layer. Keep the entire compact turret, including the black outline, cannon and dark recessed muzzle, purple chassis, integrated gold up chevron, and cyan accent. Preserve the original details and colors. Remove the warm taupe background and leave the original silhouette intact.\ntower_upgrade <bbox>90 80 910 915</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-tower-icon\\source.png",
+  "sha256": "617daa0d650001e805dfb58a89aab628e9dfb9801f30b0254fdfa4249d97925a"
+}

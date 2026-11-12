@@ -1,0 +1,816 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      252,
+      252,
+      248
+    ],
+    [
+      249,
+      243,
+      240
+    ],
+    [
+      252,
+      240,
+      210
+    ],
+    [
+      253,
+      239,
+      164
+    ],
+    [
+      250,
+      221,
+      181
+    ],
+    [
+      252,
+      214,
+      91
+    ],
+    [
+      250,
+      191,
+      124
+    ],
+    [
+      252,
+      187,
+      31
+    ],
+    [
+      226,
+      238,
+      229
+    ],
+    [
+      226,
+      214,
+      204
+    ],
+    [
+      214,
+      189,
+      185
+    ],
+    [
+      234,
+      183,
+      110
+    ],
+    [
+      159,
+      230,
+      171
+    ],
+    [
+      160,
+      193,
+      191
+    ],
+    [
+      69,
+      218,
+      192
+    ],
+    [
+      65,
+      183,
+      150
+    ],
+    [
+      237,
+      160,
+      120
+    ],
+    [
+      188,
+      159,
+      156
+    ],
+    [
+      248,
+      156,
+      19
+    ],
+    [
+      226,
+      148,
+      33
+    ],
+    [
+      216,
+      117,
+      146
+    ],
+    [
+      200,
+      118,
+      30
+    ],
+    [
+      231,
+      119,
+      4
+    ],
+    [
+      199,
+      107,
+      6
+    ],
+    [
+      150,
+      144,
+      162
+    ],
+    [
+      135,
+      116,
+      129
+    ],
+    [
+      118,
+      102,
+      118
+    ],
+    [
+      140,
+      99,
+      71
+    ],
+    [
+      58,
+      148,
+      117
+    ],
+    [
+      18,
+      139,
+      148
+    ],
+    [
+      85,
+      101,
+      121
+    ],
+    [
+      16,
+      104,
+      109
+    ],
+    [
+      204,
+      74,
+      143
+    ],
+    [
+      186,
+      77,
+      3
+    ],
+    [
+      133,
+      75,
+      68
+    ],
+    [
+      145,
+      70,
+      12
+    ],
+    [
+      192,
+      38,
+      140
+    ],
+    [
+      204,
+      2,
+      89
+    ],
+    [
+      127,
+      47,
+      43
+    ],
+    [
+      129,
+      18,
+      98
+    ],
+    [
+      93,
+      85,
+      114
+    ],
+    [
+      94,
+      78,
+      79
+    ],
+    [
+      77,
+      64,
+      83
+    ],
+    [
+      88,
+      56,
+      45
+    ],
+    [
+      88,
+      42,
+      53
+    ],
+    [
+      88,
+      36,
+      18
+    ],
+    [
+      82,
+      16,
+      59
+    ],
+    [
+      26,
+      76,
+      90
+    ],
+    [
+      44,
+      52,
+      81
+    ],
+    [
+      41,
+      44,
+      72
+    ],
+    [
+      49,
+      30,
+      32
+    ],
+    [
+      29,
+      31,
+      53
+    ],
+    [
+      45,
+      19,
+      19
+    ],
+    [
+      46,
+      18,
+      8
+    ],
+    [
+      32,
+      18,
+      17
+    ],
+    [
+      21,
+      19,
+      26
+    ],
+    [
+      44,
+      10,
+      25
+    ],
+    [
+      45,
+      13,
+      13
+    ],
+    [
+      43,
+      12,
+      9
+    ],
+    [
+      41,
+      5,
+      5
+    ],
+    [
+      32,
+      12,
+      12
+    ],
+    [
+      31,
+      4,
+      8
+    ],
+    [
+      21,
+      11,
+      16
+    ],
+    [
+      20,
+      4,
+      3
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "crab",
+      "label": "crab",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          51,
+          39,
+          282,
+          293
+        ],
+        "normalized": [
+          41,
+          31,
+          225,
+          234
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        722,
+        795
+      ],
+      "normalized": "crab-original.png",
+      "variants": {
+        "32": "crab-32.png",
+        "48": "crab-48.png"
+      }
+    },
+    {
+      "id": "belladonna",
+      "label": "belladonna",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          369,
+          21,
+          572,
+          301
+        ],
+        "normalized": [
+          294,
+          17,
+          456,
+          240
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        609,
+        845
+      ],
+      "normalized": "belladonna-original.png",
+      "variants": {
+        "32": "belladonna-32.png",
+        "48": "belladonna-48.png"
+      }
+    },
+    {
+      "id": "lead",
+      "label": "lead",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          671,
+          35,
+          894,
+          292
+        ],
+        "normalized": [
+          535,
+          28,
+          713,
+          233
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        695,
+        803
+      ],
+      "normalized": "lead-original.png",
+      "variants": {
+        "32": "lead-32.png",
+        "48": "lead-48.png"
+      }
+    },
+    {
+      "id": "godfather",
+      "label": "godfather",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          972,
+          40,
+          1213,
+          292
+        ],
+        "normalized": [
+          775,
+          32,
+          967,
+          233
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        686,
+        714
+      ],
+      "normalized": "godfather-original.png",
+      "variants": {
+        "32": "godfather-32.png",
+        "48": "godfather-48.png"
+      }
+    },
+    {
+      "id": "glass",
+      "label": "glass",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          62,
+          331,
+          261,
+          603
+        ],
+        "normalized": [
+          49,
+          264,
+          208,
+          481
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        563,
+        772
+      ],
+      "normalized": "glass-original.png",
+      "variants": {
+        "32": "glass-32.png",
+        "48": "glass-48.png"
+      }
+    },
+    {
+      "id": "lonely",
+      "label": "lonely",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          392,
+          331,
+          545,
+          603
+        ],
+        "normalized": [
+          313,
+          264,
+          435,
+          481
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        491,
+        879
+      ],
+      "normalized": "lonely-original.png",
+      "variants": {
+        "32": "lonely-32.png",
+        "48": "lonely-48.png"
+      }
+    },
+    {
+      "id": "iron",
+      "label": "iron",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          656,
+          332,
+          912,
+          603
+        ],
+        "normalized": [
+          523,
+          265,
+          727,
+          481
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        657,
+        695
+      ],
+      "normalized": "iron-original.png",
+      "variants": {
+        "32": "iron-32.png",
+        "48": "iron-48.png"
+      }
+    },
+    {
+      "id": "caramel",
+      "label": "caramel",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          979,
+          369,
+          1204,
+          590
+        ],
+        "normalized": [
+          781,
+          294,
+          960,
+          470
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        708,
+        694
+      ],
+      "normalized": "caramel-original.png",
+      "variants": {
+        "32": "caramel-32.png",
+        "48": "caramel-48.png"
+      }
+    },
+    {
+      "id": "salt",
+      "label": "salt",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          60,
+          645,
+          264,
+          904
+        ],
+        "normalized": [
+          48,
+          514,
+          211,
+          721
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        623,
+        792
+      ],
+      "normalized": "salt-original.png",
+      "variants": {
+        "32": "salt-32.png",
+        "48": "salt-48.png"
+      }
+    },
+    {
+      "id": "bit",
+      "label": "bit",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          385,
+          639,
+          546,
+          903
+        ],
+        "normalized": [
+          307,
+          510,
+          435,
+          720
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        506,
+        833
+      ],
+      "normalized": "bit-original.png",
+      "variants": {
+        "32": "bit-32.png",
+        "48": "bit-48.png"
+      }
+    },
+    {
+      "id": "redcap",
+      "label": "redcap",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-11.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          679,
+          639,
+          870,
+          904
+        ],
+        "normalized": [
+          541,
+          510,
+          694,
+          721
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        570,
+        792
+      ],
+      "normalized": "redcap-original.png",
+      "variants": {
+        "32": "redcap-32.png",
+        "48": "redcap-48.png"
+      }
+    },
+    {
+      "id": "clown",
+      "label": "clown",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-12.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          983,
+          639,
+          1212,
+          903
+        ],
+        "normalized": [
+          784,
+          510,
+          967,
+          720
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        657,
+        760
+      ],
+      "normalized": "clown-original.png",
+      "variants": {
+        "32": "clown-32.png",
+        "48": "clown-48.png"
+      }
+    },
+    {
+      "id": "ale",
+      "label": "ale",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-13.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          51,
+          942,
+          294,
+          1217
+        ],
+        "normalized": [
+          41,
+          751,
+          234,
+          970
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        656,
+        741
+      ],
+      "normalized": "ale-original.png",
+      "variants": {
+        "32": "ale-32.png",
+        "48": "ale-48.png"
+      }
+    },
+    {
+      "id": "hive",
+      "label": "hive",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-14.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          342,
+          938,
+          589,
+          1215
+        ],
+        "normalized": [
+          273,
+          748,
+          470,
+          969
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        653,
+        727
+      ],
+      "normalized": "hive-original.png",
+      "variants": {
+        "32": "hive-32.png",
+        "48": "hive-48.png"
+      }
+    },
+    {
+      "id": "hound",
+      "label": "hound",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-15.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          656,
+          944,
+          888,
+          1217
+        ],
+        "normalized": [
+          523,
+          753,
+          708,
+          970
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        685,
+        809
+      ],
+      "normalized": "hound-original.png",
+      "variants": {
+        "32": "hound-32.png",
+        "48": "hound-48.png"
+      }
+    },
+    {
+      "id": "longnight",
+      "label": "longnight",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\drink-icons-v1\\raw-layers\\layer-16.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          985,
+          937,
+          1191,
+          1217
+        ],
+        "normalized": [
+          785,
+          747,
+          950,
+          970
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        619,
+        844
+      ],
+      "normalized": "longnight-original.png",
+      "variants": {
+        "32": "longnight-32.png",
+        "48": "longnight-48.png"
+      }
+    }
+  ]
+}

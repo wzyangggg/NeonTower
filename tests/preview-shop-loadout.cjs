@@ -8,8 +8,9 @@ const assert=require('node:assert/strict');
   await page.goto('http://127.0.0.1:4173/');
   await page.waitForFunction(()=>window.HexMap?.ready&&window.ElectricEditor);
   await page.evaluate(()=>{reset();state='upgrade';cash=99999;rollShop();renderShop();});
-  const starter=await page.locator('[data-slot="weapon"] .shop-loadout-icon').evaluate(el=>({body:el.style.getPropertyValue('--item-body'),trim:el.style.getPropertyValue('--item-trim')}));
-  assert.deepEqual(starter,{body:'#a8b7b5',trim:'#a8b7b5'},'ordinary service pistol uses gray rarity instead of orange model material');
+  const starter=page.locator('[data-slot="weapon"] .shop-loadout-icon img');
+  assert.equal(await starter.getAttribute('src'),'assets/equipment-icons/pistol_t1-48.png');
+  assert.equal(await starter.evaluate(el=>getComputedStyle(el).opacity),'1');
   await page.screenshot({path:'tests/shop-starter-pistol-gray-390x680.png'});
   assert.equal(await page.locator('.shop-loadout-slot').count(),5);
   assert.equal(await page.locator('.shop-loadout-slot.empty').count(),4);
@@ -19,8 +20,8 @@ const assert=require('node:assert/strict');
   assert.equal(await page.locator('.terrain-owned').count(),0);
   await page.screenshot({path:'tests/shop-loadout-empty-gray-390x680.png'});
   for(const id of ['renewal','chrono','aura','plume']){
-   const result=await page.evaluate(id=>{equipItem('armor',createArmor(id,3));renderShop();const e=document.querySelector('[data-slot="armor"]'),icon=e.querySelector('.shop-loadout-icon'),palette=armorVisualPalette(armor);return {actual:icon.style.getPropertyValue('--item-body'),expected:palette.body,rarity:e.style.getPropertyValue('--rarity'),quality:WEAPON_GRADES[3].color,mask:getComputedStyle(icon).maskImage};},id);
-   assert.equal(result.actual,result.expected);assert.equal(result.rarity,result.quality);assert(result.mask.includes('.png'));
+   const result=await page.evaluate(id=>{equipItem('armor',createArmor(id,3));renderShop();const e=document.querySelector('[data-slot="armor"]');return {src:e.querySelector('img').getAttribute('src'),rarity:e.style.getPropertyValue('--rarity'),quality:WEAPON_GRADES[3].color};},id);
+   assert.equal(result.src,'assets/equipment-icons/'+id+'-48.png');assert.equal(result.rarity,result.quality);
    await page.screenshot({path:`tests/shop-armor-color-${id}.png`});
   }
 
@@ -49,7 +50,8 @@ const assert=require('node:assert/strict');
   assert.equal(await page.locator('.shop-loadout-slot').count(),5);
   // The top tabs must describe rarity consistently across every equipment kind.
   for(let tier=1;tier<=5;tier++){
-   const weaponColor=await page.evaluate(tier=>{equipItem('weapon',createWeaponModel(WEAPON_MODELS.find(m=>m.tier===tier).id));renderShop();const icon=document.querySelector('[data-slot="weapon"] .shop-loadout-icon');return {actual:icon.style.getPropertyValue('--item-body'),trim:icon.style.getPropertyValue('--item-trim'),expected:WEAPON_GRADES[tier].color};},tier);assert.equal(weaponColor.actual,weaponColor.expected);assert.equal(weaponColor.trim,weaponColor.expected);
+   const weaponIcon=await page.evaluate(tier=>{const model=WEAPON_MODELS.find(m=>m.tier===tier).id;equipItem('weapon',createWeaponModel(model));renderShop();const slot=document.querySelector('[data-slot="weapon"]');return {src:slot.querySelector('img').getAttribute('src'),id:model,rarity:slot.style.getPropertyValue('--rarity'),expected:WEAPON_GRADES[tier].color};},tier);
+   assert.equal(weaponIcon.src,'assets/equipment-icons/'+weaponIcon.id+'-48.png');assert.equal(weaponIcon.rarity,weaponIcon.expected);
    await page.evaluate(tier=>{
     shopItems=[{key:'weapon',equipment:createWeaponModel(WEAPON_MODELS.find(m=>m.tier===tier).id)},{key:'armor',equipment:createArmor('shell',tier)},{key:'drone',equipment:createDrone(COMPANION_TYPES[0].id,tier)}].map(u=>({...u,price:10,sold:false}));renderShop();
    },tier);
@@ -65,6 +67,6 @@ const assert=require('node:assert/strict');
   assert.equal(await page.locator('.shop-buy[data-i="1"]').evaluate(el=>getComputedStyle(el,'::before').content),'"精良"');
   await page.screenshot({path:'tests/shop-rarity-tabs-390x844.png'});
   assert.deepEqual(errors,[]);assert.equal(await page.evaluate(()=>renderer.gl.getError()),0);
-  console.log('Shop loadout: five slots, empty/filled category icons, three layouts, real replacement and reroll persistence passed; no page/WebGL errors.');
+  console.log('Shop loadout: five slots, empty slot and equipment model icons, three layouts, real replacement and reroll persistence passed; no page/WebGL errors.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

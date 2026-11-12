@@ -1,0 +1,172 @@
+{
+  "layers": [
+    {
+      "size": "677x667",
+      "output_format": "png",
+      "z_index": 7,
+      "bounding_box": {
+        "absolute": [
+          79,
+          98,
+          382,
+          396
+        ],
+        "normalized": [
+          63,
+          78,
+          305,
+          316
+        ]
+      },
+      "name": "cut",
+      "description": "Extract the complete yellow circular saw including steel blade, keep its original color and silhouette, no redraw, with transparent background, no extra elements",
+      "background": "transparent",
+      "path": "alternate-layers/layer-07.png",
+      "label": "快速切割"
+    },
+    {
+      "size": "712x739",
+      "output_format": "png",
+      "z_index": 6,
+      "bounding_box": {
+        "absolute": [
+          491,
+          100,
+          768,
+          387
+        ],
+        "normalized": [
+          392,
+          80,
+          612,
+          309
+        ]
+      },
+      "name": "wall",
+      "description": "Extract the complete masonry block with yellow brace, keep its original color and silhouette, no redraw, with transparent background, no extra elements",
+      "background": "transparent",
+      "path": "alternate-layers/layer-06.png",
+      "label": "承重支架"
+    },
+    {
+      "size": "770x572",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          846,
+          119,
+          1195,
+          378
+        ],
+        "normalized": [
+          675,
+          95,
+          953,
+          301
+        ]
+      },
+      "name": "patrol",
+      "description": "Extract the complete inspection drone, keep its original color and silhouette, no redraw, with transparent background, no extra elements",
+      "background": "transparent",
+      "path": "alternate-layers/layer-05.png",
+      "label": "优先巡检"
+    },
+    {
+      "size": "757x708",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          68,
+          468,
+          385,
+          765
+        ],
+        "normalized": [
+          54,
+          373,
+          307,
+          610
+        ]
+      },
+      "name": "arm",
+      "description": "Extract the complete yellow robot arm on steel base, keep its original color and silhouette, no redraw, with transparent background, no extra elements",
+      "background": "transparent",
+      "path": "alternate-layers/layer-04.png",
+      "label": "副臂施工"
+    },
+    {
+      "size": "686x669",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          463,
+          472,
+          765,
+          766
+        ],
+        "normalized": [
+          369,
+          376,
+          610,
+          611
+        ]
+      },
+      "name": "mend",
+      "description": "Extract the complete ratchet wrench, keep its original color and silhouette, no redraw, with transparent background, no extra elements",
+      "background": "transparent",
+      "path": "alternate-layers/layer-03.png",
+      "label": "巡回修补"
+    },
+    {
+      "size": "809x626",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          847,
+          495,
+          1185,
+          757
+        ],
+        "normalized": [
+          675,
+          395,
+          945,
+          604
+        ]
+      },
+      "name": "patch",
+      "description": "Extract the complete welding gun with repair plate, keep its original color and silhouette, no redraw, with transparent background, no extra elements",
+      "background": "transparent",
+      "path": "alternate-layers/layer-02.png",
+      "label": "清障补片"
+    },
+    {
+      "size": "693x644",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          69,
+          874,
+          374,
+          1157
+        ],
+        "normalized": [
+          55,
+          697,
+          298,
+          923
+        ]
+      },
+      "name": "emergency",
+      "description": "Extract the complete hydraulic jack with lifted masonry, keep its original color and silhouette, no redraw, with transparent background, no extra elements",
+      "background": "transparent",
+      "path": "alternate-layers/layer-01.png",
+      "label": "应急支撑"
+    }
+  ]
+}

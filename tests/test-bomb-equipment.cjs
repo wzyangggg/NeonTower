@@ -59,7 +59,7 @@ setup();state='survival';equipItem('bomb',createBomb('laser_bomb'));target();upd
 setup();equipItem('bomb',createBomb('tower'));timedRoom.introLeft=1;step(.5);check(bombCooldown===15,'intro does not consume cooldown');
 setup();state='upgrade';cash=999;const held=weapon;const offer=equipmentShopItem('bomb');offer.price=shopPrice(offer);shopItems=[offer];const price=offer.price;check(shopItemDescription(offer)==='获得一份CD较长的爆发武器。','requested bomb description');check(buyShopItem(0)&&cash===999-price&&!bombEquipment,'paid reveal');check(confirmEquipmentPurchase()&&bombEquipment&&weapon===held,'purchase equips bomb slot');
 check(shopEquipmentSlots().includes('data-slot="bomb"')&&equipmentStatRows('bomb',bombEquipment)[0][1](bombEquipment)===15,'slot and cooldown visible');
-check(shopItemIcon({key:'bomb',equipment:bombEquipment}).includes(BOMB_ICON),'canister bomb icon');
-check(takeTestEquipment('bomb','missile_bomb',5)&&bombEquipment.id==='missile_bomb','F2 equipment route');
+check(shopItemIcon({key:'bomb',equipment:bombEquipment}).includes('equipment-icons/'+bombEquipment.id+'-48.png'),'specific bomb icon');
+check(takeTestEquipment('bomb','missile_bomb',5)&&bombEquipment.id==='missile_bomb'&&bombEquipment.name==='导弹','F2 equipment route shows the renamed missile');
 console.log('Bomb equipment: independent slot, all four effects / five qualities, 15-second CD, pause/shop/intro, target gating, survival, floor carry, replacement/reset, shop reveal and F2 passed.');
 }`,sandbox);

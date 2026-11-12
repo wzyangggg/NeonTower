@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 7 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:\nscan <bbox>18 79 236 446</bbox> a white medical scanner head sweeping a wide mint arc\npriority <bbox>270 65 476 436</bbox> a mint first aid pack with a coral heart and small upward chevron\nwallrange <bbox>512 60 738 445</bbox> a green wrench beam projecting toward a small brick shield\ncare <bbox>767 75 981 461</bbox> a mint bandage roll paired with a small clock dial\ndouble <bbox>22 561 230 924</bbox> two brick tiles linked by a forked green repair beam\ncycle <bbox>267 534 472 952</bbox> a green syringe attached to a white stopwatch\nheal <bbox>518 579 734 918</bbox> a thick mint repair plaster with a large white plus sign",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\source.png",
+  "sha256": "ac1b67e6b75d3bc1d584289d1722b422ebd1437ef94d88fc7f6bc6f9640f9499"
+}

@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract the two complete shields as individual transparent foreground layers, plus background. Name the upright blue cyber shield on the left shield, within <bbox>45 65 455 961</bbox>. Name the angled silver and cyan shield on the right old_shield, within <bbox>552 110 949 890</bbox>. Both are opaque, solid objects with no holes. Preserve every shield in full, including dark outline, silver rim and colored panel. Remove the exterior brown background. Do not merge layers or redraw the shields.\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\shop-drop-icons\\shield-orthographic-v1\\comparison-source.png",
+  "sha256": "88a0bb21f1a83e4707665f885bd719e469fe81c45e4bd7cf9da01a5b1d7b7229"
+}

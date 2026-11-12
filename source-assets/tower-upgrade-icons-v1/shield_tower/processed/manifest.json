@@ -1,0 +1,546 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      252,
+      250,
+      208
+    ],
+    [
+      253,
+      244,
+      156
+    ],
+    [
+      252,
+      230,
+      118
+    ],
+    [
+      253,
+      218,
+      69
+    ],
+    [
+      253,
+      205,
+      63
+    ],
+    [
+      253,
+      202,
+      49
+    ],
+    [
+      253,
+      187,
+      52
+    ],
+    [
+      253,
+      186,
+      41
+    ],
+    [
+      175,
+      235,
+      245
+    ],
+    [
+      192,
+      201,
+      189
+    ],
+    [
+      89,
+      246,
+      253
+    ],
+    [
+      99,
+      204,
+      252
+    ],
+    [
+      66,
+      248,
+      253
+    ],
+    [
+      45,
+      244,
+      250
+    ],
+    [
+      8,
+      222,
+      236
+    ],
+    [
+      10,
+      200,
+      228
+    ],
+    [
+      253,
+      179,
+      44
+    ],
+    [
+      254,
+      178,
+      36
+    ],
+    [
+      253,
+      173,
+      35
+    ],
+    [
+      249,
+      172,
+      39
+    ],
+    [
+      175,
+      172,
+      174
+    ],
+    [
+      237,
+      156,
+      34
+    ],
+    [
+      211,
+      126,
+      23
+    ],
+    [
+      151,
+      153,
+      169
+    ],
+    [
+      164,
+      119,
+      72
+    ],
+    [
+      23,
+      141,
+      234
+    ],
+    [
+      0,
+      142,
+      187
+    ],
+    [
+      8,
+      123,
+      245
+    ],
+    [
+      5,
+      123,
+      248
+    ],
+    [
+      2,
+      123,
+      241
+    ],
+    [
+      20,
+      117,
+      215
+    ],
+    [
+      2,
+      118,
+      239
+    ],
+    [
+      180,
+      100,
+      18
+    ],
+    [
+      155,
+      87,
+      21
+    ],
+    [
+      139,
+      75,
+      22
+    ],
+    [
+      134,
+      67,
+      17
+    ],
+    [
+      84,
+      87,
+      113
+    ],
+    [
+      108,
+      61,
+      28
+    ],
+    [
+      46,
+      71,
+      119
+    ],
+    [
+      40,
+      57,
+      98
+    ],
+    [
+      2,
+      99,
+      221
+    ],
+    [
+      4,
+      87,
+      172
+    ],
+    [
+      1,
+      74,
+      182
+    ],
+    [
+      6,
+      76,
+      166
+    ],
+    [
+      0,
+      69,
+      178
+    ],
+    [
+      0,
+      66,
+      174
+    ],
+    [
+      2,
+      63,
+      155
+    ],
+    [
+      2,
+      54,
+      126
+    ],
+    [
+      70,
+      34,
+      25
+    ],
+    [
+      44,
+      25,
+      35
+    ],
+    [
+      44,
+      10,
+      21
+    ],
+    [
+      40,
+      9,
+      20
+    ],
+    [
+      38,
+      10,
+      21
+    ],
+    [
+      36,
+      15,
+      27
+    ],
+    [
+      36,
+      8,
+      20
+    ],
+    [
+      36,
+      6,
+      17
+    ],
+    [
+      4,
+      47,
+      114
+    ],
+    [
+      2,
+      40,
+      103
+    ],
+    [
+      11,
+      38,
+      79
+    ],
+    [
+      2,
+      36,
+      88
+    ],
+    [
+      8,
+      28,
+      63
+    ],
+    [
+      14,
+      18,
+      39
+    ],
+    [
+      32,
+      5,
+      16
+    ],
+    [
+      23,
+      2,
+      13
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "rate",
+      "label": "装配提速",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shield_tower\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          64,
+          77,
+          397,
+          399
+        ],
+        "normalized": [
+          36,
+          87,
+          224,
+          450
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        739,
+        714
+      ],
+      "normalized": "rate-original.png",
+      "variants": {
+        "32": "rate-32.png",
+        "48": "rate-48.png"
+      }
+    },
+    {
+      "id": "preload",
+      "label": "预充电",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shield_tower\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          511,
+          68,
+          819,
+          409
+        ],
+        "normalized": [
+          288,
+          77,
+          462,
+          461
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        734,
+        816
+      ],
+      "normalized": "preload-original.png",
+      "variants": {
+        "32": "preload-32.png",
+        "48": "preload-48.png"
+      }
+    },
+    {
+      "id": "storage",
+      "label": "双格储存",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shield_tower\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          923,
+          77,
+          1279,
+          398
+        ],
+        "normalized": [
+          520,
+          87,
+          721,
+          449
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        790,
+        714
+      ],
+      "normalized": "storage-original.png",
+      "variants": {
+        "32": "storage-32.png",
+        "48": "storage-48.png"
+      }
+    },
+    {
+      "id": "duration",
+      "label": "强化外壳",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shield_tower\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1380,
+          65,
+          1718,
+          417
+        ],
+        "normalized": [
+          778,
+          73,
+          968,
+          470
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        723,
+        752
+      ],
+      "normalized": "duration-original.png",
+      "variants": {
+        "32": "duration-32.png",
+        "48": "duration-48.png"
+      }
+    },
+    {
+      "id": "stable",
+      "label": "稳定供能",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shield_tower\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          79,
+          506,
+          372,
+          827
+        ],
+        "normalized": [
+          45,
+          570,
+          210,
+          932
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        738,
+        813
+      ],
+      "normalized": "stable-original.png",
+      "variants": {
+        "32": "stable-32.png",
+        "48": "stable-48.png"
+      }
+    },
+    {
+      "id": "wave",
+      "label": "排斥波纹",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shield_tower\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          466,
+          518,
+          858,
+          801
+        ],
+        "normalized": [
+          263,
+          584,
+          484,
+          903
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        823,
+        595
+      ],
+      "normalized": "wave-original.png",
+      "variants": {
+        "32": "wave-32.png",
+        "48": "wave-48.png"
+      }
+    },
+    {
+      "id": "sprint",
+      "label": "开路护盾",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shield_tower\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          931,
+          518,
+          1289,
+          794
+        ],
+        "normalized": [
+          525,
+          584,
+          727,
+          895
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        831,
+        641
+      ],
+      "normalized": "sprint-original.png",
+      "variants": {
+        "32": "sprint-32.png",
+        "48": "sprint-48.png"
+      }
+    }
+  ]
+}

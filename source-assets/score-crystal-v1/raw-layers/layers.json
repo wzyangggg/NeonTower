@@ -1,0 +1,91 @@
+{
+  "submission": {
+    "time": 1794206031.9122014,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\score-crystal-v1\\source.png",
+    "sha256": "80cf66af1ec652f2dc5bd0762d929e42e88c4d9a308e5e7deeab3c67928bc9ea"
+  },
+  "layers": [
+    {
+      "size": "1774x887",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\score-crystal-v1\\raw-layers\\layer-00.png"
+    },
+    {
+      "size": "493x800",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          212,
+          256,
+          447,
+          637
+        ],
+        "normalized": [
+          120,
+          289,
+          252,
+          718
+        ]
+      },
+      "name": "score_prism",
+      "description": "Extract the full whole blue crystal score_prism, keep its original shape, facets, dark navy outlines and white highlights, preserve the complete outline, do not redraw, recolor, add shadow, split facets or combine crystals, keep transparent pixels outside the crystal.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\score-crystal-v1\\raw-layers\\layer-01.png"
+    },
+    {
+      "size": "668x720",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          718,
+          272,
+          1053,
+          632
+        ],
+        "normalized": [
+          405,
+          307,
+          594,
+          713
+        ]
+      },
+      "name": "score_shard",
+      "description": "Extract the full whole blue crystal score_shard, keep its original shape, facets, dark navy outlines and white highlights, preserve the complete outline, do not redraw, recolor, add shadow, split facets or combine crystals, keep transparent pixels outside the crystal.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\score-crystal-v1\\raw-layers\\layer-02.png"
+    },
+    {
+      "size": "605x680",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          1259,
+          253,
+          1600,
+          637
+        ],
+        "normalized": [
+          710,
+          285,
+          902,
+          718
+        ]
+      },
+      "name": "score_cluster",
+      "description": "Extract the full whole blue crystal score_cluster, keep its original shape, facets, dark navy outlines and white highlights, preserve the complete outline, do not redraw, recolor, add shadow, split facets or combine crystals, keep transparent pixels outside the crystal.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\score-crystal-v1\\raw-layers\\layer-03.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 4,
+    "output_tokens": 18312,
+    "total_tokens": 18312
+  }
+}

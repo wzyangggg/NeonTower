@@ -12,6 +12,34 @@ for(const id of ['boomerang_t1','boomerang_t2','boomerang_t4','boomerang_t5']){s
 setup('sword_t5');shootWeapon(0);const blade=shots[0];blade.ellipseScale=1;blade.ellipseTilt=0;blade.ellipseShear=0;advanceModelShot(blade,.1025);const quarter={x:blade.x,y:blade.y,a:blade.aim};advanceModelShot(blade,.205);check(Math.abs(blade.y-300)>50&&Math.abs(quarter.y-300)>50&&(blade.y-300)*(quarter.y-300)<0,'zenith makes a broad full ellipse on both sides of axis');check(Math.abs(blade.aim-quarter.a)>1,'blade turns outward instead of stabbing along travel');advanceModelShot(blade,.01);renderer.begin();drawModelShot(blade);check(renderer.transparentCount>0,'wide blade-swept color ribbon');
 setup('tesla_t5');shootWeapon(0);run(.02);renderer.begin();for(const s of shots)drawModelShot(s);check(renderer.sprites.some(s=>s.kind==='electric')&&renderer.electricTexture,'electric ring releases real textured particles');const tex=renderer.electricTexture;draw();check(renderer.electricTexture===tex,'electric texture reused');const a={x:0,y:0},b={x:200,y:0},one=electricPath(a,b,0,0),two=electricPath(a,b,.07,0),other=electricPath(a,b,0,1);check(JSON.stringify(one)!==JSON.stringify(two)&&JSON.stringify(one)!==JSON.stringify(other)&&Math.max(...one.map(p=>Math.abs(p.y)))>20,'two strongly changing jagged strands');
 {const a={x:17,y:31},b={x:217,y:91},path=electricPath(a,b,.137,0),next=electricPath(a,b,.137001,0);check(path[0].x===a.x&&path[0].y===a.y&&path.at(-1).x===b.x&&path.at(-1).y===b.y,'stochastic arc pins endpoints');check(JSON.stringify(path)===JSON.stringify(electricPath(a,b,.137,0)),'stable electrical noise per frame');check(path.every((p,i)=>Math.hypot(p.x-next[i].x,p.y-next[i].y)<.1),'electrical route changes continuously');const lengths=path.slice(1).map((p,i)=>Math.hypot(p.x-path[i].x,p.y-path[i].y));check(Math.max(...lengths)/Math.min(...lengths)>1.5,'recursive arc has irregular segment spacing');}
+{
+ setup('tesla_t2');shootWeapon(0);
+ const arc=shots[0],target=enemies[0];
+ function sample(){
+  renderer.begin();
+  drawModelShot(arc);
+  return renderer.transparentData.slice(0,renderer.transparentCount);
+ }
+ function center(data,i){return (data[i]+data[35+i])*.5;}
+ function width(data){return Math.hypot(data[0]-data[35],data[2]-data[37]);}
+ run(.01);
+ sample();
+ check(renderer.projectiles[5]>.6,'fresh electric bolt emits strong additive light along its path');
+ run(.04);
+ const first=sample(),health=target.hp,brightGlows=renderer.projectileCount;
+ check(first.length>0&&Math.abs(first[6]-.75)<1e-5,'lightning begins bright and fades over 0.2 seconds');
+ run(.10);
+ const overlap=sample();
+ check(overlap.length===first.length*2&&Math.abs(overlap[6]-.25)<1e-5&&Math.abs(overlap[first.length+6]-.75)<1e-5,'second lightning layer starts after 0.1 seconds and overlaps');
+ check([0,1,2].every(i=>Math.abs(center(first,i)-center(overlap,i))<1e-5),'older layer holds its centerline while fading');
+ check(width(overlap)<width(first)*.6,'older layer visibly thins while fading');
+ run(.10);
+ const tail=sample();
+ check(tail.length===first.length&&Math.abs(tail[6]-.25)<1e-5,'first layer is gone while second keeps fading');
+ check(renderer.projectileCount<brightGlows,'fading electric bolt loses its bright path glow');
+ run(.06);
+ check(!shots.includes(arc)&&health<10000&&target.hp===health,'lightning layers expire without a second damage tick');
+}
 setup('rocket_t5');shootWeapon(0);const rocket=shots[0];rocket.x=460;rocket.y=300;explodeFriendlyRocket(rocket,enemies);const nuclear=explosionFX.at(-1);check(nuclear.nuclear&&nuclear.duration===1.8,'mushroom cloud duration');nuclear.t=.45;renderer.begin();drawModelExplosion(nuclear);check(renderer.transparentCount+renderer.particleSurfaceSnapshot().length>6000,'layered energy grid and mushroom cloud geometry');
 for(const style of FIREWORK_STYLES){setup('seeker_t5');shootWeapon(0);const missile=shots[0];missile.x=460;missile.y=300;explodeFriendlyRocket(missile,enemies);const fx=explosionFX.at(-1);fx.fireworkStyle=style;fx.t=.9;check(fx.radius===55&&fx.visualRadius===210&&fx.duration===2.2,'large decorative fireworks keep small damage radius');const samples=Array.from({length:56},(_,i)=>fireworkPoint(fx,i,.9));check(Math.max(...samples.map(q=>Math.hypot(q.x-(fx.x-325),q.y-80,q.z-(fx.y-300)*1.06)))>100,'firework sparks extend far beyond blast');renderer.begin();drawModelExplosion(fx);check(renderer.transparentData.subarray(0,renderer.transparentCount).every(Number.isFinite),'finite firework '+style);}
 for(const style of FIREWORK_STYLES)for(const age of [.2,.5,.9,1.4,2.1]){const fx={x:325,y:300,radius:55,visualRadius:210,seed:.4,fireworkStyle:style,t:age};renderer.begin();drawFireworkExplosion(fx);for(let i=1;i<renderer.transparentCount;i+=7)check(renderer.transparentData[i]>=12,'firework trail stays above floor '+style+'/'+age);}
@@ -49,5 +77,5 @@ for(const model of [null,modelVisual(createWeaponModel('rocket_t3')),modelVisual
  for(const t of [.12,.149,.15]){fx.t=t;renderer.begin();drawExplosionFlash(fx);check((renderer.transparentCount>0)===(t<.15),'shared ordinary/model flash duration');}
  fx.t=.8;renderer.begin();drawExplosionSparks(fx);check(renderer.transparentCount>0,'ordinary and weapon sparks survive at 0.8 seconds');fx.t=.85;renderer.begin();drawExplosionSparks(fx);check(!renderer.transparentCount,'shared sparks expire at .85');
 }
-console.log('Weapon VFX: muzzle stars/sparks, independent gun kick/reset, burst and twin muzzle timing; smooth swords, varied bullet atlas, dynamic arcs, rocket impact, fireworks, radial seekers and all 39 finite models passed');
+console.log('Weapon VFX: muzzle stars/sparks, independent gun kick/reset, burst and twin muzzle timing; smooth swords, varied bullet atlas, dynamic arcs, rocket impact, fireworks, radial seekers and all 43 finite models passed');
 }`,sandbox);

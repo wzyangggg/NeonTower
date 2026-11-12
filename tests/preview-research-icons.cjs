@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
  const page=await browser.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  page.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('favicon.ico'))errors.push(r.url());});
- await page.goto('http://127.0.0.1:4173/');await page.waitForSelector('#lobby-nav:not([hidden])');await page.locator('#lobby-tab-research').click();
+ await page.goto('http://127.0.0.1:4173/');await page.waitForSelector('#lobby-nav:not([hidden])');await page.locator('#lobby-tab-research').click();await page.locator('[data-chip-view=research]').click();
  assert.equal(await page.locator('.research-card img').count(),21);
  await page.waitForFunction(()=>[...document.querySelectorAll('.research-card img')].every(i=>i.complete&&i.naturalWidth===48));
  for(const width of [320,390,1280]){

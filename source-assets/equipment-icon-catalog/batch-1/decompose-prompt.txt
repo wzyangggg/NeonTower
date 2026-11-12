@@ -1,0 +1,13 @@
+Extract exactly twelve foreground objects as separate transparent layers, preserving exact color and silhouettes. Remove all navy background including inside holes. Keep pairs of shoes as one object. Match these IDs and 0-999 bounds:
+shell: <bbox>28 62 272 328</bbox>
+energy: <bbox>272 62 515 328</bbox>
+salvage: <bbox>515 62 751 328</bbox>
+greed: <bbox>751 62 978 328</bbox>
+purity: <bbox>28 328 272 635</bbox>
+renewal: <bbox>272 328 515 635</bbox>
+falcon: <bbox>515 328 751 635</bbox>
+wine: <bbox>751 328 978 635</bbox>
+ambush: <bbox>28 635 272 940</bbox>
+plume: <bbox>272 635 515 940</bbox>
+chrono: <bbox>515 635 751 940</bbox>
+aura: <bbox>751 635 978 940</bbox>

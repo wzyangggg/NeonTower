@@ -1,0 +1,8 @@
+Remove the taupe background and extract exactly seven RGBA foreground layers with these names and original colors and silhouettes. Each layer contains its complete object; transparent background and holes, no redraw.
+cut <bbox>55 69 314 322</bbox> yellow circular saw including steel blade
+wall <bbox>382 73 621 316</bbox> masonry block with yellow brace
+patrol <bbox>667 88 961 309</bbox> inspection drone
+arm <bbox>48 366 314 618</bbox> yellow robot arm on steel base
+mend <bbox>361 369 617 618</bbox> ratchet wrench
+patch <bbox>667 385 951 613</bbox> welding gun with repair plate
+emergency <bbox>48 690 307 931</bbox> hydraulic jack with lifted masonry

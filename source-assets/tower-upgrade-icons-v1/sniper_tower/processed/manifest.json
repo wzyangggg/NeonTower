@@ -1,0 +1,606 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      253,
+      250,
+      214
+    ],
+    [
+      253,
+      239,
+      161
+    ],
+    [
+      237,
+      242,
+      235
+    ],
+    [
+      204,
+      245,
+      250
+    ],
+    [
+      207,
+      211,
+      222
+    ],
+    [
+      250,
+      209,
+      99
+    ],
+    [
+      223,
+      188,
+      124
+    ],
+    [
+      240,
+      178,
+      58
+    ],
+    [
+      145,
+      243,
+      252
+    ],
+    [
+      89,
+      237,
+      250
+    ],
+    [
+      167,
+      181,
+      208
+    ],
+    [
+      77,
+      206,
+      234
+    ],
+    [
+      30,
+      245,
+      239
+    ],
+    [
+      33,
+      214,
+      231
+    ],
+    [
+      24,
+      198,
+      217
+    ],
+    [
+      24,
+      180,
+      216
+    ],
+    [
+      228,
+      161,
+      57
+    ],
+    [
+      227,
+      157,
+      41
+    ],
+    [
+      152,
+      159,
+      181
+    ],
+    [
+      213,
+      147,
+      46
+    ],
+    [
+      201,
+      132,
+      40
+    ],
+    [
+      229,
+      112,
+      80
+    ],
+    [
+      176,
+      116,
+      37
+    ],
+    [
+      166,
+      102,
+      27
+    ],
+    [
+      121,
+      142,
+      177
+    ],
+    [
+      113,
+      124,
+      153
+    ],
+    [
+      22,
+      156,
+      195
+    ],
+    [
+      21,
+      132,
+      172
+    ],
+    [
+      104,
+      114,
+      146
+    ],
+    [
+      102,
+      107,
+      125
+    ],
+    [
+      90,
+      102,
+      133
+    ],
+    [
+      25,
+      108,
+      160
+    ],
+    [
+      167,
+      92,
+      30
+    ],
+    [
+      122,
+      90,
+      60
+    ],
+    [
+      150,
+      71,
+      27
+    ],
+    [
+      104,
+      61,
+      21
+    ],
+    [
+      77,
+      90,
+      123
+    ],
+    [
+      76,
+      85,
+      110
+    ],
+    [
+      72,
+      79,
+      102
+    ],
+    [
+      75,
+      56,
+      45
+    ],
+    [
+      62,
+      76,
+      112
+    ],
+    [
+      58,
+      69,
+      100
+    ],
+    [
+      50,
+      61,
+      100
+    ],
+    [
+      52,
+      56,
+      74
+    ],
+    [
+      49,
+      46,
+      56
+    ],
+    [
+      52,
+      33,
+      29
+    ],
+    [
+      47,
+      22,
+      20
+    ],
+    [
+      44,
+      14,
+      19
+    ],
+    [
+      23,
+      68,
+      107
+    ],
+    [
+      36,
+      47,
+      74
+    ],
+    [
+      36,
+      43,
+      69
+    ],
+    [
+      36,
+      38,
+      54
+    ],
+    [
+      29,
+      36,
+      61
+    ],
+    [
+      39,
+      18,
+      25
+    ],
+    [
+      39,
+      16,
+      15
+    ],
+    [
+      29,
+      26,
+      40
+    ],
+    [
+      31,
+      16,
+      23
+    ],
+    [
+      38,
+      12,
+      20
+    ],
+    [
+      35,
+      11,
+      20
+    ],
+    [
+      36,
+      11,
+      15
+    ],
+    [
+      36,
+      7,
+      16
+    ],
+    [
+      32,
+      10,
+      18
+    ],
+    [
+      31,
+      5,
+      12
+    ],
+    [
+      25,
+      5,
+      12
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "distance",
+      "label": "远距校准",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\sniper_tower\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          39,
+          81,
+          415,
+          370
+        ],
+        "normalized": [
+          31,
+          66,
+          325,
+          300
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        786,
+        603
+      ],
+      "normalized": "distance-original.png",
+      "variants": {
+        "32": "distance-32.png",
+        "48": "distance-48.png"
+      }
+    },
+    {
+      "id": "rapid",
+      "label": "快速装填",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\sniper_tower\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          479,
+          40,
+          765,
+          380
+        ],
+        "normalized": [
+          375,
+          32,
+          600,
+          308
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        622,
+        741
+      ],
+      "normalized": "rapid-original.png",
+      "variants": {
+        "32": "rapid-32.png",
+        "48": "rapid-48.png"
+      }
+    },
+    {
+      "id": "pierce",
+      "label": "贯穿弹芯",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\sniper_tower\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          861,
+          56,
+          1242,
+          378
+        ],
+        "normalized": [
+          675,
+          45,
+          973,
+          307
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        804,
+        680
+      ],
+      "normalized": "pierce-original.png",
+      "variants": {
+        "32": "pierce-32.png",
+        "48": "pierce-48.png"
+      }
+    },
+    {
+      "id": "recovery",
+      "label": "快速复位",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\sniper_tower\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          59,
+          439,
+          368,
+          752
+        ],
+        "normalized": [
+          46,
+          356,
+          288,
+          610
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        673,
+        680
+      ],
+      "normalized": "recovery-original.png",
+      "variants": {
+        "32": "recovery-32.png",
+        "48": "recovery-48.png"
+      }
+    },
+    {
+      "id": "ballistic",
+      "label": "加速弹道",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\sniper_tower\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          450,
+          539,
+          825,
+          665
+        ],
+        "normalized": [
+          353,
+          437,
+          647,
+          539
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        917,
+        306
+      ],
+      "normalized": "ballistic-original.png",
+      "variants": {
+        "32": "ballistic-32.png",
+        "48": "ballistic-48.png"
+      }
+    },
+    {
+      "id": "column",
+      "label": "纵列穿透",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\sniper_tower\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          871,
+          472,
+          1253,
+          724
+        ],
+        "normalized": [
+          683,
+          383,
+          982,
+          587
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        836,
+        550
+      ],
+      "normalized": "column-original.png",
+      "variants": {
+        "32": "column-32.png",
+        "48": "column-48.png"
+      }
+    },
+    {
+      "id": "caliber",
+      "label": "远距增压",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\sniper_tower\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          44,
+          833,
+          388,
+          1147
+        ],
+        "normalized": [
+          34,
+          676,
+          304,
+          930
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        780,
+        715
+      ],
+      "normalized": "caliber-original.png",
+      "variants": {
+        "32": "caliber-32.png",
+        "48": "caliber-48.png"
+      }
+    },
+    {
+      "id": "mark",
+      "label": "哨戒标记",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\connected-icons\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1036,
+          99,
+          1624,
+          772
+        ],
+        "normalized": [
+          584,
+          112,
+          915,
+          870
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        661,
+        751
+      ],
+      "normalized": "mark-original.png",
+      "variants": {
+        "32": "mark-32.png",
+        "48": "mark-48.png"
+      }
+    },
+    {
+      "id": "bounty",
+      "label": "赏金弹头",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\sniper_tower\\raw-layers\\layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          892,
+          822,
+          1197,
+          1133
+        ],
+        "normalized": [
+          699,
+          667,
+          938,
+          919
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        708,
+        727
+      ],
+      "normalized": "bounty-original.png",
+      "variants": {
+        "32": "bounty-32.png",
+        "48": "bounty-48.png"
+      }
+    }
+  ]
+}

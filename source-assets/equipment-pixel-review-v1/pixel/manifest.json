@@ -1,0 +1,696 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      250,
+      250,
+      250
+    ],
+    [
+      242,
+      240,
+      242
+    ],
+    [
+      242,
+      241,
+      171
+    ],
+    [
+      248,
+      245,
+      20
+    ],
+    [
+      230,
+      227,
+      231
+    ],
+    [
+      223,
+      220,
+      225
+    ],
+    [
+      239,
+      217,
+      89
+    ],
+    [
+      250,
+      197,
+      15
+    ],
+    [
+      214,
+      215,
+      211
+    ],
+    [
+      209,
+      206,
+      210
+    ],
+    [
+      203,
+      200,
+      206
+    ],
+    [
+      199,
+      195,
+      195
+    ],
+    [
+      192,
+      194,
+      195
+    ],
+    [
+      188,
+      186,
+      191
+    ],
+    [
+      50,
+      225,
+      215
+    ],
+    [
+      7,
+      235,
+      235
+    ],
+    [
+      196,
+      178,
+      149
+    ],
+    [
+      177,
+      174,
+      180
+    ],
+    [
+      169,
+      168,
+      175
+    ],
+    [
+      164,
+      163,
+      164
+    ],
+    [
+      174,
+      156,
+      137
+    ],
+    [
+      151,
+      150,
+      155
+    ],
+    [
+      194,
+      124,
+      61
+    ],
+    [
+      141,
+      139,
+      142
+    ],
+    [
+      131,
+      132,
+      136
+    ],
+    [
+      122,
+      120,
+      126
+    ],
+    [
+      21,
+      160,
+      150
+    ],
+    [
+      27,
+      127,
+      115
+    ],
+    [
+      113,
+      111,
+      119
+    ],
+    [
+      107,
+      104,
+      104
+    ],
+    [
+      98,
+      97,
+      103
+    ],
+    [
+      22,
+      103,
+      94
+    ],
+    [
+      102,
+      86,
+      79
+    ],
+    [
+      86,
+      83,
+      88
+    ],
+    [
+      77,
+      76,
+      82
+    ],
+    [
+      71,
+      67,
+      69
+    ],
+    [
+      62,
+      67,
+      70
+    ],
+    [
+      59,
+      59,
+      62
+    ],
+    [
+      53,
+      52,
+      55
+    ],
+    [
+      50,
+      47,
+      47
+    ],
+    [
+      39,
+      56,
+      56
+    ],
+    [
+      42,
+      41,
+      43
+    ],
+    [
+      38,
+      37,
+      38
+    ],
+    [
+      33,
+      34,
+      35
+    ],
+    [
+      30,
+      29,
+      30
+    ],
+    [
+      25,
+      26,
+      29
+    ],
+    [
+      22,
+      21,
+      21
+    ],
+    [
+      6,
+      73,
+      67
+    ],
+    [
+      12,
+      28,
+      27
+    ],
+    [
+      16,
+      15,
+      14
+    ],
+    [
+      10,
+      13,
+      12
+    ],
+    [
+      11,
+      10,
+      10
+    ],
+    [
+      9,
+      8,
+      9
+    ],
+    [
+      9,
+      8,
+      6
+    ],
+    [
+      6,
+      7,
+      6
+    ],
+    [
+      6,
+      5,
+      4
+    ],
+    [
+      5,
+      4,
+      4
+    ],
+    [
+      4,
+      3,
+      2
+    ],
+    [
+      3,
+      4,
+      3
+    ],
+    [
+      3,
+      2,
+      2
+    ],
+    [
+      2,
+      1,
+      1
+    ],
+    [
+      1,
+      3,
+      2
+    ],
+    [
+      0,
+      0,
+      3
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "builder-outfit",
+      "label": "builder-outfit",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          98,
+          100,
+          326,
+          315
+        ],
+        "normalized": [
+          68,
+          92,
+          225,
+          290
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        636,
+        603
+      ],
+      "normalized": "builder-outfit-original.png",
+      "variants": {
+        "32": "builder-outfit-32.png",
+        "48": "builder-outfit-48.png"
+      }
+    },
+    {
+      "id": "ranger-outfit",
+      "label": "ranger-outfit",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          438,
+          92,
+          673,
+          318
+        ],
+        "normalized": [
+          302,
+          85,
+          465,
+          293
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        653,
+        629
+      ],
+      "normalized": "ranger-outfit-original.png",
+      "variants": {
+        "32": "ranger-outfit-32.png",
+        "48": "ranger-outfit-48.png"
+      }
+    },
+    {
+      "id": "casual-outfit",
+      "label": "casual-outfit",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          779,
+          97,
+          1017,
+          316
+        ],
+        "normalized": [
+          538,
+          89,
+          702,
+          291
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        675,
+        621
+      ],
+      "normalized": "casual-outfit-original.png",
+      "variants": {
+        "32": "casual-outfit-32.png",
+        "48": "casual-outfit-48.png"
+      }
+    },
+    {
+      "id": "light-armor",
+      "label": "light-armor",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1122,
+          106,
+          1352,
+          315
+        ],
+        "normalized": [
+          775,
+          98,
+          934,
+          290
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        641,
+        585
+      ],
+      "normalized": "light-armor-original.png",
+      "variants": {
+        "32": "light-armor-32.png",
+        "48": "light-armor-48.png"
+      }
+    },
+    {
+      "id": "heavy-armor",
+      "label": "heavy-armor",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          97,
+          416,
+          328,
+          649
+        ],
+        "normalized": [
+          67,
+          383,
+          227,
+          598
+        ]
+      },
+      "alphaTrim": [
+        3,
+        2,
+        673,
+        678
+      ],
+      "normalized": "heavy-armor-original.png",
+      "variants": {
+        "32": "heavy-armor-32.png",
+        "48": "heavy-armor-48.png"
+      }
+    },
+    {
+      "id": "armored-mount",
+      "label": "armored-mount",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          433,
+          431,
+          681,
+          627
+        ],
+        "normalized": [
+          299,
+          397,
+          470,
+          577
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        666,
+        523
+      ],
+      "normalized": "armored-mount-original.png",
+      "variants": {
+        "32": "armored-mount-32.png",
+        "48": "armored-mount-48.png"
+      }
+    },
+    {
+      "id": "swift-mount",
+      "label": "swift-mount",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          777,
+          452,
+          1017,
+          613
+        ],
+        "normalized": [
+          537,
+          416,
+          702,
+          564
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        749,
+        505
+      ],
+      "normalized": "swift-mount-original.png",
+      "variants": {
+        "32": "swift-mount-32.png",
+        "48": "swift-mount-48.png"
+      }
+    },
+    {
+      "id": "combat-mount",
+      "label": "combat-mount",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1105,
+          422,
+          1364,
+          623
+        ],
+        "normalized": [
+          763,
+          389,
+          942,
+          574
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        682,
+        532
+      ],
+      "normalized": "combat-mount-original.png",
+      "variants": {
+        "32": "combat-mount-32.png",
+        "48": "combat-mount-48.png"
+      }
+    },
+    {
+      "id": "support-mount",
+      "label": "support-mount",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          96,
+          774,
+          338,
+          946
+        ],
+        "normalized": [
+          66,
+          713,
+          233,
+          871
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        732,
+        518
+      ],
+      "normalized": "support-mount-original.png",
+      "variants": {
+        "32": "support-mount-32.png",
+        "48": "support-mount-48.png"
+      }
+    },
+    {
+      "id": "attack-drone",
+      "label": "attack-drone",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          437,
+          762,
+          681,
+          949
+        ],
+        "normalized": [
+          302,
+          702,
+          470,
+          874
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        724,
+        555
+      ],
+      "normalized": "attack-drone-original.png",
+      "variants": {
+        "32": "attack-drone-32.png",
+        "48": "attack-drone-48.png"
+      }
+    },
+    {
+      "id": "guard-drone",
+      "label": "guard-drone",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-11.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          778,
+          760,
+          1012,
+          956
+        ],
+        "normalized": [
+          537,
+          700,
+          699,
+          880
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        744,
+        620
+      ],
+      "normalized": "guard-drone-original.png",
+      "variants": {
+        "32": "guard-drone-32.png",
+        "48": "guard-drone-48.png"
+      }
+    },
+    {
+      "id": "support-drone",
+      "label": "support-drone",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\raw-layers\\layer-12.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1111,
+          757,
+          1363,
+          952
+        ],
+        "normalized": [
+          767,
+          697,
+          941,
+          877
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        741,
+        572
+      ],
+      "normalized": "support-drone-original.png",
+      "variants": {
+        "32": "support-drone-32.png",
+        "48": "support-drone-48.png"
+      }
+    }
+  ]
+}

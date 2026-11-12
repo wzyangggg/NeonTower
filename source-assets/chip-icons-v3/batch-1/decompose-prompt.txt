@@ -1,0 +1,12 @@
+Extract exactly the eleven complete portrait chip cartridges as separate transparent PNG foreground layers. Preserve the source silhouettes, simple clipped corners, slight bottom rim, corner markings, emblems and colors. Remove only the warm taupe background. Do not straighten, crop corners, add pins, redraw or separate the emblems. Exact names and bounds in normalized 0–999 coordinates. Last cell is empty.
+repeat <bbox>0 37 250 335</bbox>
+pierce <bbox>250 37 500 335</bbox>
+bounce <bbox>500 37 750 335</bbox>
+shotgun <bbox>750 37 999 335</bbox>
+starter <bbox>0 345 250 640</bbox>
+radius <bbox>250 345 500 640</bbox>
+power <bbox>500 345 750 640</bbox>
+large <bbox>750 345 999 640</bbox>
+guide <bbox>0 645 250 945</bbox>
+edge <bbox>250 645 500 945</bbox>
+reach <bbox>500 645 750 945</bbox>

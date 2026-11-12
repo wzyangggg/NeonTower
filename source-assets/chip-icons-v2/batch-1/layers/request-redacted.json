@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly the eleven complete colorful chip cartridges from this sheet as separate transparent PNG foreground layers. Preserve the exact source silhouettes, outline, emblem, colors, metallic contact pins, and all internal details. Remove only the warm taupe background. Include the entire chip and all its gold contacts in each layer. No redesign, no shadows, no separate emblem or contact layers. Use these exact layer names and bounds in normalized 0–999 coordinates. The final bottom-right position is empty.\nrepeat <bbox>0 0 250 333</bbox>\npierce <bbox>250 0 500 333</bbox>\nbounce <bbox>500 0 750 333</bbox>\nshotgun <bbox>750 0 999 333</bbox>\nstarter <bbox>0 333 250 666</bbox>\nradius <bbox>250 333 500 666</bbox>\npower <bbox>500 333 750 666</bbox>\nlarge <bbox>750 333 999 666</bbox>\nguide <bbox>0 666 250 999</bbox>\nedge <bbox>250 666 500 999</bbox>\nreach <bbox>500 666 750 999</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\source.png",
+  "sha256": "159423fd899bc21f71e4c9c5443146aa4f32c0ee51b9f13abd41b31e5198108c"
+}

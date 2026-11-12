@@ -1,0 +1,576 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      251,
+      253,
+      253
+    ],
+    [
+      223,
+      251,
+      253
+    ],
+    [
+      241,
+      250,
+      249
+    ],
+    [
+      241,
+      236,
+      247
+    ],
+    [
+      233,
+      227,
+      235
+    ],
+    [
+      229,
+      211,
+      241
+    ],
+    [
+      225,
+      210,
+      204
+    ],
+    [
+      205,
+      252,
+      253
+    ],
+    [
+      178,
+      251,
+      253
+    ],
+    [
+      206,
+      203,
+      224
+    ],
+    [
+      194,
+      186,
+      211
+    ],
+    [
+      71,
+      246,
+      252
+    ],
+    [
+      11,
+      239,
+      251
+    ],
+    [
+      22,
+      196,
+      234
+    ],
+    [
+      2,
+      201,
+      237
+    ],
+    [
+      228,
+      168,
+      246
+    ],
+    [
+      180,
+      167,
+      190
+    ],
+    [
+      166,
+      157,
+      189
+    ],
+    [
+      159,
+      147,
+      181
+    ],
+    [
+      219,
+      122,
+      250
+    ],
+    [
+      191,
+      121,
+      207
+    ],
+    [
+      149,
+      138,
+      173
+    ],
+    [
+      144,
+      127,
+      164
+    ],
+    [
+      130,
+      131,
+      167
+    ],
+    [
+      33,
+      155,
+      204
+    ],
+    [
+      133,
+      121,
+      156
+    ],
+    [
+      120,
+      117,
+      154
+    ],
+    [
+      11,
+      171,
+      220
+    ],
+    [
+      11,
+      164,
+      212
+    ],
+    [
+      7,
+      146,
+      202
+    ],
+    [
+      5,
+      126,
+      188
+    ],
+    [
+      198,
+      96,
+      238
+    ],
+    [
+      179,
+      67,
+      240
+    ],
+    [
+      131,
+      102,
+      153
+    ],
+    [
+      145,
+      68,
+      195
+    ],
+    [
+      104,
+      95,
+      133
+    ],
+    [
+      97,
+      87,
+      117
+    ],
+    [
+      89,
+      76,
+      118
+    ],
+    [
+      81,
+      68,
+      95
+    ],
+    [
+      169,
+      55,
+      236
+    ],
+    [
+      143,
+      53,
+      205
+    ],
+    [
+      150,
+      46,
+      217
+    ],
+    [
+      131,
+      43,
+      203
+    ],
+    [
+      101,
+      47,
+      173
+    ],
+    [
+      98,
+      45,
+      119
+    ],
+    [
+      99,
+      31,
+      175
+    ],
+    [
+      83,
+      29,
+      125
+    ],
+    [
+      16,
+      91,
+      144
+    ],
+    [
+      46,
+      57,
+      102
+    ],
+    [
+      48,
+      41,
+      90
+    ],
+    [
+      46,
+      35,
+      51
+    ],
+    [
+      60,
+      16,
+      123
+    ],
+    [
+      49,
+      20,
+      44
+    ],
+    [
+      34,
+      18,
+      41
+    ],
+    [
+      36,
+      14,
+      22
+    ],
+    [
+      45,
+      7,
+      79
+    ],
+    [
+      42,
+      6,
+      35
+    ],
+    [
+      40,
+      4,
+      29
+    ],
+    [
+      38,
+      4,
+      26
+    ],
+    [
+      38,
+      0,
+      24
+    ],
+    [
+      34,
+      4,
+      33
+    ],
+    [
+      34,
+      3,
+      24
+    ],
+    [
+      28,
+      4,
+      31
+    ],
+    [
+      27,
+      2,
+      16
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "reach",
+      "label": "延伸电弧",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\connected-icons\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          147,
+          129,
+          722,
+          745
+        ],
+        "normalized": [
+          83,
+          145,
+          407,
+          840
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        681,
+        730
+      ],
+      "normalized": "reach-original.png",
+      "variants": {
+        "32": "reach-32.png",
+        "48": "reach-48.png"
+      }
+    },
+    {
+      "id": "surge",
+      "label": "首段增压",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\electric_tower\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          555,
+          15,
+          794,
+          401
+        ],
+        "normalized": [
+          313,
+          17,
+          448,
+          452
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        536,
+        866
+      ],
+      "normalized": "surge-original.png",
+      "variants": {
+        "32": "surge-32.png",
+        "48": "surge-48.png"
+      }
+    },
+    {
+      "id": "capacity",
+      "label": "备用电容",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\electric_tower\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          980,
+          60,
+          1237,
+          395
+        ],
+        "normalized": [
+          552,
+          68,
+          697,
+          445
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        620,
+        807
+      ],
+      "normalized": "capacity-original.png",
+      "variants": {
+        "32": "capacity-32.png",
+        "48": "capacity-48.png"
+      }
+    },
+    {
+      "id": "slow",
+      "label": "余电迟滞",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\electric_tower\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1374,
+          44,
+          1729,
+          394
+        ],
+        "normalized": [
+          775,
+          50,
+          975,
+          444
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        725,
+        722
+      ],
+      "normalized": "slow-original.png",
+      "variants": {
+        "32": "slow-32.png",
+        "48": "slow-48.png"
+      }
+    },
+    {
+      "id": "fork",
+      "label": "末端分叉",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\electric_tower\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          40,
+          489,
+          406,
+          837
+        ],
+        "normalized": [
+          23,
+          551,
+          229,
+          944
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        743,
+        710
+      ],
+      "normalized": "fork-original.png",
+      "variants": {
+        "32": "fork-32.png",
+        "48": "fork-48.png"
+      }
+    },
+    {
+      "id": "pulse",
+      "label": "接地脉冲",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\electric_tower\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          492,
+          460,
+          838,
+          841
+        ],
+        "normalized": [
+          277,
+          519,
+          472,
+          948
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        718,
+        786
+      ],
+      "normalized": "pulse-original.png",
+      "variants": {
+        "32": "pulse-32.png",
+        "48": "pulse-48.png"
+      }
+    },
+    {
+      "id": "solo",
+      "label": "电荷回流",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\electric_tower\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          943,
+          493,
+          1278,
+          833
+        ],
+        "normalized": [
+          532,
+          556,
+          720,
+          939
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        698,
+        708
+      ],
+      "normalized": "solo-original.png",
+      "variants": {
+        "32": "solo-32.png",
+        "48": "solo-48.png"
+      }
+    },
+    {
+      "id": "cycle",
+      "label": "快速蓄电",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\electric_tower\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1336,
+          535,
+          1726,
+          812
+        ],
+        "normalized": [
+          753,
+          603,
+          973,
+          915
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        853,
+        605
+      ],
+      "normalized": "cycle-original.png",
+      "variants": {
+        "32": "cycle-32.png",
+        "48": "cycle-48.png"
+      }
+    }
+  ]
+}

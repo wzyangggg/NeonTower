@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Separate the six illustrated inventory objects into independent transparent PNG foreground layers. Each full object is one layer. Preserve the exact original shapes, colors, highlights and dark contour, including every page edge and all coupling lugs; retain the dark material inside each recessed socket. Remove only the flat taupe backdrop, preserve transparent negative space, and do not redraw, recolor, crop through the object, add text or combine objects. Use these exact English layer IDs and normalized source bounds:\nskill0, silver training manual <bbox>20 33 315 484</bbox>\nskill1, blue training manual <bbox>338 30 646 490</bbox>\nskill2, gold training manual <bbox>660 19 982 497</bbox>\ntower0, steel turret coupling <bbox>23 528 308 962</bbox>\ntower1, blue turret coupling <bbox>337 517 635 969</bbox>\ntower2, gold turret coupling <bbox>660 511 969 981</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\material-icons-v1\\source.png",
+  "sha256": "fb213f90c9f827a521c70d703f4772f2ee9a687f2574d7b018c4c016a022f2a8"
+}

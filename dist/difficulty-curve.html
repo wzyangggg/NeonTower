@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>难度曲线编辑器 · 地狱电梯</title>
+<style>
+:root{color-scheme:dark;background:#10131a;color:#eef2f7;font-family:Inter,system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0}main{max-width:1150px;margin:auto;padding:clamp(16px,4vw,46px)}
+header,.actions,.fields{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+header{justify-content:space-between;margin-bottom:24px}h1,h2,p{margin:0}h1{font-size:clamp(24px,4vw,36px)}h2{font-size:17px}
+header p,.hint,small{color:#aab6c7}header p{margin-top:6px}
+.panel{background:#181d27;border:1px solid #333e50;border-radius:14px;padding:clamp(12px,2vw,22px);margin-bottom:16px}
+.chart-title{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center}
+svg{display:block;width:100%;height:clamp(235px,37vw,420px);touch-action:none;user-select:none}
+svg text{fill:#adbbce;font-size:12px}svg .grid{stroke:#343e50}svg .curve{fill:none;stroke:#6be4cd;stroke-width:3;stroke-linejoin:round}
+svg .comparison{stroke:#ffc77b;stroke-dasharray:6 4;stroke-width:2}
+svg .measured{stroke:#a6b8ff;stroke-width:2.5}
+svg .measured-point{fill:#a6b8ff;pointer-events:none}
+svg .measured-range{stroke:#a6b8ff;stroke-width:5;stroke-linecap:round;opacity:.55;pointer-events:none}
+.batch-charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:18px}
+.batch-charts figure{margin:0;min-width:0}
+.batch-charts svg{height:auto;touch-action:auto}
+.batch-charts figcaption{margin-top:8px;color:#aab6c7;font-size:13px}
+.tabs{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.tabs [aria-selected=true]{background:#6be4cd;color:#10231f;border-color:transparent;font-weight:650}
+.tabs #status{margin-inline-start:auto}
+svg .dot{fill:#6be4cd;stroke:#161c25;stroke-width:2;pointer-events:none}svg .active{fill:#ffc77b;stroke:#fff0d3}
+svg .hit{fill:transparent;cursor:ns-resize}svg .hit:focus-visible{stroke:#ffc77b;stroke-width:2;outline:none}
+input,select,button{font:inherit;color:inherit;background:#222a39;border:1px solid #47536a;border-radius:7px;min-height:40px;padding:7px 10px}
+button{cursor:pointer}button:disabled{opacity:.45;cursor:default}.primary{background:#6be4cd;color:#10231f;border-color:transparent;font-weight:650}
+label{display:grid;gap:5px;color:#c4cfdf;font-size:14px}input[type=number]{width:7em;font-variant-numeric:tabular-nums}
+input[type=range]{accent-color:#6be4cd;width:min(220px,70vw);padding:0}fieldset{border:0;margin:0;padding:0;min-width:0}
+.fields{align-items:end}.hint{font-size:13px;margin-top:10px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid #30394a;text-align:right}th:first-child{text-align:left}
+thead th{color:#adbbce}summary{cursor:pointer;margin-bottom:10px}output{color:#6be4cd}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div><h1>难度曲线编辑器</h1><p>地狱电梯 · 怪物血量倍率</p></div>
+    <div class="actions"><button id="reset">恢复游戏初值</button><button id="export" class="primary">导出方案 JSON</button></div>
+  </header>
+  <div class="tabs">
+    <div class="actions" role="tablist" aria-label="难度编辑">
+      <button type="button" id="floor-tab" role="tab" aria-selected="true" aria-controls="floor-section">楼层曲线</button>
+      <button type="button" id="star-tab" role="tab" aria-selected="false" aria-controls="star-section" tabindex="-1">星级倍率</button>
+    </div>
+    <small id="status" aria-live="polite"></small>
+  </div>
+  <section id="floor-section" role="tabpanel" aria-labelledby="floor-tab">
+  <section class="panel" aria-labelledby="chart-title">
+    <div class="chart-title"><h2 id="chart-title">楼层 DPS 与血量</h2></div>
+    <div class="fields">
+      <label>预览难度<select id="curve-star"></select></label>
+      <label>编辑曲线<select id="curve-kind"><option value="hp">血量</option><option value="dps" selected>期望 DPS</option></select></label>
+    </div>
+    <svg id="chart" role="group" aria-label="楼层倍率曲线，可拖动或用方向键调整控制点"></svg>
+    <p class="hint" id="curve-legend"></p>
+    <div class="actions">
+      <label>批跑局数<input id="batch-count" type="number" min="1" max="20" value="5"></label>
+      <label>跑到第几层<input id="batch-floors" type="number" min="1" max="20" value="8"></label>
+      <button type="button" class="primary" id="run-batch">开始批跑</button>
+      <label>导入单体木桩报告<input id="simulation-file" type="file" accept=".json,application/json"></label>
+      <label>实测显示<select id="simulation-display"><option value="range">范围</option><option value="median">中位数</option><option value="both">范围和中位数</option></select></label>
+      <small id="simulation-status" aria-live="polite"></small>
+    </div>
+    <p class="hint">五档共用两条曲线。初始 DPS 草案以 B01 为 1×，B03 的 1.20× 对应过渡装备，B06 的 1.55× 对应升店后买到二阶输出装备。B06 之后暂用 1.55× 占位。</p>
+    <p class="hint">上下拖动控制点修改倍率。双击图内空白添加控制点，或用下方的楼层选择器添加。</p>
+  </section>
+  <section class="panel" id="batch-charts" aria-label="逐层批跑结果" hidden>
+    <h2>逐层批跑结果</h2>
+    <div class="batch-charts" id="batch-plots"></div>
+  </section>
+  <details class="panel"><summary>批跑商店参数</summary>
+    <div class="fields" id="shop-tuning">
+      <label>升店费用倍率<input data-tuning="upgrade" type="number" min="0.1" max="5" step="0.05"></label>
+      <label>装备售价倍率<input data-tuning="price" type="number" min="0.1" max="5" step="0.05"></label>
+      <label>装备输出数值倍率<input data-tuning="power" type="number" min="0.1" max="5" step="0.05"></label>
+    </div>
+    <p class="hint">随方案 JSON 导出，供下次批跑使用。1× 为当前游戏配置。</p>
+  </details>
+  <section class="panel" aria-label="控制点和曲率">
+    <div class="fields">
+      <label>控制点楼层<select id="floor"></select></label>
+      <label>楼层倍率<input id="factor" type="number" min="0.05" max="20" step="0.01"></label>
+      <label>到下一控制点的曲率 <output id="bend-value"></output><input id="bend" type="range" min="-100" max="100" value="0"></label>
+      <button id="add">添加控制点</button><button id="remove">删除控制点</button>
+    </div>
+    <p class="hint" id="segment"></p>
+  </section>
+  <details class="panel"><summary>当前星级逐层预览</summary>
+    <div class="table-wrap"><table>
+      <thead><tr><th>楼层</th><th>期望 DPS</th><th>楼层血量倍率</th><th>合计 DPS 倍率</th><th>合计血量倍率</th><th>木桩 DPS 倍率</th><th>木桩 DPS 中位数</th><th>样本 / 阵亡</th></tr></thead>
+      <tbody id="preview"></tbody>
+    </table></div>
+    <p class="hint">合计倍率 = 星级倍率 × 楼层倍率。</p>
+  </details>
+  <details class="panel" id="shop-progress" hidden><summary>商店升级曲线</summary>
+    <div class="table-wrap"><table>
+      <thead><tr><th>楼层</th><th>进战时商店等级分布</th><th>本层结算后升店次数</th><th>累计获得金币中位数</th><th>结算余额中位数</th></tr></thead>
+      <tbody id="shop-progress-rows"></tbody>
+    </table></div>
+  </details>
+  </section>
+  <section id="star-section" role="tabpanel" aria-labelledby="star-tab" hidden>
+  <section class="panel" aria-label="星级基础血量倍率">
+    <h2>星级血量与目标 DPS</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>难度</th><th>星级血量倍率</th><th>目标 DPS 倍率</th><th>血量 ÷ 目标 DPS</th></tr></thead>
+      <tbody id="stars"></tbody>
+    </table></div>
+    <p class="hint">目标 DPS 以零属性加点时的输出为 1×。初值按首次解锁各星级时的伤害和攻速加点估算。</p>
+  </section>
+  <section class="panel" aria-labelledby="chip-title">
+    <h2 id="chip-title">入场芯片方案</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>难度</th><th>固定芯片</th><th>每条数值</th><th>伤害</th><th>攻速</th><th>暴击率</th><th>暴击倍率</th></tr></thead>
+      <tbody id="chip-inputs"></tbody>
+    </table></div>
+    <p class="hint">每档固定 3 枚该星级稀有度的芯片，数值词条槽填满。表中的每条数值是由目标 DPS 生成的新满值。</p>
+  </section>
+  <section class="panel" aria-labelledby="attribute-title">
+    <h2 id="attribute-title">目标 DPS 与角色成长</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>难度</th><th>目标 DPS</th><th>芯片单独贡献</th><th>四项属性各升至</th><th>角色单独贡献</th><th>单次伤害</th><th>攻击频率</th><th>暴击率 / 倍率</th><th>预计 DPS</th></tr></thead>
+      <tbody id="attribute-breakdown"></tbody>
+    </table></div>
+    <p class="hint">以无芯片、零加点的初始手枪为 1×。一星的增量由芯片承担，后续高于一星的目标按乘法均分给角色成长和芯片。角色各项加成保持原有比例。已有升级形成的输出下限会保留。</p>
+  </section>
+  <section class="panel" aria-labelledby="upgrade-title">
+    <h2 id="upgrade-title">每级属性升级给多少</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>等级</th><th>对应星级</th><th>伤害</th><th>攻速</th><th>暴击率</th><th>暴击倍率</th></tr></thead>
+      <tbody id="upgrade-values"></tbody>
+    </table></div>
+    <p class="hint">首次挑战一至五星时，四项角色属性分别假定为 0、2、4、6、10 级。各星级新增的属性均分到这段内的每一级。</p>
+  </section>
+  </section>
+</main>
+<script>
+'use strict';
+const byId = id => document.getElementById(id);
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function selectTab(selectedTab) {
+  for (const tab of tabs) {
+    const selected = tab === selectedTab;
+    tab.setAttribute('aria-selected', String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+    byId(tab.getAttribute('aria-controls')).hidden = !selected;
+  }
+}
+for (const tab of tabs) {
+  tab.addEventListener('click', () => selectTab(tab));
+  tab.addEventListener('keydown', event => {
+    const index = tabs.indexOf(tab);
+    const destinations = {ArrowLeft: (index - 1 + tabs.length) % tabs.length,
+      ArrowRight: (index + 1) % tabs.length, Home: 0, End: tabs.length - 1};
+    if (!Object.hasOwn(destinations, event.key)) return;
+    event.preventDefault();
+    const next = tabs[destinations[event.key]];
+    selectTab(next);
+    next.focus();
+  });
+}
+const chart = byId('chart');
+const floorInput = byId('floor');
+const factorInput = byId('factor');
+const bendInput = byId('bend');
+const status = byId('status');
+const starNames = ['一星', '二星', '三星', '四星', '五星'];
+const lastFloors = [20, 25, 25, 30, 40];
+const curveStar = byId('curve-star');
+const curveKind = byId('curve-kind');
+let activeStar = 0;
+let activeKind = curveKind.value;
+const floorCount = lastFloors.at(-1);
+const storageKey = 'hell-elevator-difficulty-curve-v2';
+const legacyStorageKey = 'hell-elevator-difficulty-curve-v1';
+const floorName = floor => 'B' + String(floor).padStart(2, '0');
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+const round = value => Math.round(value * 10000) / 10000;
+const validFactor = value => Number.isFinite(value) && value >= .05 && value <= 20;
+const entryLevels = [[0, 0], [2, 1], [3, 2], [4, 4], [6, 5]];
+const entryFactors = entryLevels.map(([damage, rate]) => [1 + damage * .05, 1 + rate * .04]);
+const defaultAttributes = entryFactors.map(([damage, rate]) => round(damage * rate));
+const chipKeys = ['damage', 'rate', 'crit', 'critDamage'];
+const rarities = ['普通', '改良', '精良', '史诗', '传说'];
+const plannedLevels = [0, 2, 4, 6, 10];
+const baseCritChance = .04;
+const baseCritAverage = 1 + baseCritChance;
+function expectedDps(role, chip) {
+  const chance = Math.min(1, baseCritChance + (role.crit + chip.crit) / 100);
+  return (1 + role.damage / 100) * (1 + chip.damage / 100) *
+    (1 + role.rate / 100) * (1 + chip.rate / 100) *
+    (1 + chance * (1 + (role.critDamage + chip.critDamage) / 100)) / baseCritAverage;
+}
+const roleStats = scale => ({damage: 5 * scale, rate: 4 * scale, crit: scale, critDamage: 10 * scale});
+const zeroStats = roleStats(0);
+function solveBonus(target, calculate) {
+  if (target <= calculate(0)) return 0;
+  let low = 0, high = 1;
+  while (calculate(high) < target) high *= 2;
+  for (let i = 0; i < 44; i++) {
+    const mid = (low + high) / 2;
+    if (calculate(mid) < target) low = mid;
+    else high = mid;
+  }
+  return high;
+}
+function calculateProgression(targets) {
+  let previousScale = 0;
+  const upgrades = [];
+  const stars = targets.map((target, index) => {
+    const roleTarget = Math.sqrt(Math.max(1, target / Math.max(1, targets[0])));
+    const scale = index ? Math.max(previousScale, solveBonus(roleTarget, value =>
+      expectedDps(roleStats(value), zeroStats))) : 0;
+    const role = roleStats(scale);
+    const level = plannedLevels[index];
+    const previousLevel = plannedLevels[index - 1] ?? 0;
+    if (level > previousLevel) {
+      const increment = roleStats((scale - previousScale) / (level - previousLevel));
+      for (let next = previousLevel + 1; next <= level; next++) {
+        upgrades.push({level: next, star: index + 1, ...increment});
+      }
+    }
+    previousScale = scale;
+    const affixes = [0, 1, 2].map(slot => Array.from({length: Math.min(index + 1, 3)}, (_, offset) =>
+      chipKeys[(slot + offset) % chipKeys.length]));
+    const counts = Object.fromEntries(chipKeys.map(key => [key, affixes.filter(row => row.includes(key)).length]));
+    const chipStats = value => Object.fromEntries(chipKeys.map(key => [key, counts[key] * value]));
+    const affixValue = solveBonus(target, value => expectedDps(role, chipStats(value)));
+    const chip = chipStats(affixValue);
+    return {target, level, role, chip, affixes, affixValue, dps: expectedDps(role, chip)};
+  });
+  return {stars, upgrades};
+}
+const originalHp = [.8, .82, .88, .9, .85, 1, 1].map((factor, i) =>
+  ({floor: i === 6 ? floorCount : i + 1, factor, bend: 0}));
+const openingDps = [[1, 1], [2, 1], [3, 1.2], [5, 1.3], [6, 1.55], [floorCount, 1.55]]
+  .map(([floor, factor]) => ({floor, factor, bend: 0}));
+function validCurve(points, end) {
+  return Array.isArray(points) && points[0]?.floor === 1 && points.at(-1)?.floor === end &&
+    points.every((point, i) => point && Number.isInteger(point.floor) && (!i || point.floor > points[i - 1].floor) &&
+      validFactor(point.factor) && Number.isInteger(point.bend) && Math.abs(point.bend) <= 100);
+}
+const initial = () => ({
+  stars: [.8, 1, 1.15, 1.3, 1.5],
+  attributes: [...defaultAttributes],
+  shopTuning: {upgrade: 1, price: 1, power: 1},
+  curves: {hp: originalHp.map(point => ({...point})), dps: openingDps.map(point => ({...point}))}
+});
+function load(transfer) {
+  const defaults = initial();
+  try {
+    const saved = transfer ?? JSON.parse(localStorage.getItem(storageKey) ?? localStorage.getItem(legacyStorageKey));
+    if (!saved) return defaults;
+    if (saved.stars?.length === 5 && saved.stars.every(validFactor)) defaults.stars = saved.stars;
+    if (saved.attributes?.length === 5 && saved.attributes.every(validFactor)) defaults.attributes = saved.attributes;
+    for (const key of Object.keys(defaults.shopTuning)) {
+      const value = saved.shopTuning?.[key];
+      if (Number.isFinite(value) && value >= .1 && value <= 5) defaults.shopTuning[key] = value;
+    }
+    if (validCurve(saved.points, floorCount)) defaults.curves.hp = saved.points;
+    for (const kind of ['hp', 'dps']) {
+      const shared = saved.curves?.[kind];
+      if (validCurve(shared, floorCount)) {
+        defaults.curves[kind] = shared;
+        continue;
+      }
+      const firstStar = saved.curves?.[0]?.[kind];
+      if (!validCurve(firstStar, lastFloors[0])) continue;
+      if (kind === 'dps' && !saved.openingDpsDraft && firstStar.length === 2 &&
+          firstStar.every(point => point.factor === 1)) continue;
+      defaults.curves[kind] = [...firstStar, {floor: floorCount, factor: firstStar.at(-1).factor, bend: 0}];
+    }
+  } catch {}
+  return defaults;
+}
+let batchTransfer;
+try {
+  if (location.hash.startsWith('#batch=')) batchTransfer = JSON.parse(decodeURIComponent(location.hash.slice(7)));
+} catch {}
+let model = load(batchTransfer?.model);
+const simulations = new Map();
+const simulationRuns = new Map();
+const simulationDisplay = byId('simulation-display');
+function renderShopTuning() {
+  for (const input of byId('shop-tuning').querySelectorAll('input')) input.value = model.shopTuning[input.dataset.tuning];
+}
+const activePoints = () => model.curves[activeKind];
+let selected = 1;
+let drag = null;
+let geometry;
+
+function save() {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(model));
+    status.textContent = '已保存到此浏览器';
+  } catch {
+    status.textContent = '浏览器存储不可用，可导出方案';
+  }
+}
+function factorAt(floor, points = activePoints()) {
+  const end = points.findIndex(point => point.floor >= floor);
+  const right = points[end];
+  if (!end || right.floor === floor) return right.factor;
+  const left = points[end - 1];
+  const t = (floor - left.floor) / (right.floor - left.floor);
+  const eased = t + left.bend / 100 * t * (1 - t);
+  return left.factor + (right.factor - left.factor) * eased;
+}
+function updateChart() {
+  const width = chart.clientWidth;
+  const height = chart.clientHeight;
+  if (!width || !height) return;
+  const top = 16, left = 43, right = width - 16, bottom = height - 31;
+  const measured = simulations.get(activeStar)?.filter(row => row.measuredMultiplier != null) ?? [];
+  const max = drag?.max ?? Math.max(2, Math.ceil(Math.max(
+    ...Object.values(model.curves).flat().map(point => point.factor),
+    ...measured.map(row => simulationDisplay.value === 'median' ? row.measuredMultiplier : row.maxMultiplier ?? row.measuredMultiplier)) * 1.25 * 2) / 2);
+  const x = floor => left + (floor - 1) / (floorCount - 1) * (right - left);
+  const y = factor => bottom - factor / max * (bottom - top);
+  geometry = {top, bottom, left, right, max};
+  chart.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  const grid = Array.from({length: 5}, (_, i) => {
+    const value = i * max / 4;
+    return `<line class="grid" x1="${left}" x2="${right}" y1="${y(value)}" y2="${y(value)}"/><text x="0" y="${y(value) + 4}">${round(value)}×</text>`;
+  });
+  const interval = width < 480 ? 10 : 5;
+  const ticks = [1, ...Array.from({length: Math.floor(floorCount / interval)}, (_, i) => (i + 1) * interval)];
+  if (ticks.at(-1) !== floorCount) {
+    if (floorCount - ticks.at(-1) < interval / 2) ticks.pop();
+    ticks.push(floorCount);
+  }
+  const labels = ticks.map(floor => `<text text-anchor="middle" x="${x(floor)}" y="${height - 8}">${floorName(floor)}</text>`);
+  const line = points => Array.from({length: (floorCount - 1) * 8 + 1}, (_, i) => {
+    const floor = 1 + i / 8;
+    return `${x(floor)},${y(factorAt(floor, points))}`;
+  }).join(' ');
+  const other = model.curves[activeKind === 'hp' ? 'dps' : 'hp'];
+  const measuredMarks = measured.map(row => {
+    const cx = x(row.floor), cy = y(row.measuredMultiplier);
+    if (simulationDisplay.value === 'range' && row.minMultiplier != null) return '';
+    return `<circle class="measured-point" cx="${cx}" cy="${cy}" r="4"/>`;
+  }).join('');
+  const measuredLine = simulationDisplay.value === 'range' && measured.some(row => row.minMultiplier != null)
+    ? '' : measured.map(row => `${x(row.floor)},${y(row.measuredMultiplier)}`).join(' ');
+  const ranges = simulationDisplay.value === 'median' ? '' : measured.filter(row => row.minMultiplier != null).map(row => {
+    const cx = x(row.floor);
+    return `<line class="measured-range" x1="${cx}" x2="${cx}" y1="${y(row.minMultiplier)}" y2="${y(row.maxMultiplier)}"/>`;
+  }).join('');
+  const focus = document.activeElement?.dataset.point;
+  const dots = activePoints().map(({floor, factor}) => {
+    const cx = x(floor), cy = y(factor);
+    const step = (right - left) / (floorCount - 1);
+    const halfWidth = Math.min(14, step / 2);
+    return `<circle class="dot ${floor === selected ? 'active' : ''}" cx="${cx}" cy="${cy}" r="${floor === selected ? 6 : 4}"/>
+      <rect class="hit" data-point="${floor}" x="${cx - halfWidth}" y="${cy - 14}" width="${2 * halfWidth}" height="28"
+      tabindex="0" role="button" aria-label="${floorName(floor)} 控制点，倍率 ${factor}"/>`;
+  });
+  chart.innerHTML = grid.join('') + labels.join('') + `<polyline class="curve comparison" points="${line(other)}"/><polyline class="curve" points="${line(activePoints())}"/><polyline class="curve measured" points="${measuredLine}"/>` + ranges + measuredMarks + dots.join('');
+  if (focus) chart.querySelector(`[data-point="${focus}"]`)?.focus();
+}
+function updateAttributes() {
+  model.stars.forEach((star, index) => {
+    byId('pressure-' + index).textContent = round(star / model.attributes[index]) + '×';
+  });
+  const progression = calculateProgression(model.attributes);
+  byId('attribute-breakdown').innerHTML = progression.stars.map((result, index) => {
+    const {target, level, role, chip, affixValue, dps} = result;
+    const chipRow = byId('chip-inputs').rows[index];
+    const chipValues = [`3 枚${rarities[index]}`, round(affixValue), ...statCells(chip)];
+    chipValues.forEach((value, column) => { chipRow.cells[column + 1].textContent = value; });
+    const crit = Math.min(1, baseCritChance + (chip.crit + role.crit) / 100);
+    const multiplier = 2 + (chip.critDamage + role.critDamage) / 100;
+    const note = dps - target > 1e-8 ? '（低于已有输出下限）' : '';
+    return `<tr><th scope="row">${starNames[index]}</th><td>${target}×</td>
+      <td>${round(expectedDps(zeroStats, chip))}×</td><td>${level}</td><td>${round(expectedDps(role, zeroStats))}×</td>
+      <td>${round((1 + role.damage / 100) * (1 + chip.damage / 100))}×</td>
+      <td>${round((1 + role.rate / 100) * (1 + chip.rate / 100))}×</td>
+      <td>${round(crit * 100)}% / ${round(multiplier)}×</td><td>${round(dps)}×${note}</td></tr>`;
+  }).join('');
+  byId('upgrade-values').innerHTML = progression.upgrades.map(upgrade =>
+    `<tr><th scope="row">${upgrade.level}</th><td>${starNames[upgrade.star - 1]}</td>${statCells(upgrade).map(value => '<td>' + value + '</td>').join('')}</tr>`).join('');
+}
+function statCells(stats) {
+  return ['+' + round(stats.damage) + '%', '+' + round(stats.rate) + '%',
+    '+' + round(stats.crit) + ' 点', '+' + round(stats.critDamage / 100) + '×'];
+}
+function renderBatchCharts(rows) {
+  byId('batch-charts').hidden = !rows?.length;
+  if (!rows?.length) return;
+  const runs = simulationRuns.get(activeStar) ?? [];
+  const width = 440, height = 188, left = 43, right = 423, bottom = 154;
+  const x = i => rows.length === 1 ? (left + right) / 2 : left + i * (right - left) / (rows.length - 1);
+  const format = value => Number(value.toFixed(2));
+  const plot = (title, caption, max, draw, ticks = [0, max / 2, max]) => {
+    const y = value => bottom - value / max * 132;
+    const grid = ticks.map(value =>
+      `<line class="grid" x1="${left}" x2="${right}" y1="${y(value)}" y2="${y(value)}"/><text x="37" y="${y(value) + 4}" text-anchor="end">${format(value)}</text>`).join('');
+    const labelEvery = Math.max(1, Math.ceil(rows.length / 8));
+    const labels = rows.map((row, i) => i % labelEvery === 0 || i === rows.length - 1
+      ? `<text x="${x(i)}" y="174" text-anchor="middle">${floorName(row.floor)}</text>` : '').join('');
+    return `<figure><h3>${title}</h3><svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${title}">${grid}${labels}${draw(y)}</svg><figcaption>${caption}</figcaption></figure>`;
+  };
+  const trace = (values, y, color, {label, step = false, opacity = 1, dots = true, dashed = false} = {}) => {
+    const points = values.flatMap((value, i) => Number.isFinite(value) ? [{value, i}] : []);
+    const path = points.map(({value, i}, index) => {
+      const previous = points[index - 1];
+      if (!previous || i !== previous.i + 1) return `M ${x(i)} ${y(value)}`;
+      return step ? `H ${x(i)} V ${y(value)}` : `L ${x(i)} ${y(value)}`;
+    }).join(' ');
+    const marks = dots ? points.map(({value, i}) =>
+      `<circle cx="${x(i)}" cy="${y(value)}" r="3" fill="${color}"><title>${floorName(i + 1)} · ${label} ${format(value)}</title></circle>`).join('') : '';
+    return `<g opacity="${opacity}"><path d="${path}" fill="none" stroke="${color}" stroke-width="2" ${dashed ? 'stroke-dasharray="5 4"' : ''}><title>${label}</title></path>${marks}</g>`;
+  };
+  const targets = rows.map(row => factorAt(row.floor, model.curves.dps));
+  const hpBaseline = factorAt(1, model.curves.hp);
+  const hpGrowth = rows.map(row => factorAt(row.floor, model.curves.hp) / hpBaseline);
+  const medians = rows.map(row => row.measuredMultiplier);
+  const lower = rows.map(row => row.minMultiplier ?? row.measuredMultiplier);
+  const upper = rows.map(row => row.maxMultiplier ?? row.measuredMultiplier);
+  const mode = simulationDisplay.value;
+  const hasRange = rows.some(row => row.minMultiplier != null);
+  const showRange = mode !== 'median' && hasRange, showMedian = mode !== 'range' || !hasRange;
+  const dpsMax = Math.max(1, ...targets, ...hpGrowth, ...(showRange ? upper : medians));
+  const dps = plot('单体 DPS 与血量成长', '蓝色为实测，橙线为期望 DPS，绿虚线为血量成长。血量以 B01 为 1×。', dpsMax, y => {
+    const range = showRange ? trace(lower, y, '#a6b8ff', {label:'最低 DPS'}) +
+      trace(upper, y, '#a6b8ff', {label:'最高 DPS'}) : '';
+    const median = showMedian ? trace(medians, y, '#a6b8ff', {label:'DPS 中位数', dashed: showRange}) : '';
+    return range + median + trace(targets, y, '#ffc77b', {label:'期望 DPS'})
+      + trace(hpGrowth, y, '#69d9c5', {label:'血量成长', dashed:true});
+  });
+  const samples = rows.map(row => row.samples), deaths = rows.map(row => row.deaths);
+  const sampleMax = Math.max(2, ...samples, ...deaths, ...rows.map(row => row.upgrades ?? 0));
+  const survival = plot('木桩样本与阵亡', '浅蓝线为木桩样本数，粉线为该层阵亡数。', sampleMax, y =>
+    trace(samples, y, '#a6b8ff', {label:'木桩样本'}) + trace(deaths, y, '#df9cf1', {label:'阵亡'}));
+  const shopRuns = runs.filter(run => run.shop.some(Number.isFinite));
+  const shopMax = Math.max(2, ...shopRuns.flatMap(run => run.shop));
+  const shop = shopRuns.length ? plot('进战商店等级', '每条阶梯线对应一局。B05 结算后升店，从 B06 的进战等级体现。', shopMax, y =>
+    shopRuns.map((run, i) => trace(run.shop, y, `hsl(${Math.round(i * 137.5) % 360} 68% 72%)`,
+      {label:'种子 ' + run.seed, step:true, opacity:.72})).join(''), Array.from({length:shopMax}, (_, i) => i + 1)) : '';
+  const upgrades = rows.some(row => row.shopLevels) ? plot('每层结算后升店次数', '当层结算后执行升店的局数。', sampleMax,
+    y => trace(rows.map(row => row.upgrades), y, '#69d9c5', {label:'升店次数'})) : '';
+  const earned = rows.map(row => row.cumulativeEarnedMedian);
+  const cash = rows.map(row => row.cashMedian);
+  const goldMax = Math.max(1, ...earned.filter(Number.isFinite), ...cash.filter(Number.isFinite),
+    ...runs.flatMap(run => run.earned.filter(Number.isFinite)));
+  const gold = earned.some(Number.isFinite) || cash.some(Number.isFinite) ? plot('总共打钱数量与余额',
+    '实线为累计获得金币中位数，细线为每局累计收入，虚线为进店前余额中位数。', goldMax, y =>
+    runs.map(run => trace(run.earned, y, '#69d9c5', {label:'种子 ' + run.seed + ' 累计金币', opacity:.22, dots:false})).join('') +
+    trace(earned, y, '#69d9c5', {label:'累计获得金币中位数'}) +
+    trace(cash, y, '#ffc77b', {label:'结算余额中位数', dashed:true})) : '';
+  const absoluteValues = rows.map(row => row.measuredDps);
+  const absolute = plot('木桩 DPS 中位数', '单位为每秒伤害，使用实际木桩读数。', Math.max(1, ...absoluteValues),
+    y => trace(absoluteValues, y, '#a6b8ff', {label:'木桩 DPS'}));
+  byId('batch-plots').innerHTML = dps + shop + gold + upgrades + absolute + survival;
+}
+function update() {
+  const index = activePoints().findIndex(point => point.floor === selected);
+  const point = activePoints()[index];
+  const next = activePoints()[index + 1];
+  const hasSegment = Boolean(point && next);
+  floorInput.value = selected;
+  factorInput.value = round(factorAt(selected));
+  bendInput.disabled = !hasSegment;
+  bendInput.value = hasSegment ? point.bend : 0;
+  byId('bend-value').textContent = hasSegment ? point.bend : '—';
+  byId('segment').textContent = hasSegment
+    ? `${floorName(selected)}–${floorName(next.floor)} · 负值让前段变化慢，正值让前段变化快，0 为直线。`
+    : '选择一段的起点即可调整曲率。';
+  byId('add').disabled = Boolean(point);
+  byId('remove').disabled = !point || selected === 1 || selected === floorCount;
+  const {hp, dps} = model.curves;
+  const simulation = simulations.get(activeStar);
+  renderBatchCharts(simulation);
+  const legend = activeKind === 'hp' ? '实线：血量 · 虚线：期望 DPS' : '实线：期望 DPS · 虚线：血量';
+  byId('curve-legend').textContent = legend + (simulation ? ' · 蓝线段为实测最小至最大值，蓝点为中位数' : '');
+  byId('preview').innerHTML = Array.from({length: lastFloors[activeStar]}, (_, i) => {
+    const floor = i + 1;
+    const hpFactor = factorAt(floor, hp), dpsFactor = factorAt(floor, dps);
+    const values = [dpsFactor, hpFactor, dpsFactor * model.attributes[activeStar], hpFactor * model.stars[activeStar]];
+    const sample = simulation?.[i];
+    const observed = sample?.measuredMultiplier == null ? '—' :
+      sample.minMultiplier != null && simulationDisplay.value !== 'median'
+        ? round(sample.minMultiplier) + '–' + round(sample.maxMultiplier) + '×' +
+          (simulationDisplay.value === 'both' ? '（中位 ' + round(sample.measuredMultiplier) + '×）' : '')
+        : round(sample.measuredMultiplier) + '×';
+    const actualDps = sample?.measuredDps == null ? '—' : round(sample.measuredDps);
+    const sampleCount = sample ? sample.samples + ' / ' + sample.deaths : '—';
+    return `<tr><th scope="row">${floorName(floor)}</th>${values.map(value => '<td>' + round(value) + '×</td>').join('')}
+      <td>${observed}</td><td>${actualDps}</td><td>${sampleCount}</td></tr>`;
+  }).join('');
+  const shopRows = simulation?.filter(row => row.shopLevels) ?? [];
+  byId('shop-progress').hidden = !shopRows.length;
+  byId('shop-progress-rows').innerHTML = shopRows.map(row => {
+    const levels = [1, 2, 3, 4, 5].filter(level => row.shopLevels[level] > 0)
+      .map(level => `${level} 级 × ${row.shopLevels[level]} 局`).join(' · ');
+    return `<tr><th scope="row">${floorName(row.floor)}</th><td>${levels}</td><td>${row.upgrades}</td><td>${Number.isFinite(row.cumulativeEarnedMedian) ? round(row.cumulativeEarnedMedian) : "—"}</td><td>${round(row.cashMedian)}</td></tr>`;
+  }).join('');
+  updateChart();
+}
+function setPoint(floor, factor) {
+  const point = activePoints().find(point => point.floor === floor);
+  if (point) point.factor = factor;
+  else {
+    const index = activePoints().findIndex(point => point.floor > floor);
+    activePoints().splice(index, 0, {floor, factor, bend: 0});
+  }
+  selected = floor;
+  update();
+}
+function position(event) {
+  const box = chart.getBoundingClientRect();
+  const {top, bottom, left, right, max} = geometry;
+  return {
+    floor: clamp(Math.round(1 + (event.clientX - box.left - left) / (right - left) * (floorCount - 1)), 1, floorCount),
+    factor: round(clamp((bottom - event.clientY + box.top) / (bottom - top) * max, .05, 20))
+  };
+}
+function renderStars() {
+  const field = (key, label, index) => `<input type="number" min="0.05" max="20" step="any"
+    aria-label="${starNames[index]}${label}" value="${model[key][index]}" data-key="${key}" data-index="${index}">`;
+  byId('stars').innerHTML = starNames.map((name, index) =>
+    `<tr><th scope="row">${name}</th><td>${field('stars', '星级血量倍率', index)}</td>
+    <td>${field('attributes', '目标 DPS 倍率', index)}</td><td><output id="pressure-${index}"></output></td></tr>`).join('');
+  byId('chip-inputs').innerHTML = starNames.map((name, index) =>
+    `<tr><th scope="row">${name}</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>`).join('');
+  updateAttributes();
+}
+function updateFloorOptions() {
+  floorInput.innerHTML = Array.from({length: floorCount}, (_, i) => `<option value="${i + 1}">${floorName(i + 1)}</option>`).join('');
+}
+curveStar.innerHTML = starNames.map((name, index) => `<option value="${index}">${name}</option>`).join('');
+curveStar.addEventListener('change', () => {
+  activeStar = Number(curveStar.value);
+  const end = byId('batch-floors');
+  end.max = lastFloors[activeStar];
+  if (end.valueAsNumber > Number(end.max)) end.value = end.max;
+  update();
+});
+curveKind.addEventListener('change', () => { activeKind = curveKind.value; update(); });
+simulationDisplay.addEventListener('change', update);
+byId('shop-tuning').addEventListener('change', event => {
+  const input = event.target, key = input.dataset.tuning;
+  if (!key) return;
+  if (input.validity.valid && Number.isFinite(input.valueAsNumber)) {
+    model.shopTuning[key] = input.valueAsNumber;
+    save();
+  } else input.value = model.shopTuning[key];
+});
+function showReport(report) {
+    const resultStatus = byId('simulation-status');
+    const index = report.difficulty - 1;
+    const validMeasurement = value => value === null || (Number.isFinite(value) && value >= 0);
+    if (report.type === 'hell-elevator-dps-simulation' && report.metric !== 'single-target') {
+      resultStatus.textContent = '这是旧版群体伤害报告，请导入单体木桩报告。';
+      return;
+    }
+    if (report.type !== 'hell-elevator-dps-simulation' || !Number.isInteger(index) ||
+        !lastFloors[index] || !Array.isArray(report.summary) || !report.summary.length ||
+        report.summary.length > lastFloors[index] || !report.summary.every((row, i) =>
+          row?.floor === i + 1 && validMeasurement(row.measuredDps) && validMeasurement(row.measuredMultiplier) &&
+          ((row.minMultiplier == null && row.maxMultiplier == null) || (Number.isFinite(row.minMultiplier) &&
+            Number.isFinite(row.maxMultiplier) && row.minMultiplier >= 0 && row.maxMultiplier >= row.minMultiplier)) &&
+          (!row.shopLevels || ([1, 2, 3, 4, 5].every(level => Number.isInteger(row.shopLevels[level]) && row.shopLevels[level] >= 0) &&
+            Number.isInteger(row.upgrades) && Number.isFinite(row.cashMedian))) &&
+          Number.isInteger(row.samples) && row.samples >= 0 && Number.isInteger(row.deaths) && row.deaths >= 0)) {
+      throw Error('报告格式不匹配');
+    }
+    const runs = (Array.isArray(report.runs) ? report.runs : []).slice(0, 100).flatMap(run => {
+      if (!Number.isInteger(run?.seed) || !Array.isArray(run.rows)) return [];
+      const shop = [], earned = [];
+      let level = 1, total = 0, validEarned = true;
+      for (const row of run.rows.slice(0, report.summary.length)) {
+        if (row?.floor !== shop.length + 1) break;
+        if (Number.isInteger(row.shopLevel) && row.shopLevel >= 1 && row.shopLevel <= 5) level = row.shopLevel;
+        shop.push(level);
+        validEarned = validEarned && Number.isFinite(row.earned) && row.earned >= 0;
+        if (validEarned) total += row.earned;
+        earned.push(Number.isFinite(row.cumulativeEarned) && row.cumulativeEarned >= 0 ? row.cumulativeEarned :
+          validEarned && Number.isFinite(total) ? total : null);
+        for (const action of Array.isArray(row.shop) ? row.shop : []) {
+          if (action?.action === 'upgrade-shop' && Number.isInteger(action.level) && action.level >= 1 && action.level <= 5) level = action.level;
+        }
+      }
+      return [{seed:run.seed, shop, earned}];
+    });
+    simulationRuns.set(index, runs);
+    const summary = report.summary.map((row, i) => {
+      const totals = runs.map(run => run.earned[i]).filter(Number.isFinite).sort((a,b) => a - b);
+      const middle = Math.floor(totals.length / 2);
+      const cumulativeEarnedMedian = Number.isFinite(row.cumulativeEarnedMedian) ? row.cumulativeEarnedMedian :
+        totals.length % 2 ? totals[middle] : totals.length ? (totals[middle - 1] + totals[middle]) / 2 : null;
+      return {...row, cumulativeEarnedMedian};
+    });
+    simulations.set(index, summary);
+    curveStar.value = index;
+    curveKind.value = activeKind = 'dps';
+    resultStatus.textContent = `已载入${starNames[index]}木桩报告。每局按 B01 装备的木桩 DPS 归一化。`;
+    curveStar.dispatchEvent(new Event('change'));
+}
+byId('simulation-file').addEventListener('change', async event => {
+  const input = event.target;
+  if (!input.files.length) return;
+  try {
+    showReport(JSON.parse(await input.files[0].text()));
+  } catch {
+    byId('simulation-status').textContent = '无法读取批跑报告，请选择模拟工具输出的 JSON。';
+  } finally {
+    input.value = '';
+  }
+});
+byId('run-batch').addEventListener('click', async () => {
+  const countInput = byId('batch-count'), floorsInput = byId('batch-floors');
+  if (!countInput.reportValidity() || !floorsInput.reportValidity()) return;
+  const count = countInput.valueAsNumber, floors = floorsInput.valueAsNumber;
+  const difficulty = activeStar + 1;
+  if (!Number.isInteger(count) || !Number.isInteger(floors)) {
+    byId('simulation-status').textContent = '请输入整数局数和楼层。';
+    return;
+  }
+  if (location.protocol === 'file:') {
+    location.assign('http://127.0.0.1:4174/difficulty-curve.html#batch=' +
+      encodeURIComponent(JSON.stringify({model, difficulty, count, floors})));
+    return;
+  }
+  const button = byId('run-batch'), resultStatus = byId('simulation-status');
+  button.disabled = true;
+  resultStatus.textContent = `正在批跑${starNames[difficulty - 1]}，${count} 局，最多 ${floors} 层…`;
+  try {
+    const response = await fetch('/api/dps-batch', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({difficulty, floors, count, curve: exportCurve()})
+    });
+    const report = await response.json();
+    if (!response.ok) throw Error(report.error || '批跑失败。');
+    showReport(report);
+  } catch (error) {
+    resultStatus.textContent = error.message;
+  } finally {
+    button.disabled = false;
+  }
+});
+updateFloorOptions();
+floorInput.addEventListener('change', () => { selected = Number(floorInput.value); update(); });
+factorInput.addEventListener('change', () => {
+  if (validFactor(factorInput.valueAsNumber)) { setPoint(selected, factorInput.valueAsNumber); save(); }
+  else update();
+});
+bendInput.addEventListener('input', () => {
+  activePoints().find(point => point.floor === selected).bend = bendInput.valueAsNumber;
+  update();
+  save();
+});
+byId('add').onclick = () => { setPoint(selected, round(factorAt(selected))); save(); };
+byId('remove').onclick = () => { model.curves[activeKind] = activePoints().filter(point => point.floor !== selected); update(); save(); };
+byId('stars').addEventListener('input', event => {
+  const input = event.target;
+  if (input.dataset.key !== 'attributes' || !validFactor(input.valueAsNumber)) return;
+  model.attributes[input.dataset.index] = input.valueAsNumber;
+  updateAttributes();
+  update();
+});
+byId('stars').addEventListener('change', event => {
+  const input = event.target;
+  const {key, index} = input.dataset;
+  if (!key) return;
+  if (!validFactor(input.valueAsNumber)) { input.value = model[key][index]; return; }
+  model[key][index] = input.valueAsNumber;
+  updateAttributes();
+  update();
+  save();
+});
+chart.addEventListener('pointerdown', event => {
+  const floor = Number(event.target.dataset.point);
+  if (!floor || event.button !== 0 || drag) return;
+  drag = {floor, id: event.pointerId, max: geometry.max};
+  chart.setPointerCapture(event.pointerId);
+  selected = floor;
+  update();
+});
+chart.addEventListener('pointermove', event => {
+  if (drag?.id === event.pointerId) setPoint(drag.floor, position(event).factor);
+});
+chart.addEventListener('lostpointercapture', event => {
+  if (drag?.id !== event.pointerId) return;
+  drag = null;
+  update();
+  save();
+});
+chart.addEventListener('dblclick', event => {
+  if (event.target.dataset.point) return;
+  const {floor, factor} = position(event);
+  setPoint(floor, factor);
+  save();
+});
+chart.addEventListener('keydown', event => {
+  const floor = Number(event.target.dataset.point);
+  if (!floor || !['ArrowUp', 'ArrowDown', 'Enter', ' '].includes(event.key)) return;
+  event.preventDefault();
+  const delta = event.key === 'ArrowUp' ? .01 : event.key === 'ArrowDown' ? -.01 : 0;
+  setPoint(floor, round(clamp(factorAt(floor) + delta, .05, 20)));
+  if (delta) save();
+});
+byId('reset').onclick = () => {
+  if (!confirm('将当前方案恢复为游戏初值？')) return;
+  model = initial();
+  renderShopTuning();
+  selected = 1;
+  renderStars();
+  update();
+  save();
+};
+function exportCurve() {
+  const {hp, dps} = model.curves;
+  const floorMultipliers = lastFloors.map(end =>
+    Array.from({length: end}, (_, i) => ({
+      floor: i + 1, hp: round(factorAt(i + 1, hp)), dps: round(factorAt(i + 1, dps))
+    })));
+  return {version: 3, ...model, floorMultipliers, progression: calculateProgression(model.attributes)};
+}
+byId('export').onclick = () => {
+  const file = new Blob([JSON.stringify(exportCurve(), null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(file);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'difficulty-curve.json';
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+renderStars();
+renderShopTuning();
+update();
+new ResizeObserver(updateChart).observe(chart);
+if (batchTransfer && Number.isInteger(batchTransfer.difficulty) && lastFloors[batchTransfer.difficulty - 1]) {
+  history.replaceState(null, '', location.pathname + location.search);
+  curveStar.value = batchTransfer.difficulty - 1;
+  curveStar.dispatchEvent(new Event('change'));
+  byId('batch-count').value = batchTransfer.count;
+  byId('batch-floors').value = batchTransfer.floors;
+  save();
+  byId('run-batch').click();
+}
+</script>
+</body>
+</html>

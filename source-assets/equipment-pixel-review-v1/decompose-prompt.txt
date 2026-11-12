@@ -1,0 +1,13 @@
+Extract exactly 12 icons as separate transparent layers from this four-column three-row sheet. Preserve the source silhouette, details, contours and colors. Remove the dark navy background and keep all real holes transparent. Each icon is one complete object including paired wings, cannon barrels, rotors, or clothing details. Use exact names and 0-999 regions:
+builder-outfit: <bbox>56 75 235 302</bbox>
+ranger-outfit: <bbox>290 75 473 302</bbox>
+casual-outfit: <bbox>530 75 712 302</bbox>
+light-armor: <bbox>765 75 945 302</bbox>
+heavy-armor: <bbox>57 370 235 607</bbox>
+armored-mount: <bbox>290 370 480 607</bbox>
+swift-mount: <bbox>528 405 712 575</bbox>
+combat-mount: <bbox>750 370 949 590</bbox>
+support-mount: <bbox>55 695 240 889</bbox>
+attack-drone: <bbox>290 690 480 889</bbox>
+guard-drone: <bbox>528 690 712 889</bbox>
+support-drone: <bbox>752 690 950 889</bbox>

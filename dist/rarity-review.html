@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>稀有度颜色对照 · 霓虹高塔</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="post-process.css">
+  <link rel="stylesheet" href="industrial-ui.css">
+  <link rel="stylesheet" href="stage-result.css">
+  <link rel="stylesheet" href="lobby.css">
+  <link rel="stylesheet" href="rarity-ui.css" id="unified">
+  <link rel="stylesheet" href="rarity-review.css">
+  <script src="post-process.js" defer></script>
+  <script src="rarity-review.js" defer></script>
+</head>
+<body>
+  <main id="viewport">
+    <header class="review-header">
+      <p class="kicker">霓虹高塔 <span>／</span> UI 色彩检查</p>
+      <h1>稀有度颜色对照</h1>
+      <p>同一行是同一档。横着看商店、穿戴槽、战利品和角色芯片库的边线与底板。</p>
+    </header>
+    <section class="review-tools" aria-label="对照选项">
+      <div class="review-switch" role="group" aria-label="切换配色">
+        <button type="button" data-variant="before" aria-pressed="false">改前</button>
+        <button type="button" data-variant="after" aria-pressed="true">明亮统一</button>
+      </div>
+      <label class="review-filter"><input type="checkbox" id="review-filter" checked> 游戏滤镜</label>
+      <p id="review-note" aria-live="polite"></p>
+    </section>
+    <nav class="review-jump" id="review-jump" aria-label="跳到稀有度"></nav>
+    <section class="shop-quality review-grid" aria-label="五档稀有度的四处界面对照" id="review-grid">
+      <div class="review-head" aria-hidden="true">
+        <span>稀有度</span><span>商店装备</span><span>已穿戴装备</span><span>获得芯片</span><span>角色芯片库</span>
+      </div>
+    </section>
+    <footer class="review-footer">样本为防弹毛衣与复击回路。「明亮统一」使用游戏实际的底板、旋转光和图标描边。</footer>
+  </main>
+</body>
+</html>

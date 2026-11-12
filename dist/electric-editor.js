@@ -3,7 +3,8 @@ globalThis.ElectricEditor=(()=>{
  const E=ElectricTiles,floorDefs=E.floorDefs,barricadeDefs=E.barricadeDefs,isBarricade=kind=>Object.hasOwn(barricadeDefs,kind),defs={...E.defs,...floorDefs,...barricadeDefs,erase:{name:'拆除',cells:[[0,0]],desc:'拆除目标正面或负面设施，保留地板；多格设施整件拆除。'}},isFloor=kind=>Object.hasOwn(floorDefs,kind),ns='http://www.w3.org/2000/svg';
  for(const kind of [...Object.keys(E.defs),...Object.keys(floorDefs),...Object.keys(barricadeDefs)])Object.defineProperty(defs,kind,{enumerable:true,get:()=>E.profile(kind)});
  const colors={...Object.fromEntries(Object.entries(E.defs).map(([kind,def])=>[kind,def.rarityColor])),...Object.fromEntries(Object.keys(floorDefs).map(kind=>[kind,'#a8b7b5'])),...Object.fromEntries(Object.keys(barricadeDefs).map(kind=>[kind,'#a8b7b5'])),erase:'#a8b7b5'};
- let editing=false,selected=null,selectedKind=null,drag=null,bagGesture=null,hover=null,previousPause=false,preparing=false,preparedFloor=0,placedThisFloor=false;
+ let editing=false,selected=null,selectedKind=null,drag=null,bagGesture=null,hover=null,previousPause=false,preparing=false,preparedFloor=0,placementsUsed=0,placementLimit=1;
+ const MAX_TOWER_KINDS=4, towerRoster=new Map();
  let cameraGesture=null;
  let mergeFeedback=null,threatUI=null,threatStamp='';
  // Intersect a world-ground ray with the visible viewport, using the current
@@ -51,7 +52,13 @@ globalThis.ElectricEditor=(()=>{
  const key=c=>c.x+','+c.y;
  const axial=c=>[c.x-(c.y-(c.y&1))/2,c.y];
  const offset=(c,[q,r])=>{const [aq,ar]=axial(c),y=ar+r;return {x:aq+q+(y-(y&1))/2,y};};
- const available=kind=>!(E.defs[kind]||floorDefs[kind]||barricadeDefs[kind])||E.enabled(kind);
+ const promo=()=>!!globalThis.PromoMode?.active;
+ const campaignDraft=()=>preparing&&!promo();
+ const campaignTower=kind=>campaignDraft()&&E.isResearchTower(kind);
+ function available(kind){
+  if(Object.hasOwn(E.defs,kind)&&campaignDraft()&&!campaignTower(kind))return false;
+  return !(E.defs[kind]||floorDefs[kind]||barricadeDefs[kind])||E.enabled(kind);
+ }
  function refreshAvailability(){if(!ui)return;ui.querySelectorAll('[data-test-kind]').forEach(el=>el.hidden=!available(el.dataset.testKind));cancelDrag();stock=stock.filter(i=>available(i.kind));if(selected&&!available(selected.kind))selected=null;bagStamp=null;syncPanel();renderBag();renderOverlay();}
  function addStock(kind,level=1){if(!available(kind))return null;const item={id:++stockSerial,kind,level};stock.push(item);bagStamp=null;return item;}
  function refill(){for(const [kind,total]of Object.entries({...Object.fromEntries(Object.keys(E.fruits).map(kind=>[kind,2])),floor:8,floorLine:4,floorBend:4,floorTriangle:4,turbine:2,echo:2,shotgun_tower:2,sniper_tower:2,slow_field:2,electric_tower:2,shield_tower:2,healing_tower:2,missile_tower:2,tower:2,freeze_bomb:2,laser_bomb:2,missile_bomb:2,miner:2,irrigator:2,pulse:2,biogenerator:2,clockshop:2,repair_turret:2,...Object.fromEntries(Object.keys(barricadeDefs).map(kind=>[kind,3])),battery:3,erase:4}))if(available(kind))while(stock.filter(i=>i.kind===kind).length<total)addStock(kind);renderBag();}
@@ -71,51 +78,117 @@ globalThis.ElectricEditor=(()=>{
   if(!testHazards[kind].add()){status('没有空闲地板，请先扩建再添加目标。');return;}
   renderer.sceneKey=null;updateUI();loadTestKind('erase');status('已添加'+testHazards[kind].name+'，并补充拆除 ×3；拖到目标即可拆除。');
  }
- function reset(){resetCamera();mergeFeedback=null;globalThis.UIMotion?.clear();cancelDrag();preparing=false;preparedFloor=0;placedThisFloor=false;editing=false;selected=null;selectedKind=null;hover=null;stock=[];stockSerial=0;renderStamp='';bagStamp=null;if(ui)ui.hidden=true;if(overlay)overlay.setAttribute('hidden','');$('viewport').classList.remove('electric-editing');}
+ function reset(){towerRoster.clear();resetCamera();mergeFeedback=null;globalThis.UIMotion?.clear();cancelDrag();preparing=false;preparedFloor=0;placementsUsed=0;placementLimit=1;editing=false;selected=null;selectedKind=null;hover=null;stock=[];stockSerial=0;renderStamp='';bagStamp=null;if(ui)ui.hidden=true;if(overlay)overlay.setAttribute('hidden','');$('viewport').classList.remove('electric-editing');}
  function status(text){if(ui)ui.querySelector('[data-status]').textContent=text;}
  function pauseForEdit(){if(preparing){paused=true;$('viewport').classList.add('paused');syncMusic();}else if(!paused)togglePause();$('pause-panel').hidden=true;releaseJoy();Object.keys(keys).forEach(k=>keys[k]=false);}
  function open(){
   if(!ui)return;
-  if(preparing){cancelDrag();preparing=false;preparedFloor=floor;placedThisFloor=false;editing=false;stock=[];bagStamp=null;}
+  if(preparing){cancelDrag();preparing=false;preparedFloor=floor;placementsUsed=0;placementLimit=1;editing=false;stock=[];bagStamp=null;}
   if(['menu','dead','won'].includes(state)){globalThis.reset();testMode=true;floor=1;startWave();}
   if(!editing)previousPause=paused;testMode=true;testResume=false;refill();$('equipment-test').hidden=true;editing=true;pauseForEdit();
   ui.hidden=false;overlay.removeAttribute('hidden');$('viewport').classList.add('electric-editing');
   status('点击“指定格子”补充想测的格子，拖放后点“开始测试”；可添加拆除目标。');syncPanel();renderBag();renderOverlay();
  }
- const promo=()=>!!globalThis.PromoMode?.active;
+ const activeTower=kind=>E.list().find(f=>f.kind===kind);
+ function placeOffer(item,anchor){
+  if(!available(item.kind))return false;
+  if(!campaignTower(item.kind))return E.place(item.kind,anchor,item.level);
+  if(!canDraftTower(item.kind)||activeTower(item.kind))return false;
+  const tower=E.place(item.kind,anchor,item.level);
+  if(tower)towerRoster.set(item.kind,E.towerLevel(tower));
+  return tower;
+ }
+ function canDraftTower(kind){
+  return floor>1&&(towerRoster.has(kind)||towerRoster.size<MAX_TOWER_KINDS);
+ }
+ function selectUpgrade(item){
+  if(!preparing||placementsUsed>=placementLimit||mergeFeedback||!stock.includes(item)||!item.upgrade||!available(item.kind))return;
+  const target=activeTower(item.kind);
+  if(!target)return;
+  const from=E.towerLevel(target);
+  if(!E.upgradeTower(target))return;
+  towerRoster.set(item.kind,E.towerLevel(target));consumeChoice();
+  selected=target;selectedKind=null;
+  celebrateUpgrade(target,from);syncPanel();renderBag();renderOverlay();
+  status('已升至 '+E.towerLevel(target)+' 星。');
+ }
  function prepareFloor(){
   if(!ui||testMode&&!promo()||preparedFloor===floor)return false;
   if(preparing)return true;
-  cancelDrag();selected=null;selectedKind=null;previousPause=false;preparing=true;pauseForEdit();editing=true;placedThisFloor=false;
+  cancelDrag();selected=null;selectedKind=null;previousPause=false;preparing=true;pauseForEdit();editing=true;placementsUsed=0;placementLimit=1+(armor?.extraBuilds||0);
   // Only offer shapes with a legal destination. Unchosen offers expire this floor.
   // Expansion shapes return to campaign choices alongside facilities.
   rollChoices();
   ui.hidden=false;overlay.removeAttribute('hidden');$('viewport').classList.add('electric-editing');
-  $('status').textContent='地块三选一';$('wave').textContent='B'+String(floor).padStart(2,'0')+' / '+(promo()?'可连续摆放':'摆放一块后点击确定');
-  status(promo()?'宣传拍摄：摆放后继续三选一，点“开始本关”进入战斗。':stock.length?'三选一放置或合成；可拖动已有建筑整理，同类同级拖到一起升级，最高3级。':'没有新设施可放，可整理已有建筑后开始本关。');syncPanel();renderBag();renderOverlay();return true;
+  $('status').textContent='地块三选一';$('wave').textContent='B'+String(floor).padStart(2,'0')+' / '+(promo()?'可连续摆放':placementLimit>1?'本关可选择两次':'选一项后点击确定');
+  status(promo()?'宣传拍摄：摆放后继续三选一，点“开始本关”进入战斗。':stock.length?'拖动新塔或地块摆放；点击已有塔的候选卡可直接升星。':'没有新设施可放，可整理已有建筑后开始本关。');syncPanel();renderBag();renderOverlay();return true;
  }
  function rollChoices(){
-  stock=[];bagStamp=null;const pool=Object.keys(defs).filter(kind=>kind!=='energy'&&!E.isBomb(kind)).filter(available).filter(kind=>kind==='erase'?demolitionCells().length:isFloor(kind)?Array.from({length:grid.maxY-grid.minY+1},(_,i)=>i+grid.minY).some(y=>Array.from({length:grid.maxX-grid.minX+1},(_,i)=>i+grid.minX).some(x=>canExpand(kind,{x,y}))):tiles.some(t=>canPlace(kind,t))||E.defs[kind]&&E.list().some(f=>E.canMerge({kind,level:1},f)));
-  while(stock.length<3&&pool.length){const index=Math.floor(Math.random()*pool.length);addStock(pool.splice(index,1)[0]);}
-  // Crowded boards may have fewer than three distinct placeable shapes.
-  const fallback=stock.find(item=>!isFloor(item.kind));
-  while(fallback&&stock.length<3)addStock(fallback.kind);
+  stock=[];bagStamp=null;
+  const towers=new Map(E.list().filter(f=>campaignTower(f.kind)).map(f=>[f.kind,f]));
+  if(!promo())for(const [kind,tower] of towers)towerRoster.set(kind,E.towerLevel(tower));
+  const rosterFull=!promo()&&towerRoster.size>=MAX_TOWER_KINDS;
+  const pool=Object.keys(defs).filter(kind=>{
+   if(kind==='energy'||E.isBomb(kind)||!available(kind))return false;
+   if(campaignTower(kind)){
+    if(!canDraftTower(kind))return false;
+    return towers.has(kind)||tiles.some(t=>canPlace(kind,t));
+   }
+   if(isFloor(kind))return frontier(kind).length>0;
+   if(isBarricade(kind))return tiles.some(t=>canPlace(kind,t));
+   if(rosterFull)return false;
+   if(kind==='erase')return demolitionCells().length>0;
+   return tiles.some(t=>canPlace(kind,t))||!!E.defs[kind]&&E.list().some(f=>E.canMerge({kind,level:1},f));
+  });
+  while(stock.length<3&&pool.length){
+   const index=Math.floor(Math.random()*pool.length),kind=pool.splice(index,1)[0];
+   const tower=campaignTower(kind)?towers.get(kind):null;
+   const item=addStock(kind,tower?E.towerLevel(tower)+1:campaignTower(kind)?towerRoster.get(kind)||1:1);
+   if(tower)item.upgrade=true;
+  }
+  if(promo()){
+   const fallback=stock.find(item=>!isFloor(item.kind));
+   while(fallback&&stock.length<3)addStock(fallback.kind);
+  }
+ }
+ function consumeChoice(){if(!promo())placementsUsed++;stock=[];bagStamp=null;}
+ function placeStockItem(item,anchor){
+  const kind=item.kind;
+  if(isFloor(kind))return expand(kind,anchor);
+  if(kind==='erase')return demolish(anchor);
+  if(isBarricade(kind))return placeBarricade(kind,anchor);
+  return placeOffer(item,anchor);
+ }
+ function placeDraft(id,anchor){
+  const item=stock.find(offer=>offer.id===id);
+  if(!preparing||mergeFeedback||!item||placementsUsed>=placementLimit)return false;
+  if(item.upgrade){
+   selectUpgrade(item);
+   return !stock.includes(item);
+  }
+  const kind=item.kind;
+  if(!anchor||!canPlace(kind,anchor))return false;
+  const placed=placeStockItem(item,anchor);
+  if(!placed)return false;
+  tilePlacementSound();
+  if(kind!=='erase')globalThis.RoomReady?.recordPlacement(shape(kind,anchor).cells,isFloor(kind)?'floor':'smoke');
+  consumeChoice();selected=null;selectedKind=null;afterPlacement();return true;
  }
  function afterPlacement(){
-  if(!promo()){syncPanel();renderBag();renderOverlay();status('已摆放完成，点击“确定 · 开始本关”进入战斗。');return;}
-  placedThisFloor=false;rollChoices();syncPanel();renderBag();renderOverlay();
-  status(stock.length?'已摆放，可以继续选择；点“开始本关”进入战斗。':'场地已满，可整理建筑或点“开始本关”。');
+  if(promo()||placementsUsed<placementLimit)rollChoices();
+  syncPanel();renderBag();renderOverlay();
+  status(stock.length?'还可继续选择，也可点“开始本关”进入战斗。':promo()?'场地已满，可整理建筑或点“开始本关”。':'已完成本关选择，点击“确定 · 开始本关”进入战斗。');
  }
  function finishPreparation(){
-  if(mergeFeedback||!preparing||(!promo()&&!placedThisFloor&&stock.length))return;globalThis.UIMotion?.exit(ui);cancelDrag();stock=[];bagStamp=null;preparedFloor=floor;preparing=false;editing=false;selected=null;selectedKind=null;
+  if(mergeFeedback||!preparing||(!promo()&&placementsUsed===0&&stock.length))return;globalThis.UIMotion?.exit(ui);cancelDrag();stock=[];bagStamp=null;preparedFloor=floor;preparing=false;editing=false;selected=null;selectedKind=null;
   ui.hidden=true;overlay.setAttribute('hidden','');$('viewport').classList.remove('electric-editing');if(paused)togglePause();if(globalThis.RoomReady&&(!testMode||promo()))RoomReady.begin(startWave);else startWave();
  }
  function close(){if(preparing||mergeFeedback)return;globalThis.UIMotion?.exit(ui);cancelDrag();editing=false;if(ui)ui.hidden=true;if(overlay)overlay.setAttribute('hidden','');$('viewport').classList.remove('electric-editing');if(!previousPause&&paused&&!document.hidden&&renderer.ready&&!renderer.gl.isContextLost()&&['combat','survival','descent','landing','bossIntro'].includes(state))togglePause();}
  function run(){if(mergeFeedback)return;if(preparing){finishPreparation();return;}cancelDrag();if(editing){editing=false;overlay.setAttribute('hidden','');$('viewport').classList.remove('electric-editing');if(paused)togglePause();status('测试运行中；点击“整理背包”继续摆放。');}else{editing=true;pauseForEdit();overlay.removeAttribute('hidden');$('viewport').classList.add('electric-editing');status('拖动背包或地板上的设施。绿色是可放位置，红色表示冲突。');}syncPanel();renderOverlay();}
  function syncPanel(){
-  if(!ui)return;ui.classList.toggle('electric-choice',preparing);ui.setAttribute('aria-label',preparing?'本关地块三选一':'电力设施背包');bag.setAttribute('aria-label',preparing?'三选一，向上拖动摆放':'左右滑动浏览设施，向上拖到地板');ui.querySelector('[data-run]').hidden=false;ui.querySelector('[data-run]').disabled=!!mergeFeedback||preparing&&!promo()&&!placedThisFloor&&stock.length>0;ui.querySelector('[data-edit]').hidden=!editing;ui.querySelector('[data-run]').textContent=preparing?'确定 · 开始本关':editing?'开始测试':'整理背包';ui.querySelector('[data-title]').textContent=preparing?'修改地形！':'地块测试';ui.querySelector('[data-close]').hidden=preparing;ui.querySelector('[data-lab-entry]').hidden=!preparing||!globalThis.DEV_TOOLS;ui.querySelectorAll('[data-debug]').forEach(el=>el.hidden=preparing);
+  if(!ui)return;ui.classList.toggle('electric-choice',preparing);ui.setAttribute('aria-label',preparing?'本关地块三选一':'电力设施背包');bag.setAttribute('aria-label',preparing?'拖动摆放，点击升星':'左右滑动浏览设施，向上拖到地板');ui.querySelector('[data-run]').hidden=false;ui.querySelector('[data-run]').disabled=!!mergeFeedback||preparing&&!promo()&&placementsUsed===0&&stock.length>0;ui.querySelector('[data-edit]').hidden=!editing;ui.querySelector('[data-run]').textContent=preparing?'确定 · 开始本关':editing?'开始测试':'整理背包';ui.querySelector('[data-title]').textContent=preparing?(promo()?'修改地形！':'塔种 '+towerRoster.size+' / '+MAX_TOWER_KINDS):'地块测试';ui.querySelector('[data-close]').hidden=preparing;ui.querySelector('[data-lab-entry]').hidden=!preparing||!globalThis.DEV_TOOLS;ui.querySelectorAll('[data-debug]').forEach(el=>el.hidden=preparing);
   ui.querySelector('[data-return]').disabled=!selected;const kind=selected?.kind||selectedKind;
-  ui.querySelector('[data-info]').textContent=kind?defs[kind].name+(E.defs[kind]?'：Lv'+E.towerLevel(selected||stock.find(i=>i.kind===kind)||{}):'')+' · '+defs[kind].desc:preparing?'拖动空白处或空地板移动镜头；已有建筑可移动，同类同级可合成，最高3级。':'拖动空白处或空地板移动镜头；拖动设施摆放，点“镜头归位”回到角色。';
+  ui.querySelector('[data-info]').textContent=kind?defs[kind].name+(E.defs[kind]?'：Lv'+E.towerLevel(selected||stock.find(i=>i.kind===kind)||{}):'')+' · '+defs[kind].desc:preparing?'拖动空白处移动镜头；已有防御塔可移动，选择同种塔时原地升星。':'拖动空白处或空地板移动镜头；拖动设施摆放，点“镜头归位”回到角色。';
 
   ui.querySelector('[data-live]').textContent='';
  }
@@ -169,14 +242,15 @@ globalThis.ElectricEditor=(()=>{
   const target=demolitionTarget(c);if(!target)return false;
   if(target.facility){E.remove(target.facility);if(selected===target.facility)selected=null;}
   else if(target.turret)turrets=turrets.filter(t=>t!==target.turret);
-  else if(target.barricade){for(const tile of tiles)if(tile.barricadeGroup===target.barricade)for(const field of ['coverTile','coverHp','coverHitAt','barricadeGroup','terrainRebuilt','terrainRebuildLeft','terrainRepairWait','terrainRepairCharge','repairWallBonus'])delete tile[field];}
-  else for(const field of [...tileFixtures,'orbitSaw','sawClock','healProgress','healFlash','medPack','supplyQueue','supplyPickupLeft','pickup','shockCharges','shockCapacity','shockCooldown','shockOccupied','coverHp','coverHitAt','shovelBonusWork','shovelImpactLeft','shovelSwing','terrainRepairWait','terrainRepairCharge','terrainShardLeft','repairWallBonus'])delete target.tile[field];
+  else if(target.barricade){for(const tile of tiles)if(tile.barricadeGroup===target.barricade)for(const field of ['coverTile','coverHp','coverHitAt','barricadeGroup','terrainRebuilt','terrainRebuildLeft','armorRebuildLeft','terrainRepairWait','terrainRepairCharge','repairWallBonus'])delete tile[field];}
+  else for(const field of [...tileFixtures,'orbitSaw','sawClock','healProgress','healFlash','medPack','supplyQueue','supplyPickupLeft','pickup','shockCharges','shockCapacity','shockCooldown','shockOccupied','coverHp','coverHitAt','terrainRebuilt','terrainRebuildLeft','armorRebuildLeft','shovelBonusWork','shovelImpactLeft','shovelSwing','terrainRepairWait','terrainRepairCharge','terrainShardLeft','repairWallBonus'])delete target.tile[field];
   const at=E.center(c);burst(at.x,at.y,'#c8f2dc',15);renderer.sceneKey=null;updateUI();return true;
  }
  function canPlace(kind,c,ignore=null){
+  if(!available(kind))return false;
   if(isBarricade(kind)){
    const cells=shape(kind,c).cells;
-   if(!available(kind)||!cells.every(cell=>E.free(tiles.find(t=>key(t)===key(cell)),ignore)))return false;
+   if(!cells.every(cell=>E.free(tiles.find(t=>key(t)===key(cell)),ignore)))return false;
    // The complete new footprint must leave somewhere safe to stand or relocate.
    return tiles.some(t=>{const at=E.center(t);return canWalkAt(at.x,at.y,7)&&!cells.some(cell=>coverContains(cell,at.x,at.y,7));});
   }
@@ -202,7 +276,7 @@ globalThis.ElectricEditor=(()=>{
   return t;
  }
  function expand(kind,c){if(!canExpand(kind,c))return false;for(const cell of shape(kind,c).cells)tiles.push(expansionTile(cell));syncBridgeRoom();E.syncWalls();relocatePlayerFromCover();renderer.sceneKey=null;updateUI();return true;}
- function mergeTarget(){if(!drag?.dropCell||!E.defs[drag.kind])return null;const target=tiles.find(t=>key(t)===key(drag.dropCell))?.electricFacility;return E.canMerge(drag.facility||drag.item,target)?target:null;}
+ function mergeTarget(){if(!drag?.dropCell||!E.defs[drag.kind]||!available(drag.kind)||campaignTower(drag.kind))return null;const target=tiles.find(t=>key(t)===key(drag.dropCell))?.electricFacility;return E.canMerge(drag.facility||drag.item,target)?target:null;}
  function previewState(){const merge=mergeTarget(),candidate=merge?{cells:merge.cells,outputs:merge.outputs}:drag&&hover?shape(drag.kind,hover):null;return {candidate,merge,valid:!!merge||!!candidate&&canPlace(drag.kind,hover,drag.facility),source:candidate||(!drag?selected:null),kind:candidate?drag.kind:selected?.kind};}
  function scopeLoops(source,kind){
   // Attack reach is independent of the saved support-area mask and radius.
@@ -219,11 +293,11 @@ globalThis.ElectricEditor=(()=>{
   if(source&&E.isDefenseTower(kind)&&Number.isFinite(E.defs[kind]?.attackRange))html+=`<g data-attack-range="${(E.attackRange?.(kind)??E.defs[kind].attackRange)}" data-attack-kind="${kind}" data-ground-renderer="webgl"/>`;
   if(candidate)html+=`<g data-placement-valid="${valid}" data-merge-level="${merge?E.towerLevel(merge)+1:0}" data-ground-renderer="webgl"/>`;
   // Include offers as partners, so full boards still advertise an available merge.
-  const live=E.list(),partners=[...live,...stock],labelRects=[];
+  const live=E.list(),partners=[...live,...stock.filter(item=>!item.upgrade)],labelRects=[];
   for(const f of live){
    const at=E.center(E.coreCell(f)),p=renderer.screenPoint(at.x-325,4,(at.y-300)*1.06),cr=canvas.getBoundingClientRect();
    const labelWidth=Math.max(72,defs[f.kind].name.length*12+48),half=labelWidth/2;
-   const x=Math.max(half+4,Math.min(rect.width-half-4,p.x+cr.left-rect.left)),baseY=Math.max(48,p.y+cr.top-rect.top-22),mergeable=partners.some(other=>other!==f&&other.kind===f.kind&&E.towerLevel(other)===E.towerLevel(f)&&E.canMerge(other,f));
+   const x=Math.max(half+4,Math.min(rect.width-half-4,p.x+cr.left-rect.left)),baseY=Math.max(48,p.y+cr.top-rect.top-22),mergeable=!campaignTower(f.kind)&&partners.some(other=>other!==f&&other.kind===f.kind&&E.towerLevel(other)===E.towerLevel(f)&&E.canMerge(other,f));
    let y=baseY;
    for(let i=0;i<live.length*2+1;i++){
     const trial=baseY+(i%2?-1:1)*Math.ceil(i/2)*26;
@@ -267,15 +341,24 @@ globalThis.ElectricEditor=(()=>{
   const effectCells=E.isBomb(kind)?[]:footprint.outputs,own=footprint.cells.map(c=>groundHex(c)),influence=effectCells.map(c=>groundHex(c)),all=[...own,...influence].flat();
   const minX=Math.min(...all.map(p=>p[0]))-8,maxX=Math.max(...all.map(p=>p[0]))+8,minY=Math.min(...all.map(p=>p[1]))-8,maxY=Math.max(...all.map(p=>p[1]))+8;
   const core=E.isBomb(kind)?E.facilityCenter(footprint):E.center(E.defs[kind]?E.coreCell({...footprint,kind,anchor:{x:0,y:0}}):footprint.cells[0]);
-  const tiles=own.map(points=>`<polygon class="electric-stock-footprint" points="${points.map(p=>p.join(',')).join(' ')}" fill="${color}" fill-opacity=".23" stroke="${color}" stroke-width="2"/>`).join('')+symbol(kind,core.x,core.y,color)+(E.defs[kind]?globalThis.MapIcons?.stars(level,core.x,core.y+21)||'':'');
+  const tiles=own.map(points=>`<polygon class="electric-stock-footprint" points="${points.map(p=>p.join(',')).join(' ')}" fill="${color}" fill-opacity=".23" stroke="${color}" stroke-width="2"/>`).join('')+symbol(kind,core.x,core.y,color)+(E.defs[kind]&&level?globalThis.MapIcons?.stars(level,core.x,core.y+21)||'':'');
   const range=influence.map((points,i)=>`<polygon class="electric-stock-range" data-effect-cell="${key(effectCells[i])}" points="${points.map(p=>p.join(',' )).join(' ')}"/>`).join('');
   const box=`${minX} ${minY} ${maxX-minX} ${maxY-minY}`;
   return `<svg viewBox="${box}" aria-hidden="true">${range}${tiles}</svg>`;
  }
  function renderBag(){
   // Consumed choices must disappear on release, even while the upgrade celebrates.
-  if(!bag||mergeFeedback&&!(preparing&&placedThisFloor&&!stock.length))return;stock=stock.filter(i=>available(i.kind));const html=stock.map(item=>`<button type="button" class="electric-stock-card" style="border-color:${colors[item.kind]};--chip-accent:${colors[item.kind]}" data-rarity="${E.defs[item.kind]?.rarity||1}" data-stock-id="${item.id}" data-kind="${item.kind}" aria-label="拖动${defs[item.kind].name}">${thumbnail(item.kind,item.level)}<span>${defs[item.kind].name}${E.defs[item.kind]?'：Lv'+E.towerLevel(item):''}</span><small>${preparing?defs[item.kind].desc:shape(item.kind,{x:0,y:0}).cells.length+'格'+(item.kind==='tower'?' · 最多电击'+E.towerTargetLimit(item)+'个':'')}</small></button>`).join('');
-  if(html!==bagStamp){const scroll=bag.scrollLeft;bag.innerHTML=html;bag.scrollLeft=scroll;bagStamp=html;}ui.querySelector('[data-count]').textContent=globalThis.TileLab?.active?'无限取用':preparing?(promo()?'宣传模式 · 连续摆放':placedThisFloor?'已摆放 1 / 1':'本关限选 1 块'):stock.length+' 件';
+  if(!bag||mergeFeedback&&!(preparing&&!stock.length))return;
+  stock=stock.filter(i=>available(i.kind));
+  const html=stock.map(item=>{
+   const {kind,level,upgrade}=item,name=defs[kind].name;
+   const current=level-1;
+   const stars=upgrade?`<b class="electric-upgrade-stars" aria-hidden="true">${current<=3?'★'.repeat(current):'★ × '+current}<i data-next-star>★</i></b>`:'';
+   const title=upgrade?'场上的'+name:name+(E.defs[kind]?'：Lv'+level:'');
+   const description=upgrade?`点击让场上的${name}升星（${current} 星 → ${level} 星）`:preparing?defs[kind].desc:shape(kind,{x:0,y:0}).cells.length+'格'+(kind==='tower'?' · 最多电击'+E.towerTargetLimit(item)+'个':'');
+   return `<button type="button" class="electric-stock-card" style="border-color:${colors[kind]};--chip-accent:${colors[kind]}" data-rarity="${E.defs[kind]?.rarity||1}" data-stock-id="${item.id}" data-kind="${kind}" ${upgrade?'data-upgrade':''} aria-label="${upgrade?description:'拖动'+name}">${thumbnail(kind,upgrade?0:level)}${stars}<span>${title}</span><small>${description}</small></button>`;
+  }).join('');
+  if(html!==bagStamp){const scroll=bag.scrollLeft;bag.innerHTML=html;bag.scrollLeft=scroll;bagStamp=html;}ui.querySelector('[data-count]').textContent=globalThis.TileLab?.active?'无限取用':preparing?(promo()?'宣传模式 · 连续摆放':placementsUsed?'已选择 '+placementsUsed+' / '+placementLimit:'本关限选 '+placementLimit+' 次'):stock.length+' 件';
  }
  const reducedMotion=()=>globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
  function moveChoiceCard(){
@@ -301,7 +384,7 @@ globalThis.ElectricEditor=(()=>{
   dragLink.innerHTML=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#10202f" stroke-width="4"/><line data-placement-link x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="1.6"/><circle cx="${x2}" cy="${y2}" r="4" fill="${color}"/>`;
  }
  function beginDrag(e,item,facility,grabCell){
-  if(facility?.initialCore||mergeFeedback||!editing||drag||e.isPrimary===false||e.button>0||preparing&&(!facility&&(placedThisFloor||!stock.includes(item))))return;e.preventDefault();e.stopPropagation();
+  if(facility?.initialCore||mergeFeedback||!editing||drag||e.isPrimary===false||e.button>0||preparing&&(!facility&&(!promo()&&placementsUsed>=placementLimit||!stock.includes(item))))return;e.preventDefault();e.stopPropagation();
   const kind=item?.kind||facility.kind,anchor=facility?.anchor||{x:0,y:0},core=E.defs[kind]?E.coreCell(facility||{...E.shape(kind,anchor),kind,anchor}):grabCell||anchor,[q,r]=axial(core),[aq,ar]=axial(anchor);
   drag={id:e.pointerId,kind,item,facility,grab:[q-aq,r-ar],startX:e.clientX,startY:e.clientY,moved:false};selected=facility||null;selectedKind=kind;hover=null;
   ui.setPointerCapture?.(e.pointerId);syncPanel();renderOverlay();moveChoiceCard(e);
@@ -322,21 +405,24 @@ globalThis.ElectricEditor=(()=>{
   if(!drag||drag.id!==e.pointerId)return;e.preventDefault();
   if(Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)>5)drag.moved=true;
   const c=hitBag(e.clientX,e.clientY)?null:pick(e.clientX,e.clientY);drag.dropCell=c;hover=c?offset(c,[-drag.grab[0],-drag.grab[1]]):null;
-  const target=mergeTarget();if(target)status('松手合成'+(E.towerLevel(target)+1)+'级'+defs[target.kind].name+'。');else if(E.defs[drag.kind])status('拖到空位移动或放置；拖到同类同级建筑上合成，最高3级。');
+  const target=mergeTarget();if(target)status('松手合成'+(E.towerLevel(target)+1)+'级'+defs[target.kind].name+'。');else if(E.defs[drag.kind])status(campaignTower(drag.kind)?'拖到空位移动或摆放防御塔。':'拖到空位移动或放置；同类同级设施可合成，最高3级。');
   renderOverlay();moveChoiceCard(e);
  }
  // Keep the placement camera and stars visible until the upgrade has been celebrated.
  function mergeBuilding(source,target){
   const from=E.towerLevel(target),result=E.merge(source,target);if(!result)return false;
+  celebrateUpgrade(target,from);return result;
+ }
+ function celebrateUpgrade(target,from){
   mergeFeedback={target,from,to:E.towerLevel(target),room:floor,age:0,last:performance.now(),revealed:false,duration:1.25};
-  tilePlacementSound();return result;
+  tilePlacementSound();
  }
  function advanceMergeFeedback(){
   if(!mergeFeedback)return;
   const f=mergeFeedback,now=performance.now();
   if(!document.hidden)f.age+=Math.min(.05,Math.max(0,(now-f.last)/1000));f.last=now;
   if(f.age>=.24&&!f.revealed){f.revealed=true;beep(990,.13,'triangle',.045);}
-  if(f.room!==floor||!E.list().includes(f.target)||f.age>=f.duration){mergeFeedback=null;renderStamp='';if(preparing&&placedThisFloor)afterPlacement();else{syncPanel();renderBag();}}
+  if(f.room!==floor||!E.list().includes(f.target)||f.age>=f.duration){mergeFeedback=null;renderStamp='';if(preparing&&!stock.length)afterPlacement();else{syncPanel();renderBag();}}
  }
  function mergeCelebration(f){
   const u=Math.max(0,Math.min(1,(f.age-.24)/.75)),alpha=Math.sin(Math.PI*u),motion=!reducedMotion();
@@ -353,17 +439,17 @@ globalThis.ElectricEditor=(()=>{
  function releaseDrag(e){
   if(cameraGesture?.id===e.pointerId){moveDrag(e);const id=cameraGesture.id;cameraGesture=null;if(overlay.hasPointerCapture?.(id))overlay.releasePointerCapture(id);return;}
   if(bagGesture?.id===e.pointerId){const g=bagGesture;if(!g.mode){selected=null;selectedKind=g.item.kind;syncPanel();}cancelDrag();return;}
-  if(!drag||drag.id!==e.pointerId)return;moveDrag(e);const d=drag;
+  if(!drag||drag.id!==e.pointerId)return;moveDrag(e);const d=drag;let consumed=false;
   if(d.moved){
    globalThis.TileLab?.checkpoint();
    if(hitBag(e.clientX,e.clientY)&&d.facility)returnToBag(d.facility);
    else if(hover){
     const target=mergeTarget();
     if(d.facility){if(target&&mergeBuilding(d.facility,target)){selected=target;status('已合成'+E.towerLevel(target)+'级'+defs[target.kind].name+'。');}else if(E.move(d.facility,hover)){tilePlacementSound();status('已移动'+defs[d.kind].name+'。');}else status('这里放不下，设施已留在原位。');}
-    else {const f=target?mergeBuilding(d.item,target):isFloor(d.kind)?expand(d.kind,hover):d.kind==='erase'?demolish(hover):isBarricade(d.kind)?placeBarricade(d.kind,hover):E.place(d.kind,hover,d.item.level||1);if(f){if(!target)tilePlacementSound();if(preparing){if(d.kind!=='erase')globalThis.RoomReady?.recordPlacement(target?[]:shape(d.kind,hover).cells,isFloor(d.kind)?'floor':'smoke');placedThisFloor=true;stock=[];selected=null;selectedKind=null;}else{if(!globalThis.TileLab?.active)stock=stock.filter(i=>i!==d.item);selected=isFloor(d.kind)||d.kind==='erase'||isBarricade(d.kind)?null:f;}bagStamp=null;status((target?'已合成'+E.towerLevel(target)+'级'+defs[target.kind].name:d.kind==='erase'?'已拆除目标设施':'已放置'+defs[d.kind].name)+(preparing?'，点击确定后开始本关。':'。'));}else status(d.kind==='erase'?'这里没有可拆除的设施，请重新选择。':preparing?'这里放不下，请重新选择落点。':'这里放不下，设施已放回背包。');}
-   }else status(preparing?'已取消，本关仍可选择并摆放一次。':d.facility?'设施已留在原位。':'设施已放回背包。');
+    else {const f=target?mergeBuilding(d.item,target):placeStockItem(d.item,hover);if(f){if(!target)tilePlacementSound();if(preparing){if(d.kind!=='erase')globalThis.RoomReady?.recordPlacement(target?[]:shape(d.kind,hover).cells,isFloor(d.kind)?'floor':'smoke');consumeChoice();consumed=true;selected=null;selectedKind=null;}else{if(!globalThis.TileLab?.active)stock=stock.filter(i=>i!==d.item);selected=isFloor(d.kind)||d.kind==='erase'||isBarricade(d.kind)?null:f;}bagStamp=null;status((target?'已合成'+E.towerLevel(target)+'级'+defs[target.kind].name:d.kind==='erase'?'已拆除目标设施':'已放置'+defs[d.kind].name)+'。');}else status(d.kind==='erase'?'这里没有可拆除的设施，请重新选择。':preparing?'这里放不下，请重新选择落点。':'这里放不下，设施已放回背包。');}
+   }else status(preparing?'已取消，选择次数不变。':d.facility?'设施已留在原位。':'设施已放回背包。');
   }
-  cancelDrag(preparing&&placedThisFloor);if(preparing&&placedThisFloor&&!mergeFeedback){afterPlacement();return;}syncPanel();renderBag();renderOverlay();
+  cancelDrag(consumed);if(consumed&&!mergeFeedback){afterPlacement();return;}syncPanel();renderBag();renderOverlay();
  }
  function cancelDrag(consumed=false){
   if(cameraGesture){const id=cameraGesture.id;cameraGesture=null;if(overlay?.hasPointerCapture?.(id))overlay.releasePointerCapture(id);}
@@ -397,7 +483,7 @@ globalThis.ElectricEditor=(()=>{
   if(!walkFloor.toString().includes('HexMap')||!document.createElement||!document.createElementNS||!$('viewport')?.append)return;
   const style=document.createElement('style');style.textContent=`.electric-open{position:absolute;right:10px;top:142px;z-index:31;padding:7px 10px;border:1px solid #668594;background:#142331dd;color:#d9f5ff;border-radius:7px;font-size:12px}.electric-panel{position:absolute;left:10px;right:10px;bottom:59px;z-index:46;background:#10202ff2;color:#e1f4ff;border:1px solid #55788b;border-radius:10px;padding:9px;font-size:12px;max-height:48%;overflow:auto}.electric-panel[hidden],.electric-panel [hidden],.electric-overlay[hidden]{display:none!important}.electric-panel header,.electric-panel .electric-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.electric-panel header strong{margin-right:auto}.electric-panel header small{font-weight:400;color:#a6c7d8}.electric-panel button,.electric-panel summary{font:inherit;padding:6px 9px;min-height:32px;box-sizing:border-box;border:1px solid #587b8a;border-radius:5px;background:#243c4a;color:#e9f8ff}.electric-panel button:disabled{opacity:.4}.electric-panel [data-info]{margin:7px 0;color:#b9dce9}.electric-panel [data-live]{min-height:15px}.electric-panel [data-status]{min-height:30px;margin-top:5px;color:#c4f3b2;font-size:11px;line-height:1.45}.electric-overlay{position:absolute;inset:0;width:100%;height:100%;z-index:42;touch-action:none}.electric-backpack{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#79bfd5 #162c3b;touch-action:none;user-select:none;margin:9px 0;padding-bottom:8px}.electric-panel .electric-stock-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:0 0 132px;min-width:132px;min-height:133px;padding:7px 5px;cursor:grab;touch-action:none;background:#1b3344}.electric-stock-card svg{width:100%;height:88px;pointer-events:none}.electric-stock-range{fill:none;stroke:#a4efff;stroke-width:2.5;stroke-dasharray:9 6}.electric-stock-card span{font-size:13px;white-space:nowrap;pointer-events:none}.electric-stock-card small{font-size:11px;color:#a9c4d4;pointer-events:none}.electric-panel details{position:relative}.electric-panel details>div{padding:7px 0;display:flex;gap:5px;flex-wrap:wrap}.electric-editing .joy,.electric-editing .test-open,.electric-editing .electric-open{visibility:hidden}@media(pointer:coarse){.electric-panel button,.electric-panel summary{min-height:40px}}`;
   style.textContent+=`.electric-choice .electric-backpack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:hidden;gap:6px;padding-bottom:0}.electric-choice .electric-stock-card{min-width:0;width:100%;min-height:120px;padding:5px 2px}.electric-choice .electric-stock-card svg{height:76px}.electric-choice .electric-stock-card span{font-size:12px}.electric-choice [data-live],.electric-choice [data-count],.electric-choice .electric-actions{display:none}.electric-choice .electric-stock-card{justify-content:flex-start;gap:6px}.electric-choice .electric-stock-card small{line-height:1.5;text-align:left;align-self:stretch;padding:0 4px}.electric-choice [data-status]{min-height:0;margin-top:8px;color:#b9dce9}`;
-  style.textContent+='.electric-lab-tools{margin-top:8px}.electric-panel .electric-lab-tools>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.electric-lab-tools p{grid-column:1/-1;margin:3px 0;color:#b9dce9;font-size:11px;line-height:1.5}.electric-lab-tools button{padding:5px 2px;min-width:0}.electric-lab-tools button[aria-pressed="true"]{border-color:#8ce1ed;background:#315665}';
+  style.textContent+='.electric-choice [data-upgrade]{cursor:pointer;gap:3px}.electric-choice [data-upgrade] svg{height:58px}.electric-upgrade-stars{order:1;color:#ffe084;line-height:1;letter-spacing:.08em}.electric-upgrade-stars [data-next-star]{font-style:normal;margin-left:3px;color:#fff2b0;text-shadow:0 0 6px #ffb830;animation:electric-next-star .85s ease-in-out infinite alternate}@keyframes electric-next-star{from{opacity:.32}to{opacity:1}}@media(prefers-reduced-motion:reduce){.electric-upgrade-stars [data-next-star]{animation:none;color:#fff;text-shadow:0 0 7px #ffb830}}.electric-lab-tools{margin-top:8px}.electric-panel .electric-lab-tools>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.electric-lab-tools p{grid-column:1/-1;margin:3px 0;color:#b9dce9;font-size:11px;line-height:1.5}.electric-lab-tools button{padding:5px 2px;min-width:0}.electric-lab-tools button[aria-pressed="true"]{border-color:#8ce1ed;background:#315665}';
   document.head.append(style);
   const threatStyle=document.createElement('style');threatStyle.textContent='.strong-enemy-forecast{position:absolute;inset:0;width:100%;height:100%;z-index:34;pointer-events:none;overflow:hidden}.strong-warning{filter:drop-shadow(0 0 3px #ffad72) drop-shadow(0 0 9px #ff793c)}.strong-warning rect{fill:#231b25;fill-opacity:.94;stroke:#f58765;stroke-width:1.2}.strong-triangle{fill:none;stroke:#ffae78;stroke-width:1.5;stroke-linejoin:round}.strong-exclamation{fill:none;stroke:#ffe5bc;stroke-width:2.2;stroke-linecap:round}';document.head.append(threatStyle);
   threatUI=document.createElementNS(ns,'svg');threatUI.classList.add('strong-enemy-forecast');threatUI.hidden=true;threatUI.style.display='none';threatUI.setAttribute('role','img');threatUI.setAttribute('aria-label','本关强敌及来袭方向，箭头指向场内');$('viewport').append(threatUI);
@@ -415,7 +501,8 @@ globalThis.ElectricEditor=(()=>{
   tools.addEventListener('click',e=>{const kind=e.target.closest('[data-test-kind]')?.dataset.testKind,hazard=e.target.closest('[data-test-hazard]')?.dataset.testHazard;if(kind)loadTestKind(kind);else if(hazard)addTestHazard(hazard);});
   $('viewport').append(ui);bag=ui.querySelector('#electric-backpack');
   dragLink=document.createElementNS(ns,'svg');dragLink.id='electric-drag-link';dragLink.setAttribute('hidden','');dragLink.style.cssText='position:absolute;inset:0;width:100%;height:100%;z-index:48;pointer-events:none;overflow:visible';$('viewport').append(dragLink);
-  bag.addEventListener('pointerdown',e=>{const hit=e.target.closest?.('[data-stock-id]');if(!hit||!editing||mergeFeedback||drag||bagGesture||e.isPrimary===false||e.button>0)return;const item=stock.find(i=>i.id===Number(hit.dataset.stockId));if(!item)return;e.preventDefault();e.stopPropagation();bagGesture={id:e.pointerId,item,event:e,x:e.clientX,y:e.clientY,scroll:bag.scrollLeft,mode:null};ui.setPointerCapture?.(e.pointerId);});
+  bag.addEventListener('pointerdown',e=>{const hit=e.target.closest?.('[data-stock-id]');if(!hit||!editing||mergeFeedback||drag||bagGesture||e.isPrimary===false||e.button>0)return;const item=stock.find(i=>i.id===Number(hit.dataset.stockId));if(!item||item.upgrade)return;e.preventDefault();e.stopPropagation();bagGesture={id:e.pointerId,item,event:e,x:e.clientX,y:e.clientY,scroll:bag.scrollLeft,mode:null};ui.setPointerCapture?.(e.pointerId);});
+  bag.addEventListener('click',e=>{const card=e.target.closest('[data-upgrade]');if(card)selectUpgrade(stock.find(item=>item.id===Number(card.dataset.stockId)));});
   bag.addEventListener('wheel',e=>{if(bag.scrollWidth<=bag.clientWidth)return;const delta=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;bag.scrollLeft+=delta;e.preventDefault();},{passive:false});
   document.addEventListener('pointermove',moveDrag,{passive:false});document.addEventListener('pointerup',releaseDrag);document.addEventListener('pointercancel',e=>{if((cameraGesture?.id??drag?.id??bagGesture?.id)===e.pointerId){cancelDrag();renderBag();renderOverlay();}});
   ui.addEventListener('lostpointercapture',e=>{if((drag?.id??bagGesture?.id)===e.pointerId){cancelDrag();renderBag();renderOverlay();}});
@@ -430,5 +517,5 @@ globalThis.ElectricEditor=(()=>{
   new ResizeObserver(()=>{bagStamp=null;renderBag();if(editing)renderOverlay();}).observe(ui);
  }
  init();refreshAvailability();
- return {open,close,reset,draw,prepareFloor,catalog,refresh,refreshAvailability,run,defs,isFloor,isBarricade,shape,canPlace,canExpand,frontier,floorCoverage,demolitionCells,get preparing(){return preparing;},get editing(){return editing;},get stock(){return stock.map(i=>({id:i.id,kind:i.kind,level:i.level}));}};
+ return {open,close,reset,draw,prepareFloor,placeDraft,catalog,refresh,refreshAvailability,run,defs,isFloor,isBarricade,shape,canPlace,canExpand,frontier,floorCoverage,demolitionCells,get preparing(){return preparing;},get editing(){return editing;},get stock(){return stock.map(i=>({id:i.id,kind:i.kind,level:i.level,...(i.upgrade?{upgrade:true}:{})}));}};
 })();

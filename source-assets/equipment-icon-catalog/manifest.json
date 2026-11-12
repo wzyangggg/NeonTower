@@ -1,0 +1,530 @@
+{
+  "服装与护甲": [
+    {
+      "id": "shell",
+      "name": "防弹毛衣",
+      "icon": "icons/shell-48.png",
+      "icon32": "icons/shell-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/shell-48.png"
+    },
+    {
+      "id": "energy",
+      "name": "琉璃铁布衫",
+      "icon": "icons/energy-48.png",
+      "icon32": "icons/energy-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/energy-48.png"
+    },
+    {
+      "id": "salvage",
+      "name": "拾荒风衣",
+      "icon": "icons/salvage-48.png",
+      "icon32": "icons/salvage-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/salvage-48.png"
+    },
+    {
+      "id": "greed",
+      "name": "狂笑西服",
+      "icon": "icons/greed-48.png",
+      "icon32": "icons/greed-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/greed-48.png"
+    },
+    {
+      "id": "purity",
+      "name": "杀毒工装",
+      "icon": "icons/purity-48.png",
+      "icon32": "icons/purity-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/purity-48.png"
+    },
+    {
+      "id": "renewal",
+      "name": "暗红西装",
+      "icon": "icons/renewal-48.png",
+      "icon32": "icons/renewal-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/renewal-48.png"
+    },
+    {
+      "id": "falcon",
+      "name": "游隼冲锋衣",
+      "icon": "icons/falcon-48.png",
+      "icon32": "icons/falcon-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/falcon-48.png"
+    },
+    {
+      "id": "wine",
+      "name": "夜宴礼服",
+      "icon": "icons/wine-48.png",
+      "icon32": "icons/wine-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/wine-48.png"
+    },
+    {
+      "id": "ambush",
+      "name": "伏击斗篷",
+      "icon": "icons/ambush-48.png",
+      "icon32": "icons/ambush-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/ambush-48.png"
+    },
+    {
+      "id": "plume",
+      "name": "翎羽天衣",
+      "icon": "icons/plume-48.png",
+      "icon32": "icons/plume-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/plume-48.png"
+    },
+    {
+      "id": "chrono",
+      "name": "黑色风衣",
+      "icon": "icons/chrono-48.png",
+      "icon32": "icons/chrono-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/chrono-48.png"
+    },
+    {
+      "id": "aura",
+      "name": "蓝焰卫衣",
+      "icon": "icons/aura-48.png",
+      "icon32": "icons/aura-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-1-revised/pixel/aura-48.png"
+    }
+  ],
+  "鞋履与坐骑": [
+    {
+      "id": "runner",
+      "name": "波点水上漂",
+      "icon": "icons/runner-48.png",
+      "icon32": "icons/runner-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/runner-48.png"
+    },
+    {
+      "id": "steady",
+      "name": "稳步靴",
+      "icon": "icons/steady-48.png",
+      "icon32": "icons/steady-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/steady-48.png"
+    },
+    {
+      "id": "catalyst",
+      "name": "裂变德鲁伊",
+      "icon": "icons/catalyst-48.png",
+      "icon32": "icons/catalyst-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/catalyst-48.png"
+    },
+    {
+      "id": "magnet",
+      "name": "盛宴舞鞋",
+      "icon": "icons/magnet-48.png",
+      "icon32": "icons/magnet-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/magnet-48.png"
+    },
+    {
+      "id": "skateboard",
+      "name": "霓虹巡演",
+      "icon": "icons/skateboard-48.png",
+      "icon32": "icons/skateboard-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/skateboard-48.png"
+    },
+    {
+      "id": "vinyl",
+      "name": "炫彩光盘",
+      "icon": "icons/vinyl-48.png",
+      "icon32": "icons/vinyl-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/vinyl-48.png"
+    },
+    {
+      "id": "spider",
+      "name": "蜘蛛机甲",
+      "icon": "icons/spider-48.png",
+      "icon32": "icons/spider-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/spider-48.png"
+    },
+    {
+      "id": "warpstar",
+      "name": "飞行星星",
+      "icon": "icons/warpstar-48.png",
+      "icon32": "icons/warpstar-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/warpstar-48.png"
+    },
+    {
+      "id": "ufo",
+      "name": "飞碟",
+      "icon": "icons/ufo-48.png",
+      "icon32": "icons/ufo-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/ufo-48.png"
+    },
+    {
+      "id": "neonsword",
+      "name": "霓虹飞剑",
+      "icon": "icons/neonsword-48.png",
+      "icon32": "icons/neonsword-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/neonsword-48.png"
+    },
+    {
+      "id": "sharkblimp",
+      "name": "小鲨鱼飞艇",
+      "icon": "icons/sharkblimp-48.png",
+      "icon32": "icons/sharkblimp-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/sharkblimp-48.png"
+    },
+    {
+      "id": "smallplane",
+      "name": "小飞机",
+      "icon": "icons/smallplane-48.png",
+      "icon32": "icons/smallplane-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-2-revised/pixel/smallplane-48.png"
+    },
+    {
+      "id": "tentacle",
+      "name": "章鱼触手",
+      "icon": "icons/tentacle-48.png",
+      "icon32": "icons/tentacle-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/tentacle-48.png"
+    }
+  ],
+  "无人机": [
+    {
+      "id": "ram",
+      "name": "撞针无人机",
+      "icon": "icons/ram-48.png",
+      "icon32": "icons/ram-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/ram-48.png"
+    },
+    {
+      "id": "interceptor",
+      "name": "哨环无人机",
+      "icon": "icons/interceptor-48.png",
+      "icon32": "icons/interceptor-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/interceptor-48.png"
+    },
+    {
+      "id": "chainsaw",
+      "name": "裂齿电锯无人机",
+      "icon": "icons/chainsaw-48.png",
+      "icon32": "icons/chainsaw-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/chainsaw-48.png"
+    },
+    {
+      "id": "weakener",
+      "name": "弱点探针",
+      "icon": "icons/weakener-48.png",
+      "icon32": "icons/weakener-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/weakener-48.png"
+    },
+    {
+      "id": "medic",
+      "name": "医疗萤",
+      "icon": "icons/medic-48.png",
+      "icon32": "icons/medic-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/medic-48.png"
+    },
+    {
+      "id": "charger",
+      "name": "充能萤",
+      "icon": "icons/charger-48.png",
+      "icon32": "icons/charger-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/charger-48.png"
+    }
+  ],
+  "炸弹": [
+    {
+      "id": "tower",
+      "name": "电浆炸弹",
+      "icon": "icons/tower-48.png",
+      "icon32": "icons/tower-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/tower-48.png"
+    },
+    {
+      "id": "freeze_bomb",
+      "name": "冰冻炸弹",
+      "icon": "icons/freeze_bomb-48.png",
+      "icon32": "icons/freeze_bomb-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/freeze_bomb-48.png"
+    },
+    {
+      "id": "laser_bomb",
+      "name": "激光炸弹",
+      "icon": "icons/laser_bomb-48.png",
+      "icon32": "icons/laser_bomb-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/laser_bomb-48.png"
+    },
+    {
+      "id": "missile_bomb",
+      "name": "导弹炸弹",
+      "icon": "icons/missile_bomb-48.png",
+      "icon32": "icons/missile_bomb-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/missile_bomb-48.png"
+    }
+  ],
+  "武器型号": [
+    {
+      "id": "pistol_t1",
+      "name": "勤务手枪",
+      "icon": "icons/pistol_t1-48.png",
+      "icon32": "icons/pistol_t1-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/pistol_t1-48.png"
+    },
+    {
+      "id": "pistol_t2",
+      "name": "哨兵手枪",
+      "icon": "icons/pistol_t2-48.png",
+      "icon32": "icons/pistol_t2-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/pistol_t2-48.png"
+    },
+    {
+      "id": "pistol_t3",
+      "name": "北极星",
+      "icon": "icons/pistol_t3-48.png",
+      "icon32": "icons/pistol_t3-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/pistol_t3-48.png"
+    },
+    {
+      "id": "pistol_t4",
+      "name": "最后通牒",
+      "icon": "icons/pistol_t4-48.png",
+      "icon32": "icons/pistol_t4-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/pistol_t4-48.png"
+    },
+    {
+      "id": "smg_t1",
+      "name": "街头冲锋枪",
+      "icon": "icons/smg_t1-48.png",
+      "icon32": "icons/smg_t1-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/smg_t1-48.png"
+    },
+    {
+      "id": "smg_t2",
+      "name": "AK47",
+      "icon": "icons/smg_t2-48.png",
+      "icon32": "icons/smg_t2-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/smg_t2-48.png"
+    },
+    {
+      "id": "smg_t3",
+      "name": "加特林",
+      "icon": "icons/smg_t3-48.png",
+      "icon32": "icons/smg_t3-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/smg_t3-48.png"
+    },
+    {
+      "id": "uzi_t2",
+      "name": "双手乌兹",
+      "icon": "icons/uzi_t2-48.png",
+      "icon32": "icons/uzi_t2-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/uzi_t2-48.png"
+    },
+    {
+      "id": "uzi_t4",
+      "name": "双生毒牙",
+      "icon": "icons/uzi_t4-48.png",
+      "icon32": "icons/uzi_t4-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/uzi_t4-48.png"
+    },
+    {
+      "id": "rifle_t1",
+      "name": "制式卡宾枪",
+      "icon": "icons/rifle_t1-48.png",
+      "icon32": "icons/rifle_t1-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-1/pixel/rifle_t1-48.png"
+    },
+    {
+      "id": "rifle_t3",
+      "name": "卫士卡宾枪",
+      "icon": "icons/rifle_t3-48.png",
+      "icon32": "icons/rifle_t3-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/rifle_t3-48.png"
+    },
+    {
+      "id": "rifle_t4",
+      "name": "破晓执行者",
+      "icon": "icons/rifle_t4-48.png",
+      "icon32": "icons/rifle_t4-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/rifle_t4-48.png"
+    },
+    {
+      "id": "sniper_t2",
+      "name": "猎人狙击枪",
+      "icon": "icons/sniper_t2-48.png",
+      "icon32": "icons/sniper_t2-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/sniper_t2-48.png"
+    },
+    {
+      "id": "sniper_t3",
+      "name": "巴雷特",
+      "icon": "icons/sniper_t3-48.png",
+      "icon32": "icons/sniper_t3-32.png",
+      "source": "source-assets/equipment-icon-catalog/batch-3-revised/pixel/barrett-48.png"
+    },
+    {
+      "id": "sniper_t5",
+      "name": "天穹裁决",
+      "icon": "icons/sniper_t5-48.png",
+      "icon32": "icons/sniper_t5-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/sniper_t5-48.png"
+    },
+    {
+      "id": "rocket_t3",
+      "name": "轰鸣火箭筒",
+      "icon": "icons/rocket_t3-48.png",
+      "icon32": "icons/rocket_t3-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/rocket_t3-48.png"
+    },
+    {
+      "id": "rocket_t4",
+      "name": "蓝焰攻城炮",
+      "icon": "icons/rocket_t4-48.png",
+      "icon32": "icons/rocket_t4-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/rocket_t4-48.png"
+    },
+    {
+      "id": "rocket_t5",
+      "name": "恒星重炮",
+      "icon": "icons/rocket_t5-48.png",
+      "icon32": "icons/rocket_t5-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/rocket_t5-48.png"
+    },
+    {
+      "id": "seeker_t4",
+      "name": "天网追猎者",
+      "icon": "icons/seeker_t4-48.png",
+      "icon32": "icons/seeker_t4-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/seeker_t4-48.png"
+    },
+    {
+      "id": "seeker_t5",
+      "name": "群星追缉令",
+      "icon": "icons/seeker_t5-48.png",
+      "icon32": "icons/seeker_t5-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/seeker_t5-48.png"
+    },
+    {
+      "id": "laser_t3",
+      "name": "切割激光枪",
+      "icon": "icons/laser_t3-48.png",
+      "icon32": "icons/laser_t3-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/laser_t3-48.png"
+    },
+    {
+      "id": "laser_t4",
+      "name": "棱镜激光枪",
+      "icon": "icons/laser_t4-48.png",
+      "icon32": "icons/laser_t4-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/laser_t4-48.png"
+    },
+    {
+      "id": "laser_t5",
+      "name": "白昼终点",
+      "icon": "icons/laser_t5-48.png",
+      "icon32": "icons/laser_t5-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/laser_t5-48.png"
+    },
+    {
+      "id": "tesla_t2",
+      "name": "便携电击器",
+      "icon": "icons/tesla_t2-48.png",
+      "icon32": "icons/tesla_t2-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/tesla_t2-48.png"
+    },
+    {
+      "id": "tesla_t3",
+      "name": "雷鸣电弧枪",
+      "icon": "icons/tesla_t3-48.png",
+      "icon32": "icons/tesla_t3-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/tesla_t3-48.png"
+    },
+    {
+      "id": "tesla_t5",
+      "name": "天罚线圈",
+      "icon": "icons/tesla_t5-48.png",
+      "icon32": "icons/tesla_t5-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/tesla_t5-48.png"
+    },
+    {
+      "id": "boomerang_t1",
+      "name": "铁刺回旋镖",
+      "icon": "icons/boomerang_t1-48.png",
+      "icon32": "icons/boomerang_t1-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/boomerang_t1-48.png"
+    },
+    {
+      "id": "boomerang_t2",
+      "name": "裂齿回旋刃",
+      "icon": "icons/boomerang_t2-48.png",
+      "icon32": "icons/boomerang_t2-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/boomerang_t2-48.png"
+    },
+    {
+      "id": "boomerang_t4",
+      "name": "蓝焰荆轮",
+      "icon": "icons/boomerang_t4-48.png",
+      "icon32": "icons/boomerang_t4-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-4/pixel/boomerang_t4-48.png"
+    },
+    {
+      "id": "boomerang_t5",
+      "name": "日蚀王冠",
+      "icon": "icons/boomerang_t5-48.png",
+      "icon32": "icons/boomerang_t5-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-4/pixel/boomerang_t5-48.png"
+    },
+    {
+      "id": "bee_t3",
+      "name": "工蜂发射器",
+      "icon": "icons/bee_t3-48.png",
+      "icon32": "icons/bee_t3-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-4/pixel/bee_t3-48.png"
+    },
+    {
+      "id": "bee_t5",
+      "name": "万蜂王庭",
+      "icon": "icons/bee_t5-48.png",
+      "icon32": "icons/bee_t5-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-4/pixel/bee_t5-48.png"
+    },
+    {
+      "id": "sword_t1",
+      "name": "铁剑",
+      "icon": "icons/sword_t1-48.png",
+      "icon32": "icons/sword_t1-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-4/pixel/sword_t1-48.png"
+    },
+    {
+      "id": "sword_t2",
+      "name": "合金长剑",
+      "icon": "icons/sword_t2-48.png",
+      "icon32": "icons/sword_t2-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-4/pixel/sword_t2-48.png"
+    },
+    {
+      "id": "sword_t4",
+      "name": "破晓之刃",
+      "icon": "icons/sword_t4-48.png",
+      "icon32": "icons/sword_t4-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-4/pixel/sword_t4-48.png"
+    },
+    {
+      "id": "sword_t5",
+      "name": "星陨圣剑",
+      "icon": "icons/sword_t5-48.png",
+      "icon32": "icons/sword_t5-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-4/pixel/sword_t5-48.png"
+    },
+    {
+      "id": "rifle_t2",
+      "name": "三连发步枪",
+      "icon": "icons/rifle_t2-48.png",
+      "icon32": "icons/rifle_t2-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-2/pixel/rifle_t2-48.png"
+    },
+    {
+      "id": "laser_t2",
+      "name": "三连发激光枪",
+      "icon": "icons/laser_t2-48.png",
+      "icon32": "icons/laser_t2-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/laser_t2-48.png"
+    },
+    {
+      "id": "tesla_t4",
+      "name": "双手雷电枪",
+      "icon": "icons/tesla_t4-48.png",
+      "icon32": "icons/tesla_t4-32.png",
+      "source": "source-assets/equipment-icon-catalog/weapon-3/pixel/tesla_t4-48.png"
+    }
+  ]
+}

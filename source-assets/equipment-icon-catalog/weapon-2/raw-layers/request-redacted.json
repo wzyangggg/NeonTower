@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract only the listed icons as independent transparent PNG layers. Preserve contours, colors and interior holes. For paired guns keep both guns in the same layer. Use exact IDs and normalized bounds:\nrifle_t2: <bbox>0 0 200 500</bbox>\nrifle_t3: <bbox>200 0 400 500</bbox>\nrifle_t4: <bbox>400 0 600 500</bbox>\nsniper_t2: <bbox>600 0 800 500</bbox>\nsniper_t5: <bbox>800 0 999 500</bbox>\nrocket_t3: <bbox>0 500 200 999</bbox>\nrocket_t4: <bbox>200 500 400 999</bbox>\nrocket_t5: <bbox>400 500 600 999</bbox>\nseeker_t4: <bbox>600 500 800 999</bbox>\nseeker_t5: <bbox>800 500 999 999</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-2\\source.png",
+  "sha256": "81557eec8c7b9e7805dfdc22733ae4e089d04faa93c17927c6fdf8e425309370"
+}

@@ -1,0 +1,172 @@
+{
+  "layers": [
+    {
+      "size": "740x716",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          64,
+          77,
+          397,
+          399
+        ],
+        "normalized": [
+          36,
+          87,
+          224,
+          450
+        ]
+      },
+      "name": "rate",
+      "description": "a cyan shield plate on a gold assembly gear, keep original color, silhouette and all components, no extra content",
+      "background": "transparent",
+      "path": "raw-layers/layer-01.png",
+      "label": "装配提速"
+    },
+    {
+      "size": "736x817",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          511,
+          68,
+          819,
+          409
+        ],
+        "normalized": [
+          288,
+          77,
+          462,
+          461
+        ]
+      },
+      "name": "preload",
+      "description": "a charged blue battery slotted into the foot of a shield, keep original color, silhouette and all components",
+      "background": "transparent",
+      "path": "raw-layers/layer-02.png",
+      "label": "预充电"
+    },
+    {
+      "size": "791x715",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          923,
+          77,
+          1279,
+          398
+        ],
+        "normalized": [
+          520,
+          87,
+          721,
+          449
+        ]
+      },
+      "name": "storage",
+      "description": "two distinct blue shields nested in a two-bay rack, keep original color, silhouette and all components",
+      "background": "transparent",
+      "path": "raw-layers/layer-03.png",
+      "label": "双格储存"
+    },
+    {
+      "size": "724x753",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          1380,
+          65,
+          1718,
+          417
+        ],
+        "normalized": [
+          778,
+          73,
+          968,
+          470
+        ]
+      },
+      "name": "duration",
+      "description": "a thick blue shield reinforced by chunky riveted steel edges, keep original color, silhouette and all components",
+      "background": "transparent",
+      "path": "raw-layers/layer-04.png",
+      "label": "强化外壳"
+    },
+    {
+      "size": "740x814",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          79,
+          506,
+          372,
+          827
+        ],
+        "normalized": [
+          45,
+          570,
+          210,
+          932
+        ]
+      },
+      "name": "stable",
+      "description": "a shield front with a smooth continuous glowing cyan power ring, keep original color, silhouette and all components",
+      "background": "transparent",
+      "path": "raw-layers/layer-05.png",
+      "label": "稳定供能"
+    },
+    {
+      "size": "826x596",
+      "output_format": "png",
+      "z_index": 6,
+      "bounding_box": {
+        "absolute": [
+          466,
+          518,
+          858,
+          801
+        ],
+        "normalized": [
+          263,
+          584,
+          484,
+          903
+        ]
+      },
+      "name": "wave",
+      "description": "a blue shield emitting two sideward turquoise ripples, keep original color, silhouette, ripples and all components",
+      "background": "transparent",
+      "path": "raw-layers/layer-06.png",
+      "label": "排斥波纹"
+    },
+    {
+      "size": "832x643",
+      "output_format": "png",
+      "z_index": 7,
+      "bounding_box": {
+        "absolute": [
+          931,
+          518,
+          1289,
+          794
+        ],
+        "normalized": [
+          525,
+          584,
+          727,
+          895
+        ]
+      },
+      "name": "sprint",
+      "description": "a small blue shield with gold wing and three short horizontal speed streaks, keep original color, silhouette, speed streaks and all components",
+      "background": "transparent",
+      "path": "raw-layers/layer-07.png",
+      "label": "开路护盾"
+    }
+  ]
+}

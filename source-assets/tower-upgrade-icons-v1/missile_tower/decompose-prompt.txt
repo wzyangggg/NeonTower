@@ -1,0 +1,7 @@
+Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 6 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:
+speed <bbox>20 101 330 435</bbox> a red finned guided missile with bright long exhaust
+radar <bbox>358 76 660 431</bbox> a tilted radar dish with two orange scan arcs
+range <bbox>688 117 957 414</bbox> a long yellow-tipped missile fuse with a small distance reticle
+cycle <bbox>17 560 307 889</bbox> a revolver-like rotary rack holding three red mini missiles
+aftershock <bbox>337 563 643 875</bbox> a twin-stage orange explosion with two distinct stepped blast rings
+zone <bbox>672 561 980 890</bbox> a crater with hot red impact core and three dark hazard stakes around it

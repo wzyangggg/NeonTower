@@ -14,7 +14,6 @@ const airTypes=new Set(['spitter','eye','skull','moth','pursuitDrone','fighter',
 for(let f=1;f<=33;f++){
  setup(f);
  if(f%11===0){check(state==='bossIntro'&&campaignBoss>0,'boss floor retained '+f);continue;}
- if(isDrinkFloor(f)){check(state==='drinkArrival','drink stop retained '+f);continue;}
  if(isRailFloor()){check(railRoom&&state==='survival'&&railRoom.tracks.length===6,'rail survival retained '+f);continue;}
  if(isSawFloor()){check(sawRoom&&enemies.length===0&&sawRoom.sources.length===Math.ceil(tiles.length/10),'saw corridor retained '+f);continue;}
  check(timedRoom&&!builderRoom&&enemies.length===5,'ordinary aerial opening including former builder floors '+f);

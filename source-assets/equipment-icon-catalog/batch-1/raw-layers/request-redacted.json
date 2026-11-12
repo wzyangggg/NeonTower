@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly twelve foreground objects as separate transparent layers, preserving exact color and silhouettes. Remove all navy background including inside holes. Keep pairs of shoes as one object. Match these IDs and 0-999 bounds:\nshell: <bbox>28 62 272 328</bbox>\nenergy: <bbox>272 62 515 328</bbox>\nsalvage: <bbox>515 62 751 328</bbox>\ngreed: <bbox>751 62 978 328</bbox>\npurity: <bbox>28 328 272 635</bbox>\nrenewal: <bbox>272 328 515 635</bbox>\nfalcon: <bbox>515 328 751 635</bbox>\nwine: <bbox>751 328 978 635</bbox>\nambush: <bbox>28 635 272 940</bbox>\nplume: <bbox>272 635 515 940</bbox>\nchrono: <bbox>515 635 751 940</bbox>\naura: <bbox>751 635 978 940</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1\\source.png",
+  "sha256": "f876a1c6b9e7188d4d7db5736a31bdf120852142539ba19df505fb41480bdf32"
+}

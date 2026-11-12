@@ -4,15 +4,21 @@ const assert=require('node:assert/strict');
  const page=await browser.newPage({viewport:{width:390,height:844}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:4173/');await page.waitForSelector('#lobby-nav:not([hidden])');
  assert.equal(await page.evaluate(()=>music.active),true);
- // Supply real local tracks only inside this test; production album slots remain user-configurable.
- await page.evaluate(()=>{DIFFICULTIES[0].bgm.src='audio/normal-theme.mp3';DIFFICULTIES[1].bgm.src='audio/relentless-minor.mp3';syncMusic();});
- await page.locator('#lobby-tab-battle').click();await page.waitForFunction(()=>!music.media.paused&&music.media.currentTime>0&&music.track==='difficulty-1');
- await page.locator('[data-difficulty-step="1"]').click();await page.waitForFunction(()=>music.track==='difficulty-2'&&!music.media.paused&&music.media.currentTime>0);
+ const tracks=['pixel-battle.mp3','underground-groove-1.mp3','underground-groove.mp3','mechanical-combat.mp3','relentless-minor.mp3'];
+ await page.locator('#lobby-tab-battle').click();
+ for(const [index,file] of tracks.entries()){
+  if(index>0)await page.locator('[data-difficulty-step="1"]').click();
+  await page.waitForFunction(({index,file})=>music.track==='difficulty-'+(index+1)&&music.media.currentSrc.endsWith('/audio/'+file)&&music.media.readyState>=2&&!music.media.paused&&music.media.currentTime>0,{index,file});
+ }
+ for(let level=5;level>2;level--)await page.locator('[data-difficulty-step="-1"]').click();
+ await page.waitForFunction(()=>music.track==='difficulty-2'&&!music.media.paused);
  await page.locator('#lobby-tab-research').click();assert.equal(await page.evaluate(()=>music.track),'difficulty-2');assert.equal(await page.evaluate(()=>music.media.paused),false);
  await page.locator('#lobby-tab-battle').click();await page.locator('[data-difficulty-step="-1"]').click();await page.waitForFunction(()=>music.track==='difficulty-1'&&!music.media.paused);
  await page.waitForFunction(()=>music.media.readyState>=2&&music.media.currentTime>0);
- const before=await page.evaluate(()=>({time:music.media.currentTime,revision:music.playbackRevision,src:music.media.src}));await page.locator('#start').click();assert.equal(await page.evaluate(()=>music.track),'difficulty-1');
- const after=await page.evaluate(()=>({time:music.media.currentTime,revision:music.playbackRevision,src:music.media.src}));assert.equal(after.src,before.src);assert(after.time>=before.time,JSON.stringify({before,after}));
+ const before=await page.evaluate(()=>({time:music.media.currentTime,src:music.media.src}));await page.locator('#start').click();
+ await page.waitForFunction(()=>state!=='menu'&&!difficultyEntering&&!music.media.paused);
+ assert.equal(await page.evaluate(()=>music.track),'difficulty-1');
+ const after=await page.evaluate(()=>({time:music.media.currentTime,src:music.media.src}));assert.equal(after.src,before.src);assert(after.time>=before.time,JSON.stringify({before,after}));
  await page.evaluate(()=>{paused=true;syncMusic();});assert.equal(await page.evaluate(()=>music.media.paused),true);
  await page.evaluate(()=>returnToMainMenu());await page.waitForFunction(()=>music.active&&!music.media.paused);assert.equal(await page.evaluate(()=>music.track),'difficulty-1');
  await page.evaluate(()=>{sound=false;syncMusic();});assert.equal(await page.evaluate(()=>music.media.paused),true);
@@ -20,5 +26,5 @@ const assert=require('node:assert/strict');
  await page.evaluate(()=>window.dispatchEvent(new Event('blur')));assert.equal(await page.evaluate(()=>music.media.paused),true);
  await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await page.waitForFunction(()=>!music.media.paused);
  await page.evaluate(()=>{DIFFICULTIES[0].bgm.src=null;syncMusic();});assert.equal(await page.evaluate(()=>music.track),'boss');await page.waitForFunction(()=>!music.media.paused);
- assert.deepEqual(errors,[]);console.log('Menu music real Edge: gesture unlock, selected album switching, research continuity, battle continuity, pause/home, mute, blur/focus and unconfigured fallback passed');
+ assert.deepEqual(errors,[]);console.log('Menu music real Edge: five game albums play, research and battle continuity, pause/home, mute, blur/focus and unconfigured fallback passed');
  }finally{await browser.close();}})().catch(e=>{console.error(e);process.exit(1)});

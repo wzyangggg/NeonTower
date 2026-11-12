@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly 12 icons as separate transparent layers from this four-column three-row sheet. Preserve the source silhouette, details, contours and colors. Remove the dark navy background and keep all real holes transparent. Each icon is one complete object including paired wings, cannon barrels, rotors, or clothing details. Use exact names and 0-999 regions:\nbuilder-outfit: <bbox>56 75 235 302</bbox>\nranger-outfit: <bbox>290 75 473 302</bbox>\ncasual-outfit: <bbox>530 75 712 302</bbox>\nlight-armor: <bbox>765 75 945 302</bbox>\nheavy-armor: <bbox>57 370 235 607</bbox>\narmored-mount: <bbox>290 370 480 607</bbox>\nswift-mount: <bbox>528 405 712 575</bbox>\ncombat-mount: <bbox>750 370 949 590</bbox>\nsupport-mount: <bbox>55 695 240 889</bbox>\nattack-drone: <bbox>290 690 480 889</bbox>\nguard-drone: <bbox>528 690 712 889</bbox>\nsupport-drone: <bbox>752 690 950 889</bbox>\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-pixel-review-v1\\source.png",
+  "sha256": "cd810851ae0c55ff9e060fd354cf88ff85caaa4a0b0d550ca22afa705d8c1630"
+}

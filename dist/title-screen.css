@@ -27,5 +27,9 @@
 @keyframes title-circuit-signal{from{stroke-dashoffset:5}to{stroke-dashoffset:-95}}
 @media(prefers-reduced-motion:reduce){.circuit-signal{display:none}}
 
-.title-spectrum{display:none;inset:auto 8px var(--lobby-bottom) 8px;width:calc(100% - 16px);height:clamp(15px,3.3vh,28px);z-index:119;pointer-events:none}
+.title-spectrum{display:none;position:absolute;inset:-13%;width:126%;height:126%;pointer-events:none;opacity:.86}
 .title-screen.lobby-open.difficulty-screen:not(.lobby-subpage) .title-spectrum{display:block}
+
+.title-mixer{display:none;position:absolute;left:50%;transform:translateX(-50%);z-index:76;pointer-events:none;filter:drop-shadow(0 3px 3px #0009)}
+.title-screen.lobby-open.difficulty-screen:not(.lobby-subpage) .title-mixer[data-rendered]:not([hidden]){display:block}
+#viewport.title-screen.lobby-open.difficulty-screen:not(.lobby-subpage) .difficulty-panel{translate:0 -30px}

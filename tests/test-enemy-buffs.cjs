@@ -8,18 +8,75 @@ for(const file of ['music','renderer','map-icons','game','humanoid','cowboy','sn
 vm.runInContext(`{
 function check(v,m){if(!v)throw Error(m)}
 reset();sound=false;paused=false;state='combat';resetStageStats();
-const probe={x:p.x+300,y:p.y,height:30,age:0};
-const distance=()=>Math.hypot(probe.x-p.x,probe.y-p.y,probe.height-30-mountRiderLift()-playerUpperLift());
-let d=distance();advanceShieldPickup(probe,.1);check(Math.abs(d-distance()-17.8125)<1e-8,'first flight step constant 178.125 speed');d=distance();advanceShieldPickup(probe,.1);check(Math.abs(d-distance()-17.8125)<1e-8,'next flight step same speed');
-const near={x:p.x+30,y:p.y,height:30+mountRiderLift()+playerUpperLift(),age:0};check(advanceShieldPickup(near,0),'30-unit collection radius');const outside={...near,x:p.x+31};check(!advanceShieldPickup(outside,0),'outside collection radius still flies');
+const {halfWidth,top}=rainbowPickupBounds(30),right=325+halfWidth;
+const viewport=renderer.canvas.getBoundingClientRect();
+const edge=renderer.screenPoint(right-325,30,(top-300)*1.06);
+check(Math.abs(edge.x-(viewport.width-RAINBOW_WALL_MARGIN*renderer.pointScale))<1e-4&&Math.abs(edge.y-RAINBOW_WALL_MARGIN*renderer.pointScale)<1e-4,'bounce bounds project to the inset viewport corner');
+renderer.scenePerspective=true;renderer.resize();
+const perspective=rainbowPickupBounds(30);
+const farEdge=renderer.screenPoint(perspective.halfWidth+perspective.widthSlope*(perspective.top-300),30,(perspective.top-300)*1.06);
+check(Math.abs(farEdge.x-edge.x)<1e-4&&Math.abs(farEdge.y-edge.y)<1e-4,'perspective bounds project to the same inset viewport corner');
+for(const perspectiveMode of [false,true]){
+ renderer.scenePerspective=perspectiveMode;
+ renderer.cameraScale=1.25;renderer.resize();
+ // Apply the same horizontal and depth offset as the follow camera.
+ for(let i=0;i<4;i++)renderer.vp[12+i]-=renderer.vp[i]*160+renderer.vp[8+i]*220;
+ const bounds=rainbowPickupBounds(30),inset=RAINBOW_WALL_MARGIN*renderer.pointScale;
+ check(Math.abs(bounds.centerX-485)<1e-4,'follow camera moves the horizontal bounce center');
+ for(const y of [bounds.top,bounds.bottom])for(const side of [-1,1]){
+  const x=bounds.centerX+side*(bounds.halfWidth+bounds.widthSlope*(y-300));
+  const screen=renderer.screenPoint(x-325,30,(y-300)*1.06);
+  check(Math.abs(screen.x-(side<0?inset:viewport.width-inset))<1e-4
+   &&Math.abs(screen.y-(y===bounds.top?inset:viewport.height-inset))<1e-4,'shifted bounds meet all four viewport edges');
+ }
+ renderer.cameraJolt(9,-7);renderer.cameraJolt(-2,1);
+ check(JSON.stringify(rainbowPickupBounds(30))===JSON.stringify(bounds),'shake never moves the collision walls');
+ const y=(bounds.top+bounds.bottom)/2,right=bounds.centerX+bounds.halfWidth+bounds.widthSlope*(y-300);
+ const shifted={x:right-12,y,height:30,age:0,vx:60,vy:0};
+ advanceRainbowPickup(shifted,.25,false);
+ check(shifted.vx<0&&Math.abs(Math.hypot(shifted.vx,shifted.vy)-60)<1e-8,'pickup reflects from the shifted edge without losing speed');
+ if(perspectiveMode){
+  const taper={...shifted,x:right-2,y,vx:0,vy:60};
+  advanceRainbowPickup(taper,.25,false);
+  check(taper.vx<0,'a tapering wall can reflect motion parallel to the centerline');
+ }
+}
+renderer.cameraScale=1;
+renderer.scenePerspective=false;renderer.resize();
+const probe={x:right-20,y:top+15,height:30,age:0,vx:60,vy:-60};
+check(!advanceRainbowPickup(probe,.5),'distant box stays in play');
+check(Math.abs(probe.x-(right-10))<1e-8&&Math.abs(probe.y-(top+15))<1e-8&&probe.vx===-60&&probe.vy===60,'each wall reflects its velocity component and preserves travel');
+const near={...probe,x:p.x+30,y:p.y};check(advanceRainbowPickup(near,0),'30-unit collection radius');
+const outside={...near,x:p.x+31,vx:95,vy:0};check(!advanceRainbowPickup(outside,.1)&&outside.x>p.x+31,'box keeps moving away outside pickup range');
+check(advanceRainbowPickup({...probe,x:p.x-60,y:p.y,vx:95,vy:0},1.3),'contact detected along the straight path');
 const old=Math.random;Math.random=()=>0;
+const directions=new Set();
+for(const roll of [.125,.375,.625,.875]){
+ let calls=0;Math.random=()=>calls++===0?0:roll;
+ check(tryDropEnemyBuff({x:p.x+90,y:p.y,hp:0,type:'eye'}),'spawn diagonal pickup');
+ const {vx,vy}=enemyBuffs.pop();
+ check(Math.abs(Math.hypot(vx,vy)-180)<1e-8&&Math.abs(vx)===Math.abs(vy),'180 speed along a 45-degree diagonal');
+ directions.add([Math.sign(vx),Math.sign(vy)].join(','));
+}
+check(directions.size===4,'all four diagonal directions are available');
+Math.random=()=>0;
 const e={x:p.x+90,y:p.y,hp:0,type:'eye'};recordStageKill(e);recordStageKill(e);
 check(enemyBuffs.length===1,'one buff per death');
 for(const extra of [{type:'machine'},{roomCleanup:true},{escaped:true},{selfDetonated:true},{weaponLabTarget:true},{hp:1}])recordStageKill({...e,...extra});
 check(enemyBuffs.length===1,'exclude invalid kills');
 renderer.begin();drawEnemyBuffs();check(renderer.rainbowPickups.length===1&&Number.isFinite(renderer.rainbowPickups[0].age),'rainbow cube drop queued');
 paused=true;const age=enemyBuffs[0].age;updateEnemyBuffs(1);check(enemyBuffs[0].age===age,'pause');paused=false;
-updateEnemyBuffs(4);check(!enemyBuffs.length&&p.towerShieldLeft===2,'homing grants two seconds');
+p.shield=0;p.inv=0;
+updateEnemyBuffs(.1);check(enemyBuffs.length===1&&p.shield===0,'distant shield stays uncollected');
+p.x=Math.round(enemyBuffs[0].x);p.y=Math.round(enemyBuffs[0].y);
+updateEnemyBuffs(.01);check(!enemyBuffs.length&&p.shield===1&&!p.towerShieldLeft&&p.inv===0,'ordinary shield grants one point without invulnerability');
+p.shield=shieldMaximum()-.5;
+check(grantShieldPickup()&&p.shield===shieldMaximum(),'ordinary shield caps at the current maximum');
+check(!grantShieldPickup()&&cashPopups.at(-1).text==='护盾已满','full shield gives the full cue');
+cashPopups=[];
+Math.random=()=>.125;
+check(tryDropEnemyBuff({x:p.x,y:p.y,hp:0,type:'eye'})&&enemyBuffs[0].kind==='invincible'&&enemyBuffs[0].tint==='#ffbc36','rare roll selects the gold drop');
+updateEnemyBuffs(.01);check(!enemyBuffs.length&&p.towerShieldLeft===2&&p.shield===shieldMaximum(),'gold drop grants two seconds without changing shield points');
 const fx=particles.find(q=>q.shieldPickup);check(fx&&fx.maxLife===.25,'compact pickup column on absorption');
 fx.life=.20;renderer.begin();drawPickupParticle(fx);check(renderer.transparentCount>0&&renderer.transparentData.slice(0,renderer.transparentCount).every(Number.isFinite),'finite ring, column and rising flecks');
 const shells=renderer.sprites.filter(s=>s.vertexCount===288);check(shells.length===2&&shells.every(s=>s.data.every(Number.isFinite)),'two real textured cylinders');
@@ -53,8 +110,14 @@ for(const roomState of ['combat','survival']){
  beginStageClear();
  check(state==='stageClear'&&!enemyBuffs.length,'remaining shield drops cleared on '+roomState+' settlement');
  check((p.towerShieldLeft||0)===shieldBefore,'cleanup does not grant uncollected shield');
- renderer.begin();drawEnemyBuffs();check(!renderer.sprites.length,'no shield sprite during settlement');
+ renderer.begin();drawEnemyBuffs();check(!renderer.rainbowPickups.length,'no rainbow boxes during settlement');
 }
+enemyBuffs=[makePickupCrystal(p.x+200,p.y)];
+renderer.begin();drawEnemyBuffs();check(!renderer.rainbowPickups.length,'stale drops are hidden outside combat');
+beginDescent();
+check(state==='descent'&&!enemyBuffs.length,'descent clears any remaining drops before the next floor loads');
+land();
+renderer.begin();drawEnemyBuffs();check(!renderer.rainbowPickups.length,'no rainbow boxes on the next floor landing');
 resetStageStats();check(!enemyBuffs.length,'room reset');
-console.log('Enemy shield drops: kill eligibility, deduplication, mesh, pause, homing, popup, invulnerability and reset passed.');
+console.log('Enemy shield drops: kill eligibility, deduplication, mesh, pause, wall reflections, contact, popup, invulnerability and reset passed.');
 }`,sandbox);

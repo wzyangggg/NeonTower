@@ -8,7 +8,7 @@ const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-pri
   await page.goto(url,{timeout:60000});await page.waitForFunction(()=>window.HexMap?.ready);
   assert.equal(await page.locator('a[href="hex-city.html"]').count(),0,'no experimental entry in the formal menu');
   await page.locator('#start').click();await page.waitForFunction(()=>state==='combat');
-  assert.deepEqual(await page.evaluate(()=>({capacity:gridCapacity(),tiles:tiles.length,weapons:WEAPON_MODELS.length,scene:StreetScene.place,talents:!!globalThis.TalentRuntime})),{capacity:143,tiles:9,weapons:39,scene:'abyss',talents:true});
+  assert.deepEqual(await page.evaluate(()=>({capacity:gridCapacity(),tiles:tiles.length,weapons:WEAPON_MODELS.length,scene:StreetScene.place,talents:!!globalThis.TalentRuntime})),{capacity:143,tiles:9,weapons:43,scene:'abyss',talents:true});
   assert.ok(await page.evaluate(()=>{paused=true;p.inv=999;draw();return [...renderer.residentMeshes.keys()].some(k=>k.startsWith('hex-column:'));}));
   assert.equal(await page.evaluate(()=>renderer.gl.getError()),0);assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);
   if(url.startsWith('file:'))assert.deepEqual(network,[],'offline file never requests the engine, modules or assets over HTTP');

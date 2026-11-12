@@ -50,9 +50,74 @@
 .result-cyan-chip{filter:drop-shadow(0 0 2px #19eaff99)}.result-white-chip{filter:drop-shadow(0 0 2px #baffff88)}.result-black-chip{filter:none}
 @media(prefers-reduced-motion:reduce){.result-solid-particles{display:none}}
 
-.result-loot{margin:14px 34px 0;padding:12px;background:#07151ee8;border:1px solid #e7bb6a88;text-align:left;color:#fff0c3}.result-loot[hidden]{display:none}.result-loot-heading{font-size:13px;font-weight:800;display:flex;justify-content:space-between;gap:6px}.result-loot-heading span{font-size:10px;font-weight:400;color:#acbeca}.result-loot-list{display:grid;gap:6px;margin-top:8px}.result-loot-item{display:flex;align-items:center;gap:10px;padding:5px 8px;border-left:2px solid var(--rarity);background:#142430}.result-loot-item svg{width:36px;height:36px;flex:none}.result-loot-item b{display:block;font-size:13px;color:var(--rarity)}.result-loot-item small{display:block;margin-top:3px;font-size:10px;color:#becdd6}
-@media(max-height:650px){.stage-clear .result-content{max-height:96%;overflow-y:auto;pointer-events:auto}.result-loot{margin-top:6px;padding:8px}.result-loot-item{padding:3px 6px}.result-loot-item svg{width:28px;height:28px}}
+.result-loot{margin:14px 12px 0;padding:10px;background:#07151ee8;border:1px solid #e7bb6a88;text-align:left;color:#fff0c3}
+.result-loot[hidden]{display:none}
+.result-loot-heading{font-size:13px;font-weight:800;display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.result-loot-heading span{font-size:10px;font-weight:400;color:#acbeca}
+.result-loot-list{display:grid;grid-template-columns:repeat(3,min(61.6px,calc((100% - 16px) * .7 / 3)));align-items:start;gap:8px;margin-top:8px}
+.result-loot-item{
+ box-sizing:border-box;aspect-ratio:1;min-width:0;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto auto;
+ gap:2px;padding:2px;text-align:center;pointer-events:auto;
+ border:2px solid color-mix(in srgb,var(--rarity) 72%,#20364a);
+ background:radial-gradient(ellipse at 50% 30%,color-mix(in srgb,var(--rarity) 24%,#152537),#0b1623 78%);
+ box-shadow:inset 0 0 0 2px #07131eaa;
+}
+.result-loot-icon{display:grid;place-items:center;min-height:0}
+.result-loot-chip,.result-material{grid-template:minmax(0,1fr) / minmax(0,1fr);place-items:center;padding:0}
+.result-loot-chip .chip-icon{width:56px;height:56px;max-width:100%;max-height:100%}
+.result-loot-item b{font-size:11px;line-height:1.2;color:var(--rarity);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.result-loot-item small{font-size:10px;line-height:1.2;color:#becdd6}
+.result-material .material-icon{grid-area:1/1;display:block;width:min(48px,100%);height:auto;image-rendering:pixelated}
+.result-material .material-count{position:absolute;right:1px;bottom:1px;padding:1px 3px;border-radius:3px;background:#121a29;color:#fff;font:750 10px/1.15 system-ui}
+.run-material-result .material-icon{animation:result-material-in .28s var(--loot-delay) ease-out both}
+.material-gain-popup{display:flex;gap:4px}
+.material-gain-popup .result-material{width:36px}
+.material-gain-popup .material-icon{width:32px}
+.material-gain-popup .material-count{font-size:9px}
+.stage-clear .result-content{display:flex;flex-direction:column;max-height:96%}
+.stage-clear .result-content > :not(.result-loot){flex-shrink:0}
+#result-loot{display:flex;flex-direction:column;min-height:0;pointer-events:auto;cursor:default}
+#result-loot[hidden]{display:none}
+#result-loot .result-loot-heading{flex-shrink:0;margin-bottom:6px}
+.result-loot-scroll{
+ min-height:0;height:min(37dvh,214px);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
+ touch-action:pan-y;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:#c49c59 #14252f;
+}
+@supports selector(::-webkit-scrollbar){
+ .result-loot-scroll{scrollbar-width:auto;scrollbar-color:auto}
+ .result-loot-scroll::-webkit-scrollbar{width:9px}
+ .result-loot-scroll::-webkit-scrollbar-track{background:#14252f;border:1px solid #695537}
+ .result-loot-scroll::-webkit-scrollbar-thumb{background:#d3a85f;border:1px solid #14252f}
+}
+.result-loot-scroll:focus-visible{outline:1px solid #e7bb6a;outline-offset:-1px}
+.result-loot-scroll .result-loot-list{
+ position:relative;margin:0;min-height:68px;padding:4px 8px 4px 4px;
+ grid-template-columns:repeat(auto-fill,minmax(min(100%,52px),1fr));
+}
+.result-loot-pop{animation:result-loot-pop .36s cubic-bezier(.2,.8,.32,1) both;z-index:1}
+.result-loot-sparks{position:absolute;inset:0;z-index:4;pointer-events:none}
+.result-loot-sparks i{
+ position:absolute;left:calc(50% - 2px);top:calc(50% - 2px);width:4px;height:4px;
+ background:#fff6c4;box-shadow:0 0 5px #ffe381;animation:result-loot-spark .38s var(--spark-delay) ease-out both;
+}
+@keyframes result-loot-pop{
+ from{transform:translateY(8px) scale(.76);filter:brightness(1.7)}
+ 55%{transform:translateY(-2px) scale(1.04)}
+ to{transform:none;filter:none}
+}
+@keyframes result-loot-spark{
+ from{opacity:1;transform:scale(.5) rotate(45deg)}
+ to{opacity:0;transform:translate(var(--spark-x),var(--spark-y)) scale(.2) rotate(135deg)}
+}
+.overlay .run-material-result{flex-shrink:0;width:min(90%,350px);margin:4px 0}
+@keyframes result-material-in{from{opacity:0;transform:translateY(-14px) scale(.94)}}
+@media(prefers-reduced-motion:reduce){
+ .run-material-result .material-icon,.result-loot-pop{animation:none}
+ .result-loot-sparks{display:none}
+}
+@media(max-height:650px){.result-loot{margin-top:6px;padding:8px}}
+@media(max-height:450px){.result-emblem{height:106px}.result-subtitle{bottom:4px}.result-next{margin-top:12px}}
 
-:is(#viewport,.difficulty-transition-cover) .result-loot-item .shop-equipment-icon{order:0;flex:0 0 36px;width:36px;height:36px;margin:0;align-self:center}
-:is(#viewport,.difficulty-transition-cover) .result-loot-item .shop-equipment-icon svg{width:28px;height:28px}
-:is(#viewport,.difficulty-transition-cover) .result-loot-item .shop-equipment-icon::before{inset:5px}
+:is(#viewport,.difficulty-transition-cover) .result-loot-icon .shop-equipment-icon{width:48px;height:48px;max-width:100%;max-height:100%;margin:0}
+:is(#viewport,.difficulty-transition-cover) .result-loot-icon .shop-equipment-icon svg{width:100%;height:100%}
+:is(#viewport,.difficulty-transition-cover) .result-loot-icon .shop-equipment-icon::before{display:none}

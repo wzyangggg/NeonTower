@@ -1,0 +1,12 @@
+Segment the eleven foreground PICTOGRAMS from the pictured chip faces, one transparent PNG layer per pictogram. Each listed symbol may have multiple disconnected parts. Keep those parts together in that layer. Remove the entire rectangular colored card surface, its outline, corner markings, bottom edge and background: the chip housing is NOT part of the object. Preserve the central pictogram's own colors and dark outline exactly. All pixels around and between the pieces must be transparent. Do not include the surrounding colored rectangles, cast shadows or mounting boards. Use these exact layer names. Coordinates delimit the symbol, not the card:
+repeat <bbox>0 100 250 288</bbox> the two amber bullets AND the golden looping arrows
+pierce <bbox>250 100 500 288</bbox> the silver bullet AND its two teal piercing plates
+bounce <bbox>500 100 750 288</bbox> the gold bullet AND its turquoise bent arrow
+shotgun <bbox>750 100 999 288</bbox> the whole fan of silver pellets AND the yellow trajectory wedges
+starter <bbox>0 395 250 582</bbox> the tan carbine AND the mint arrow
+radius <bbox>250 395 500 582</bbox> the concentric white-and-orange blast rings as one emblem
+power <bbox>500 395 750 582</bbox> the yellow-orange jagged explosion star alone
+large <bbox>750 395 999 582</bbox> the large bronze bullet alone
+guide <bbox>0 696 250 873</bbox> the yellow crosshair, gold bullet AND turquoise curved path
+edge <bbox>250 696 500 873</bbox> the orange-edged silver blade tip only
+reach <bbox>500 696 750 873</bbox> the silver sword AND its light-green outward arrow

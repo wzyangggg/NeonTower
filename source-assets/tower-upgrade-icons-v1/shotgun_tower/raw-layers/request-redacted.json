@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 9 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:\nturn <bbox>35 34 311 327</bbox> a turret swivel bearing with a single broad curved arrow\nchoke <bbox>361 78 639 271</bbox> a tight choke tube with three inward-converging gold pellets\nwide <bbox>680 50 978 315</bbox> a flared muzzle with five pellets fanning out\nclose <bbox>21 367 320 620</bbox> a stubby shotgun shell pressed toward a scarlet bullseye\nreverse <bbox>372 357 640 598</bbox> a red shotgun shell wrapped by a hooked U-turn arrow\nbreach <bbox>678 340 974 631</bbox> three orange pellets punching through a splintered steel door plate\nstagger <bbox>20 651 318 952</bbox> a heavy shell impact star driving a small enemy dummy down\ncycle <bbox>360 650 613 951</bbox> a rotating triple-shell feed drum\npower <bbox>681 669 980 924</bbox> a large solid tungsten buckshot cluster with red brass collar",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\shotgun_tower\\source.png",
+  "sha256": "f4664860670b4a252b61f6203ec7f797fa4ff81fdf16375d04242150afd8d7ee"
+}

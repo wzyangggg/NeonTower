@@ -1,0 +1,26 @@
+.missile-lab-mode { filter:none!important }
+.missile-lab-mode :is(#postfx-scanlines,#postfx-vignette,.hud,.wavehud,#skill-wallet,#energy-hud,#shield-hud,#toast,#survival-clock) { display:none!important }
+.missile-lab {
+ position:absolute;z-index:8;inset:0;display:flex;flex-direction:column;justify-content:space-between;
+ padding:calc(14px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));
+ color:#eff6ff;font:13px/1.35 system-ui,sans-serif;pointer-events:none;
+}
+.missile-lab header,.missile-lab-deck {
+ border:1px solid #597184;border-top:2px solid #82c9ff;background:#121d2bf2;
+ box-shadow:0 6px 20px #060d1a94;padding:8px 11px;
+}
+.missile-lab header,.missile-lab-controls { display:flex;align-items:center;justify-content:space-between;gap:8px }
+.missile-lab h1 { margin:0;font-size:22px }
+.missile-lab small { color:#9ec7dd;font-size:9px;letter-spacing:.15em }
+.missile-lab a,.missile-lab button { color:#eff6ff;pointer-events:auto }
+.missile-lab a { font-size:12px }
+.missile-lab ul { display:flex;flex-wrap:wrap;gap:4px 12px;list-style:none;padding:0;margin:0 0 7px;font-size:11px }
+.missile-lab li::before { content:'';display:inline-block;width:.58em;height:.58em;margin-right:.42em;background:currentColor;border-radius:50% }
+.missile-lab .missile-hostile { color:#ff8b90 }
+.missile-lab .missile-friendly { color:#8aeeff }
+.missile-lab .missile-reference { color:#f4da8a }
+.missile-lab button {
+ flex:1;min-height:34px;border:1px solid #507589;border-radius:3px;background:#20334a;font:inherit;cursor:pointer;
+}
+.missile-lab button[aria-pressed=true] { border-color:#a3e5ff;background:#315276 }
+.missile-lab :is(a,button):focus-visible { outline:2px solid white;outline-offset:2px }

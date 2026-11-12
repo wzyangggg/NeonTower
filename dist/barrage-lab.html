@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>弹道实验场 · 地狱电梯</title>
+  <link rel="stylesheet" href="barrage-lab.css">
+  <script defer src="barrage-lab.js"></script>
+</head>
+<body>
+  <main>
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">HELL ELEVATOR / COMBAT LAB</p>
+        <h1>弹道实验场</h1>
+      </div>
+      <a class="home" href="index.html?airboss=duo">战机 BOSS 实战 ↗</a>
+    </header>
+
+    <div class="layout">
+      <section class="scene" aria-label="弹幕演示场地">
+        <div class="telemetry"><span id="scene-id">PATTERN 01</span><span>9 × 19</span><span id="hits">被弹 00</span></div>
+        <div class="arena">
+          <canvas id="arena" width="360" height="760" aria-label="弹幕场地，使用方向键或拖动判定点移动"></canvas>
+          <p id="phase" class="phase"></p>
+        </div>
+        <progress id="timeline" max="14" value="0" aria-label="当前演示进度"></progress>
+        <div class="scene-nav">
+          <button id="prev" type="button" aria-label="上一招">‹</button>
+          <strong id="pattern-name" aria-live="polite"></strong>
+          <button id="next" type="button" aria-label="下一招">›</button>
+        </div>
+      </section>
+
+      <aside class="panel" aria-label="弹幕目录和操作">
+        <div class="controls" aria-label="播放控制">
+          <button id="pause" type="button" aria-pressed="false">暂停</button>
+          <button id="slow" type="button" aria-pressed="false">半速</button>
+          <button id="restart" type="button">重播</button>
+          <button id="auto" type="button" aria-pressed="false">轮播</button>
+          <button id="polarity" type="button" hidden>切换极性</button>
+        </div>
+        <p class="keys">WASD / 方向键移动 · 拖动画面移动 · 空格暂停</p>
+        <section class="readout" aria-label="当前招式说明">
+          <p class="eyebrow" id="pattern-kind"></p>
+          <p id="pattern-detail"></p>
+          <p id="pattern-dodge" class="dodge"></p>
+        </section>
+        <h2>招式目录 <span id="pattern-count"></span></h2>
+        <div class="catalog" id="catalog"></div>
+        <details>
+          <summary>设计参考</summary>
+          <ul>
+            <li>旋转序列、延迟折向和子弹二次发射。<a href="https://www.asahi-net.or.jp/~cs8k-cyu/bulletml/">ABA Games / BulletML（含《Progear》例）</a></li>
+            <li>固定弹限制路线，自机狙让玩家主动引弹。<a href="https://wikiwiki.jp/daioujo/%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B81">《怒首领蜂大往生》第一面攻略记录</a></li>
+            <li>将招式独立成场景，单独观察与反复练习。<a href="https://store.steampowered.com/app/1420650/__Shoot_the_Bullet/">《东方文花帖》</a> · <a href="https://m2stg.com/daioujou/feature.php">《怒首领蜂大往生》</a></li>
+            <li>同极吸收和双色路线。<a href="https://store.steampowered.com/app/253750/Ikaruga/">Treasure /《斑鸠》</a></li>
+            <li>追踪弹借鉴分段变向思路。扫线、布雷与格子节拍按电梯场地改编。<a href="https://www.asahi-net.or.jp/~cs8k-cyu/bulletml/bulletml_ref_e.html">BulletML 动作参考</a></li>
+          </ul>
+        </details>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

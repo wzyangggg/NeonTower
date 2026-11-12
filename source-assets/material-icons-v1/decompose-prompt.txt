@@ -1,0 +1,7 @@
+Separate the six illustrated inventory objects into independent transparent PNG foreground layers. Each full object is one layer. Preserve the exact original shapes, colors, highlights and dark contour, including every page edge and all coupling lugs; retain the dark material inside each recessed socket. Remove only the flat taupe backdrop, preserve transparent negative space, and do not redraw, recolor, crop through the object, add text or combine objects. Use these exact English layer IDs and normalized source bounds:
+skill0, silver training manual <bbox>20 33 315 484</bbox>
+skill1, blue training manual <bbox>338 30 646 490</bbox>
+skill2, gold training manual <bbox>660 19 982 497</bbox>
+tower0, steel turret coupling <bbox>23 528 308 962</bbox>
+tower1, blue turret coupling <bbox>337 517 635 969</bbox>
+tower2, gold turret coupling <bbox>660 511 969 981</bbox>

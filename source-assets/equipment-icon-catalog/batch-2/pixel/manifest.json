@@ -1,0 +1,696 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      235,
+      234,
+      238
+    ],
+    [
+      223,
+      222,
+      227
+    ],
+    [
+      219,
+      218,
+      223
+    ],
+    [
+      220,
+      216,
+      201
+    ],
+    [
+      213,
+      211,
+      217
+    ],
+    [
+      209,
+      209,
+      216
+    ],
+    [
+      233,
+      207,
+      114
+    ],
+    [
+      253,
+      207,
+      30
+    ],
+    [
+      205,
+      205,
+      212
+    ],
+    [
+      200,
+      200,
+      207
+    ],
+    [
+      196,
+      195,
+      201
+    ],
+    [
+      193,
+      192,
+      198
+    ],
+    [
+      148,
+      222,
+      96
+    ],
+    [
+      25,
+      229,
+      239
+    ],
+    [
+      10,
+      241,
+      249
+    ],
+    [
+      10,
+      214,
+      240
+    ],
+    [
+      189,
+      188,
+      193
+    ],
+    [
+      236,
+      165,
+      56
+    ],
+    [
+      160,
+      180,
+      148
+    ],
+    [
+      159,
+      159,
+      167
+    ],
+    [
+      169,
+      141,
+      113
+    ],
+    [
+      228,
+      93,
+      78
+    ],
+    [
+      125,
+      126,
+      137
+    ],
+    [
+      114,
+      113,
+      125
+    ],
+    [
+      45,
+      161,
+      207
+    ],
+    [
+      53,
+      126,
+      153
+    ],
+    [
+      101,
+      102,
+      113
+    ],
+    [
+      66,
+      100,
+      119
+    ],
+    [
+      89,
+      92,
+      105
+    ],
+    [
+      88,
+      90,
+      99
+    ],
+    [
+      79,
+      84,
+      96
+    ],
+    [
+      42,
+      86,
+      126
+    ],
+    [
+      239,
+      71,
+      115
+    ],
+    [
+      228,
+      65,
+      64
+    ],
+    [
+      107,
+      55,
+      61
+    ],
+    [
+      67,
+      67,
+      78
+    ],
+    [
+      56,
+      62,
+      77
+    ],
+    [
+      56,
+      60,
+      71
+    ],
+    [
+      53,
+      56,
+      68
+    ],
+    [
+      52,
+      51,
+      60
+    ],
+    [
+      43,
+      56,
+      74
+    ],
+    [
+      44,
+      49,
+      61
+    ],
+    [
+      38,
+      41,
+      52
+    ],
+    [
+      35,
+      37,
+      41
+    ],
+    [
+      29,
+      29,
+      34
+    ],
+    [
+      23,
+      25,
+      30
+    ],
+    [
+      21,
+      21,
+      26
+    ],
+    [
+      21,
+      17,
+      22
+    ],
+    [
+      17,
+      24,
+      34
+    ],
+    [
+      17,
+      18,
+      23
+    ],
+    [
+      16,
+      17,
+      22
+    ],
+    [
+      16,
+      16,
+      20
+    ],
+    [
+      14,
+      15,
+      20
+    ],
+    [
+      14,
+      14,
+      19
+    ],
+    [
+      13,
+      13,
+      17
+    ],
+    [
+      13,
+      13,
+      16
+    ],
+    [
+      12,
+      13,
+      17
+    ],
+    [
+      10,
+      12,
+      17
+    ],
+    [
+      11,
+      11,
+      15
+    ],
+    [
+      10,
+      10,
+      14
+    ],
+    [
+      8,
+      9,
+      13
+    ],
+    [
+      8,
+      8,
+      11
+    ],
+    [
+      7,
+      5,
+      8
+    ],
+    [
+      2,
+      3,
+      6
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "runner",
+      "label": "runner",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          62,
+          105,
+          335,
+          311
+        ],
+        "normalized": [
+          43,
+          97,
+          231,
+          286
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        636,
+        478
+      ],
+      "normalized": "runner-original.png",
+      "variants": {
+        "32": "runner-32.png",
+        "48": "runner-48.png"
+      }
+    },
+    {
+      "id": "steady",
+      "label": "steady",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          414,
+          90,
+          682,
+          317
+        ],
+        "normalized": [
+          286,
+          83,
+          471,
+          292
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        614,
+        520
+      ],
+      "normalized": "steady-original.png",
+      "variants": {
+        "32": "steady-32.png",
+        "48": "steady-48.png"
+      }
+    },
+    {
+      "id": "catalyst",
+      "label": "catalyst",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          762,
+          90,
+          1032,
+          314
+        ],
+        "normalized": [
+          526,
+          83,
+          713,
+          289
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        657,
+        544
+      ],
+      "normalized": "catalyst-original.png",
+      "variants": {
+        "32": "catalyst-32.png",
+        "48": "catalyst-48.png"
+      }
+    },
+    {
+      "id": "magnet",
+      "label": "magnet",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1110,
+          103,
+          1387,
+          317
+        ],
+        "normalized": [
+          767,
+          95,
+          958,
+          292
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        715,
+        553
+      ],
+      "normalized": "magnet-original.png",
+      "variants": {
+        "32": "magnet-32.png",
+        "48": "magnet-48.png"
+      }
+    },
+    {
+      "id": "skateboard",
+      "label": "skateboard",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          60,
+          445,
+          339,
+          623
+        ],
+        "normalized": [
+          41,
+          410,
+          234,
+          574
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        640,
+        411
+      ],
+      "normalized": "skateboard-original.png",
+      "variants": {
+        "32": "skateboard-32.png",
+        "48": "skateboard-48.png"
+      }
+    },
+    {
+      "id": "vinyl",
+      "label": "vinyl",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          410,
+          448,
+          693,
+          626
+        ],
+        "normalized": [
+          283,
+          413,
+          479,
+          576
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        582,
+        368
+      ],
+      "normalized": "vinyl-original.png",
+      "variants": {
+        "32": "vinyl-32.png",
+        "48": "vinyl-48.png"
+      }
+    },
+    {
+      "id": "spider",
+      "label": "spider",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          754,
+          440,
+          1034,
+          638
+        ],
+        "normalized": [
+          521,
+          405,
+          714,
+          587
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        644,
+        454
+      ],
+      "normalized": "spider-original.png",
+      "variants": {
+        "32": "spider-32.png",
+        "48": "spider-48.png"
+      }
+    },
+    {
+      "id": "warpstar",
+      "label": "warpstar",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1106,
+          433,
+          1394,
+          636
+        ],
+        "normalized": [
+          764,
+          399,
+          963,
+          586
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        677,
+        475
+      ],
+      "normalized": "warpstar-original.png",
+      "variants": {
+        "32": "warpstar-32.png",
+        "48": "warpstar-48.png"
+      }
+    },
+    {
+      "id": "ufo",
+      "label": "ufo",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          61,
+          771,
+          340,
+          967
+        ],
+        "normalized": [
+          42,
+          710,
+          235,
+          890
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        622,
+        436
+      ],
+      "normalized": "ufo-original.png",
+      "variants": {
+        "32": "ufo-32.png",
+        "48": "ufo-48.png"
+      }
+    },
+    {
+      "id": "neonsword",
+      "label": "neonsword",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          417,
+          757,
+          675,
+          970
+        ],
+        "normalized": [
+          288,
+          697,
+          466,
+          893
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        582,
+        480
+      ],
+      "normalized": "neonsword-original.png",
+      "variants": {
+        "32": "neonsword-32.png",
+        "48": "neonsword-48.png"
+      }
+    },
+    {
+      "id": "sharkblimp",
+      "label": "sharkblimp",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-11.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          754,
+          752,
+          1034,
+          970
+        ],
+        "normalized": [
+          521,
+          692,
+          714,
+          893
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        594,
+        465
+      ],
+      "normalized": "sharkblimp-original.png",
+      "variants": {
+        "32": "sharkblimp-32.png",
+        "48": "sharkblimp-48.png"
+      }
+    },
+    {
+      "id": "smallplane",
+      "label": "smallplane",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-2\\raw-layers\\layer-12.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1113,
+          756,
+          1395,
+          970
+        ],
+        "normalized": [
+          769,
+          696,
+          963,
+          893
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        682,
+        522
+      ],
+      "normalized": "smallplane-original.png",
+      "variants": {
+        "32": "smallplane-32.png",
+        "48": "smallplane-48.png"
+      }
+    }
+  ]
+}

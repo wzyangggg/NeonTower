@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Extract exactly one foreground layer named shield from <bbox>95 65 905 961</bbox>, plus background. Preserve the complete single front-facing cyber heater shield, including the dark outer outline, wide silver rim, opaque cobalt-blue plate, and cyan inset chevron and shoulder accents. The whole shield is fully solid with no holes. Remove only the exterior matte taupe background. Preserve the source proportions, contour and colors. No extra layers or objects.\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\shop-drop-icons\\shield-orthographic-v1\\source.png",
+  "sha256": "0b9fec7ed751ef854bdf82cce7c04800641044514d81b1e2b6263d7f4c589a98"
+}

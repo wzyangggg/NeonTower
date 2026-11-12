@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "moves": {
+    "pulse": {
+      "bulletSpeed": 247,
+      "period": 9.1,
+      "count": 18,
+      "bursts": 8,
+      "spread": 0.67
+    },
+    "chevron": {
+      "count": 5,
+      "spacing": 24,
+      "bulletSpeed": 294,
+      "period": 13.2,
+      "bursts": 5,
+      "interval": 0.695
+    },
+    "rocket": {
+      "spread": 0.23,
+      "fuse": 0.9,
+      "blast": 50,
+      "bulletSpeed": 302,
+      "bursts": 2,
+      "period": 6.3
+    },
+    "seeker": {
+      "bulletSpeed": 287,
+      "turn": 1.22,
+      "period": 1.7,
+      "bursts": 3
+    },
+    "curve": {
+      "turn": 0.705,
+      "count": 5,
+      "spread": 0.46,
+      "bulletSpeed": 201,
+      "bursts": 16,
+      "period": 12.3
+    },
+    "homing": {
+      "spread": 1.25,
+      "bulletSpeed": 289,
+      "bursts": 6,
+      "period": 7.7
+    },
+    "fan": {
+      "bulletSpeed": 178,
+      "count": 27,
+      "spread": 0.25,
+      "bursts": 14,
+      "interval": 0.36,
+      "period": 9.5
+    },
+    "brake": {
+      "bulletSpeed": 535,
+      "spread": 0.229,
+      "acceleration": 1460,
+      "maxSpeed": 555,
+      "pause": 0.8,
+      "bursts": 3,
+      "period": 4
+    },
+    "split": {
+      "warn": 0.5,
+      "bulletSpeed": 324,
+      "childSpeed": 209,
+      "interval": 0.5,
+      "bursts": 10,
+      "period": 7.8
+    },
+    "spiral": {
+      "bulletSpeed": 238,
+      "bursts": 20,
+      "turn": 0.5,
+      "period": 6.2
+    },
+    "wave": {
+      "sway": 144,
+      "warn": 0.31,
+      "bulletSpeed": 190,
+      "interval": 0.24,
+      "bursts": 8,
+      "period": 9
+    },
+    "ring": {
+      "bulletSpeed": 209,
+      "bursts": 12,
+      "period": 8.1
+    },
+    "bend": {
+      "bulletSpeed": 280,
+      "turn": 5.25,
+      "bursts": 11,
+      "delay": 0.155,
+      "period": 7.8
+    },
+    "orbit": {
+      "bulletSpeed": 240,
+      "count": 27,
+      "bursts": 12,
+      "radius": 96,
+      "turn": 4.7,
+      "interval": 0.2,
+      "period": 4.1
+    },
+    "wall": {
+      "bulletSpeed": 305,
+      "gap": 26,
+      "interval": 0.25,
+      "bursts": 8,
+      "period": 6.1
+    },
+    "return": {
+      "bulletSpeed": 313,
+      "bursts": 3,
+      "period": 8.8
+    },
+    "mines": {
+      "bursts": 2,
+      "brakeTime": 1.2,
+      "period": 3.4,
+      "fuse": 6.7,
+      "blast": 86
+    },
+    "inward": {
+      "bursts": 3,
+      "period": 11.8
+    },
+    "pincer": {
+      "spread": 0.44,
+      "bulletSpeed": 214,
+      "period": 11.4
+    },
+    "lance": {
+      "warn": 0.3,
+      "bulletSpeed": 509,
+      "spread": 0.205,
+      "period": 10.3
+    },
+    "gatling": {
+      "cone": 48,
+      "bulletSpeed": 270,
+      "bursts": 171,
+      "period": 10.5
+    },
+    "spores": {
+      "cloudRadius": 200,
+      "bulletSpeed": 380,
+      "sway": 102,
+      "noiseRate": 1.6,
+      "period": 8.3
+    },
+    "dive": {
+      "period": 12.5
+    },
+    "beam": {
+      "period": 5.4,
+      "turnSpeed": 0.62
+    },
+    "cross": {
+      "period": 14.5
+    }
+  }
+}

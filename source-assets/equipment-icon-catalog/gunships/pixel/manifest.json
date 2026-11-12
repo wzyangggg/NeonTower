@@ -1,0 +1,606 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      253,
+      253,
+      254
+    ],
+    [
+      245,
+      244,
+      247
+    ],
+    [
+      238,
+      238,
+      242
+    ],
+    [
+      238,
+      237,
+      236
+    ],
+    [
+      235,
+      234,
+      239
+    ],
+    [
+      233,
+      233,
+      238
+    ],
+    [
+      234,
+      233,
+      234
+    ],
+    [
+      249,
+      206,
+      149
+    ],
+    [
+      232,
+      233,
+      237
+    ],
+    [
+      231,
+      231,
+      235
+    ],
+    [
+      228,
+      228,
+      233
+    ],
+    [
+      222,
+      220,
+      226
+    ],
+    [
+      205,
+      207,
+      215
+    ],
+    [
+      188,
+      189,
+      199
+    ],
+    [
+      121,
+      210,
+      228
+    ],
+    [
+      17,
+      236,
+      232
+    ],
+    [
+      200,
+      166,
+      209
+    ],
+    [
+      205,
+      160,
+      107
+    ],
+    [
+      151,
+      154,
+      169
+    ],
+    [
+      138,
+      141,
+      156
+    ],
+    [
+      200,
+      115,
+      136
+    ],
+    [
+      126,
+      129,
+      144
+    ],
+    [
+      116,
+      121,
+      138
+    ],
+    [
+      111,
+      115,
+      130
+    ],
+    [
+      74,
+      122,
+      139
+    ],
+    [
+      99,
+      107,
+      124
+    ],
+    [
+      98,
+      103,
+      120
+    ],
+    [
+      82,
+      101,
+      118
+    ],
+    [
+      91,
+      97,
+      115
+    ],
+    [
+      90,
+      95,
+      109
+    ],
+    [
+      86,
+      92,
+      110
+    ],
+    [
+      64,
+      92,
+      111
+    ],
+    [
+      115,
+      85,
+      88
+    ],
+    [
+      132,
+      55,
+      94
+    ],
+    [
+      79,
+      86,
+      103
+    ],
+    [
+      77,
+      78,
+      94
+    ],
+    [
+      71,
+      78,
+      94
+    ],
+    [
+      66,
+      72,
+      86
+    ],
+    [
+      61,
+      66,
+      80
+    ],
+    [
+      60,
+      54,
+      68
+    ],
+    [
+      51,
+      60,
+      73
+    ],
+    [
+      48,
+      53,
+      64
+    ],
+    [
+      43,
+      48,
+      60
+    ],
+    [
+      41,
+      45,
+      53
+    ],
+    [
+      35,
+      40,
+      50
+    ],
+    [
+      35,
+      38,
+      43
+    ],
+    [
+      31,
+      34,
+      41
+    ],
+    [
+      32,
+      28,
+      34
+    ],
+    [
+      19,
+      46,
+      59
+    ],
+    [
+      24,
+      27,
+      33
+    ],
+    [
+      23,
+      24,
+      28
+    ],
+    [
+      20,
+      23,
+      28
+    ],
+    [
+      20,
+      20,
+      25
+    ],
+    [
+      19,
+      19,
+      22
+    ],
+    [
+      16,
+      19,
+      23
+    ],
+    [
+      17,
+      17,
+      21
+    ],
+    [
+      15,
+      16,
+      20
+    ],
+    [
+      15,
+      15,
+      17
+    ],
+    [
+      13,
+      14,
+      17
+    ],
+    [
+      10,
+      13,
+      16
+    ],
+    [
+      10,
+      10,
+      13
+    ],
+    [
+      8,
+      7,
+      9
+    ],
+    [
+      4,
+      5,
+      7
+    ],
+    [
+      1,
+      1,
+      2
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "gunship_pistol",
+      "label": "gunship_pistol",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          62,
+          74,
+          363,
+          360
+        ],
+        "normalized": [
+          49,
+          59,
+          289,
+          287
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        749,
+        706
+      ],
+      "normalized": "gunship_pistol-original.png",
+      "variants": {
+        "32": "gunship_pistol-32.png",
+        "48": "gunship_pistol-48.png"
+      }
+    },
+    {
+      "id": "gunship_smg",
+      "label": "gunship_smg",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          450,
+          74,
+          784,
+          355
+        ],
+        "normalized": [
+          359,
+          59,
+          625,
+          283
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        738,
+        620
+      ],
+      "normalized": "gunship_smg-original.png",
+      "variants": {
+        "32": "gunship_smg-32.png",
+        "48": "gunship_smg-48.png"
+      }
+    },
+    {
+      "id": "gunship_uzi",
+      "label": "gunship_uzi",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          873,
+          80,
+          1188,
+          364
+        ],
+        "normalized": [
+          696,
+          64,
+          947,
+          290
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        769,
+        693
+      ],
+      "normalized": "gunship_uzi-original.png",
+      "variants": {
+        "32": "gunship_uzi-32.png",
+        "48": "gunship_uzi-48.png"
+      }
+    },
+    {
+      "id": "gunship_rifle",
+      "label": "gunship_rifle",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          55,
+          470,
+          371,
+          755
+        ],
+        "normalized": [
+          44,
+          375,
+          296,
+          602
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        706,
+        638
+      ],
+      "normalized": "gunship_rifle-original.png",
+      "variants": {
+        "32": "gunship_rifle-32.png",
+        "48": "gunship_rifle-48.png"
+      }
+    },
+    {
+      "id": "gunship_sniper",
+      "label": "gunship_sniper",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          445,
+          471,
+          797,
+          769
+        ],
+        "normalized": [
+          355,
+          376,
+          636,
+          613
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        715,
+        607
+      ],
+      "normalized": "gunship_sniper-original.png",
+      "variants": {
+        "32": "gunship_sniper-32.png",
+        "48": "gunship_sniper-48.png"
+      }
+    },
+    {
+      "id": "gunship_rocket",
+      "label": "gunship_rocket",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          862,
+          471,
+          1201,
+          754
+        ],
+        "normalized": [
+          687,
+          376,
+          958,
+          601
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        747,
+        624
+      ],
+      "normalized": "gunship_rocket-original.png",
+      "variants": {
+        "32": "gunship_rocket-32.png",
+        "48": "gunship_rocket-48.png"
+      }
+    },
+    {
+      "id": "gunship_seeker",
+      "label": "gunship_seeker",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          53,
+          857,
+          379,
+          1177
+        ],
+        "normalized": [
+          42,
+          683,
+          302,
+          939
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        689,
+        678
+      ],
+      "normalized": "gunship_seeker-original.png",
+      "variants": {
+        "32": "gunship_seeker-32.png",
+        "48": "gunship_seeker-48.png"
+      }
+    },
+    {
+      "id": "gunship_laser",
+      "label": "gunship_laser",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          467,
+          863,
+          794,
+          1186
+        ],
+        "normalized": [
+          372,
+          688,
+          633,
+          946
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        747,
+        735
+      ],
+      "normalized": "gunship_laser-original.png",
+      "variants": {
+        "32": "gunship_laser-32.png",
+        "48": "gunship_laser-48.png"
+      }
+    },
+    {
+      "id": "gunship_tesla",
+      "label": "gunship_tesla",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\gunships\\raw-layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          863,
+          871,
+          1201,
+          1184
+        ],
+        "normalized": [
+          688,
+          695,
+          958,
+          944
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        778,
+        720
+      ],
+      "normalized": "gunship_tesla-original.png",
+      "variants": {
+        "32": "gunship_tesla-32.png",
+        "48": "gunship_tesla-48.png"
+      }
+    }
+  ]
+}

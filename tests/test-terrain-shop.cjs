@@ -22,9 +22,7 @@ for(const d of TERRAIN_CATALOG){
  const key=d.kind==='稀有被动'?'terrainPassive':d.kind==='拆除'?'erase':terrainItemKey(d);
  if(d.fixed||d.kind==='地块建造'){check(!terrainDefUsable(d),'construction excluded from shop '+d.name);continue;}
  const u={key,terrainId:d.id,name:d.name,desc:d.desc,amount:1};u.price=shopPrice(u);u.sold=false;shopItems=[u];
- if(d.kind==='稀有被动'){check(!shopUsable(u)&&!buyShopItem(0)&&cash===999,'terrain bonus removed from shop '+d.name);continue;}
- check(buyShopItem(0)&&cash===999-u.price,'actual gold purchase '+d.name);const wallet=cash;check(!buyShopItem(0)&&cash===wallet,'no duplicate charge');
- if(d.kind==='稀有被动'){check(terrainHas(d.name)&&!terrainDefUsable(d)&&pendingEquipment?.passive,'one-time passive reveal');check(confirmEquipmentPurchase(),'dismiss paid passive');}
+ check(!shopUsable(u)&&!buyShopItem(0)&&cash===999,'terrain offer removed from shop '+d.name);
 }
 for(let level=1;level<=5;level++){
  reset();state='upgrade';cash=999;shopLevel=level;const count=tiles.length;

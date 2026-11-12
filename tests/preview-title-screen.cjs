@@ -9,23 +9,36 @@ const assert=require('node:assert/strict');
   assert.ok(await page.evaluate(()=>{const b=$('start').getBoundingClientRect(),h=document.querySelector('.title-brand').getBoundingClientRect(),v=$('viewport').getBoundingClientRect();return b.bottom<v.bottom&&b.top>h.bottom&&b.left>=v.left&&b.right<=v.right&&document.documentElement.scrollWidth<=innerWidth}));
   assert.equal(await page.locator('.title-circuit .circuit-ink path').count(),56);
   assert.ok(await page.locator('.title-circuit').isVisible());
+  const mixer=page.locator('.title-mixer');
+  await mixer.waitFor({state:'visible'});
+  assert.ok(await mixer.evaluate(el=>{
+   const bounds=el.getBoundingClientRect();
+   return bounds.top>=document.querySelector('.difficulty-panel').getBoundingClientRect().bottom
+    && bounds.bottom<=document.querySelector('#lobby-nav').getBoundingClientRect().top
+    && el.getContext('webgl').getError()===0;
+  }));
  }
  await page.setViewportSize({width:390,height:844});
  await page.waitForTimeout(200);
- if(process.env.TITLE_SCREENSHOT)await page.screenshot({path:process.env.TITLE_SCREENSHOT});
  const circuit = page.locator('.title-circuit');
  assert.equal(await circuit.evaluate(el=>el.style.color),'rgb(26, 136, 166)');
  await page.locator('[data-difficulty-step="1"]').click();
  await page.waitForFunction(()=>document.querySelector('.title-circuit').style.color==='rgb(163, 79, 187)');
  await page.locator('[data-difficulty-step="-1"]').click();
  const spectrum = page.locator('.title-spectrum');
- assert.ok(await spectrum.isVisible());
- const spectrumBottom = await spectrum.evaluate(el=>el.getBoundingClientRect().bottom);
- assert.equal(spectrumBottom,await page.locator('#lobby-nav').evaluate(el=>el.getBoundingClientRect().top));
+ await spectrum.waitFor({state:'visible'});
+ assert.ok(await spectrum.evaluate(el=>{
+  const disc=el.parentElement.querySelector('.difficulty-disc').getBoundingClientRect();
+  const ring=el.getBoundingClientRect();
+  return ring.left<disc.left&&ring.right>disc.right&&ring.top<disc.top&&ring.bottom>disc.bottom;
+ }));
+ await page.waitForFunction(()=>music.bands.some(energy=>energy>.15));
+ if(process.env.TITLE_SCREENSHOT)await page.screenshot({path:process.env.TITLE_SCREENSHOT});
  await page.locator('#lobby-tab-research').click();
  assert.ok(!await spectrum.isVisible());
+ assert.ok(!await page.locator('.title-mixer').isVisible());
  await page.locator('#lobby-tab-battle').click();
- assert.ok(await spectrum.isVisible());
+ await spectrum.waitFor({state:'visible'});
  const signal = page.locator('.title-circuit .circuit-signal');
  const offset = await signal.evaluate(el=>getComputedStyle(el).strokeDashoffset);
  await page.waitForFunction(value=>getComputedStyle(document.querySelector('.title-circuit .circuit-signal')).strokeDashoffset!==value,offset);
@@ -34,6 +47,7 @@ const assert=require('node:assert/strict');
  await page.locator('#start').click();await page.waitForFunction(()=>difficultyEntering);await page.waitForFunction(()=>state!=='menu'&&!difficultyEntering);
  assert.ok(await page.evaluate(()=>!$('viewport').classList.contains('title-screen')&&document.querySelector('.title-circuit').hasAttribute('hidden')));
  assert.ok(!await spectrum.isVisible());
+ assert.ok(!await page.locator('.title-mixer').isVisible());
  assert.equal(await page.evaluate(()=>renderer.gl.getError()),0);
  await page.goto('http://127.0.0.1:4173/?scene=abyss&look=violet&lab=1');await page.waitForFunction(()=>window.HexMap?.ready&&window.sceneLab);
  assert.ok(await page.evaluate(()=>!$('viewport').classList.contains('title-screen')&&state!=='menu'));

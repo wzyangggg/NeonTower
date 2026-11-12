@@ -1,0 +1,576 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      248,
+      247,
+      247
+    ],
+    [
+      237,
+      240,
+      240
+    ],
+    [
+      232,
+      231,
+      233
+    ],
+    [
+      228,
+      227,
+      230
+    ],
+    [
+      239,
+      234,
+      185
+    ],
+    [
+      223,
+      221,
+      224
+    ],
+    [
+      253,
+      238,
+      79
+    ],
+    [
+      252,
+      222,
+      18
+    ],
+    [
+      216,
+      214,
+      219
+    ],
+    [
+      209,
+      209,
+      216
+    ],
+    [
+      243,
+      213,
+      55
+    ],
+    [
+      253,
+      214,
+      6
+    ],
+    [
+      239,
+      196,
+      54
+    ],
+    [
+      252,
+      193,
+      4
+    ],
+    [
+      247,
+      176,
+      7
+    ],
+    [
+      241,
+      162,
+      8
+    ],
+    [
+      170,
+      248,
+      253
+    ],
+    [
+      165,
+      248,
+      187
+    ],
+    [
+      193,
+      205,
+      211
+    ],
+    [
+      191,
+      189,
+      196
+    ],
+    [
+      89,
+      237,
+      190
+    ],
+    [
+      38,
+      209,
+      221
+    ],
+    [
+      8,
+      217,
+      247
+    ],
+    [
+      6,
+      202,
+      214
+    ],
+    [
+      183,
+      181,
+      192
+    ],
+    [
+      174,
+      172,
+      186
+    ],
+    [
+      171,
+      168,
+      169
+    ],
+    [
+      168,
+      162,
+      153
+    ],
+    [
+      160,
+      159,
+      174
+    ],
+    [
+      154,
+      152,
+      166
+    ],
+    [
+      69,
+      162,
+      138
+    ],
+    [
+      3,
+      163,
+      159
+    ],
+    [
+      231,
+      129,
+      9
+    ],
+    [
+      142,
+      139,
+      152
+    ],
+    [
+      133,
+      132,
+      145
+    ],
+    [
+      118,
+      121,
+      131
+    ],
+    [
+      192,
+      89,
+      12
+    ],
+    [
+      101,
+      94,
+      89
+    ],
+    [
+      79,
+      79,
+      88
+    ],
+    [
+      71,
+      66,
+      66
+    ],
+    [
+      24,
+      104,
+      144
+    ],
+    [
+      60,
+      61,
+      71
+    ],
+    [
+      56,
+      55,
+      60
+    ],
+    [
+      46,
+      48,
+      54
+    ],
+    [
+      43,
+      41,
+      41
+    ],
+    [
+      38,
+      35,
+      34
+    ],
+    [
+      33,
+      32,
+      33
+    ],
+    [
+      27,
+      29,
+      31
+    ],
+    [
+      28,
+      24,
+      23
+    ],
+    [
+      24,
+      22,
+      22
+    ],
+    [
+      21,
+      20,
+      19
+    ],
+    [
+      18,
+      18,
+      17
+    ],
+    [
+      17,
+      15,
+      15
+    ],
+    [
+      16,
+      15,
+      15
+    ],
+    [
+      15,
+      14,
+      13
+    ],
+    [
+      14,
+      13,
+      12
+    ],
+    [
+      12,
+      13,
+      14
+    ],
+    [
+      13,
+      12,
+      11
+    ],
+    [
+      12,
+      11,
+      10
+    ],
+    [
+      9,
+      10,
+      10
+    ],
+    [
+      9,
+      8,
+      8
+    ],
+    [
+      6,
+      6,
+      7
+    ],
+    [
+      4,
+      2,
+      3
+    ],
+    [
+      0,
+      0,
+      3
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "boomerang_t4",
+      "label": "boomerang_t4",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-4\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          75,
+          71,
+          333,
+          349
+        ],
+        "normalized": [
+          42,
+          80,
+          188,
+          393
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        709,
+        764
+      ],
+      "normalized": "boomerang_t4-original.png",
+      "variants": {
+        "32": "boomerang_t4-32.png",
+        "48": "boomerang_t4-48.png"
+      }
+    },
+    {
+      "id": "boomerang_t5",
+      "label": "boomerang_t5",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-4\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          505,
+          52,
+          808,
+          355
+        ],
+        "normalized": [
+          285,
+          59,
+          455,
+          400
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        763,
+        767
+      ],
+      "normalized": "boomerang_t5-original.png",
+      "variants": {
+        "32": "boomerang_t5-32.png",
+        "48": "boomerang_t5-48.png"
+      }
+    },
+    {
+      "id": "bee_t3",
+      "label": "bee_t3",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-4\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          950,
+          97,
+          1260,
+          363
+        ],
+        "normalized": [
+          536,
+          109,
+          710,
+          409
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        765,
+        655
+      ],
+      "normalized": "bee_t3-original.png",
+      "variants": {
+        "32": "bee_t3-32.png",
+        "48": "bee_t3-48.png"
+      }
+    },
+    {
+      "id": "bee_t5",
+      "label": "bee_t5",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-4\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1385,
+          46,
+          1722,
+          360
+        ],
+        "normalized": [
+          781,
+          52,
+          971,
+          406
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        770,
+        714
+      ],
+      "normalized": "bee_t5-original.png",
+      "variants": {
+        "32": "bee_t5-32.png",
+        "48": "bee_t5-48.png"
+      }
+    },
+    {
+      "id": "sword_t1",
+      "label": "sword_t1",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-4\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          103,
+          524,
+          351,
+          788
+        ],
+        "normalized": [
+          58,
+          591,
+          198,
+          888
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        749,
+        799
+      ],
+      "normalized": "sword_t1-original.png",
+      "variants": {
+        "32": "sword_t1-32.png",
+        "48": "sword_t1-48.png"
+      }
+    },
+    {
+      "id": "sword_t2",
+      "label": "sword_t2",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-4\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          505,
+          494,
+          828,
+          810
+        ],
+        "normalized": [
+          285,
+          557,
+          467,
+          913
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        727,
+        716
+      ],
+      "normalized": "sword_t2-original.png",
+      "variants": {
+        "32": "sword_t2-32.png",
+        "48": "sword_t2-48.png"
+      }
+    },
+    {
+      "id": "sword_t4",
+      "label": "sword_t4",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-4\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          942,
+          483,
+          1280,
+          811
+        ],
+        "normalized": [
+          531,
+          545,
+          722,
+          914
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        804,
+        778
+      ],
+      "normalized": "sword_t4-original.png",
+      "variants": {
+        "32": "sword_t4-32.png",
+        "48": "sword_t4-48.png"
+      }
+    },
+    {
+      "id": "sword_t5",
+      "label": "sword_t5",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\weapon-4\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1384,
+          487,
+          1712,
+          811
+        ],
+        "normalized": [
+          780,
+          549,
+          965,
+          914
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        788,
+        779
+      ],
+      "normalized": "sword_t5-original.png",
+      "variants": {
+        "32": "sword_t5-32.png",
+        "48": "sword_t5-48.png"
+      }
+    }
+  ]
+}

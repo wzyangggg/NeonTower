@@ -1,0 +1,275 @@
+{
+  "submission": {
+    "time": 1794033377.5042377,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\source.png",
+    "sha256": "159423fd899bc21f71e4c9c5443146aa4f32c0ee51b9f13abd41b31e5198108c"
+  },
+  "layers": [
+    {
+      "size": "1448x1086",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-00.png"
+    },
+    {
+      "size": "791x631",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          46,
+          89,
+          360,
+          339
+        ],
+        "normalized": [
+          32,
+          82,
+          249,
+          312
+        ]
+      },
+      "name": "repeat",
+      "description": "Extract the complete colorful repeat chip cartridge, preserve its exact original silhouette, outline, emblem, colors, all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-01.png"
+    },
+    {
+      "size": "834x666",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          394,
+          89,
+          707,
+          339
+        ],
+        "normalized": [
+          272,
+          82,
+          488,
+          312
+        ]
+      },
+      "name": "pierce",
+      "description": "Extract the complete colorful pierce chip cartridge, preserve its exact original silhouette, outline, emblem, colors, metallic contact pins and all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-02.png"
+    },
+    {
+      "size": "821x655",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          740,
+          89,
+          1053,
+          339
+        ],
+        "normalized": [
+          511,
+          82,
+          727,
+          312
+        ]
+      },
+      "name": "bounce",
+      "description": "Extract the complete colorful bounce chip cartridge, preserve its exact original silhouette, outline, emblem, colors, all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-03.png"
+    },
+    {
+      "size": "840x667",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          1087,
+          89,
+          1403,
+          339
+        ],
+        "normalized": [
+          751,
+          82,
+          969,
+          312
+        ]
+      },
+      "name": "shotgun",
+      "description": "Extract the complete colorful shotgun chip cartridge, preserve its exact original silhouette, outline, emblem, colors, all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-04.png"
+    },
+    {
+      "size": "792x634",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          46,
+          408,
+          360,
+          659
+        ],
+        "normalized": [
+          32,
+          376,
+          249,
+          607
+        ]
+      },
+      "name": "starter",
+      "description": "Extract the complete colorful starter chip cartridge, preserve its exact original silhouette, outline, emblem, colors, all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-05.png"
+    },
+    {
+      "size": "834x669",
+      "output_format": "png",
+      "z_index": 6,
+      "bounding_box": {
+        "absolute": [
+          394,
+          409,
+          707,
+          660
+        ],
+        "normalized": [
+          272,
+          377,
+          488,
+          608
+        ]
+      },
+      "name": "radius",
+      "description": "Extract the complete colorful radius chip cartridge, preserve its exact original silhouette, outline, emblem, colors, all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-06.png"
+    },
+    {
+      "size": "824x657",
+      "output_format": "png",
+      "z_index": 7,
+      "bounding_box": {
+        "absolute": [
+          739,
+          409,
+          1054,
+          660
+        ],
+        "normalized": [
+          510,
+          377,
+          728,
+          608
+        ]
+      },
+      "name": "power",
+      "description": "Extract the complete colorful power chip cartridge, preserve its exact original silhouette, outline, emblem, colors, all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-07.png"
+    },
+    {
+      "size": "841x669",
+      "output_format": "png",
+      "z_index": 8,
+      "bounding_box": {
+        "absolute": [
+          1087,
+          409,
+          1403,
+          661
+        ],
+        "normalized": [
+          751,
+          377,
+          969,
+          609
+        ]
+      },
+      "name": "large",
+      "description": "Extract the complete colorful large chip cartridge, preserve its exact original silhouette, outline, emblem, colors, all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-08.png"
+    },
+    {
+      "size": "864x698",
+      "output_format": "png",
+      "z_index": 9,
+      "bounding_box": {
+        "absolute": [
+          48,
+          738,
+          361,
+          992
+        ],
+        "normalized": [
+          33,
+          680,
+          249,
+          913
+        ]
+      },
+      "name": "guide",
+      "description": "Extract the complete colorful guide chip cartridge, preserve its exact original silhouette, outline, emblem, colors, metallic contact pins and all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-09.png"
+    },
+    {
+      "size": "819x663",
+      "output_format": "png",
+      "z_index": 10,
+      "bounding_box": {
+        "absolute": [
+          394,
+          739,
+          707,
+          992
+        ],
+        "normalized": [
+          272,
+          680,
+          488,
+          913
+        ]
+      },
+      "name": "edge",
+      "description": "Extract the complete colorful edge chip cartridge, preserve its exact original silhouette, outline, emblem, colors, all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-10.png"
+    },
+    {
+      "size": "814x654",
+      "output_format": "png",
+      "z_index": 11,
+      "bounding_box": {
+        "absolute": [
+          739,
+          738,
+          1055,
+          992
+        ],
+        "normalized": [
+          510,
+          680,
+          729,
+          913
+        ]
+      },
+      "name": "reach",
+      "description": "Extract the complete colorful reach chip cartridge, preserve its exact original silhouette, outline, emblem, colors, all internal details, no redesign, no shadows, do not split any components, exclude the warm taupe background.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v2\\batch-1\\layers\\layer-11.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 12,
+    "output_tokens": 50679,
+    "total_tokens": 50679
+  }
+}

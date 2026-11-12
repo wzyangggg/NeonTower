@@ -1,0 +1,8 @@
+Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 7 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:
+scan <bbox>18 79 236 446</bbox> a white medical scanner head sweeping a wide mint arc
+priority <bbox>270 65 476 436</bbox> a mint first aid pack with a coral heart and small upward chevron
+wallrange <bbox>512 60 738 445</bbox> a green wrench beam projecting toward a small brick shield
+care <bbox>767 75 981 461</bbox> a mint bandage roll paired with a small clock dial
+double <bbox>22 561 230 924</bbox> two brick tiles linked by a forked green repair beam
+cycle <bbox>267 534 472 952</bbox> a green syringe attached to a white stopwatch
+heal <bbox>518 579 734 918</bbox> a thick mint repair plaster with a large white plus sign

@@ -1,0 +1,3 @@
+Remove the flat taupe background, preserving existing shapes and colors. Return exactly two alpha-transparent foreground layers. Do not split off bolts, electrodes, handle, crosshair or drone face.
+reach <bbox>74 135 416 850</bbox> the entire violet U-shaped electric apparatus with both electrodes, connected cyan arc, base, and open transparent hole.
+mark <bbox>575 102 923 880</bbox> the entire circular tracking device with a gold handle and cyan face showing a red crosshair and navy drone; keep the handle hole transparent.

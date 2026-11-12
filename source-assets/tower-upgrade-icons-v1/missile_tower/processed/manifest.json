@@ -1,0 +1,516 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      252,
+      250,
+      208
+    ],
+    [
+      246,
+      234,
+      207
+    ],
+    [
+      253,
+      235,
+      122
+    ],
+    [
+      252,
+      220,
+      73
+    ],
+    [
+      227,
+      198,
+      174
+    ],
+    [
+      252,
+      199,
+      35
+    ],
+    [
+      252,
+      201,
+      7
+    ],
+    [
+      252,
+      191,
+      6
+    ],
+    [
+      253,
+      170,
+      70
+    ],
+    [
+      252,
+      173,
+      12
+    ],
+    [
+      253,
+      151,
+      51
+    ],
+    [
+      253,
+      135,
+      39
+    ],
+    [
+      214,
+      175,
+      139
+    ],
+    [
+      183,
+      160,
+      163
+    ],
+    [
+      204,
+      145,
+      89
+    ],
+    [
+      162,
+      139,
+      145
+    ],
+    [
+      252,
+      122,
+      65
+    ],
+    [
+      251,
+      113,
+      47
+    ],
+    [
+      251,
+      124,
+      29
+    ],
+    [
+      251,
+      115,
+      36
+    ],
+    [
+      248,
+      98,
+      70
+    ],
+    [
+      250,
+      100,
+      34
+    ],
+    [
+      251,
+      85,
+      37
+    ],
+    [
+      237,
+      84,
+      58
+    ],
+    [
+      174,
+      125,
+      87
+    ],
+    [
+      140,
+      118,
+      127
+    ],
+    [
+      162,
+      102,
+      84
+    ],
+    [
+      131,
+      109,
+      118
+    ],
+    [
+      124,
+      103,
+      113
+    ],
+    [
+      116,
+      95,
+      104
+    ],
+    [
+      109,
+      87,
+      96
+    ],
+    [
+      100,
+      81,
+      90
+    ],
+    [
+      233,
+      72,
+      48
+    ],
+    [
+      201,
+      66,
+      55
+    ],
+    [
+      192,
+      59,
+      50
+    ],
+    [
+      200,
+      51,
+      39
+    ],
+    [
+      160,
+      57,
+      48
+    ],
+    [
+      149,
+      48,
+      45
+    ],
+    [
+      142,
+      41,
+      37
+    ],
+    [
+      124,
+      38,
+      38
+    ],
+    [
+      93,
+      75,
+      83
+    ],
+    [
+      93,
+      70,
+      78
+    ],
+    [
+      84,
+      67,
+      75
+    ],
+    [
+      80,
+      62,
+      71
+    ],
+    [
+      92,
+      52,
+      57
+    ],
+    [
+      77,
+      56,
+      65
+    ],
+    [
+      97,
+      35,
+      36
+    ],
+    [
+      87,
+      23,
+      32
+    ],
+    [
+      72,
+      55,
+      63
+    ],
+    [
+      66,
+      49,
+      57
+    ],
+    [
+      65,
+      44,
+      52
+    ],
+    [
+      57,
+      42,
+      50
+    ],
+    [
+      64,
+      27,
+      37
+    ],
+    [
+      63,
+      21,
+      33
+    ],
+    [
+      52,
+      28,
+      37
+    ],
+    [
+      51,
+      21,
+      33
+    ],
+    [
+      61,
+      18,
+      25
+    ],
+    [
+      53,
+      18,
+      30
+    ],
+    [
+      48,
+      18,
+      30
+    ],
+    [
+      53,
+      14,
+      25
+    ],
+    [
+      46,
+      17,
+      29
+    ],
+    [
+      43,
+      16,
+      27
+    ],
+    [
+      43,
+      12,
+      25
+    ],
+    [
+      36,
+      8,
+      21
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "speed",
+      "label": "急速引导",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          35,
+          136,
+          411,
+          527
+        ],
+        "normalized": [
+          27,
+          110,
+          322,
+          427
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        751,
+        780
+      ],
+      "normalized": "speed-original.png",
+      "variants": {
+        "32": "speed-32.png",
+        "48": "speed-48.png"
+      }
+    },
+    {
+      "id": "radar",
+      "label": "警戒雷达",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          470,
+          105,
+          829,
+          518
+        ],
+        "normalized": [
+          368,
+          85,
+          650,
+          420
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        664,
+        763
+      ],
+      "normalized": "radar-original.png",
+      "variants": {
+        "32": "radar-32.png",
+        "48": "radar-48.png"
+      }
+    },
+    {
+      "id": "range",
+      "label": "长航引信",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          890,
+          157,
+          1210,
+          498
+        ],
+        "normalized": [
+          697,
+          127,
+          948,
+          404
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        704,
+        753
+      ],
+      "normalized": "range-original.png",
+      "variants": {
+        "32": "range-32.png",
+        "48": "range-48.png"
+      }
+    },
+    {
+      "id": "cycle",
+      "label": "快速装填",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          33,
+          703,
+          378,
+          1086
+        ],
+        "normalized": [
+          26,
+          570,
+          296,
+          881
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        698,
+        774
+      ],
+      "normalized": "cycle-original.png",
+      "variants": {
+        "32": "cycle-32.png",
+        "48": "cycle-48.png"
+      }
+    },
+    {
+      "id": "aftershock",
+      "label": "延时震爆",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          442,
+          704,
+          809,
+          1067
+        ],
+        "normalized": [
+          346,
+          571,
+          634,
+          865
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        740,
+        727
+      ],
+      "normalized": "aftershock-original.png",
+      "variants": {
+        "32": "aftershock-32.png",
+        "48": "aftershock-48.png"
+      }
+    },
+    {
+      "id": "zone",
+      "label": "落点封锁",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          867,
+          703,
+          1239,
+          1084
+        ],
+        "normalized": [
+          679,
+          570,
+          971,
+          879
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        701,
+        718
+      ],
+      "normalized": "zone-original.png",
+      "variants": {
+        "32": "zone-32.png",
+        "48": "zone-48.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,696 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      239,
+      236,
+      239
+    ],
+    [
+      233,
+      224,
+      169
+    ],
+    [
+      231,
+      198,
+      122
+    ],
+    [
+      250,
+      186,
+      5
+    ],
+    [
+      198,
+      194,
+      202
+    ],
+    [
+      182,
+      174,
+      183
+    ],
+    [
+      124,
+      197,
+      207
+    ],
+    [
+      26,
+      205,
+      230
+    ],
+    [
+      177,
+      155,
+      171
+    ],
+    [
+      190,
+      135,
+      29
+    ],
+    [
+      156,
+      150,
+      168
+    ],
+    [
+      153,
+      129,
+      127
+    ],
+    [
+      129,
+      135,
+      159
+    ],
+    [
+      131,
+      120,
+      124
+    ],
+    [
+      65,
+      133,
+      120
+    ],
+    [
+      7,
+      129,
+      146
+    ],
+    [
+      165,
+      97,
+      92
+    ],
+    [
+      118,
+      100,
+      107
+    ],
+    [
+      101,
+      101,
+      123
+    ],
+    [
+      98,
+      78,
+      97
+    ],
+    [
+      82,
+      93,
+      99
+    ],
+    [
+      76,
+      77,
+      99
+    ],
+    [
+      78,
+      64,
+      95
+    ],
+    [
+      73,
+      64,
+      64
+    ],
+    [
+      29,
+      100,
+      98
+    ],
+    [
+      40,
+      77,
+      87
+    ],
+    [
+      62,
+      67,
+      99
+    ],
+    [
+      33,
+      65,
+      69
+    ],
+    [
+      58,
+      58,
+      76
+    ],
+    [
+      56,
+      53,
+      59
+    ],
+    [
+      49,
+      53,
+      82
+    ],
+    [
+      25,
+      54,
+      64
+    ],
+    [
+      128,
+      39,
+      52
+    ],
+    [
+      98,
+      33,
+      49
+    ],
+    [
+      79,
+      40,
+      81
+    ],
+    [
+      79,
+      28,
+      41
+    ],
+    [
+      58,
+      43,
+      73
+    ],
+    [
+      49,
+      45,
+      47
+    ],
+    [
+      54,
+      30,
+      59
+    ],
+    [
+      53,
+      22,
+      40
+    ],
+    [
+      38,
+      41,
+      62
+    ],
+    [
+      34,
+      40,
+      39
+    ],
+    [
+      32,
+      33,
+      43
+    ],
+    [
+      31,
+      25,
+      43
+    ],
+    [
+      27,
+      25,
+      27
+    ],
+    [
+      27,
+      18,
+      25
+    ],
+    [
+      14,
+      24,
+      27
+    ],
+    [
+      15,
+      14,
+      16
+    ],
+    [
+      13,
+      12,
+      13
+    ],
+    [
+      11,
+      10,
+      11
+    ],
+    [
+      8,
+      10,
+      11
+    ],
+    [
+      11,
+      9,
+      10
+    ],
+    [
+      9,
+      9,
+      10
+    ],
+    [
+      9,
+      8,
+      8
+    ],
+    [
+      9,
+      8,
+      7
+    ],
+    [
+      7,
+      8,
+      8
+    ],
+    [
+      8,
+      7,
+      8
+    ],
+    [
+      7,
+      7,
+      8
+    ],
+    [
+      7,
+      6,
+      7
+    ],
+    [
+      6,
+      5,
+      6
+    ],
+    [
+      7,
+      5,
+      4
+    ],
+    [
+      4,
+      5,
+      5
+    ],
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      1,
+      0,
+      1
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "shell",
+      "label": "shell",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          51,
+          54,
+          329,
+          339
+        ],
+        "normalized": [
+          35,
+          50,
+          227,
+          312
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        702,
+        717
+      ],
+      "normalized": "shell-original.png",
+      "variants": {
+        "32": "shell-32.png",
+        "48": "shell-48.png"
+      }
+    },
+    {
+      "id": "energy",
+      "label": "energy",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          411,
+          53,
+          680,
+          338
+        ],
+        "normalized": [
+          284,
+          49,
+          470,
+          311
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        631,
+        667
+      ],
+      "normalized": "energy-original.png",
+      "variants": {
+        "32": "energy-32.png",
+        "48": "energy-48.png"
+      }
+    },
+    {
+      "id": "salvage",
+      "label": "salvage",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          761,
+          52,
+          1033,
+          342
+        ],
+        "normalized": [
+          526,
+          48,
+          713,
+          315
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        599,
+        639
+      ],
+      "normalized": "salvage-original.png",
+      "variants": {
+        "32": "salvage-32.png",
+        "48": "salvage-48.png"
+      }
+    },
+    {
+      "id": "greed",
+      "label": "greed",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1117,
+          54,
+          1395,
+          342
+        ],
+        "normalized": [
+          771,
+          50,
+          963,
+          315
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        632,
+        654
+      ],
+      "normalized": "greed-original.png",
+      "variants": {
+        "32": "greed-32.png",
+        "48": "greed-48.png"
+      }
+    },
+    {
+      "id": "purity",
+      "label": "purity",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          58,
+          387,
+          321,
+          681
+        ],
+        "normalized": [
+          40,
+          356,
+          222,
+          627
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        574,
+        643
+      ],
+      "normalized": "purity-original.png",
+      "variants": {
+        "32": "purity-32.png",
+        "48": "purity-48.png"
+      }
+    },
+    {
+      "id": "renewal",
+      "label": "renewal",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          411,
+          395,
+          678,
+          676
+        ],
+        "normalized": [
+          284,
+          364,
+          468,
+          622
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        548,
+        578
+      ],
+      "normalized": "renewal-original.png",
+      "variants": {
+        "32": "renewal-32.png",
+        "48": "renewal-48.png"
+      }
+    },
+    {
+      "id": "falcon",
+      "label": "falcon",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          763,
+          388,
+          1030,
+          680
+        ],
+        "normalized": [
+          527,
+          357,
+          711,
+          626
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        562,
+        614
+      ],
+      "normalized": "falcon-original.png",
+      "variants": {
+        "32": "falcon-32.png",
+        "48": "falcon-48.png"
+      }
+    },
+    {
+      "id": "wine",
+      "label": "wine",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1119,
+          395,
+          1382,
+          683
+        ],
+        "normalized": [
+          773,
+          364,
+          954,
+          629
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        567,
+        619
+      ],
+      "normalized": "wine-original.png",
+      "variants": {
+        "32": "wine-32.png",
+        "48": "wine-48.png"
+      }
+    },
+    {
+      "id": "ambush",
+      "label": "ambush",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          51,
+          737,
+          329,
+          1049
+        ],
+        "normalized": [
+          35,
+          679,
+          227,
+          966
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        637,
+        717
+      ],
+      "normalized": "ambush-original.png",
+      "variants": {
+        "32": "ambush-32.png",
+        "48": "ambush-48.png"
+      }
+    },
+    {
+      "id": "plume",
+      "label": "plume",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          403,
+          736,
+          669,
+          1050
+        ],
+        "normalized": [
+          278,
+          678,
+          462,
+          967
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        543,
+        642
+      ],
+      "normalized": "plume-original.png",
+      "variants": {
+        "32": "plume-32.png",
+        "48": "plume-48.png"
+      }
+    },
+    {
+      "id": "chrono",
+      "label": "chrono",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-11.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          751,
+          736,
+          1037,
+          1050
+        ],
+        "normalized": [
+          519,
+          678,
+          716,
+          967
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        595,
+        653
+      ],
+      "normalized": "chrono-original.png",
+      "variants": {
+        "32": "chrono-32.png",
+        "48": "chrono-48.png"
+      }
+    },
+    {
+      "id": "aura",
+      "label": "aura",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\equipment-icon-catalog\\batch-1-revised\\raw-layers\\layer-12.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1111,
+          737,
+          1386,
+          1048
+        ],
+        "normalized": [
+          767,
+          679,
+          957,
+          965
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        648,
+        735
+      ],
+      "normalized": "aura-original.png",
+      "variants": {
+        "32": "aura-32.png",
+        "48": "aura-48.png"
+      }
+    }
+  ]
+}

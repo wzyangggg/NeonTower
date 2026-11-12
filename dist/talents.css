@@ -1,13 +1,16 @@
-.skill-wallet{position:absolute;left:12px;top:116px;z-index:12;color:#92edff;background:#10222edb;border:1px solid #426582;padding:6px 10px;font:700 13px system-ui;min-height:34px;cursor:pointer}
+.skill-wallet{position:absolute;right:16px;top:max(18px,env(safe-area-inset-top));z-index:12;display:grid;grid-template-columns:32px minmax(0,1fr);grid-template-rows:11px 18px;column-gap:5px;align-content:center;align-items:center;min-width:90px;min-height:40px;padding:3px 10px 3px 3px;box-sizing:border-box;text-align:left;color:#92edff;background:#10222edb;border:1px solid #426582;cursor:pointer}
+.skill-wallet-icon{grid-row:1 / -1;display:block;image-rendering:pixelated}
+.skill-wallet-label{color:#9dbacc;font:600 10px/11px system-ui;letter-spacing:.12em}
+.skill-wallet-value{color:#d9f5ff;font:700 16px/18px system-ui;font-variant-numeric:tabular-nums;white-space:nowrap}
 .skill-panel[hidden]{display:none!important}
 :is(#viewport,.difficulty-transition-cover) .skill-panel{--cyan:#6ee6ee;position:absolute;inset:0;z-index:110;isolation:isolate;display:flex;flex-direction:column;box-sizing:border-box;padding:max(18px,env(safe-area-inset-top)) 16px max(14px,env(safe-area-inset-bottom));color:#e9f5f5;background:radial-gradient(ellipse at 0 0,#18444d99,transparent 60%),linear-gradient(150deg,#0b1e29,#09141f 70%);touch-action:pan-y;pointer-events:auto;backdrop-filter:none}
 :is(#viewport,.difficulty-transition-cover) .skill-panel::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.17;background-image:linear-gradient(#7bc5d233 1px,transparent 1px),linear-gradient(90deg,#7bc5d233 1px,transparent 1px);background-size:22px 22px}
 :is(#viewport,.difficulty-transition-cover) .skill-panel header{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:3px double #63d4dd;margin:0 0 13px;padding:0 0 12px}
 :is(#viewport,.difficulty-transition-cover) .skill-panel header small{font:600 10px system-ui;letter-spacing:.14em;color:#80aeb7}
 :is(#viewport,.difficulty-transition-cover) .skill-panel h2{font:800 25px system-ui;letter-spacing:.05em;color:#f0ffff;margin:5px 0 0;text-shadow:0 0 16px #6ee6ee35}
-:is(#viewport,.difficulty-transition-cover) .skill-panel button,.skill-entry{min-height:40px;cursor:pointer;padding:8px 12px;font:700 12px system-ui;color:#cae8eb;background:#112c38;border:1px solid #427580;border-radius:3px;box-shadow:none}
-:is(#viewport,.difficulty-transition-cover) .skill-panel button:focus-visible,.skill-wallet:focus-visible{outline:2px solid #b4f2b4;outline-offset:2px}
-:is(#viewport,.difficulty-transition-cover) .skill-panel button:disabled{opacity:.3;cursor:default}
+:is(#viewport,.difficulty-transition-cover) .skill-panel button:not(.research-card),.skill-entry{min-height:40px;cursor:pointer;padding:8px 12px;font:700 12px system-ui;color:#cae8eb;background:#112c38;border:1px solid #427580;border-radius:3px;box-shadow:none}
+:is(#viewport,.difficulty-transition-cover) .skill-panel button:not(.research-card):focus-visible,.skill-wallet:focus-visible{outline:2px solid #b4f2b4;outline-offset:2px}
+:is(#viewport,.difficulty-transition-cover) .skill-panel button:not(.research-card):disabled{opacity:.3;cursor:default}
 :is(#viewport,.difficulty-transition-cover) .skill-panel #skill-close{min-width:62px;font-size:12px}
 :is(#viewport,.difficulty-transition-cover) .skill-budget{display:flex;flex-direction:column;gap:5px;position:relative;flex-shrink:0;margin:0 0 12px;padding:12px 14px;border:1px solid #58bdc7;border-left:3px solid #8cf5eb;border-radius:3px 10px 3px 3px;background:linear-gradient(90deg,#24627080,#12344099);box-shadow:inset 0 0 16px #61d9df0d,0 0 14px #1c92951c}
 :is(#viewport,.difficulty-transition-cover) .skill-budget::after{content:"";position:absolute;right:12px;top:14px;width:63px;height:18px;background:repeating-linear-gradient(90deg,#adf1b2 0 4px,transparent 4px 6px);opacity:.8}
@@ -47,7 +50,7 @@
 .cash-popup.skill-popup{color:#9feeff!important;text-shadow:0 1px 3px #07151f,0 0 8px #57b8ed!important;font-size:15px}
 .skill-bump{animation:skill-bump .25s ease-out}@keyframes skill-bump{50%{color:white;transform:scale(1.12)}}
 @media(prefers-reduced-motion:reduce){.skill-bump{animation:none}}
-@media(max-height:700px){:is(#viewport,.difficulty-transition-cover) .skill-panel{padding-top:12px}:is(#viewport,.difficulty-transition-cover) .skill-panel header{padding-bottom:9px;margin-bottom:9px}:is(#viewport,.difficulty-transition-cover) .skill-panel h2{font-size:22px}:is(#viewport,.difficulty-transition-cover) .skill-budget{padding:9px 12px;margin-bottom:9px}:is(#viewport,.difficulty-transition-cover) .skill-budget strong{font-size:21px}.attribute-scope{padding-bottom:8px}.skill-wallet{top:108px}}
+@media(max-height:700px){:is(#viewport,.difficulty-transition-cover) .skill-panel{padding-top:12px}:is(#viewport,.difficulty-transition-cover) .skill-panel header{padding-bottom:9px;margin-bottom:9px}:is(#viewport,.difficulty-transition-cover) .skill-panel h2{font-size:22px}:is(#viewport,.difficulty-transition-cover) .skill-budget{padding:9px 12px;margin-bottom:9px}:is(#viewport,.difficulty-transition-cover) .skill-budget strong{font-size:21px}.attribute-scope{padding-bottom:8px}}
 @media(max-width:360px){:is(#viewport,.difficulty-transition-cover) .skill-panel{padding-left:10px;padding-right:10px}:is(#viewport,.difficulty-transition-cover) .skill-row{grid-template-columns:minmax(0,1fr) 123px;gap:7px;padding-left:7px;padding-right:7px}:is(#viewport,.difficulty-transition-cover) .skill-row-heading strong{font-size:12px}.attribute-columns span:last-child{width:123px}}
 @media(max-width:360px){.attribute-scope{gap:6px;font-size:9px}:is(#viewport,.difficulty-transition-cover) #attribute-description-toggle{padding:5px 6px;font-size:10px}}
 
@@ -57,8 +60,8 @@
 :is(#viewport,.difficulty-transition-cover) .skill-panel header{border-bottom-color:#ae8eff}
 :is(#viewport,.difficulty-transition-cover) .skill-panel header small{color:#b9b3e6}
 :is(#viewport,.difficulty-transition-cover) .skill-panel h2{color:#fff8ff;text-shadow:0 0 18px #e879ff66}
-:is(#viewport,.difficulty-transition-cover) .skill-panel button{color:#f5edff;border-color:#9b88d2;background:linear-gradient(145deg,#6552a1,#34376b);box-shadow:inset 0 1px 0 #ffffff38,0 2px 0 #090c2980}
-:is(#viewport,.difficulty-transition-cover) .skill-panel button:focus-visible{outline-color:#fff19b}
+:is(#viewport,.difficulty-transition-cover) .skill-panel button:not(.research-card){color:#f5edff;border-color:#9b88d2;background:linear-gradient(145deg,#6552a1,#34376b);box-shadow:inset 0 1px 0 #ffffff38,0 2px 0 #090c2980}
+:is(#viewport,.difficulty-transition-cover) .skill-panel button:not(.research-card):focus-visible{outline-color:#fff19b}
 :is(#viewport,.difficulty-transition-cover) .skill-budget{border-color:#b7a2ff;border-left-color:#70faff;background:linear-gradient(115deg,#126bb1,#6843b4 57%,#b330a6);box-shadow:inset 0 1px 0 #ffffff44,0 0 20px #8849e32b}
 :is(#viewport,.difficulty-transition-cover) .skill-budget::after{background:linear-gradient(90deg,#61f4ff,#80ffb0,#fff572,#ff9b65,#fa7adb,#b19bff)}
 :is(#viewport,.difficulty-transition-cover) .skill-budget strong{color:#fffbe8;text-shadow:0 2px 0 #24204f66}
@@ -90,12 +93,6 @@
 .attribute-group{margin-top:8px}
 @media(max-width:360px){:is(#viewport,.difficulty-transition-cover) .skill-row{grid-template-columns:minmax(0,1fr) 117px;gap:6px;padding-left:5px;padding-right:5px}:is(#viewport,.difficulty-transition-cover) .skill-row-heading strong{white-space:normal;overflow-wrap:anywhere}}
 
-/* Display-only nearest-neighbour pixel filter; original PNGs remain unchanged. */
-.attribute-icon{position:relative;width:48px;height:48px}
-.attribute-icon canvas{display:none;width:48px;height:48px;image-rendering:pixelated}
-.attribute-icon.pixel-filter-ready img{position:absolute;inset:0;visibility:hidden}
-.attribute-icon.pixel-filter-ready canvas{display:block}
-
 /* A continuous industrial panel, sharing the launch card's cyan edges and cut corners. */
 #viewport .skill-panel{background:linear-gradient(145deg,#0d1730ee,#0a1021ee);padding-bottom:14px}
 #viewport .skill-panel::before{display:none}
@@ -115,3 +112,56 @@
 #viewport .skill-panel footer p:not(:empty){margin:0;padding:7px 12px;min-height:0}
 #viewport .skill-panel footer>div{gap:0}
 #viewport .skill-panel footer #skill-reset{min-height:44px;border:0;border-radius:0;background:linear-gradient(110deg,#2793bd,#5577b3);color:#effcff;box-shadow:inset 0 1px #c4f5ff66;font-size:14px}
+
+#viewport .skill-panel #skill-list{position:relative;overflow:clip;touch-action:none;user-select:none;cursor:grab}
+#viewport .skill-panel #skill-list.dragging,#viewport .skill-panel #skill-list.dragging *{cursor:grabbing}
+.attribute-tree{position:absolute;top:50%;width:100%;min-width:0}
+.attribute-tree .attribute-tree-card{touch-action:none;-webkit-user-drag:none}
+.attribute-tree img{-webkit-user-drag:none}
+.attribute-tree>svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.attribute-tree path{fill:none;stroke:#8dbdd8;stroke-width:2;vector-effect:non-scaling-stroke}
+.attribute-tree path.invested{stroke:#f1c682;stroke-width:2.5}
+.attribute-tree path.unknown{stroke:#b6a6d8;stroke-dasharray:4 4;opacity:.65}
+.attribute-tree .attribute-tree-card{position:absolute;transform:translate(-50%,-50%);width:min(26%,76px)}
+.attribute-tree .attribute-unknown{opacity:.68;cursor:inherit;pointer-events:none}
+#skill-list .attribute-tree-card[aria-pressed=true]{z-index:1;border-color:#fff5c2}
+@property --attribute-edge-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+#skill-list .attribute-tree-card[aria-pressed=true]::after{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:conic-gradient(from var(--attribute-edge-angle),#d69b48 0deg,#ffe8a4 35deg,#fffceb 55deg,#f3bd5e 82deg,#d69b48 125deg);
+ clip-path:polygon(evenodd,8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px,8px 0,
+  9px 2px,2px 9px,2px calc(100% - 2px),calc(100% - 9px) calc(100% - 2px),calc(100% - 2px) calc(100% - 9px),
+  calc(100% - 2px) 2px,9px 2px,8px 0);
+ animation:attribute-selection-shine 3.2s linear infinite;
+}
+@keyframes attribute-selection-shine{to{--attribute-edge-angle:360deg}}
+@media(prefers-reduced-motion:reduce){#skill-list .attribute-tree-card[aria-pressed=true]::after{animation:none;background:#ffe295}}
+.attribute-tree .research-stars{gap:0;font-size:10px}
+.attribute-tree .research-card-art{padding-bottom:21px}
+.attribute-tree .research-card strong{min-height:21px;font-size:11px}
+.attribute-tree .attribute-icon img,#attribute-preview .attribute-icon img{width:32px;height:32px}
+.attribute-core-icon{font-size:26px}
+.attribute-tree .attribute-core-active{border-color:#72e9df}
+.attribute-core-active .research-card-info{background:#a4e8db;border-left-color:#cbfff2}
+.attribute-core-active .research-stars{color:#173f38;font-size:14px;font-weight:800}
+#viewport .skill-panel .attribute-tree-detail{display:grid;grid-template-columns:minmax(0,1fr) 102px;grid-template-rows:minmax(0,1fr);gap:8px;flex:0 0 94px;min-height:0;box-sizing:border-box;padding:8px 10px;border-top:1px solid #67d7ef;background:#182442;color:#e6f5ff;font:13px/1.3 system-ui}
+.attribute-tree-detail #attribute-detail{display:grid;align-content:start;gap:2px;overflow:auto;overscroll-behavior:contain}
+.attribute-tree-detail small{color:#bdd5e9;font-size:11px}
+.attribute-prices summary{cursor:pointer;color:#fff0ac;font-size:12px;min-height:20px}
+.attribute-prices ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 8px;list-style:none;margin:3px 0 6px;padding:0;font-size:11px;font-variant-numeric:tabular-nums}
+.attribute-prices li{display:flex;justify-content:space-between;flex-wrap:wrap;column-gap:3px;padding:2px 3px;background:#263855}
+#viewport .skill-panel .attribute-tree-detail:has(.attribute-prices[open]){flex-basis:min(192px,35vh)}
+#viewport .skill-panel .attribute-tree-detail .attribute-upgrade{align-self:stretch;min-height:44px;padding:6px}
+#viewport .skill-panel .attribute-tree-detail:has(.attribute-upgrade[hidden]){grid-template-columns:minmax(0,1fr)}
+#viewport .skill-panel .attribute-tree-detail .attribute-upgrade[hidden]{display:none}
+#viewport #skill-panel .attribute-tree-detail{grid-template-columns:44px minmax(0,1fr) clamp(76px,24vw,102px)}
+#viewport #skill-panel .attribute-tree-detail:has(.attribute-upgrade[hidden]){grid-template-columns:44px minmax(0,1fr)}
+#attribute-preview{display:grid;place-items:center;align-self:start;aspect-ratio:1;color:#a4e8db;background:#302c57;border:1px solid #897cb7}
+@media(max-width:360px){
+ #viewport #skill-panel .attribute-tree-detail:not(:has(.attribute-prices[open])){flex-basis:112px}
+}
+#viewport .skill-panel footer #attribute-center{border:0;border-radius:0;background:#463b63;color:#f2eaff;box-shadow:none}
+
+#viewport:not(.title-screen,.lobby-open):has(>#skill-wallet) .hud .actions{margin-top:44px}
+#viewport.shopping:has(.weapon-compare) > #skill-wallet{visibility:visible}
+#viewport.shopping .overlay.shop:has(.weapon-compare){padding-top:calc(max(18px,env(safe-area-inset-top)) + 42px)}

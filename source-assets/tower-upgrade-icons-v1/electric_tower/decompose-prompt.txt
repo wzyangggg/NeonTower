@@ -1,0 +1,9 @@
+Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 8 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:
+reach <bbox>10 77 244 414</bbox> an elongated angular arc jumping between two metal electrodes
+surge <bbox>305 8 455 462</bbox> an upright spark plug with one concentrated bolt at its tip
+capacity <bbox>545 59 704 457</bbox> a chunky violet cylindrical reserve capacitor with twin terminals
+slow <bbox>766 40 981 454</bbox> a purple clock dial caught in a cyan electric loop
+fork <bbox>12 541 234 953</bbox> a Y-shaped forked electric arc splitting into two bright terminals
+pulse <bbox>270 505 479 957</bbox> a grounded metal pylon emitting a broad violet concentric pulse
+solo <bbox>523 546 726 948</bbox> one spherical charge cell catching a returning circular current
+cycle <bbox>746 591 981 924</bbox> a compact battery with twin bold zigzag speed streaks

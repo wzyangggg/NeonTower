@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Segment the eleven foreground PICTOGRAMS from the pictured chip faces, one transparent PNG layer per pictogram. Each listed symbol may have multiple disconnected parts. Keep those parts together in that layer. Remove the entire rectangular colored card surface, its outline, corner markings, bottom edge and background: the chip housing is NOT part of the object. Preserve the central pictogram's own colors and dark outline exactly. All pixels around and between the pieces must be transparent. Do not include the surrounding colored rectangles, cast shadows or mounting boards. Use these exact layer names. Coordinates delimit the symbol, not the card:\nsweep <bbox>0 83 250 270</bbox> the silver sword AND its white sweeping arc\nhaste <bbox>250 83 500 270</bbox> the gold dagger hilt AND ivory feather\ncounter <bbox>500 83 750 270</bbox> the silver axe AND the gold crescent stroke\nbreach <bbox>750 83 999 270</bbox> the cracked silver shield AND the small gold bullet mark\npush <bbox>0 401 250 587</bbox> the gray rock AND both cyan chevrons\nfuse <bbox>250 401 500 587</bbox> the brass and gunmetal igniter AND white lightning bolt\nfirstBomb <bbox>500 401 750 587</bbox> the round charcoal grenade AND its gold fuse\naftershock <bbox>750 401 999 587</bbox> the gray rock AND lilac shock rings\nmountDamage <bbox>0 703 250 900</bbox> the gunmetal mounted cannon AND its yellow muzzle flash\nmountRate <bbox>250 703 500 900</bbox> the paired dark rotary barrels AND both blue speed bars\nmountMove <bbox>500 703 750 900</bbox> the paired silver nozzles AND cyan exhaust\n",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-emblems-v1\\batch-2\\source.png",
+  "sha256": "9e35b01a94e9d9478bad18189aabcb7e6286fc6875fc57fba03847bc93640fa6"
+}

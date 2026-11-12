@@ -8,11 +8,12 @@ vm.runInContext(`{
 function check(v,m){if(!v)throw Error(m)}
 check(DrinkTruckMesh.length%27===0&&DrinkTruckMesh.length/27>1000&&DrinkTruckMesh.length/27<40000,'authored triangle mesh budget');
 for(let i=0;i<DrinkTruckMesh.length;i+=9){for(let j=0;j<9;j++)check(Number.isFinite(DrinkTruckMesh[i+j]),'finite mesh');check((DrinkTruckMesh[i+3]===0&&DrinkTruckMesh[i+4]===2&&DrinkTruckMesh[i+5]===0)||Math.abs(Math.hypot(...DrinkTruckMesh.slice(i+3,i+6))-1)<.002,'normalized mesh normals');for(let j=6;j<9;j++)check(DrinkTruckMesh[i+j]>=0&&DrinkTruckMesh[i+j]<=1,'valid vertex colors');}
-const expected=[7,18,29];for(let f=1;f<=33;f++){check(isDrinkFloor(f)===expected.includes(f),'drink schedule '+f);check(!isGreedFloor(f),'gold room disabled '+f);}
+const expected=[7,18,29];for(let f=1;f<=33;f++){check(!isGreedFloor(f),'gold room disabled '+f);}
 for(const f of expected){
- reset();floor=f;enemies=[{type:'spitter',hp:9}];turrets=[{temporary:false}];bullets=[{}];spawnQueue=[{}];startWave();
+ reset();floor=f;startWave();check(state!=='drinkArrival'&&!drinkTruck,'no campaign drink stop '+f);
+ reset();floor=f;enemies=[{type:'spitter',hp:9}];turrets=[{temporary:false}];bullets=[{}];spawnQueue=[{}];startDrinkTruckRoom();
  check(state==='drinkArrival'&&!enemies.length&&!turrets.length&&!bullets.length&&!spawnQueue.length&&!timedRoom&&!greedRoom,'safe arrival '+f);
- const truck=drinkTruck;step(1);check(state==='drinkArrival'&&truck.age===1,'no early popup');startWave();check(drinkTruck===truck&&truck.age===1,'reentry preserves arrival');
+ const truck=drinkTruck;step(1);check(state==='drinkArrival'&&truck.age===1,'no early popup');startDrinkTruckRoom();check(drinkTruck===truck&&truck.age===1,'reentry preserves arrival');
  togglePause();step(50);check(paused&&truck.age===1,'pause arrival');togglePause();
  check(!chooseTruckDrink(0),'cannot choose before parked');step(2.19);check(state==='drinkArrival','settling before popup');step(.02);
  check(truck.parked&&state==='upgrade'&&terrainView==='drinkChoice','park before choices');
@@ -21,15 +22,15 @@ for(const f of expected){
  const age=truck.age;for(let i=0;i<300;i++)step(.1);check(!enemies.length&&!bullets.length&&!spawnQueue.length&&truck.age===age,'no combat after parking');
  cash=0;const id=truck.offers[0].drinkId;check(!chooseTruckDrink(-1)&&!chooseTruckDrink(3),'invalid selections');
  leaveShop();check(terrainView==='drinkChoice'&&floor===f,'cannot skip mandatory choice');
- check(chooseTruckDrink(0)&&drinkBottles.length===1&&drinkBottles[0].id===id&&cash===0,'one free real drink');
+ check(chooseTruckDrink(0)&&drinkBottles.length===1&&drinkRewardCount(id)===1&&cash===0,'one free drink with immediate effect');
  check(!chooseTruckDrink(1)&&drinkBottles.length===1,'double click cannot take another');
  check(state==='upgrade'&&terrainView==='equipment'&&shopItems.length===3,'ordinary shop after choice');
  draw();const count=renderer.residentMeshes.size;draw();check(count===renderer.residentMeshes.size,'resident truck mesh stable');check(renderer.residentMeshes.get('drink-truck:van').data.length===DrinkTruckMesh.length,'actual Blender asset retained');
  check([...renderer.data.subarray(0,renderer.count)].every(Number.isFinite),'truck geometry finite');
  leaveShop();check(floor===f+1&&state==='descent'&&!drinkTruck,'next floor cleans truck');
 }
-reset();state='upgrade';consumeDrink('crab');const b=drinkBottles[0];floor=7;startWave();step(20);chooseTruckDrink(0);check(b.left===2&&b.activeFloor===-1,'peaceful room does not advance wager');
-reset();floor=29;p.max=p.hp=1;shopLevel=5;startWave();step(4);check(drinkTruck.offers.every(u=>!['bit','ale'].includes(u.drinkId)),'unusable drinks excluded');
+reset();state='upgrade';consumeDrink('crab');const b=drinkBottles[0];floor=7;startDrinkTruckRoom();step(20);chooseTruckDrink(0);check(b.left===2&&b.activeFloor===-1,'peaceful room does not advance wager');
+reset();floor=29;p.max=p.hp=1;shopLevel=5;startDrinkTruckRoom();step(4);check(drinkTruck.offers.every(u=>!['bit','ale'].includes(u.drinkId)),'unusable drinks excluded');
 reset();check(!drinkTruck,'restart removes truck');startDrinkTruckTest();check(testMode&&state==='drinkArrival'&&floor===7,'new lab entry');
-console.log('Drink truck: campaign slots, disabled gold, safe arrival/parking/pause, three usable distinct drinks, free single choice/double clicks, shop/descent, legacy effects and resident rendering passed.');
+console.log('Drink truck: lab-only truck, disabled gold, safe arrival/parking/pause, three usable distinct drinks, free single choice/double clicks, shop/descent, legacy effects and resident rendering passed.');
 }`,sandbox);

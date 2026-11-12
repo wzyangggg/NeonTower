@@ -1,0 +1,183 @@
+{
+  "submission": {
+    "time": 1794289637.3344893,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\source.png",
+    "sha256": "ac1b67e6b75d3bc1d584289d1722b422ebd1437ef94d88fc7f6bc6f9640f9499"
+  },
+  "layers": [
+    {
+      "size": "1774x887",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-00.png"
+    },
+    {
+      "size": "750x641",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          47,
+          80,
+          406,
+          387
+        ],
+        "normalized": [
+          26,
+          90,
+          229,
+          436
+        ]
+      },
+      "name": "scan",
+      "description": "a white medical scanner head sweeping a wide mint arc, keep original color, silhouette, all associated effects and components, no extra elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-01.png"
+    },
+    {
+      "size": "744x680",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          492,
+          68,
+          833,
+          379
+        ],
+        "normalized": [
+          277,
+          77,
+          470,
+          427
+        ]
+      },
+      "name": "priority",
+      "description": "a mint first aid pack with a coral heart and small upward chevron, keep original color, silhouette, all associated effects and components, no extra elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-02.png"
+    },
+    {
+      "size": "770x669",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          923,
+          61,
+          1299,
+          388
+        ],
+        "normalized": [
+          520,
+          69,
+          732,
+          437
+        ]
+      },
+      "name": "wallrange",
+      "description": "a green wrench beam projecting toward a small brick shield, keep original color, silhouette, all associated effects and components, no extra elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-03.png"
+    },
+    {
+      "size": "768x695",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          1371,
+          76,
+          1731,
+          401
+        ],
+        "normalized": [
+          773,
+          86,
+          976,
+          452
+        ]
+      },
+      "name": "care",
+      "description": "a mint bandage roll paired with a small clock dial, keep original color, silhouette, all associated effects and components, no extra elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-04.png"
+    },
+    {
+      "size": "784x693",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          54,
+          507,
+          397,
+          811
+        ],
+        "normalized": [
+          30,
+          572,
+          224,
+          914
+        ]
+      },
+      "name": "double",
+      "description": "two brick tiles linked by a forked green repair beam, keep original color, silhouette, all associated effects and components, no extra elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-05.png"
+    },
+    {
+      "size": "676x707",
+      "output_format": "png",
+      "z_index": 6,
+      "bounding_box": {
+        "absolute": [
+          485,
+          482,
+          825,
+          835
+        ],
+        "normalized": [
+          273,
+          543,
+          465,
+          941
+        ]
+      },
+      "name": "cycle",
+      "description": "a green syringe attached to a white stopwatch, keep original color, silhouette, all associated effects and components, no extra elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-06.png"
+    },
+    {
+      "size": "764x601",
+      "output_format": "png",
+      "z_index": 7,
+      "bounding_box": {
+        "absolute": [
+          930,
+          522,
+          1291,
+          806
+        ],
+        "normalized": [
+          524,
+          589,
+          728,
+          909
+        ]
+      },
+      "name": "heal",
+      "description": "a thick mint repair plaster with a large white plus sign, keep original color, silhouette, all associated effects and components, no extra elements included",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\healing_tower\\raw-layers\\layer-07.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 8,
+    "output_tokens": 34608,
+    "total_tokens": 34608
+  }
+}

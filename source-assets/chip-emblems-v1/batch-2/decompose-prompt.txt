@@ -1,0 +1,12 @@
+Segment the eleven foreground PICTOGRAMS from the pictured chip faces, one transparent PNG layer per pictogram. Each listed symbol may have multiple disconnected parts. Keep those parts together in that layer. Remove the entire rectangular colored card surface, its outline, corner markings, bottom edge and background: the chip housing is NOT part of the object. Preserve the central pictogram's own colors and dark outline exactly. All pixels around and between the pieces must be transparent. Do not include the surrounding colored rectangles, cast shadows or mounting boards. Use these exact layer names. Coordinates delimit the symbol, not the card:
+sweep <bbox>0 83 250 270</bbox> the silver sword AND its white sweeping arc
+haste <bbox>250 83 500 270</bbox> the gold dagger hilt AND ivory feather
+counter <bbox>500 83 750 270</bbox> the silver axe AND the gold crescent stroke
+breach <bbox>750 83 999 270</bbox> the cracked silver shield AND the small gold bullet mark
+push <bbox>0 401 250 587</bbox> the gray rock AND both cyan chevrons
+fuse <bbox>250 401 500 587</bbox> the brass and gunmetal igniter AND white lightning bolt
+firstBomb <bbox>500 401 750 587</bbox> the round charcoal grenade AND its gold fuse
+aftershock <bbox>750 401 999 587</bbox> the gray rock AND lilac shock rings
+mountDamage <bbox>0 703 250 900</bbox> the gunmetal mounted cannon AND its yellow muzzle flash
+mountRate <bbox>250 703 500 900</bbox> the paired dark rotary barrels AND both blue speed bars
+mountMove <bbox>500 703 750 900</bbox> the paired silver nozzles AND cyan exhaust

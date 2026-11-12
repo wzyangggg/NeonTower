@@ -25,19 +25,27 @@
    fx.composite=program(`attribute vec2 position;varying vec2 uv;void main(){uv=position*.5+.5;gl_Position=vec4(position,0.,1.);}`,
     `precision highp float;varying vec2 uv;uniform sampler2D mask;uniform vec2 stepUV;uniform vec2 lightDirection;uniform float glow;uniform float strength;
      float depth(vec4 s){return dot(s.rg,vec2(1.,1./255.));}
-     vec3 tint(float group){return mix(vec3(.64,.24,1.),vec3(.18,.9,.78),step(.75,group));}
+     float missile(float group){return max(1.-step(.025,abs(group-.35)),1.-step(.025,abs(group-.95)));}
+     float fullEdge(float group){return max(missile(group),max(1.-step(.035,abs(group-.25)),1.-step(.035,abs(group-.65))));}
+     vec3 tint(float group){
+      if(abs(group-.35)<.025)return vec3(1.,.035,.065);
+      if(abs(group-.95)<.025)return vec3(.04,.88,1.);
+      if(abs(group-.25)<.035)return vec3(1.,.065,.12);
+      if(abs(group-.65)<.035)return vec3(.12,.48,1.);
+      return mix(vec3(.64,.24,1.),vec3(.18,.9,.78),step(.75,group));
+     }
      void main(){vec4 center=texture2D(mask,uv);vec3 edge=vec3(0.),halo=vec3(0.);
       // A narrow wrap INSIDE the lit silhouette anchors the light to its surface.
       // Neighbor depth prevents a foreground object from masquerading as open sky.
       if(center.b>.1){vec4 outside=texture2D(mask,uv+lightDirection*stepUV*.75);
-       float exposed=(1.-step(.1,outside.b))*step(depth(center)-.00003,depth(outside));
+       float exposed=step(.05,abs(center.b-outside.b))*step(depth(center)-.00003,depth(outside));
        gl_FragColor=vec4(mix(tint(center.b),vec3(1.),.45)*exposed*.32*strength,0.);return;
       }
       for(int i=0;i<16;i++){float a=float(i)*.39269908;vec2 direction=vec2(cos(a),sin(a));
        // direction points toward the silhouette; its outward direction is opposite.
        float facing=smoothstep(.05,.85,dot(-direction,lightDirection));
        vec4 s=texture2D(mask,uv+direction*stepUV);float visible=step(depth(s)-.00003,depth(center))*step(.1,s.b);
-       edge=max(edge,mix(tint(s.b),vec3(1.),.3)*visible*facing);
+       edge=max(edge,mix(tint(s.b),vec3(1.),mix(.3,.08,fullEdge(s.b)))*visible*mix(facing,1.,fullEdge(s.b)));
        // Shift a broad, softly sampled corona toward the light rather than drawing
        // a second concentric outline. Dark-side samples fade away completely.
        for(int ring=1;ring<=2;ring++){float radius=float(ring)*2.;

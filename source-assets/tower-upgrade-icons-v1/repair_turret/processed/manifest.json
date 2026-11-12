@@ -1,0 +1,546 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      253,
+      242,
+      197
+    ],
+    [
+      254,
+      225,
+      114
+    ],
+    [
+      253,
+      213,
+      98
+    ],
+    [
+      253,
+      208,
+      69
+    ],
+    [
+      253,
+      198,
+      60
+    ],
+    [
+      253,
+      194,
+      39
+    ],
+    [
+      251,
+      186,
+      38
+    ],
+    [
+      251,
+      181,
+      24
+    ],
+    [
+      241,
+      233,
+      220
+    ],
+    [
+      235,
+      215,
+      183
+    ],
+    [
+      243,
+      186,
+      61
+    ],
+    [
+      248,
+      178,
+      23
+    ],
+    [
+      205,
+      212,
+      217
+    ],
+    [
+      198,
+      186,
+      174
+    ],
+    [
+      180,
+      184,
+      190
+    ],
+    [
+      163,
+      181,
+      197
+    ],
+    [
+      243,
+      164,
+      27
+    ],
+    [
+      243,
+      163,
+      12
+    ],
+    [
+      181,
+      166,
+      158
+    ],
+    [
+      182,
+      157,
+      133
+    ],
+    [
+      236,
+      149,
+      17
+    ],
+    [
+      240,
+      138,
+      29
+    ],
+    [
+      192,
+      149,
+      93
+    ],
+    [
+      211,
+      130,
+      19
+    ],
+    [
+      166,
+      163,
+      167
+    ],
+    [
+      149,
+      161,
+      176
+    ],
+    [
+      160,
+      147,
+      142
+    ],
+    [
+      151,
+      133,
+      125
+    ],
+    [
+      119,
+      142,
+      166
+    ],
+    [
+      116,
+      133,
+      152
+    ],
+    [
+      100,
+      131,
+      158
+    ],
+    [
+      97,
+      124,
+      148
+    ],
+    [
+      202,
+      115,
+      10
+    ],
+    [
+      183,
+      101,
+      12
+    ],
+    [
+      149,
+      102,
+      55
+    ],
+    [
+      114,
+      103,
+      103
+    ],
+    [
+      94,
+      116,
+      139
+    ],
+    [
+      86,
+      110,
+      134
+    ],
+    [
+      84,
+      99,
+      119
+    ],
+    [
+      73,
+      95,
+      118
+    ],
+    [
+      156,
+      79,
+      12
+    ],
+    [
+      103,
+      77,
+      62
+    ],
+    [
+      68,
+      84,
+      103
+    ],
+    [
+      67,
+      76,
+      90
+    ],
+    [
+      127,
+      59,
+      11
+    ],
+    [
+      77,
+      57,
+      49
+    ],
+    [
+      84,
+      36,
+      15
+    ],
+    [
+      62,
+      30,
+      23
+    ],
+    [
+      47,
+      74,
+      96
+    ],
+    [
+      47,
+      44,
+      49
+    ],
+    [
+      55,
+      28,
+      23
+    ],
+    [
+      55,
+      24,
+      18
+    ],
+    [
+      46,
+      27,
+      25
+    ],
+    [
+      54,
+      22,
+      15
+    ],
+    [
+      51,
+      21,
+      16
+    ],
+    [
+      48,
+      21,
+      16
+    ],
+    [
+      43,
+      21,
+      17
+    ],
+    [
+      50,
+      18,
+      12
+    ],
+    [
+      46,
+      18,
+      13
+    ],
+    [
+      44,
+      18,
+      13
+    ],
+    [
+      43,
+      17,
+      13
+    ],
+    [
+      45,
+      13,
+      9
+    ],
+    [
+      39,
+      15,
+      11
+    ],
+    [
+      34,
+      6,
+      5
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "cut",
+      "label": "快速切割",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\repair_turret\\alternate-layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          79,
+          98,
+          382,
+          396
+        ],
+        "normalized": [
+          63,
+          78,
+          305,
+          316
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        676,
+        666
+      ],
+      "normalized": "cut-original.png",
+      "variants": {
+        "32": "cut-32.png",
+        "48": "cut-48.png"
+      }
+    },
+    {
+      "id": "wall",
+      "label": "承重支架",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\repair_turret\\alternate-layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          491,
+          100,
+          768,
+          387
+        ],
+        "normalized": [
+          392,
+          80,
+          612,
+          309
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        711,
+        738
+      ],
+      "normalized": "wall-original.png",
+      "variants": {
+        "32": "wall-32.png",
+        "48": "wall-48.png"
+      }
+    },
+    {
+      "id": "patrol",
+      "label": "优先巡检",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\repair_turret\\alternate-layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          846,
+          119,
+          1195,
+          378
+        ],
+        "normalized": [
+          675,
+          95,
+          953,
+          301
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        768,
+        571
+      ],
+      "normalized": "patrol-original.png",
+      "variants": {
+        "32": "patrol-32.png",
+        "48": "patrol-48.png"
+      }
+    },
+    {
+      "id": "arm",
+      "label": "副臂施工",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\repair_turret\\alternate-layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          68,
+          468,
+          385,
+          765
+        ],
+        "normalized": [
+          54,
+          373,
+          307,
+          610
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        755,
+        707
+      ],
+      "normalized": "arm-original.png",
+      "variants": {
+        "32": "arm-32.png",
+        "48": "arm-48.png"
+      }
+    },
+    {
+      "id": "mend",
+      "label": "巡回修补",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\repair_turret\\alternate-layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          463,
+          472,
+          765,
+          766
+        ],
+        "normalized": [
+          369,
+          376,
+          610,
+          611
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        684,
+        668
+      ],
+      "normalized": "mend-original.png",
+      "variants": {
+        "32": "mend-32.png",
+        "48": "mend-48.png"
+      }
+    },
+    {
+      "id": "patch",
+      "label": "清障补片",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\repair_turret\\alternate-layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          847,
+          495,
+          1185,
+          757
+        ],
+        "normalized": [
+          675,
+          395,
+          945,
+          604
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        808,
+        625
+      ],
+      "normalized": "patch-original.png",
+      "variants": {
+        "32": "patch-32.png",
+        "48": "patch-48.png"
+      }
+    },
+    {
+      "id": "emergency",
+      "label": "应急支撑",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\repair_turret\\alternate-layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          69,
+          874,
+          374,
+          1157
+        ],
+        "normalized": [
+          55,
+          697,
+          298,
+          923
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        692,
+        643
+      ],
+      "normalized": "emergency-original.png",
+      "variants": {
+        "32": "emergency-32.png",
+        "48": "emergency-48.png"
+      }
+    }
+  ]
+}

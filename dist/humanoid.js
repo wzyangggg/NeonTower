@@ -373,7 +373,10 @@ function humanoidRestHand(e,side,swing){
 }
 function drawHumanoidBoss(e){
  if(!e.cowboy){drawHumanoidBossModel(e);return;}
- const prior=renderer.residentTransform;renderer.residentTransform=pose=>cowboyScaledPose(e,pose);
+ const prior=renderer.residentTransform;renderer.residentTransform=pose=>{
+  const scaled=cowboyScaledPose(e,pose);
+  return prior?prior(scaled):scaled;
+ };
  try{if(e.cowboy.mech)drawMechanicalSpiderBoss(e);else drawHumanoidBossModel(e);}finally{renderer.residentTransform=prior;}
  for(const fx of e.skyEffects||[])drawHumanoidSky(fx);if(e.slash?.kind==='blink')drawHumanoidBlink(e.slash);
 }

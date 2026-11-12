@@ -16,6 +16,6 @@ for(const id of ['warpstar','neonsword','vinyl','skateboard','tentacle','spider'
  p.x+=100;g=updatePlayerBiped();close(g.legs[0].foot[0]-g.x,-6,id+' teleport reset');
  equipItem('shoes',createShoes('runner'));g=updatePlayerBiped();check(!g.mounted&&g.legs.every(l=>!l.swing),'dismount clears contacts');walking();
 }
-for(const id of ['runner','steady','catalyst','magnet']){equipItem('shoes',createShoes(id));check(!playerMounted(),id+' ordinary shoes');walking();}
+for(const id of ['runner','steady','magnet']){equipItem('shoes',createShoes(id));check(!playerMounted(),id+' ordinary shoes');walking();}
 console.log('Mounted rider: fixed local feet in all directions, stable pelvis, stop/frozen clock/teleport, mount and dismount during walking, ordinary shoes passed');
 }`,sandbox);

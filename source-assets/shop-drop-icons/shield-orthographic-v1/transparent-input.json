@@ -1,0 +1,6 @@
+{
+  "extractor": "image_gen transparent-background edit",
+  "layers": [
+    {"name": "shield", "z_index": 1, "path": "shield-transparent.png"}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Remove the flat taupe background, preserving existing shapes and colors. Return exactly two alpha-transparent foreground layers. Do not split off bolts, electrodes, handle, crosshair or drone face.\nreach <bbox>74 135 416 850</bbox> the entire violet U-shaped electric apparatus with both electrodes, connected cyan arc, base, and open transparent hole.\nmark <bbox>575 102 923 880</bbox> the entire circular tracking device with a gold handle and cyan face showing a red crosshair and navy drone; keep the handle hole transparent.",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\connected-icons\\source.png",
+  "sha256": "284132374e7ed7a308f4cf7ada2c921d0d7f2ce756a32fa6e596704e5ac47c22"
+}

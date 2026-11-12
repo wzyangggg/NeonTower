@@ -1,0 +1,27 @@
+{
+  "layers": [
+    {
+      "size": "999x1012",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          127,
+          117,
+          1126,
+          1129
+        ],
+        "normalized": [
+          101,
+          93,
+          898,
+          900
+        ]
+      },
+      "name": "tower_upgrade",
+      "description": "Extract the entire compact turret, keep all its elements including the black outline, cannon with dark recessed muzzle, purple chassis, integrated gold up chevron, cyan accent, preserve all original details and colors, do not include any background content.",
+      "background": "transparent",
+      "path": "raw-layers/layer-01.png"
+    }
+  ]
+}

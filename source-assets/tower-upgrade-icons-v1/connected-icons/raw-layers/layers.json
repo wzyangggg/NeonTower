@@ -1,0 +1,68 @@
+{
+  "submission": {
+    "time": 1794290445.2427783,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\connected-icons\\source.png",
+    "sha256": "284132374e7ed7a308f4cf7ada2c921d0d7f2ce756a32fa6e596704e5ac47c22"
+  },
+  "layers": [
+    {
+      "size": "1774x887",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\connected-icons\\raw-layers\\layer-00.png"
+    },
+    {
+      "size": "682x731",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          147,
+          129,
+          722,
+          745
+        ],
+        "normalized": [
+          83,
+          145,
+          407,
+          840
+        ]
+      },
+      "name": "Violet U-shaped electric apparatus",
+      "description": "The entire violet U-shaped electric apparatus with both electrodes, connected cyan arc, base, and open transparent hole. Do not split off bolts, electrodes or any other components, keep the whole device as one single integrated layer.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\connected-icons\\raw-layers\\layer-01.png"
+    },
+    {
+      "size": "662x752",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          1036,
+          99,
+          1624,
+          772
+        ],
+        "normalized": [
+          584,
+          112,
+          915,
+          870
+        ]
+      },
+      "name": "Circular tracking device",
+      "description": "The entire circular tracking device with a gold handle and cyan face showing a red crosshair and navy drone, keep the handle hole transparent. Do not split off handle, crosshair, drone face or any other parts of the device.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\connected-icons\\raw-layers\\layer-02.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 3,
+    "output_tokens": 13800,
+    "total_tokens": 13800
+  }
+}

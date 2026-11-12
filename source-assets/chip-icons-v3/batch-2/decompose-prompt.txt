@@ -1,0 +1,12 @@
+Extract exactly the eleven complete portrait chip cartridges as separate transparent PNG foreground layers. Preserve the source silhouettes, simple clipped corners, slight bottom rim, corner markings, emblems and colors. Remove only the warm taupe background. Do not straighten, crop corners, add pins, redraw or separate the emblems. Exact names and bounds in normalized 0–999 coordinates. Last cell is empty.
+sweep <bbox>0 30 250 320</bbox>
+haste <bbox>250 30 500 320</bbox>
+counter <bbox>500 30 750 320</bbox>
+breach <bbox>750 30 999 320</bbox>
+push <bbox>0 335 250 630</bbox>
+fuse <bbox>250 335 500 630</bbox>
+firstBomb <bbox>500 335 750 630</bbox>
+aftershock <bbox>750 335 999 630</bbox>
+mountDamage <bbox>0 650 250 947</bbox>
+mountRate <bbox>250 650 500 947</bbox>
+mountMove <bbox>500 650 750 947</bbox>

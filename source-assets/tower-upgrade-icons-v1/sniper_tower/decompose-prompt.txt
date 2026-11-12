@@ -1,0 +1,10 @@
+Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 9 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:
+distance <bbox>21 60 332 308</bbox> a long-range scope with a miniature distant target inside the lens
+rapid <bbox>367 22 607 320</bbox> a spring-loaded magazine of two long sniper cartridges
+pierce <bbox>665 36 979 315</bbox> a pointed steel bullet drilling through a single steel plate
+recovery <bbox>39 346 297 618</bbox> a sniper scope on a spring-back hinge with a curved arrow
+ballistic <bbox>344 429 656 551</bbox> a long cyan-tipped bullet with bold straight speed trails
+column <bbox>673 371 990 595</bbox> a cyan tracer piercing three aligned target plates in perspective
+caliber <bbox>27 665 312 938</bbox> an oversized gold-and-blue precision cartridge with a glowing pressure collar
+mark <bbox>348 667 649 925</bbox> a red target beacon bracket around a navy drone head
+bounty <bbox>688 655 948 928</bbox> a sniper cartridge crossed with a chunky blue crystal score token

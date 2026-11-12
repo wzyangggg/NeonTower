@@ -1,0 +1,14 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "size": "auto",
+  "response_format": "url",
+  "output_format": "png",
+  "watermark": false,
+  "layer_decomposition": true,
+  "optimize_prompt_options": {
+    "mode": "standard"
+  },
+  "prompt": "Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 7 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:\ncut <bbox>18 49 240 479</bbox> a toothed circular saw blade in a yellow housing slicing a small bolt\nwall <bbox>269 70 482 457</bbox> a dark masonry block braced by a chunky yellow triangular steel support\npatrol <bbox>510 76 739 457</bbox> an amber inspection drone with a scanning lens\narm <bbox>764 50 989 462</bbox> a jointed industrial construction arm with a steel claw\nmend <bbox>22 542 227 943</bbox> a yellow ratchet wrench wrapped by a recurring circular arrow\npatch <bbox>261 542 489 953</bbox> a yellow welder nozzle sealing a cracked metal plate\nemergency <bbox>522 540 735 952</bbox> a bright amber hydraulic jack lifting a broken block",
+  "image": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\repair_turret\\source.png",
+  "sha256": "128198d2dcd04b34ed19c5055c878063c3ad6b97b958b71d88ec02567b03c2aa"
+}

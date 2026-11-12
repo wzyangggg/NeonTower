@@ -1,0 +1,996 @@
+{
+  "generator": "image_gen",
+  "extractor": "Seedream layer_decomposition",
+  "pixelSizes": [
+    32,
+    48
+  ],
+  "palette": [
+    [
+      248,
+      241,
+      223
+    ],
+    [
+      233,
+      219,
+      215
+    ],
+    [
+      250,
+      223,
+      25
+    ],
+    [
+      252,
+      207,
+      10
+    ],
+    [
+      195,
+      187,
+      205
+    ],
+    [
+      246,
+      196,
+      55
+    ],
+    [
+      252,
+      200,
+      8
+    ],
+    [
+      134,
+      236,
+      115
+    ],
+    [
+      147,
+      222,
+      14
+    ],
+    [
+      150,
+      226,
+      10
+    ],
+    [
+      169,
+      185,
+      151
+    ],
+    [
+      60,
+      249,
+      224
+    ],
+    [
+      13,
+      196,
+      144
+    ],
+    [
+      1,
+      222,
+      181
+    ],
+    [
+      1,
+      189,
+      165
+    ],
+    [
+      1,
+      180,
+      134
+    ],
+    [
+      254,
+      142,
+      84
+    ],
+    [
+      254,
+      128,
+      13
+    ],
+    [
+      254,
+      122,
+      17
+    ],
+    [
+      202,
+      157,
+      146
+    ],
+    [
+      156,
+      145,
+      156
+    ],
+    [
+      254,
+      106,
+      24
+    ],
+    [
+      254,
+      104,
+      6
+    ],
+    [
+      254,
+      98,
+      5
+    ],
+    [
+      254,
+      103,
+      2
+    ],
+    [
+      211,
+      105,
+      53
+    ],
+    [
+      137,
+      127,
+      148
+    ],
+    [
+      118,
+      132,
+      155
+    ],
+    [
+      6,
+      146,
+      213
+    ],
+    [
+      6,
+      125,
+      253
+    ],
+    [
+      1,
+      144,
+      201
+    ],
+    [
+      106,
+      107,
+      131
+    ],
+    [
+      37,
+      103,
+      228
+    ],
+    [
+      19,
+      107,
+      196
+    ],
+    [
+      210,
+      68,
+      215
+    ],
+    [
+      246,
+      48,
+      103
+    ],
+    [
+      214,
+      88,
+      4
+    ],
+    [
+      251,
+      51,
+      64
+    ],
+    [
+      152,
+      60,
+      242
+    ],
+    [
+      139,
+      54,
+      237
+    ],
+    [
+      168,
+      89,
+      33
+    ],
+    [
+      146,
+      60,
+      51
+    ],
+    [
+      237,
+      42,
+      130
+    ],
+    [
+      243,
+      41,
+      100
+    ],
+    [
+      233,
+      27,
+      59
+    ],
+    [
+      231,
+      23,
+      54
+    ],
+    [
+      182,
+      35,
+      146
+    ],
+    [
+      217,
+      23,
+      49
+    ],
+    [
+      152,
+      34,
+      190
+    ],
+    [
+      126,
+      14,
+      53
+    ],
+    [
+      55,
+      69,
+      166
+    ],
+    [
+      26,
+      69,
+      149
+    ],
+    [
+      52,
+      30,
+      33
+    ],
+    [
+      13,
+      27,
+      44
+    ],
+    [
+      45,
+      9,
+      28
+    ],
+    [
+      15,
+      8,
+      8
+    ],
+    [
+      7,
+      7,
+      8
+    ],
+    [
+      6,
+      7,
+      2
+    ],
+    [
+      27,
+      1,
+      4
+    ],
+    [
+      13,
+      1,
+      2
+    ],
+    [
+      9,
+      1,
+      2
+    ],
+    [
+      5,
+      2,
+      5
+    ],
+    [
+      5,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      0
+    ]
+  ],
+  "dither": false,
+  "alphaThreshold": 128,
+  "normalizedSize": 256,
+  "maxObjectSize": 208,
+  "items": [
+    {
+      "id": "repeat",
+      "label": "repeat cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          120,
+          58,
+          336,
+          354
+        ],
+        "normalized": [
+          83,
+          53,
+          232,
+          326
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        604,
+        828
+      ],
+      "normalized": "repeat-original.png",
+      "variants": {
+        "32": "repeat-32.png",
+        "48": "repeat-48.png"
+      }
+    },
+    {
+      "id": "pierce",
+      "label": "pierce cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          447,
+          58,
+          667,
+          354
+        ],
+        "normalized": [
+          309,
+          53,
+          461,
+          326
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        643,
+        865
+      ],
+      "normalized": "pierce-original.png",
+      "variants": {
+        "32": "pierce-32.png",
+        "48": "pierce-48.png"
+      }
+    },
+    {
+      "id": "bounce",
+      "label": "bounce cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          777,
+          57,
+          1000,
+          354
+        ],
+        "normalized": [
+          537,
+          52,
+          691,
+          326
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        650,
+        867
+      ],
+      "normalized": "bounce-original.png",
+      "variants": {
+        "32": "bounce-32.png",
+        "48": "bounce-48.png"
+      }
+    },
+    {
+      "id": "shotgun",
+      "label": "shotgun cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1110,
+          57,
+          1329,
+          355
+        ],
+        "normalized": [
+          767,
+          52,
+          918,
+          327
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        622,
+        845
+      ],
+      "normalized": "shotgun-original.png",
+      "variants": {
+        "32": "shotgun-32.png",
+        "48": "shotgun-48.png"
+      }
+    },
+    {
+      "id": "starter",
+      "label": "starter cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          118,
+          386,
+          337,
+          682
+        ],
+        "normalized": [
+          81,
+          355,
+          233,
+          628
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        613,
+        828
+      ],
+      "normalized": "starter-original.png",
+      "variants": {
+        "32": "starter-32.png",
+        "48": "starter-48.png"
+      }
+    },
+    {
+      "id": "radius",
+      "label": "radius cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          449,
+          386,
+          666,
+          682
+        ],
+        "normalized": [
+          310,
+          355,
+          460,
+          628
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        633,
+        864
+      ],
+      "normalized": "radius-original.png",
+      "variants": {
+        "32": "radius-32.png",
+        "48": "radius-48.png"
+      }
+    },
+    {
+      "id": "power",
+      "label": "power cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          778,
+          385,
+          1001,
+          682
+        ],
+        "normalized": [
+          537,
+          355,
+          691,
+          628
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        650,
+        865
+      ],
+      "normalized": "power-original.png",
+      "variants": {
+        "32": "power-32.png",
+        "48": "power-48.png"
+      }
+    },
+    {
+      "id": "large",
+      "label": "large cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1110,
+          385,
+          1329,
+          682
+        ],
+        "normalized": [
+          767,
+          355,
+          918,
+          628
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        623,
+        842
+      ],
+      "normalized": "large-original.png",
+      "variants": {
+        "32": "large-32.png",
+        "48": "large-48.png"
+      }
+    },
+    {
+      "id": "guide",
+      "label": "guide cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          117,
+          713,
+          338,
+          1012
+        ],
+        "normalized": [
+          81,
+          657,
+          233,
+          932
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        618,
+        837
+      ],
+      "normalized": "guide-original.png",
+      "variants": {
+        "32": "guide-32.png",
+        "48": "guide-48.png"
+      }
+    },
+    {
+      "id": "edge",
+      "label": "edge cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          446,
+          713,
+          667,
+          1013
+        ],
+        "normalized": [
+          308,
+          657,
+          461,
+          933
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        645,
+        873
+      ],
+      "normalized": "edge-original.png",
+      "variants": {
+        "32": "edge-32.png",
+        "48": "edge-48.png"
+      }
+    },
+    {
+      "id": "reach",
+      "label": "reach cartridge",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-1\\layers\\layer-11.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          779,
+          713,
+          1001,
+          1013
+        ],
+        "normalized": [
+          538,
+          657,
+          691,
+          933
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        647,
+        873
+      ],
+      "normalized": "reach-original.png",
+      "variants": {
+        "32": "reach-32.png",
+        "48": "reach-48.png"
+      }
+    },
+    {
+      "id": "sweep",
+      "label": "sweep",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-01.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          95,
+          49,
+          300,
+          334
+        ],
+        "normalized": [
+          66,
+          45,
+          207,
+          308
+        ]
+      },
+      "alphaTrim": [
+        2,
+        3,
+        624,
+        868
+      ],
+      "normalized": "sweep-original.png",
+      "variants": {
+        "32": "sweep-32.png",
+        "48": "sweep-48.png"
+      }
+    },
+    {
+      "id": "haste",
+      "label": "haste",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-02.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          428,
+          48,
+          639,
+          334
+        ],
+        "normalized": [
+          296,
+          44,
+          441,
+          308
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        631,
+        859
+      ],
+      "normalized": "haste-original.png",
+      "variants": {
+        "32": "haste-32.png",
+        "48": "haste-48.png"
+      }
+    },
+    {
+      "id": "counter",
+      "label": "counter",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-03.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          776,
+          47,
+          994,
+          334
+        ],
+        "normalized": [
+          536,
+          43,
+          686,
+          308
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        616,
+        812
+      ],
+      "normalized": "counter-original.png",
+      "variants": {
+        "32": "counter-32.png",
+        "48": "counter-48.png"
+      }
+    },
+    {
+      "id": "breach",
+      "label": "breach",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-04.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1120,
+          45,
+          1338,
+          333
+        ],
+        "normalized": [
+          773,
+          41,
+          924,
+          307
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        609,
+        803
+      ],
+      "normalized": "breach-original.png",
+      "variants": {
+        "32": "breach-32.png",
+        "48": "breach-48.png"
+      }
+    },
+    {
+      "id": "push",
+      "label": "push",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-05.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          92,
+          386,
+          306,
+          673
+        ],
+        "normalized": [
+          64,
+          355,
+          211,
+          620
+        ]
+      },
+      "alphaTrim": [
+        2,
+        2,
+        624,
+        839
+      ],
+      "normalized": "push-original.png",
+      "variants": {
+        "32": "push-32.png",
+        "48": "push-48.png"
+      }
+    },
+    {
+      "id": "fuse",
+      "label": "fuse",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-06.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          430,
+          386,
+          643,
+          673
+        ],
+        "normalized": [
+          297,
+          355,
+          444,
+          620
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        623,
+        841
+      ],
+      "normalized": "fuse-original.png",
+      "variants": {
+        "32": "fuse-32.png",
+        "48": "fuse-48.png"
+      }
+    },
+    {
+      "id": "firstbomb",
+      "label": "firstBomb",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-07.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          773,
+          385,
+          993,
+          673
+        ],
+        "normalized": [
+          534,
+          355,
+          686,
+          620
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        647,
+        848
+      ],
+      "normalized": "firstbomb-original.png",
+      "variants": {
+        "32": "firstbomb-32.png",
+        "48": "firstbomb-48.png"
+      }
+    },
+    {
+      "id": "aftershock",
+      "label": "aftershock",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-08.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          1117,
+          385,
+          1341,
+          673
+        ],
+        "normalized": [
+          771,
+          355,
+          926,
+          620
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        612,
+        789
+      ],
+      "normalized": "aftershock-original.png",
+      "variants": {
+        "32": "aftershock-32.png",
+        "48": "aftershock-48.png"
+      }
+    },
+    {
+      "id": "mountdamage",
+      "label": "mountDamage",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-09.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          90,
+          727,
+          309,
+          1014
+        ],
+        "normalized": [
+          62,
+          669,
+          213,
+          934
+        ]
+      },
+      "alphaTrim": [
+        1,
+        2,
+        617,
+        809
+      ],
+      "normalized": "mountdamage-original.png",
+      "variants": {
+        "32": "mountdamage-32.png",
+        "48": "mountdamage-48.png"
+      }
+    },
+    {
+      "id": "mountrate",
+      "label": "mountRate",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-10.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          424,
+          728,
+          646,
+          1015
+        ],
+        "normalized": [
+          293,
+          670,
+          446,
+          935
+        ]
+      },
+      "alphaTrim": [
+        1,
+        1,
+        655,
+        846
+      ],
+      "normalized": "mountrate-original.png",
+      "variants": {
+        "32": "mountrate-32.png",
+        "48": "mountrate-48.png"
+      }
+    },
+    {
+      "id": "mountmove",
+      "label": "mountMove",
+      "sourceLayer": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\chip-icons-v3\\batch-2\\layers\\layer-11.png",
+      "sourceBoundingBox": {
+        "absolute": [
+          767,
+          728,
+          992,
+          1016
+        ],
+        "normalized": [
+          530,
+          670,
+          685,
+          936
+        ]
+      },
+      "alphaTrim": [
+        2,
+        1,
+        641,
+        824
+      ],
+      "normalized": "mountmove-original.png",
+      "variants": {
+        "32": "mountmove-32.png",
+        "48": "mountmove-48.png"
+      }
+    }
+  ]
+}

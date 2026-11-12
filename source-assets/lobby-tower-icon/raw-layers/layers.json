@@ -1,0 +1,45 @@
+{
+  "submission": {
+    "time": 1794029264.2068548,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-tower-icon\\source.png",
+    "sha256": "617daa0d650001e805dfb58a89aab628e9dfb9801f30b0254fdfa4249d97925a"
+  },
+  "layers": [
+    {
+      "size": "1254x1254",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-tower-icon\\raw-layers\\layer-00.png"
+    },
+    {
+      "size": "999x1012",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          127,
+          117,
+          1126,
+          1129
+        ],
+        "normalized": [
+          101,
+          93,
+          898,
+          900
+        ]
+      },
+      "name": "compact turret",
+      "description": "Extract the entire compact turret, keep all its elements including the black outline, cannon with dark recessed muzzle, purple chassis, integrated gold up chevron, cyan accent, preserve all original details and colors, do not include any background content.",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\lobby-tower-icon\\raw-layers\\layer-01.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 2,
+    "output_tokens": 12168,
+    "total_tokens": 12168
+  }
+}

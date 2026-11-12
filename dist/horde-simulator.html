@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>尸潮模拟器 · 地狱电梯</title>
+<style>
+  :root { color-scheme:dark; --foreground:#ebf3f8; --muted-foreground:#a5b5c8; --border:#394b60;
+    --viz-series-1:#69e8de; --viz-series-2:#ffb37f; --font-size-base:16px; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#131b27; font:1rem/1.5 Inter,system-ui,sans-serif; }
+  main { max-width:48rem; margin:0 auto; padding:clamp(1rem,4vw,2.5rem); }
+  h1,h2,p { margin:0; }
+  h1 { font-size:1.8rem; }
+  h2 { font-size:1rem; }
+  .text-muted { color:var(--muted-foreground); }
+  .text-small { font-size:.875rem; }
+  .tabular-nums { font-variant-numeric:tabular-nums; }
+  .viz-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
+  .viz-row { display:flex; align-items:end; gap:1rem; }
+  .form-label { display:grid; gap:.25rem; }
+  .form-control,.form-select,.btn { min-height:2.75rem; padding:.35rem .65rem; border:1px solid var(--border);
+    border-radius:.4rem; background:#1d2a3a; color:var(--foreground); font:inherit; }
+  .form-control,.form-select { width:100%; }
+  .form-range { margin:0; min-height:2rem; accent-color:var(--viz-series-1); }
+  .btn-primary { background:var(--viz-series-1); color:#122529; font-weight:600; min-width:4.5rem; cursor:pointer; }
+  #hs-lanes > div { padding:.75rem; background:#1b2534; border-radius:.5rem; }
+  #hs-results { border-top:1px solid var(--border); padding-top:.75rem; }
+</style>
+</head>
+<body>
+<main>
+<section id="horde-simulator">
+  <header><h1>尸潮模拟器</h1><p class="text-muted">玩家固定在第 10 格，怪群从桥头逼近。</p></header>
+  <div class="viz-controls">
+    <label class="form-label">怪潮配置
+      <select class="form-select" id="hs-wave">
+        <option value="current">当前 B04 · 75 只</option>
+        <option value="proposed">调低密度 · 60 只</option>
+      </select>
+    </label>
+    <label class="form-label">单发伤害
+      <input class="form-control" id="hs-damage" type="number" min="0.1" max="100" step="0.1" value="1">
+    </label>
+    <label class="form-label">有效攻击间隔（秒）
+      <input class="form-control" id="hs-interval" type="number" min="0.05" max="5" step="0.01" value="0.29">
+    </label>
+    <label class="form-label">穿透目标数（含首个）
+      <input class="form-control" id="hs-pierce" type="number" min="2" max="10" step="1" value="3">
+    </label>
+  </div>
+  <div class="viz-row">
+    <button type="button" class="btn btn-primary" id="hs-play">播放</button>
+    <label class="form-label hs-time">时间 <output id="hs-clock">0.0 秒</output>
+      <input class="form-range" id="hs-time" type="range" min="0" max="55" step="0.05" value="0">
+    </label>
+  </div>
+  <div id="hs-lanes"></div>
+  <p class="text-small text-muted">● 玩家　• 轻／中怪　◆ 重怪　数字为同格存活数</p>
+  <div id="hs-results" aria-live="polite"></div>
+</section>
+<style>
+#horde-simulator { display:grid; gap:calc(var(--font-size-base, 14px) * .7); color:var(--foreground); }
+#horde-simulator .hs-time { flex:1; min-width:9rem; }
+#horde-simulator .hs-time input { display:block; width:100%; }
+#horde-simulator #hs-lanes, #horde-simulator #hs-results { display:grid; gap:.55rem; }
+#horde-simulator .hs-track { height:2.7rem; position:relative; margin:.15rem .55rem; }
+#horde-simulator .hs-grid { position:absolute; inset:.45rem 0 .65rem; display:grid; grid-template-columns:repeat(10,1fr); border-block:1px solid var(--border); }
+#horde-simulator .hs-grid span { border-right:1px solid var(--border); }
+#horde-simulator .hs-grid span:first-child { border-left:1px solid var(--border); }
+#horde-simulator .hs-mark { position:absolute; transform:translateX(-50%); font-weight:500; }
+#horde-simulator .hs-enemy { top:.65rem; color:var(--viz-series-2,var(--orange)); }
+#horde-simulator .hs-player { top:0; color:var(--viz-series-1,var(--blue)); }
+#horde-simulator .hs-labels { display:flex; justify-content:space-between; }
+</style>
+<script>
+(() => {
+  const root = document.getElementById('horde-simulator');
+  const get = id => root.querySelector('#hs-' + id);
+  const order = ['camera','scout','camera','camera','capsule','scout','camera','barrel',
+    'camera','heavy','scout','beetle','camera','hermit','camera'];
+  const currentHP = {scout:1,camera:1.5,capsule:3.5,barrel:3.5,beetle:4.5,hermit:4.5,heavy:5.5};
+  const proposedHP = {scout:1,camera:2,capsule:3,barrel:3,beetle:4,hermit:4,heavy:8};
+  const proposedSpeed = {scout:100,camera:96,capsule:88,barrel:80,beetle:74,hermit:68,heavy:56};
+  const step = .05, duration = 55, wall = 10, approach = 3, tile = 54;
+  const fields = ['wave','damage','interval','pierce'];
+  let time = 0, runs, playing = false, previousFrame = null, frameId;
+
+  function simulate(config, pierce) {
+    const {proposed, damage, interval} = config;
+    const queue = Array.from({length:proposed ? 60 : 75}, (_, index) => order[index % order.length]);
+    const cap = proposed ? 12 : 32;
+    const stop = proposed ? 45 : 53;
+    const frames = [];
+    let enemies = [], next = 0, hp = 3, kills = 0, invUntil = 0;
+    let nextShot = 0, nextExtra = .25, nextBatch = 2.4;
+    let contact = null, cleared = null, death = null;
+    function spawn() {
+      const kind = queue[next++];
+      enemies.push({
+        x:-approach,
+        hp:(proposed ? proposedHP : currentHP)[kind],
+        speed:(proposed ? proposedSpeed[kind] : 108.16) / tile,
+        heavy:kind === 'heavy'
+      });
+    }
+    for (let tick = 0; tick <= duration / step; tick++) {
+      const t = tick * step;
+      if (t < stop && next < queue.length) {
+        if (proposed) {
+          const due = Math.floor(next / 15) * 11 + next % 15 * .75;
+          if (t + 1e-8 >= due && enemies.length < cap && t + 1e-8 >= nextExtra) {
+            spawn();
+            nextExtra = t + .75;
+          }
+        } else {
+          if (tick === 0 || t + 1e-8 >= nextBatch || (!enemies.length && t + 1e-8 >= nextExtra)) {
+            const count = Math.min(5, cap - enemies.length, queue.length - next);
+            for (let index = 0; index < count; index++) spawn();
+            if (count) nextBatch = t + 2.4;
+          }
+          if (tick && t + 1e-8 >= nextExtra && enemies.length && enemies.length < cap && next < queue.length) {
+            spawn();
+            nextExtra = t + .25;
+          }
+        }
+      }
+      for (const enemy of enemies) enemy.x = Math.min(wall, enemy.x + (tick ? step * enemy.speed : 0));
+      if (enemies.length && t + 1e-8 >= nextShot) {
+        enemies.sort((a,b) => b.x - a.x);
+        for (const enemy of enemies.slice(0, pierce)) enemy.hp -= damage;
+        const alive = enemies.filter(enemy => enemy.hp > 1e-8);
+        kills += enemies.length - alive.length;
+        enemies = alive;
+        nextShot = nextShot + interval > t + 1e-8 ? nextShot + interval : t + interval;
+      }
+      if (enemies.some(enemy => wall - enemy.x <= .26)) {
+        contact ??= t;
+        if (t + 1e-8 >= invUntil) {
+          hp--;
+          invUntil = t + 1.5;
+          if (!hp) death = t;
+        }
+      }
+      if (!enemies.length && (next === queue.length || t >= stop)) cleared ??= t;
+      frames.push({hp,kills,spawned:next,enemies:enemies.map(enemy => ({x:enemy.x,heavy:enemy.heavy}))});
+      if (death !== null || cleared !== null) break;
+    }
+    return {frames,contact,cleared,death,total:queue.length};
+  }
+
+  function config() {
+    const number = id => {
+      const field = get(id);
+      return Math.max(+field.min, Math.min(+field.max, field.valueAsNumber));
+    };
+    return {proposed:get('wave').value === 'proposed',damage:number('damage'),
+      interval:number('interval'),pierce:Math.round(number('pierce'))};
+  }
+  const seconds = value => value === null ? '—' : value.toFixed(1) + ' 秒';
+  const labels = ['单体 · 只打第一个','穿透 · 同列多目标'];
+
+  function render() {
+    get('clock').textContent = seconds(time);
+    get('time').value = time;
+    get('lanes').innerHTML = runs.map((run,index) => {
+      const snapshot = run.frames[Math.min(run.frames.length - 1, Math.round(time / step))];
+      const groups = new Map();
+      for (const enemy of snapshot.enemies) {
+        if (enemy.x < 0) continue;
+        const bucket = Math.min(wall - 1,Math.floor(enemy.x));
+        const group = groups.get(bucket) || {count:0,heavy:false};
+        group.count++;
+        group.heavy ||= enemy.heavy;
+        groups.set(bucket,group);
+      }
+      const marks = [...groups].map(([bucket,group]) =>
+        `<span class="hs-mark hs-enemy" style="left:${(bucket+.5)*10}%">${group.heavy?'◆':'•'}${group.count>1?group.count:''}</span>`).join('');
+      const bridge = snapshot.enemies.filter(enemy => enemy.x < 0).length;
+      return `<div><h2>${labels[index]}</h2>
+        <div class="hs-track" aria-hidden="true"><div class="hs-grid">${'<span></span>'.repeat(10)}</div>
+        ${marks}<span class="hs-mark hs-player" style="left:100%">●</span></div>
+        <div class="hs-labels text-small"><span>桥头 · 桥上 ${bridge} 只</span><span>第 10 格 · 墙角</span></div>
+        <p class="tabular-nums">场上 ${snapshot.enemies.length} 只 · 生命 ${snapshot.hp}/3 · 击杀 ${snapshot.kills}/${run.total}</p></div>`;
+    }).join('');
+  }
+
+  function updateResults() {
+    get('results').innerHTML = runs.map((run,index) => {
+      const end = run.frames.at(-1);
+      const result = run.death !== null ? `阵亡 ${seconds(run.death)}`
+        : run.cleared !== null ? `清空已入场怪群 ${seconds(run.cleared)}`
+        : `撑到结算 · 场上剩 ${end.enemies.length} 只`;
+      return `<p class="tabular-nums"><strong>${index===0?'单体':'穿透'}　${result}</strong><br>
+        <span class="text-small text-muted">首次抵达玩家 ${seconds(run.contact)} · 共入场 ${end.spawned} 只</span></p>`;
+    }).join('');
+  }
+  function stopPlayback() {
+    playing = false;
+    previousFrame = null;
+    cancelAnimationFrame(frameId);
+    get('play').textContent = '播放';
+  }
+  function recalculate() {
+    const settings = config();
+    if (Object.values(settings).some(Number.isNaN)) return;
+    stopPlayback();
+    runs = [simulate(settings,1),simulate(settings,settings.pierce)];
+    get('time').max = (Math.max(...runs.map(run => run.frames.length)) - 1) * step;
+    time = Math.min(time,+get('time').max);
+    updateResults();
+    render();
+  }
+  function animate(now) {
+    if (!playing) return;
+    if (previousFrame !== null) time = Math.min(+get('time').max,time + Math.min(.1,(now-previousFrame)/1000)*2);
+    previousFrame = now;
+    render();
+    if (time >= +get('time').max) stopPlayback();
+    else frameId = requestAnimationFrame(animate);
+  }
+  get('play').addEventListener('click', () => {
+    if (playing) { stopPlayback(); return; }
+    if (time >= +get('time').max) time = 0;
+    playing = true;
+    get('play').textContent = '暂停';
+    frameId = requestAnimationFrame(animate);
+  });
+  get('time').addEventListener('input', () => {
+    stopPlayback();
+    time = +get('time').value;
+    render();
+  });
+  for (const id of fields) get(id).addEventListener('change', recalculate);
+  recalculate();
+})();
+</script>
+</main>
+</body>
+</html>

@@ -5,9 +5,11 @@ const sandbox={console,Math,Float32Array,performance:{now:()=>0},localStorage:{g
 vm.createContext(sandbox);if(process.argv.includes('--hex'))vm.runInContext(fs.readFileSync('dist/hex-map.js','utf8')+'\n'+fs.readFileSync('dist/terrain-generators.js','utf8'),sandbox);for(const file of ['music','renderer','game','humanoid','cowboy','snake','virus','crimson-mech','drone-boss','ufo-boss']){let code=fs.readFileSync('dist/'+file+'.js','utf8');if(file==='game'&&process.argv.includes('--hex'))code=require('../dist/hex-map.js').transform(code);vm.runInContext(code,sandbox);}
 vm.runInContext(`{
 function check(v,m){if(!v)throw Error(m)}
-function setup(f=6){reset();floor=f;startWave();p.inv=999;}
+function setup(f=6){reset();floor=f;startWave({previewSawRoom:true});p.inv=999;}
 for(const f of [6,17,28]){
- setup(f);check(sawRoom&&state==='combat','saw floor '+f);
+ reset();floor=f;startWave();
+ check(timedRoom&&!sawRoom&&!tiles.some(t=>t.flywheel?.diagonal)&&spawnQueue.length>0,'ordinary enemy floor '+f);
+ setup(f);check(sawRoom&&state==='combat','saw preview '+f);
  const center=tiles.find(t=>t.x===0&&t.y===0),at=typeof HexMap==='undefined'?{x:325,y:300}:{x:325+HexMap.x(0,0),y:300};
  check(canWalkAt(p.x,p.y,7)&&tiles.some(t=>{const c=bridgeCellCenter(t);return Math.hypot(c.x-p.x,c.y-p.y)<.001;}),'safe tile-center spawn '+f);if(center)check(p.x===at.x&&p.y===at.y,'central tile preferred when present '+f);
  check(sawRoom.sources.length===Math.ceil(tiles.length/10)&&!enemies.length&&!spawnQueue.length,'sources scale with owned land and no enemies');

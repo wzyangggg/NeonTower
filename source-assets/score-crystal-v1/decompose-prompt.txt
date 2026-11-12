@@ -1,0 +1,4 @@
+Extract exactly three foreground layers from this sheet, one whole blue crystal per layer, faithful to the source shapes, facets, dark navy outlines and white highlights. Preserve the complete outline, with transparent pixels outside each crystal. Remove the taupe background. Do not redraw, recolor, add shadow, split facets, or combine crystals. Output these layer names and target regions:
+score_prism <bbox>110 265 260 737</bbox>
+score_shard <bbox>393 282 605 732</bbox>
+score_cluster <bbox>698 265 912 736</bbox>

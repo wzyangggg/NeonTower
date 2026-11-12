@@ -3,6 +3,8 @@
 var weaponLab;
 if(typeof location!=='undefined'&&new URLSearchParams(location.search).get('weaponlab')==='1'){
  const params=new URLSearchParams(location.search);
+ const smokeDemo=params.get('smokedemo')==='1';
+ let smokeFollowUp=0;
  const css=document.createElement('style');css.textContent=`
  .weapon-lab .bottomhud,.weapon-lab #survival-clock{display:none!important}
  .weapon-lab #test-open{top:70px;bottom:auto;left:auto;right:14px}
@@ -21,18 +23,34 @@ if(typeof location!=='undefined'&&new URLSearchParams(location.search).get('weap
  <div class="weapon-row"><button id="weapon-auto" class="active">自动射击 ON</button><button id="weapon-once">单发</button><button id="weapon-targets">重新布靶</button><button id="weapon-more" aria-expanded="false">更多</button></div>
  <div class="weapon-extra"><div class="weapon-row"><label><input id="weapon-god" type="checkbox" checked>无敌</label><button id="weapon-bullets">生成敌弹</button><button id="weapon-evolve">进化 +1</button><button id="weapon-hit">测试受击</button></div><div class="weapon-row"><button id="weapon-restart">重置当前武器</button><select id="weapon-background" aria-label="靶场背景"><option value="roof">蓝色屋顶</option><option value="original">原电梯</option></select><a href="index.html">返回主页</a></div><small class="weapon-info" id="weapon-info"></small><small class="weapon-info">WASD／摇杆移动；靶子自动补充。成长用脆靶测试，进化按钮可预览各阶段。暂停后仍可换枪。</small></div>`;
  $('viewport').append(panel);
+ if(params.get('smoke')==='trails'){
+  const hint=document.createElement('small');hint.className='weapon-info';
+  hint.textContent='烟雾试验 · 点「单发」看剑烟，WASD／摇杆移动看脚步烟。';
+  panel.append(hint);
+ }
+ if(smokeDemo){
+  const row=document.createElement('div'),button=document.createElement('button'),compare=document.createElement('a');
+  const other=new URL(location.href);
+  other.searchParams.delete('smoke');other.searchParams.delete('smokedemo');other.searchParams.set('smokeblast','far');
+  row.className='weapon-row';button.type='button';button.textContent='引爆两团粒子烟';
+  button.onclick=()=>{spawnExplosionFX(270,470,70);smokeFollowUp=.28;};
+  compare.href=other.href;compare.textContent='打开爆烟距离对比';
+  row.append(button,compare);panel.append(row);
+ }
  for(const [family,name]of Object.entries(WEAPON_FAMILY_NAMES)){const group=document.createElement('optgroup');group.label=name;for(const m of WEAPON_MODELS.filter(m=>m.familyId===family)){const opt=document.createElement('option');opt.value=m.id;opt.textContent='T'+m.tier+' · '+m.name;group.append(opt);} $('weapon-model').append(group);}
  weaponLab={active:true,god:true,firing:true,pattern:'crowd',health:300,targets:[],elapsed:0,damage:0,hudClock:0,currentId:'',
   positions(){return this.pattern==='single'?[[325,190]]:this.pattern==='line'?[[325,300],[325,235],[325,170],[325,105]]:this.pattern==='moving'?[[210,170],[325,160],[440,170],[235,265],[415,265]]:[[265,170],[325,170],[385,170],[265,225],[325,225],[385,225],[265,280],[325,280],[385,280]];},
   makeTarget(index,x,y){const e={type:'eye',x,y,homeX:x,homeY:y,hp:this.health,max:this.health,r:14,t:0,fire:999999,warn:false,seed:index*.83,terrainStun:this.pattern==='moving'?0:999999,weaponLabTarget:true};enemies.push(e);return {e,index,x,y,lastHealth:e.hp,respawn:0};},
-  resetTargets(){enemies=[];missiles=[];bullets=[];shots=[];particles=[];blasts=[];explosionFX=[];shockWaves=[];this.targets=this.positions().map(([x,y],i)=>this.makeTarget(i,x,y));this.elapsed=this.damage=this.hudClock=0;kills=0;shootTimer=0;this.hud();},
+  resetTargets(){smokeFollowUp=0;globalThis.ParticleSmoke?.clear();enemies=[];missiles=[];bullets=[];shots=[];particles=[];blasts=[];explosionFX=[];shockWaves=[];this.targets=this.positions().map(([x,y],i)=>this.makeTarget(i,x,y));this.elapsed=this.damage=this.hudClock=0;kills=0;shootTimer=0;this.hud();},
   select(id,keepPause=true){if(!WEAPON_MODELS.some(m=>m.id===id))return false;const wasPaused=paused;equipItem('weapon',createWeaponModel(id));this.currentId=id;$('weapon-model').value=id;this.resetTargets();if(keepPause)paused=wasPaused;const p=new URLSearchParams(location.search);p.set('weaponlab','1');p.set('weapon',id);history.replaceState(null,'','?'+p);this.hud();return true;},
   setup(){reset();testMode=true;state='combat';paused=false;timedRoom=greedRoom=null;floor=1;campaignBoss=0;chaserSpawned=999;spawnQueue=[];spawnTimer=999;turrets=[];armor=shoes=drone=null;p.x=325;p.y=410;p.hp=p.max=9;p.shield=0;p.inv=0;scroll=0;time=0;tiles=[];for(let y=grid.minY;y<=grid.maxY;y++)for(let x=grid.minX;x<=grid.maxX;x++)tiles.push({x,y});
    this.currentId='';this.select(WEAPON_MODELS.some(m=>m.id===params.get('weapon'))?params.get('weapon'):'rocket_t5',false);
+   if((smokeDemo||params.has('smokeblast'))&&this.firing)$('weapon-auto').click();
    if(typeof StreetScene!=='undefined'){StreetScene.enabled=true;StreetScene.place='roof';StreetScene.look='blue';StreetScene.rain=false;}
    renderer.sceneKey=null;$('overlay').style.display='none';$('pause-panel').hidden=true;$('equipment-test').hidden=true;$('viewport').classList.remove('paused','falling','landing');clearTimeout(toast.timer);$('toast').classList.remove('show');$('test-open').textContent='F2 装备';updateUI();this.hud();draw();
   },
   update(dt){
+   if(smokeFollowUp>0){smokeFollowUp-=dt;if(smokeFollowUp<=0)spawnExplosionFX(365,491,64);}
    if(this.currentId!==weapon.itemId){this.currentId=weapon.itemId;$('weapon-model').value=weapon.itemId||'';this.elapsed=this.damage=0;for(const t of this.targets)t.lastHealth=Math.max(0,t.e.hp);}
    this.elapsed+=dt;for(let i=0;i<this.targets.length;i++){const t=this.targets[i];this.damage+=Math.max(0,t.lastHealth-Math.max(0,t.e.hp));t.lastHealth=Math.max(0,t.e.hp);if(t.e.hp<=0){t.respawn+=dt;if(t.respawn>=.4)this.targets[i]=this.makeTarget(t.index,t.x,t.y);}}
    this.hudClock+=dt;if(this.hudClock>=.15){this.hudClock=0;this.hud();}

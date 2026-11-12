@@ -1,0 +1,6 @@
+Decompose this inventory sheet. Separate background into z_index 0. Extract exactly 5 foreground layers, one per listed object including its nearby effects, particles and components, keeping original color, silhouette and holes. Use real alpha, remove all taupe backdrop. Do not redraw, merge slots, or separate an object into multiple pieces. Use exactly the following lowercase English layer names with normalized source regions:
+radius <bbox>40 204 318 463</bbox> a violet emitter with a broad flat ring and outward ticks
+friend <bbox>378 189 602 474</bbox> a white ally transponder with a green check symbol on a purple casing
+core <bbox>690 205 966 465</bbox> a dense dark purple gravity sphere pulling in bright pink facets
+field <bbox>33 532 312 786</bbox> a magnetic coil with three nested magenta field arcs
+intercept <bbox>347 559 653 767</bbox> two purple field pylons with a magenta horizontal barrier

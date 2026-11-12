@@ -41,3 +41,41 @@ if(typeof HexMap!=='undefined'){
 }
 console.log('Persistent bridge: ten-floor identity, allowed headings, new segment/reset, finite mixed melee waves, island traversal/contact, permanent replacement and finite rendering passed.');
 }`,sandbox);
+if(process.argv.includes('--hex')){
+ sandbox.location={search:''};
+ sandbox.URLSearchParams=URLSearchParams;
+ vm.runInContext(fs.readFileSync('dist/room-lab.js','utf8'),sandbox);
+ vm.runInContext(`{
+  for(const index of [1,3,1,3]){
+   RoomLab.start(index);
+   if(!bridgeRoom||!tiles.some(c=>c.x===bridgeRoom.target.x&&c.y===bridgeRoom.target.y)){
+    throw Error('Room Lab bridge must land on the selected room floor');
+   }
+   const {x,y}=bridgeRoom.target;
+   if(!HexMap.neighbors(x,y).some(([dx,dy])=>bridgeRoom.cells.some(c=>c.x===x+dx&&c.y===y+dy))){
+    throw Error('Room Lab bridge must touch its landing tile');
+   }
+  }
+  console.log('Room Lab: both bridge rooms connect to the selected floor on start and restart.');
+  sound=false;
+  enemies=[];
+  if(!spawnBridgeRoller({type:'virusElite'}))throw Error('Elite virus failed to spawn on the bridge');
+  const virus=enemies[0];
+  bullets=[];
+  updateBridgeVirus(virus,2);
+  if(bullets.length)throw Error('Elite virus fired before landing');
+  for(let i=0;i<1200&&virus.bridgeApproach;i++)updateBridgeRoller(virus,1/30);
+  if(virus.bridgeApproach)throw Error('Elite virus failed to reach the floor');
+  updateBridgeVirus(virus,.65);
+  if(!virus.warn||bullets.length)throw Error('Elite virus did not telegraph its shot');
+  updateBridgeVirus(virus,.6);
+  if(bullets.length!==5)throw Error('Elite virus did not fire a five-shot fan');
+  virus.hp=virus.max/2;
+  const remaining=virus.hp;
+  updateBridgeVirus(virus,.01);
+  if(enemies.length!==2||enemies.reduce((sum,e)=>sum+e.hp,0)!==remaining)throw Error('Elite virus split must conserve remaining HP');
+  for(const body of enemies.slice()){body.hp=body.max/2;updateBridgeVirus(body,.01);}
+  if(enemies.length!==2)throw Error('Elite virus offspring must not split again');
+  console.log('Room Lab: elite virus crosses the bridge, telegraphs and fires on land, and splits once.');
+ }`,sandbox);
+}

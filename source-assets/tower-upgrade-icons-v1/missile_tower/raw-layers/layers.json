@@ -1,0 +1,160 @@
+{
+  "submission": {
+    "time": 1794289524.2103727,
+    "source": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\source.png",
+    "sha256": "b1a27ba1fb01459fb196868e723968daf9a2f5196f7db20238d9b5e710ada5a1"
+  },
+  "layers": [
+    {
+      "size": "1276x1233",
+      "output_format": "png",
+      "z_index": 0,
+      "background": "opaque",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-00.png"
+    },
+    {
+      "size": "752x782",
+      "output_format": "png",
+      "z_index": 1,
+      "bounding_box": {
+        "absolute": [
+          35,
+          136,
+          411,
+          527
+        ],
+        "normalized": [
+          27,
+          110,
+          322,
+          427
+        ]
+      },
+      "name": "speed",
+      "description": "a red finned guided missile with bright long exhaust, keep original color, silhouette and all associated flame effects, do not split the object into separate parts",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-01.png"
+    },
+    {
+      "size": "665x764",
+      "output_format": "png",
+      "z_index": 2,
+      "bounding_box": {
+        "absolute": [
+          470,
+          105,
+          829,
+          518
+        ],
+        "normalized": [
+          368,
+          85,
+          650,
+          420
+        ]
+      },
+      "name": "radar",
+      "description": "a tilted radar dish with two orange scan arcs, keep original color, silhouette and all associated signal effects, do not split the object into separate parts",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-02.png"
+    },
+    {
+      "size": "706x754",
+      "output_format": "png",
+      "z_index": 3,
+      "bounding_box": {
+        "absolute": [
+          890,
+          157,
+          1210,
+          498
+        ],
+        "normalized": [
+          697,
+          127,
+          948,
+          404
+        ]
+      },
+      "name": "range",
+      "description": "a long yellow-tipped missile fuse with a small distance reticle, keep original color, silhouette and the nearby reticle component, do not split the object into separate parts",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-03.png"
+    },
+    {
+      "size": "699x775",
+      "output_format": "png",
+      "z_index": 4,
+      "bounding_box": {
+        "absolute": [
+          33,
+          703,
+          378,
+          1086
+        ],
+        "normalized": [
+          26,
+          570,
+          296,
+          881
+        ]
+      },
+      "name": "cycle",
+      "description": "a revolver-like rotary rack holding three red mini missiles, keep original color, silhouette and all mounted missiles, do not split the object into separate parts",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-04.png"
+    },
+    {
+      "size": "742x729",
+      "output_format": "png",
+      "z_index": 5,
+      "bounding_box": {
+        "absolute": [
+          442,
+          704,
+          809,
+          1067
+        ],
+        "normalized": [
+          346,
+          571,
+          634,
+          865
+        ]
+      },
+      "name": "aftershock",
+      "description": "a twin-stage orange explosion with two distinct stepped blast rings, keep original color, silhouette and all blast effects and nearby small rock particles, do not split the object into separate parts",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-05.png"
+    },
+    {
+      "size": "702x719",
+      "output_format": "png",
+      "z_index": 6,
+      "bounding_box": {
+        "absolute": [
+          867,
+          703,
+          1239,
+          1084
+        ],
+        "normalized": [
+          679,
+          570,
+          971,
+          879
+        ]
+      },
+      "name": "zone",
+      "description": "a crater with hot red impact core and three dark hazard stakes around it, keep original color, silhouette and all hazard stakes and nearby small rock components, do not split the object into separate parts",
+      "background": "transparent",
+      "path": "H:\\CodexProjects\\hell-elevator-codex\\hell-elevator\\source-assets\\tower-upgrade-icons-v1\\missile_tower\\raw-layers\\layer-06.png"
+    }
+  ],
+  "usage": {
+    "input_images": 1,
+    "generated_images": 7,
+    "output_tokens": 31508,
+    "total_tokens": 31508
+  }
+}

@@ -1,0 +1,17 @@
+Extract all 16 complete drink icons as separate foreground transparent PNG layers, named exactly as listed. Preserve each outline, original colors, material facets and highlights. Remove only the flat background, including inside handles. Do not redraw or combine icons.
+crab <bbox>36 28 230 238</bbox>
+belladonna <bbox>290 12 463 245</bbox>
+lead <bbox>530 22 718 238</bbox>
+godfather <bbox>770 25 973 239</bbox>
+glass <bbox>44 260 213 487</bbox>
+lonely <bbox>309 260 439 486</bbox>
+iron <bbox>518 260 734 486</bbox>
+caramel <bbox>775 288 965 478</bbox>
+salt <bbox>42 508 216 728</bbox>
+bit <bbox>300 503 440 728</bbox>
+redcap <bbox>536 501 700 729</bbox>
+clown <bbox>779 504 973 728</bbox>
+ale <bbox>36 744 240 978</bbox>
+hive <bbox>267 742 476 977</bbox>
+hound <bbox>516 746 712 977</bbox>
+longnight <bbox>779 742 956 978</bbox>

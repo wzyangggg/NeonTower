@@ -6,7 +6,7 @@ const http=require('node:http'),fs=require('node:fs/promises'),path=require('nod
  try{
  const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});page.on('pageerror',e=>errors.push(e.message));await page.goto(origin+'/?weaponlab=1');await page.waitForTimeout(200);
  assert.equal(await page.title(),'武器测试场 · 地狱电梯');
- assert.equal(await page.locator('#weapon-model option').count(),39);
+ assert.equal(await page.locator('#weapon-model option').count(),43);
  assert(await page.evaluate(()=>weaponLab.active&&weaponLab.god&&testMode&&state==='combat'&&tiles.length===143));
  await page.selectOption('#weapon-health','30');
  const result=await page.evaluate(()=>{paused=false;for(let i=0;i<1200;i++)step(.01);paused=true;return {state,kills,cash,targets:weaponLab.targets.length,alive:enemies.length,damage:weaponLab.damage,elapsed:weaponLab.elapsed,hp:p.hp,finite:renderer.data.subarray(0,renderer.count).every(Number.isFinite)};});
@@ -26,6 +26,6 @@ const http=require('node:http'),fs=require('node:fs/promises'),path=require('nod
  for(const size of [{width:390,height:680},{width:1280,height:900}]){await page.setViewportSize(size);await page.screenshot({path:path.join(__dirname,`weapon-lab-${size.width}x${size.height}.png`)});const box=await page.locator('.weapon-panel').boundingBox();assert(box.x>=0&&box.x+box.width<=size.width+1&&box.y>=0&&box.y+box.height<=size.height+1);}
  await page.click('#weapon-more');await page.evaluate(()=>{paused=false;});await page.click('#test-open');await page.selectOption('#test-item','sniper_t5');await page.click('#test-equip');await page.click('#test-close');assert.equal(await page.evaluate(()=>weapon.itemId),'sniper_t5');assert.equal(await page.evaluate(()=>state),'combat');
  await page.goto(origin);assert.equal(await page.evaluate(()=>weaponLab?.active||false),false);assert(await page.locator('a[href="?weaponlab=1"]').isVisible());assert.equal(await page.evaluate(()=>state),'menu');
- assert.deepEqual(errors,[]);console.log('Weapon lab: 39 models, fixed 13x11, actual damage/kills/respawn without rewards or settlement, layouts, single shot, pause/switch, growth/hurt/reset, hostile bullets/shock, F2 and normal menu isolation passed',result);
+ assert.deepEqual(errors,[]);console.log('Weapon lab: 43 models, fixed 13x11, actual damage/kills/respawn without rewards or settlement, layouts, single shot, pause/switch, growth/hurt/reset, hostile bullets/shock, F2 and normal menu isolation passed',result);
  }finally{await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exitCode=1;});
