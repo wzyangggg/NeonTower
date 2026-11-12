@@ -29,7 +29,7 @@ if (Object.values(shopTuning).some(value => !Number.isFinite(value) || value < .
  throw Error('Shop tuning multipliers must be between 0.1 and 5.');
 }
 if (curve && (!validFactor(starHp) || !Array.isArray(floorCurves) || !floorCurves.length ||
- floorCurves.some((row, index) => row?.floor !== index + 1 || !validFactor(row.hp) || !validFactor(row.dps)))) {
+ floorCurves.some((row, index) => row?.floor !== index + 1 || !validFactor(row.hp)))) {
  throw Error('Export a valid difficulty curve JSON from the editor.');
 }
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
@@ -294,7 +294,7 @@ async function simulate(browser, seed) {
   if (!['dead', 'won', 'floor-limit'].includes(status)) throw Error('Simulation stopped in ' + status);
   const {rows, entry} = await page.evaluate(() => {
    const dt = 1 / 60, warmup = 3, seconds = 30, distance = 110;
-   const targetHp = 1000000;
+   const displayedHp = 1000000;
    // Hold equipment evolution at its floor-entry state and remove enemy spawns.
    updateModelGrowth = () => {};
    for (const row of sim.rows) {
@@ -317,22 +317,28 @@ async function simulate(browser, seed) {
     spawnQueue = [];
     chaserSpawned = Infinity;
     const x = p.x, y = p.y - distance;
-    const target = {type: 'eye', x, y, homeX: x, homeY: y, hp: targetHp, max: targetHp, r: 14, t: 0,
+    let damageTaken = 0;
+    const target = {type: 'eye', x, y, homeX: x, homeY: y, max: displayedHp, r: 14, t: 0,
      fire: Infinity, warn: false, seed: 0, terrainStun: Infinity, weaponLabTarget: true};
+    // Keep normal HP reads finite for the engine. Damage writes count toward DPS without lowering HP.
+    Object.defineProperty(target, 'hp', {
+     get: () => displayedHp,
+     set: value => { if (value < displayedHp) damageTaken += displayedHp - value; }
+    });
     enemies = [target];
-    let measuredFrom = targetHp;
+    let measuredFrom = 0;
     for (let tick = 0; tick < (warmup + seconds) * 60; tick++) {
-     if (tick === warmup * 60) measuredFrom = target.hp;
+     if (tick === warmup * 60) measuredFrom = damageTaken;
      p.x = 325;
      p.y = 300;
      target.x = x;
      target.y = y;
      step(dt);
-     if (state !== 'combat' || enemies.length !== 1 || enemies[0] !== target || target.hp <= 0) {
+     if (state !== 'combat' || enemies.length !== 1 || enemies[0] !== target) {
       throw Error('Single-target bench left its fixed scenario on B' + row.floor);
      }
     }
-    row.singleTargetDps = Math.round((measuredFrom - target.hp) / seconds * 100) / 100;
+    row.singleTargetDps = Math.round((damageTaken - measuredFrom) / seconds * 100) / 100;
    }
    return {rows: sim.rows, entry: sim.entry};
   });
@@ -364,13 +370,14 @@ async function simulate(browser, seed) {
    return {floor: i + 1, samples: samples.length, measuredDps: samples.length ? median(samples.map(row => row.singleTargetDps)) : null,
     measuredMultiplier: samples.length ? median(values) : null,
     minMultiplier: samples.length ? Math.min(...values) : null, maxMultiplier: samples.length ? Math.max(...values) : null,
-    expectedMultiplier: floorCurves?.[i]?.dps ?? null, hpMultiplier: floorCurves?.[i] && starHp * floorCurves[i].hp,
+    hpMultiplier: floorCurves?.[i] && starHp * floorCurves[i].hp,
     deaths: entered.filter(row => row.outcome === 'dead').length, shopLevels: levels,
     upgrades: entered.flatMap(row => row.shop.filter(action => action.action === 'upgrade-shop')).length,
     cashMedian: median(entered.map(row => row.cash)),
     cumulativeEarnedMedian: median(entered.map(row => row.cumulativeEarned))};
   });
-  const result = JSON.stringify({type: 'hell-elevator-dps-simulation', metric: 'single-target', difficulty, policy, floors, shopTuning, summary, runs}, null, 2);
+  const result = JSON.stringify({type: 'hell-elevator-dps-simulation', metric: 'single-target', target: 'infinite-hp',
+   difficulty, policy, floors, shopTuning, summary, runs}, null, 2);
   if (values.out) fs.writeFileSync(values.out, result + '\n');
   else console.log(result);
  } finally {

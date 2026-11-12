@@ -819,6 +819,7 @@ function createWeaponModel(itemId){
  if(m.id==='sniper_t1')Object.assign(e,{damage:6,interval:1,critChance:.15});
  if(m.id==='sword_t1_knife')Object.assign(e,{damage:1.8,meleeDamage:3.3,interval:.24,slashRadius:60,waveRadius:28,desc:'快速近身挥砍，附带窄剑气'});
  if(m.id==='sword_t1_cleaver')Object.assign(e,{damage:1.9,meleeDamage:3.2,interval:.55,slashRadius:102,waveRadius:44,desc:'慢速大范围挥砍，附带宽剑气'});
+ if(m.id==='sword_t4'){e.damage*=.75;e.meleeDamage*=.75;e.interval=.46;}
  if(itemId==='pistol_t3'||itemId==='pistol_t4'){e.growth={kind:itemId==='pistol_t3'?'unhurt':'kills',value:0,stage:0};e.desc=itemId==='pistol_t3'?'战斗无伤每12秒进化；受击退一级；最多3级':'本枪击杀8/20只后进化；最多3级，本局保留';}
  if(['rocket','sniper'].includes(m.familyId))e.desc+='；强力后坐';
  return e;
