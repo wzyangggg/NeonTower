@@ -45,7 +45,7 @@ for(let level=1;level<=5;level++){
    }
    const bridgeStage=stage%5===2||stage%5===4;
    check(!!bridgeRoom===bridgeStage,'bridge placement '+level+'/'+stage);
-   check(spawnQueue.every(e=>bridgeStage?e.bridgeRoller:!isMeleeEnemy(e)&&!e.bridgeRoller),'matching encounter roster');
+   check(spawnQueue.every(e=>!isMeleeEnemy(e)&&!e.bridgeRoller),'campaign rooms use ranged rosters');
    if(state==='drinkArrival'){step(DRINK_TRUCK_ARRIVAL);chooseTruckDrink(0);resetDrinks();check(state==="descent","drink stop continues to next floor");continue;}
    else if(sawRoom)finishSawRoom();
    else{enemies=[];spawnQueue=[];drinkZones=[];beginStageClear(0);}

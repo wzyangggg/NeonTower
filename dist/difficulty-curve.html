@@ -18,6 +18,11 @@ svg text{fill:#adbbce;font-size:12px}svg .grid{stroke:#343e50}svg .curve{fill:no
 .batch-charts figure{margin:0;min-width:0}
 .batch-charts svg{height:auto;touch-action:auto}
 .batch-charts figcaption{margin-top:8px;color:#aab6c7;font-size:13px}
+.batch-charts [data-run-seed]{cursor:pointer}
+#run-loadout{color:inherit;background:#181d27;border:1px solid #47536a;border-radius:14px;width:min(380px,calc(100% - 32px));padding:20px}
+#run-loadout::backdrop{background:#10131ab3}
+#run-loadout dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+#run-loadout dt{color:#aab6c7}#run-loadout dd{margin:0}
 .tabs{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
 .tabs [aria-selected=true]{background:#6be4cd;color:#10231f;border-color:transparent;font-weight:650}
 .tabs #status{margin-inline-start:auto}
@@ -26,6 +31,7 @@ svg .hit{fill:transparent;cursor:ns-resize}svg .hit:focus-visible{stroke:#ffc77b
 input,select,button{font:inherit;color:inherit;background:#222a39;border:1px solid #47536a;border-radius:7px;min-height:40px;padding:7px 10px}
 button{cursor:pointer}button:disabled{opacity:.45;cursor:default}.primary{background:#6be4cd;color:#10231f;border-color:transparent;font-weight:650}
 label{display:grid;gap:5px;color:#c4cfdf;font-size:14px}input[type=number]{width:7em;font-variant-numeric:tabular-nums}
+#aoe-scenario-label[hidden]{display:none}
 input[type=range]{accent-color:#6be4cd;width:min(220px,70vw);padding:0}fieldset{border:0;margin:0;padding:0;min-width:0}
 .fields{align-items:end}.hint{font-size:13px;margin-top:10px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap;font-variant-numeric:tabular-nums}
 th,td{padding:8px 10px;border-bottom:1px solid #30394a;text-align:right}th:first-child{text-align:left}
@@ -56,8 +62,9 @@ thead th{color:#adbbce}summary{cursor:pointer;margin-bottom:10px}output{color:#6
       <label>批跑局数<input id="batch-count" type="number" min="1" max="20" value="5"></label>
       <label>跑到第几层<input id="batch-floors" type="number" min="1" max="20" value="20"></label>
       <button type="button" class="primary" id="run-batch">开始批跑</button>
-      <label>导入单体木桩报告<input id="simulation-file" type="file" accept=".json,application/json"></label>
-      <label>实测显示<select id="simulation-display"><option value="range">范围</option><option value="median">中位数</option><option value="both" selected>范围和中位数</option></select></label>
+      <button type="button" id="load-latest">载入最近报告</button>
+      <label>导入 DPS 报告<input id="simulation-file" type="file" accept=".json,application/json"></label>
+      <label>实测显示<select id="simulation-display"><option value="runs" selected>逐局曲线</option><option value="range">范围</option><option value="median">中位数</option><option value="both">范围和中位数</option></select></label>
       <small id="simulation-status" aria-live="polite"></small>
     </div>
     <p class="hint">五档共用楼层血量曲线。单体 DPS 由批跑中实际买到的装备在无限血量木桩上测出。</p>
@@ -65,8 +72,36 @@ thead th{color:#adbbce}summary{cursor:pointer;margin-bottom:10px}output{color:#6
   </section>
   <section class="panel" id="batch-charts" aria-label="逐层批跑结果" hidden>
     <h2>逐层批跑结果</h2>
-    <label>突出显示一局商店曲线<select id="shop-seed"><option value="">所有样例</option></select></label>
+    <p class="hint">点击一条样例曲线，查看该局在所点楼层的进战配装。</p>
+    <label>突出显示一局样例<select id="shop-seed"><option value="">所有样例</option></select></label>
+    <label>查看哪一层的最高 DPS<select id="peak-floor"><option value="">选择楼层</option></select></label>
+    <p class="hint" id="peak-detail" aria-live="polite"></p>
+    <label id="aoe-scenario-label" hidden>AOE 场景<select id="aoe-scenario">
+      <option value="clustered-low">密集低血</option><option value="spread-low">分散低血</option>
+      <option value="clustered-medium">密集中血</option>
+    </select></label>
     <div class="batch-charts" id="batch-plots"></div>
+    <dialog id="run-loadout" aria-labelledby="run-loadout-title">
+      <h2 id="run-loadout-title"></h2>
+      <dl id="run-loadout-gear"></dl>
+      <form method="dialog"><button>关闭</button></form>
+    </dialog>
+    <details id="boss-progress" hidden><summary>Boss 战时长明细</summary>
+      <div class="table-wrap"><table><thead id="boss-progress-head"></thead><tbody id="boss-progress-rows"></tbody></table></div>
+    </details>
+    <details id="aoe-progress" hidden><summary>逐层 AOE DPS 明细</summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th>楼层</th><th>密集低血</th><th>分散低血</th><th>密集中血</th></tr></thead>
+        <tbody id="aoe-progress-rows"></tbody>
+      </table></div>
+    </details>
+    <details><summary>单层 DPS 最大跳升</summary>
+      <p class="hint">按同一局相邻两层的单体 DPS 增量排序。</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>种子</th><th>进战楼层</th><th>单体 DPS</th><th>增量</th><th>相邻倍率</th><th>结算购买</th><th>进战配装</th></tr></thead>
+        <tbody id="dps-jump-rows"></tbody>
+      </table></div>
+    </details>
   </section>
   <section class="panel" aria-label="控制点和曲率">
     <div class="fields">
@@ -167,8 +202,11 @@ function load(transfer) {
   return defaults;
 }
 let batchTransfer;
+const latestTransfer = location.hash.startsWith('#latest=');
 try {
-  if (location.hash.startsWith('#batch=')) batchTransfer = JSON.parse(decodeURIComponent(location.hash.slice(7)));
+  if (latestTransfer || location.hash.startsWith('#batch=')) {
+    batchTransfer = JSON.parse(decodeURIComponent(location.hash.slice(latestTransfer ? 8 : 7)));
+  }
 } catch {}
 let model = load(batchTransfer?.model);
 const simulations = new Map();
@@ -233,79 +271,206 @@ function updateChart() {
   chart.innerHTML = grid.join('') + labels.join('') + `<polyline class="curve" points="${line(activePoints())}"/>` + dots.join('');
   if (focus) chart.querySelector(`[data-point="${focus}"]`)?.focus();
 }
+const aoeScenarioIds = ['clustered-low', 'spread-low', 'clustered-medium'];
+const batchPlotBounds = {left:43, right:423};
+const bossNames = new Map([['cobalt','钴隼'],['snake','蛇'],['virus','噬菌体'],['cowboy','枪手机械蜘蛛'],
+  ['crimson','赤红裁决者'],['drone','大无人机'],['ufo','飞碟']]);
+const validAoeRange = range => [range?.min, range?.median, range?.max].every(value => Number.isFinite(value) && value >= 0) &&
+  range.min <= range.median && range.median <= range.max;
 function renderBatchCharts(rows) {
   byId('batch-charts').hidden = !rows?.length;
   if (!rows?.length) return;
   const runs = simulationRuns.get(activeStar) ?? [];
-  const width = 440, height = 188, left = 43, right = 423, bottom = 154;
+  const width = 440, height = 188, bottom = 154;
+  const {left, right} = batchPlotBounds;
   const x = i => rows.length === 1 ? (left + right) / 2 : left + i * (right - left) / (rows.length - 1);
   const format = value => Number(value.toFixed(2));
-  const plot = (title, caption, max, draw, ticks = [0, max / 2, max]) => {
+  const plot = (title, caption, max, draw, ticks = [0, max / 2, max], labelFloors) => {
     const y = value => bottom - value / max * 132;
     const grid = ticks.map(value =>
       `<line class="grid" x1="${left}" x2="${right}" y1="${y(value)}" y2="${y(value)}"/><text x="37" y="${y(value) + 4}" text-anchor="end">${format(value)}</text>`).join('');
     const labelEvery = Math.max(1, Math.ceil(rows.length / 8));
-    const labels = rows.map((row, i) => i % labelEvery === 0 || i === rows.length - 1
+    const labels = rows.map((row, i) => (labelFloors ? labelFloors.has(row.floor) : i % labelEvery === 0 || i === rows.length - 1)
       ? `<text x="${x(i)}" y="174" text-anchor="middle">${floorName(row.floor)}</text>` : '').join('');
     return `<figure><h3>${title}</h3><svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${title}">${grid}${labels}${draw(y)}</svg><figcaption>${caption}</figcaption></figure>`;
   };
-  const trace = (values, y, color, {label, step = false, opacity = 1, dots = true, dashed = false} = {}) => {
+  const trace = (values, y, color, {label, step = false, opacity = 1, dots = true, dashed = false, peak = false, unit = '', seed,
+    connectGaps = false, pointsOnly = false} = {}) => {
     const points = values.flatMap((value, i) => Number.isFinite(value) ? [{value, i}] : []);
-    const path = points.map(({value, i}, index) => {
+    const path = pointsOnly ? '' : points.map(({value, i}, index) => {
       const previous = points[index - 1];
-      if (!previous || i !== previous.i + 1) return `M ${x(i)} ${y(value)}`;
+      if (!previous || (!connectGaps && i !== previous.i + 1)) return `M ${x(i)} ${y(value)}`;
       return step ? `H ${x(i)} V ${y(value)}` : `L ${x(i)} ${y(value)}`;
     }).join(' ');
-    const marks = dots ? points.map(({value, i}) =>
-      `<circle cx="${x(i)}" cy="${y(value)}" r="3" fill="${color}"><title>${floorName(i + 1)} · ${label} ${format(value)}</title></circle>`).join('') : '';
-    return `<g opacity="${opacity}"><path d="${path}" fill="none" stroke="${color}" stroke-width="2" ${dashed ? 'stroke-dasharray="5 4"' : ''}><title>${label}</title></path>${marks}</g>`;
+    const marks = dots || points.length === 1 ? points.map(({value, i}) =>
+      `<circle cx="${x(i)}" cy="${y(value)}" r="${peak || pointsOnly ? 5 : 3}" fill="${pointsOnly ? '#181d27' : color}" ${pointsOnly ? `stroke="${color}" stroke-width="2"` : ''} ${peak ? 'data-peak-floor="' + (i + 1) + '" style="cursor:pointer"' : ''} ${seed == null ? '' : `data-run-floor="${i + 1}"`}><title>${floorName(i + 1)} · ${label} ${format(value)}${unit}${peak || seed != null ? ' · 点击查看配装' : ''}</title></circle>`).join('') : '';
+    const hit = seed == null ? '' : `<path d="${path}" fill="none" stroke="transparent" stroke-width="10" pointer-events="stroke"/>`;
+    return `<g opacity="${opacity}" ${seed == null ? '' : `data-run-seed="${seed}"`}><path d="${path}" fill="none" stroke="${color}" stroke-width="2" ${dashed ? 'stroke-dasharray="5 4"' : ''}><title>${label}</title></path>${hit}${marks}</g>`;
   };
+  const seedInput = byId('shop-seed');
+  const selectedSeed = seedInput.value;
+  seedInput.parentElement.hidden = !runs.length;
+  seedInput.innerHTML = '<option value="">所有样例</option>' + runs.map(run =>
+    `<option value="${run.seed}">种子 ${run.seed}</option>`).join('');
+  if (runs.some(run => String(run.seed) === selectedSeed)) seedInput.value = selectedSeed;
+  const highlighted = seedInput.value;
+  const series = runs.map((run, index) => ({run, color:`hsl(${Math.round(index * 137.5) % 360} 68% 72%)`,
+    selected:String(run.seed) === highlighted})).sort((a,b) => Number(a.selected) - Number(b.selected));
+  const runTrace = (entry, values, y, {step = false, unit = '', label = ''} = {}) => trace(values, y, entry.color, {
+    label:'种子 ' + entry.run.seed + label, step, seed:entry.run.seed, opacity:highlighted ? entry.selected ? 1 : .18 : .8,
+    dots:entry.selected, unit,
+  });
   const hpBaseline = factorAt(1, model.curves.hp);
   const hpGrowth = rows.map(row => factorAt(row.floor, model.curves.hp) / hpBaseline);
   const medians = rows.map(row => row.measuredMultiplier);
   const lower = rows.map(row => row.minMultiplier ?? row.measuredMultiplier);
   const upper = rows.map(row => row.maxMultiplier ?? row.measuredMultiplier);
   const mode = simulationDisplay.value;
+  const singleRuns = series.map(entry => {
+    const baseline = entry.run.rows[0]?.singleTargetDps;
+    const values = entry.run.rows.map(row => Number.isFinite(row.singleTargetDps) && baseline > 0 ? row.singleTargetDps / baseline : null);
+    return {...entry, values};
+  }).filter(entry => entry.values.some(Number.isFinite));
+  const showSingleRuns = mode === 'runs' && singleRuns.length > 0;
   const hasRange = rows.some(row => row.minMultiplier != null);
-  const showRange = mode !== 'median' && hasRange, showMedian = mode !== 'range' || !hasRange;
-  const dpsMax = Math.max(1, ...hpGrowth, ...(showRange ? upper : medians));
-  const dps = plot('单体 DPS 与血量成长', '蓝色为木桩实测，绿虚线为当前血量成长。两者均以 B01 为 1×。', dpsMax, y => {
+  const showRange = !showSingleRuns && mode !== 'median' && hasRange, showMedian = !showSingleRuns && (mode !== 'range' || !hasRange);
+  const dpsMax = Math.max(1, ...hpGrowth, ...(showSingleRuns ? singleRuns.flatMap(entry => entry.values) : showRange ? upper : medians));
+  const dps = plot('单体 DPS 与血量成长', '实线为木桩实测，绿虚线为当前血量成长。每局以自己的 B01 DPS 为 1×。', dpsMax, y => {
     const range = showRange ? trace(lower, y, '#a6b8ff', {label:'最低 DPS'}) +
-      trace(upper, y, '#a6b8ff', {label:'最高 DPS'}) : '';
+      trace(upper, y, '#a6b8ff', {label:'最高 DPS', peak:true}) : '';
     const median = showMedian ? trace(medians, y, '#a6b8ff', {label:'DPS 中位数', dashed: showRange}) : '';
-    return range + median + trace(hpGrowth, y, '#69d9c5', {label:'血量成长', dashed:true});
+    const lines = showSingleRuns ? singleRuns.map(entry => runTrace(entry, entry.values, y)).join('') : '';
+    return range + median + lines + trace(hpGrowth, y, '#69d9c5', {label:'血量成长', dashed:true});
   });
   const samples = rows.map(row => row.samples), deaths = rows.map(row => row.deaths);
   const sampleMax = Math.max(2, ...samples, ...deaths, ...rows.map(row => row.upgrades ?? 0));
   const survival = plot('木桩样本与阵亡', '浅蓝线为木桩样本数，粉线为该层阵亡数。', sampleMax, y =>
     trace(samples, y, '#a6b8ff', {label:'木桩样本'}) + trace(deaths, y, '#df9cf1', {label:'阵亡'}));
-  const shopRuns = runs.filter(run => run.shop.some(Number.isFinite));
-  const seedInput = byId('shop-seed');
-  const selectedSeed = seedInput.value;
-  seedInput.parentElement.hidden = !shopRuns.length;
-  seedInput.innerHTML = '<option value="">所有样例</option>' + shopRuns.map(run =>
-    `<option value="${run.seed}">种子 ${run.seed}</option>`).join('');
-  if (shopRuns.some(run => String(run.seed) === selectedSeed)) seedInput.value = selectedSeed;
-  const highlighted = seedInput.value;
-  const orderedRuns = [...shopRuns].sort((a,b) => Number(String(a.seed) === highlighted) - Number(String(b.seed) === highlighted));
-  const shopMax = Math.max(2, ...shopRuns.flatMap(run => run.shop));
-  const shop = shopRuns.length ? plot('进战商店等级', '每条阶梯线对应一局。B05 结算后升店，从 B06 的进战等级体现。', shopMax, y =>
-    orderedRuns.map(run => trace(run.shop, y, `hsl(${Math.round(shopRuns.indexOf(run) * 137.5) % 360} 68% 72%)`,
-      {label:'种子 ' + run.seed, step:true, opacity:highlighted ? String(run.seed) === highlighted ? 1 : .18 : .72})).join(''),
+  const shopRuns = series.filter(({run}) => run.shop.some(Number.isFinite));
+  const shopMax = Math.max(2, ...shopRuns.flatMap(({run}) => run.shop));
+  const shop = shopRuns.length ? plot('进战商店等级', '每条阶梯线对应一局。结算后升店，从下一层的进战等级体现。', shopMax, y =>
+    shopRuns.map(entry => runTrace(entry, entry.run.shop, y, {step:true})).join(''),
     Array.from({length:shopMax}, (_, i) => i + 1)) : '';
+  const killRates = series.map(entry => ({...entry, values:entry.run.rows.map(({defeated, roster}) =>
+    Number.isInteger(defeated) && Number.isInteger(roster) && roster > 0 && defeated >= 0 && defeated <= roster
+      ? 100 * defeated / roster : null)})).filter(entry => entry.values.some(Number.isFinite));
+  const kills = killRates.length ? plot('本关怪物击杀率',
+    '每局逐层显示。击杀数除以结算总怪数（含计划出场的怪）；无怪或无记录的楼层留空。单位为 %。', 100, y =>
+      killRates.map(entry => runTrace(entry, entry.values, y, {unit:'%'})).join('')) : '';
+  const bossFloors = rows.map(row => row.floor).filter(floor => runs.some(run => Number.isFinite(run.rows[floor - 1]?.bossFightSeconds)));
+  byId('boss-progress').hidden = !bossFloors.length;
+  byId('boss-progress-head').innerHTML = '<tr><th>Boss 楼层</th>' + runs.map(run => `<th>种子 ${run.seed}</th>`).join('') + '</tr>';
+  byId('boss-progress-rows').innerHTML = bossFloors.map(floor => `<tr><th scope="row">${floorName(floor)}</th>` + runs.map(run => {
+    const row = run.rows[floor - 1];
+    const name = bossNames.get(row?.bossKind);
+    const label = name ? `${name} · ` : '';
+    if (Number.isFinite(row?.bossKillSeconds)) return `<td>${label}${format(row.bossKillSeconds)} 秒</td>`;
+    return Number.isFinite(row?.bossFightSeconds) ? `<td>${label}${format(row.bossFightSeconds)} 秒（未击败）</td>` : '<td>—</td>';
+  }).join('') + '</tr>').join('');
+  const bossMax = Math.max(1, ...runs.flatMap(run => run.rows.map(row => row.bossFightSeconds).filter(Number.isFinite)));
+  const boss = bossFloors.length ? plot('Boss 战时长', '实心点连线为击败用时，空心点为阵亡前的交战时长。单位为秒。', bossMax, y =>
+    series.map(({run, color, selected}) => {
+      const options = {seed:run.seed, opacity:highlighted && !selected ? .18 : 1, unit:' 秒'};
+      return trace(run.rows.map(row => row.bossKillSeconds), y, color, {...options,label:`种子 ${run.seed} · 击败`,connectGaps:true}) +
+        trace(run.rows.map(row => row.bossKillSeconds == null ? row.bossFightSeconds : null), y, color,
+          {...options,label:`种子 ${run.seed} · 未击败`,pointsOnly:true});
+    }).join(''), undefined, new Set(bossFloors)) : '';
   const earned = rows.map(row => row.cumulativeEarnedMedian);
   const cash = rows.map(row => row.cashMedian);
   const goldMax = Math.max(1, ...earned.filter(Number.isFinite), ...cash.filter(Number.isFinite),
     ...runs.flatMap(run => run.earned.filter(Number.isFinite)));
   const gold = earned.some(Number.isFinite) || cash.some(Number.isFinite) ? plot('总共打钱数量与余额',
     '实线为累计获得金币中位数，细线为每局累计收入，虚线为进店前余额中位数。', goldMax, y =>
-    runs.map(run => trace(run.earned, y, '#69d9c5', {label:'种子 ' + run.seed + ' 累计金币', opacity:.22, dots:false})).join('') +
     trace(earned, y, '#69d9c5', {label:'累计获得金币中位数'}) +
-    trace(cash, y, '#ffc77b', {label:'结算余额中位数', dashed:true})) : '';
+    trace(cash, y, '#ffc77b', {label:'结算余额中位数', dashed:true}) +
+    series.map(entry => runTrace(entry, entry.run.earned, y, {label:' 累计金币'})).join('')) : '';
   const absoluteValues = rows.map(row => row.measuredDps);
   const absolute = plot('木桩 DPS 中位数', '单位为每秒伤害，使用实际木桩读数。', Math.max(1, ...absoluteValues),
     y => trace(absoluteValues, y, '#a6b8ff', {label:'木桩 DPS'}));
-  byId('batch-plots').innerHTML = dps + shop + gold + absolute + survival;
+  const hasAoe = rows.some(row => aoeScenarioIds.some(id => validAoeRange(row.aoeDps?.[id])));
+  byId('aoe-scenario-label').hidden = !hasAoe;
+  byId('aoe-progress').hidden = !hasAoe;
+  const aoeSelect = byId('aoe-scenario');
+  const aoeValues = rows.map(row => row.aoeDps?.[aoeSelect.value]).map(range => validAoeRange(range) ? range : null);
+  const aoeLine = key => aoeValues.map(range => range?.[key]);
+  const aoeRuns = series.map(entry => ({...entry, values:entry.run.rows.map(row => row.aoeDps?.[aoeSelect.value])}))
+    .filter(entry => entry.values.some(Number.isFinite));
+  const showAoeRuns = mode === 'runs' && aoeRuns.length > 0;
+  const aoeMax = Math.max(1, ...(showAoeRuns ? aoeRuns.flatMap(entry => entry.values) : aoeLine('max')).filter(Number.isFinite));
+  const aoe = hasAoe ? plot('AOE DPS · ' + aoeSelect.selectedOptions[0].textContent,
+    '九个目标，低血每只 12 HP，中血每只 36 HP。击倒后一秒原地补位，只计实际扣血，包含装备炸弹。', aoeMax, y =>
+      showAoeRuns ? aoeRuns.map(entry => runTrace(entry, entry.values, y)).join('') :
+      (mode === 'median' ? '' : trace(aoeLine('min'), y, '#ffc77b', {label:'最低 AOE DPS'}) +
+       trace(aoeLine('max'), y, '#ffc77b', {label:'最高 AOE DPS'})) +
+      (mode === 'range' ? '' : trace(aoeLine('median'), y, '#ffc77b', {label:'AOE DPS 中位数', dashed:mode === 'both'}))) : '';
+  byId('aoe-progress-rows').innerHTML = hasAoe ? rows.map(row => `<tr><th scope="row">${floorName(row.floor)}</th>` +
+    aoeScenarioIds.map(id => {
+      const range = row.aoeDps?.[id];
+      return '<td>' + (validAoeRange(range) ? `${format(range.min)}–${format(range.max)}（中位 ${format(range.median)}）` : '—') + '</td>';
+    }).join('') + '</tr>').join('') : '';
+  byId('batch-plots').innerHTML = dps + aoe + kills + boss + shop + gold + absolute + survival;
+  const peakInput = byId('peak-floor');
+  const selectedFloor = peakInput.value;
+  peakInput.innerHTML = '<option value="">选择楼层</option>' + rows.map(row =>
+    `<option value="${row.floor}">${floorName(row.floor)}</option>`).join('');
+  if (rows.some(row => String(row.floor) === selectedFloor)) peakInput.value = selectedFloor;
+  showPeak();
+}
+const knownGearNames = {sniper_t3:'巴雷特', ambush:'伏击服', warpstar:'星星坐骑', ram:'冲撞无人机', wine:'酒服'};
+const gearName = item => item?.name || knownGearNames[item?.id] || item?.id || '';
+function showRunLoadout(run, row) {
+  byId('run-loadout-title').textContent = `种子 ${run.seed} · ${floorName(row.floor)} 进战配装`;
+  const slots = {weapon:'武器', drone:'无人机', armor:'服装', shoes:'鞋／坐骑', bomb:'炸弹'};
+  const gear = Object.entries(slots).flatMap(([key, name]) => {
+    const item = row.loadout?.[key];
+    const term = document.createElement('dt'), value = document.createElement('dd');
+    term.textContent = name;
+    value.textContent = gearName(item) || '—';
+    if (Number.isInteger(item?.tier)) value.textContent += `（${item.tier} 阶）`;
+    return [term, value];
+  });
+  byId('run-loadout-gear').replaceChildren(...gear);
+  byId('run-loadout').showModal();
+}
+function renderDpsJumps(runs) {
+  const jumps = runs.flatMap(run => run.rows.slice(1).flatMap((row, index) => {
+    const previous = run.rows[index];
+    const before = previous.singleTargetDps, after = row.singleTargetDps;
+    if (row.floor !== previous.floor + 1 || !Number.isFinite(before) || !Number.isFinite(after) || after <= before) return [];
+    return [{seed: run.seed, row, previous, before, after, gain: after - before}];
+  })).sort((a, b) => b.gain - a.gain);
+  const rows = jumps.slice(0, 12).map(({seed, row, previous, before, after, gain}) => {
+    const purchases = (Array.isArray(previous.shop) ? previous.shop : [])
+      .filter(action => action?.action === 'buy').map(action => gearName(action.item)).filter(Boolean);
+    const gear = ['weapon', 'drone', 'armor', 'shoes'].map(key => gearName(row.loadout?.[key])).filter(Boolean);
+    const tr = document.createElement('tr');
+    for (const value of [seed, floorName(row.floor), `${round(before)} → ${round(after)}`, `+${round(gain)}`,
+      before > 0 ? `${round(after / before)}×` : '—', purchases.join('、') || '—', gear.join('、') || '—']) {
+      tr.insertCell().textContent = value;
+    }
+    return tr;
+  });
+  byId('dps-jump-rows').replaceChildren(...rows);
+}
+function showPeak() {
+  const index = Number(byId('peak-floor').value) - 1;
+  const detail = byId('peak-detail');
+  if (index < 0) { detail.textContent = ''; return; }
+  const candidates = (simulationRuns.get(activeStar) ?? []).flatMap(run => {
+    const row = run.rows[index], base = run.rows[0]?.singleTargetDps;
+    return Number.isFinite(base) && base > 0 && Number.isFinite(row?.singleTargetDps)
+      ? [{run, row, ratio: row.singleTargetDps / base}] : [];
+  }).sort((a,b) => b.ratio - a.ratio);
+  const peak = candidates[0];
+  if (!peak) { detail.textContent = '这层没有逐局装备记录。'; return; }
+  const {run, row, ratio} = peak;
+  const gear = ['weapon', 'drone', 'armor', 'shoes'].map(key => gearName(row.loadout?.[key])).filter(Boolean).join('、');
+  const previous = run.rows[index - 1];
+  const buys = (Array.isArray(previous?.shop) ? previous.shop : []).filter(action => action?.action === 'buy')
+    .map(action => gearName(action.item)).filter(Boolean).join('、');
+  detail.textContent = `${floorName(index + 1)} 最高 · 种子 ${run.seed} · ${round(ratio)}×（${row.singleTargetDps} DPS）` +
+    (gear ? ' · 配装：' + gear : '') + (buys ? ' · 上一层结算购买：' + buys : '') +
+    (row.outcome === 'dead' ? ' · 本局在这一层阵亡' : '');
 }
 function update() {
   const index = activePoints().findIndex(point => point.floor === selected);
@@ -325,6 +490,7 @@ function update() {
   const {hp} = model.curves;
   const simulation = simulations.get(activeStar);
   renderBatchCharts(simulation);
+  renderDpsJumps(simulationRuns.get(activeStar) ?? []);
   byId('preview').innerHTML = Array.from({length: lastFloors[activeStar]}, (_, i) => {
     const floor = i + 1;
     const hpFactor = factorAt(floor, hp);
@@ -333,7 +499,7 @@ function update() {
     const observed = sample?.measuredMultiplier == null ? '—' :
       sample.minMultiplier != null && simulationDisplay.value !== 'median'
         ? round(sample.minMultiplier) + '–' + round(sample.maxMultiplier) + '×' +
-          (simulationDisplay.value === 'both' ? '（中位 ' + round(sample.measuredMultiplier) + '×）' : '')
+          (['both', 'runs'].includes(simulationDisplay.value) ? '（中位 ' + round(sample.measuredMultiplier) + '×）' : '')
         : round(sample.measuredMultiplier) + '×';
     const actualDps = sample?.measuredDps == null ? '—' : round(sample.measuredDps);
     const sampleCount = sample ? sample.samples + ' / ' + sample.deaths : '—';
@@ -384,7 +550,33 @@ curveStar.addEventListener('change', () => {
   update();
 });
 simulationDisplay.addEventListener('change', update);
+byId('aoe-scenario').addEventListener('change', () => renderBatchCharts(simulations.get(activeStar)));
 byId('shop-seed').addEventListener('change', () => renderBatchCharts(simulations.get(activeStar)));
+byId('peak-floor').addEventListener('change', showPeak);
+byId('batch-plots').addEventListener('click', event => {
+  const sample = event.target.closest('[data-run-seed]');
+  if (sample) {
+    const run = (simulationRuns.get(activeStar) ?? []).find(entry => String(entry.seed) === sample.dataset.runSeed);
+    const rows = simulations.get(activeStar);
+    const svg = sample.ownerSVGElement;
+    const {left, right} = batchPlotBounds;
+    const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(svg.getScreenCTM().inverse());
+    const index = Math.round((point.x - left) / (right - left) * (rows.length - 1));
+    const markerFloor = Number(event.target.closest('[data-run-floor]')?.dataset.runFloor);
+    const row = markerFloor ? run?.rows[markerFloor - 1] : svg.getAttribute('aria-label') === 'Boss 战时长'
+      ? run?.rows.reduce((nearest, candidate) => Number.isFinite(candidate.bossFightSeconds) &&
+        (!nearest || Math.abs(candidate.floor - index - 1) < Math.abs(nearest.floor - index - 1)) ? candidate : nearest, null)
+      : run?.rows[Math.max(0, Math.min(index, run.rows.length - 1))];
+    if (!row) return;
+    byId('shop-seed').value = run.seed;
+    renderBatchCharts(rows);
+    showRunLoadout(run, row);
+    return;
+  }
+  if (!event.target.dataset.peakFloor) return;
+  byId('peak-floor').value = event.target.dataset.peakFloor;
+  showPeak();
+});
 function showReport(report) {
     const resultStatus = byId('simulation-status');
     const index = report.difficulty - 1;
@@ -420,7 +612,7 @@ function showReport(report) {
           if (action?.action === 'upgrade-shop' && Number.isInteger(action.level) && action.level >= 1 && action.level <= 5) level = action.level;
         }
       }
-      return [{seed:run.seed, shop, earned}];
+      return [{seed:run.seed, shop, earned, rows:run.rows.slice(0, shop.length)}];
     });
     simulationRuns.set(index, runs);
     const summary = report.summary.map((row, i) => {
@@ -444,6 +636,27 @@ byId('simulation-file').addEventListener('change', async event => {
     byId('simulation-status').textContent = '无法读取批跑报告，请选择模拟工具输出的 JSON。';
   } finally {
     input.value = '';
+  }
+});
+byId('load-latest').addEventListener('click', async () => {
+  const status = byId('simulation-status');
+  const button = byId('load-latest');
+  button.disabled = true;
+  try {
+    const base = location.protocol === 'file:' ? 'http://127.0.0.1:4174' : '';
+    if (base) {
+      location.assign(base + '/difficulty-curve.html#latest=' +
+        encodeURIComponent(JSON.stringify({model, difficulty:activeStar + 1})));
+      return;
+    }
+    const response = await fetch('/api/dps-batch/latest?difficulty=' + (activeStar + 1));
+    const report = await response.json();
+    if (!response.ok) throw Error(report.error);
+    showReport(report);
+  } catch (error) {
+    status.textContent = error.message;
+  } finally {
+    button.disabled = false;
   }
 });
 byId('run-batch').addEventListener('click', async () => {
@@ -561,10 +774,13 @@ if (batchTransfer && Number.isInteger(batchTransfer.difficulty) && lastFloors[ba
   history.replaceState(null, '', location.pathname + location.search);
   curveStar.value = batchTransfer.difficulty - 1;
   curveStar.dispatchEvent(new Event('change'));
-  byId('batch-count').value = batchTransfer.count;
-  byId('batch-floors').value = batchTransfer.floors;
   save();
-  byId('run-batch').click();
+  if (latestTransfer) byId('load-latest').click();
+  else {
+    byId('batch-count').value = batchTransfer.count;
+    byId('batch-floors').value = batchTransfer.floors;
+    byId('run-batch').click();
+  }
 }
 </script>
 </body>

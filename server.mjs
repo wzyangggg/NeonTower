@@ -10,6 +10,9 @@ const port=Number(process.env.PORT||4173);
 const moveFile=resolve(root,'boss-move-settings.json');
 let moveWrite=Promise.resolve();
 let dpsRunning=false;
+const latestDpsReports=new Map();
+const referenceDpsReports=['dps-model-runs-1star-aoe.json','dps-model-runs-1star-pass4.json','dps-model-runs-1star-pass3.json','dps-model-runs-1star-pass2.json']
+ .map(name=>fileURLToPath(new URL('../outputs/'+name,import.meta.url)));
 const dpsRunner=fileURLToPath(new URL('./tools/simulate-growth.cjs',import.meta.url));
 const bundledPlaywright=resolve(process.env.USERPROFILE||'', '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 function runDpsBatch(input){
@@ -44,6 +47,19 @@ async function saveMove(input){
 }
 const types={'.json':'application/json','.svg':'image/svg+xml','.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.mp3':'audio/mpeg','.wav':'audio/wav'};
 http.createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost');
+if(url.pathname==='/api/dps-batch/latest'&&req.method==='GET'){
+ const difficulty=Number(url.searchParams.get('difficulty'));
+ let report=latestDpsReports.get(difficulty);
+ if(!report&&difficulty===1){
+  for(const file of referenceDpsReports){
+   report=await readFile(file,'utf8').catch(()=>null);
+   if(report)break;
+  }
+ }
+ res.writeHead(report?200:404,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
+ res.end(report||JSON.stringify({error:'这个难度还没有可载入的批跑报告。'}));
+ return;
+}
 if(url.pathname==='/api/dps-batch'&&req.method==='POST'){
  const reply=(status,data)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(data);};
  if(req.headers.origin!=='http://'+req.headers.host){reply(403,JSON.stringify({error:'请从本地编辑器页面发起批跑。'}));return;}
@@ -52,7 +68,10 @@ if(url.pathname==='/api/dps-batch'&&req.method==='POST'){
  try{
   let body='';
   for await(const chunk of req){body+=chunk;if(body.length>65536){reply(413,JSON.stringify({error:'方案过大。'}));return;}}
-  reply(200,await runDpsBatch(JSON.parse(body)));
+  const input=JSON.parse(body);
+  const report=await runDpsBatch(input);
+  latestDpsReports.set(input.difficulty,report);
+  reply(200,report);
  }catch(error){reply(400,JSON.stringify({error:error.message}));}
  finally{dpsRunning=false;}
  return;

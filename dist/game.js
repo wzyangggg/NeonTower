@@ -14,7 +14,7 @@ const W=650,H=600,A={x:85,y:90,w:480,h:425},TAU=Math.PI*2;
 
 const CAMPAIGN_BOSSES=[
  [{id:'snake',name:'蛇'},{id:'virus',name:'噬菌体'}],
- [{id:'cowboy',name:'枪手机械蜘蛛'},{id:'crimson',name:'赤红裁决者'}],
+ [{id:'cowboy',name:'枪手机械蜘蛛'}],
  [{id:'drone',name:'大无人机'},{id:'ufo',name:'飞碟'}]
 ],ROUNDS_PER_BOSS=10;
 
@@ -23,7 +23,7 @@ const DIFFICULTIES=[
  {waves:15,hp:.8,attack:.8,spawn:1.2,cash:1,eliteEvery:5,eliteCount:1,elites:['ironball'],bosses:[],desc:'共15波，基础敌人以及稀疏的精英出现。'},
  {waves:20,hp:1,attack:.9,spawn:1.1,cash:1.2,eliteEvery:5,eliteCount:2,elites:['ironball'],bosses:[{after:20,pool:[0,0]}],desc:'共20波，精英更多，BOSS蛇出现。'},
  {waves:20,hp:1.15,attack:1,spawn:1,cash:1.5,eliteEvery:4,eliteCount:2,elites:['ironball','ricochet'],bosses:[{after:10,pool:[0,0]},{after:20,pool:[0,1]}],desc:'共20波，敌人血量提高、攻击更频繁，BOSS蛇、噬菌体出现。'},
- {waves:25,hp:1.3,attack:1.1,spawn:.95,cash:1.8,eliteEvery:4,eliteCount:3,elites:['ironball','ricochet','builder'],bosses:[{after:10,pool:[1,0]},{after:25,pool:[1,1]}],desc:'共25波，敌人更强、增援更快，BOSS枪手机械蜘蛛、赤红裁决者出现。'},
+ {waves:25,hp:1.3,attack:1.1,spawn:.95,cash:1.8,eliteEvery:4,eliteCount:3,elites:['ironball','ricochet','builder'],bosses:[{after:10,pool:[1,0]},{after:25,pool:[1,0]}],desc:'共25波，敌人更强、增援更快，BOSS枪手机械蜘蛛出现。'},
  {waves:30,hp:1.5,attack:1.2,spawn:.9,cash:2.2,eliteEvery:3,eliteCount:3,elites:['ironball','ricochet','builder'],bosses:[{after:10,pool:[0]},{after:20,pool:[1]},{after:30,pool:[2]}],desc:'共30波，敌人血量、攻击频率与增援速度进一步提高，每10波迎来一场BOSS战。'}
 ];
 // The difficulty selector and campaign share the same album definitions.
@@ -817,9 +817,10 @@ function createWeaponModel(itemId){
  if(m.familyId==='sword'){e.doubleCut=m.tier===2||m.tier===4;e.zenith=m.tier===5;e.desc=e.zenith?'顺砍三刀再逆砍三刀；随机椭圆；往返切割':`${m.pellets}道剑气＋近身挥砍`+(e.doubleCut?'；剑气命中追加斩切':'');if(e.zenith)e.interval=.14;}
  if(m.id==='uzi_t1')Object.assign(e,{damage:.55,interval:.18});
  if(m.id==='sniper_t1')Object.assign(e,{damage:6,interval:1,critChance:.15});
+ if(m.id==='sniper_t3')Object.assign(e,{damage:23,critChance:.20});
  if(m.id==='sword_t1_knife')Object.assign(e,{damage:1.8,meleeDamage:3.3,interval:.24,slashRadius:60,waveRadius:28,desc:'快速近身挥砍，附带窄剑气'});
  if(m.id==='sword_t1_cleaver')Object.assign(e,{damage:1.9,meleeDamage:3.2,interval:.55,slashRadius:102,waveRadius:44,desc:'慢速大范围挥砍，附带宽剑气'});
- if(m.id==='sword_t4'){e.damage*=.75;e.meleeDamage*=.75;e.interval=.46;}
+ if(m.id==='sword_t4'){e.damage*=.60;e.meleeDamage*=.60;e.interval=.46;e.desc='两道穿透剑气＋近身挥砍；穿透后逐个减伤，同次重复命中减半，每个目标只追加一斩';}
  if(itemId==='pistol_t3'||itemId==='pistol_t4'){e.growth={kind:itemId==='pistol_t3'?'unhurt':'kills',value:0,stage:0};e.desc=itemId==='pistol_t3'?'战斗无伤每12秒进化；受击退一级；最多3级':'本枪击杀8/20只后进化；最多3级，本局保留';}
  if(['rocket','sniper'].includes(m.familyId))e.desc+='；强力后坐';
  return e;
@@ -970,6 +971,7 @@ function attackSpeedMultiplier(){return (1+(globalThis.Chips?.stat('rate')||0))*
 function weaponAttackSpeedMultiplier(){return (attackSpeedMultiplier()+terrainRun.attack+(terrainRun.combat>0?.3:0))*(globalThis.Chips?.weaponRate()||1)}
 // Per-room income is gross earnings, independent of spending and previous floors.
 let stageStats=null,enemyChests=[],chestEquipmentQueue=[],enemyBuffs=[];
+const runFloorStats=new Map();
 const ENEMY_EQUIPMENT_DROPS=false;
 const ENEMY_CHEST_CHANCE=.04,ENEMY_CHEST_LIMIT=3;
 const CHIP_DROP_CHANCE=.008,CHIP_STAGE_LIMIT=1,CHIP_RUN_LIMIT=3;
@@ -1223,12 +1225,44 @@ function stageResultStats(){
  return {total,defeated,ratio,earned:s?.earned||0};
 }
 function closeStageCombatStats(){if(stageStats&&!stageStats.combatResult){const {total,defeated,ratio}=stageResultStats();stageStats.combatResult=Object.freeze({total,defeated,ratio});}}
+function stageBossTiming(){
+ const fight=stageStats?.bossFight;
+ const bossFightSeconds=fight?equipmentNumber(fight.seconds):null;
+ return {bossKind:fight?.kind??null,bossFightSeconds,bossKillSeconds:stageStats?.bossDefeated?bossFightSeconds:null};
+}
+function recordRunFloorStats(outcome){
+ if(!stageStats)return;
+ const {total,defeated,earned}=stageResultStats();
+ runFloorStats.set(floor,{floor,outcome,defeated,roster:total,killRate:total?defeated/total:null,earned,
+  ...stageBossTiming()});
+}
+function runBossTimingChart(rows){
+ const bosses=rows.filter(row=>row.bossFightSeconds!==null);
+ if(!bosses.length)return '';
+ const max=Math.max(1,...bosses.map(row=>row.bossFightSeconds));
+ const points=bosses.map((row,index)=>({row,x:bosses.length===1?150:24+252*index/(bosses.length-1),y:57-35*row.bossFightSeconds/max}));
+ const line=points.filter(({row})=>row.bossKillSeconds!==null).map(({x,y})=>x+','+y).join(' ');
+ return `<svg class="run-boss-timing" viewBox="0 0 300 76" role="img" aria-label="本局 Boss 战时长，单位为秒">
+ <polyline points="${line}" fill="none" stroke="#82e2d0" stroke-width="2"/>
+ ${points.map(({row,x,y})=>`<g><circle cx="${x}" cy="${y}" r="3.5" fill="${row.bossKillSeconds===null?'#181d27':'#82e2d0'}" stroke="#82e2d0"/>
+ <text x="${x}" y="${y-8}">${row.bossFightSeconds}s</text><text x="${x}" y="72">B${String(row.floor).padStart(2,'0')}</text></g>`).join('')}</svg>`;
+}
+function runFloorStatsResult(outcome){
+ if(!runFloorStats.size)return '';
+ const rows=[...runFloorStats.values()];
+ const report=encodeURIComponent(JSON.stringify({difficulty:activeDifficulty||null,outcome,rows},null,2));
+ return `<details class="run-floor-stats" open><summary>本局逐层击杀统计</summary>${runBossTimingChart(rows)}
+ <div class="run-floor-stats-scroll" tabindex="0"><table><thead><tr><th>楼层</th><th>击杀／总数</th><th>击杀率</th><th>收入</th><th>Boss 用时</th></tr></thead><tbody>
+ ${rows.map(row=>`<tr><th scope="row">B${String(row.floor).padStart(2,'0')}${row.outcome==='dead'?' · 阵亡':''}</th><td>${row.defeated} / ${row.roster}</td><td>${row.killRate===null?'—':equipmentNumber(row.killRate*100)+'%'}</td><td>$${equipmentNumber(row.earned)}</td><td>${row.bossFightSeconds===null?'—':equipmentNumber(row.bossFightSeconds)+' 秒'+(row.bossKillSeconds===null?'（未击败）':'')}</td></tr>`).join('')}
+ </tbody></table></div><a href="data:application/json;charset=utf-8,${report}" download="hell-elevator-run.json">下载本局统计</a></details>`;
+}
 function stagePerfectVictory(){
  const stats=stageResultStats();
  return !!(timedRoom&&timedRoom.remaining>1e-9&&!timedRoom.unspawnedExpired&&!spawnQueue.length&&!enemies.some(e=>e.hp>0)&&!missiles.some(e=>e.hp>0&&e.life>0)&&stats.total>0&&stats.defeated===stats.total);
 }
 function continueStageResult(){
  if(state!=='stageClear'||paused||!stageSettlement?.ready)return false;
+ recordRunFloorStats('cleared');
  stageSettlement.ready=false;reward();return true;
 }
 // Capture the result tap before the equipment comparison can receive it.
@@ -1283,7 +1317,7 @@ function renderStageResult(age){
  renderResultFireworks(age);
  const stats=stageResultStats(),reduced=globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches,ease=t=>1-Math.pow(1-Math.max(0,Math.min(1,t)),3),kill=reduced?1:ease((age-.24)/.48),money=reduced?1:ease((age-.62)/.46);
  for(const [id,start] of [['result-kill-row',.24],['result-cash-row',.62]]){const t=ease((age-start)/.18),el=$(id);el.style.opacity=t;el.style.transform='translateY('+((1-t)*12)+'px)';}
- $('result-kills').textContent=Math.round(stats.ratio*kill);$('result-kill-detail').textContent=stats.defeated+' / '+stats.total+' 本关敌人';
+ $('result-kills').textContent=Math.round(stats.ratio*kill);$('result-kill-detail').textContent=stats.defeated+' / '+stats.total+' 本关敌人'+(stageStats?.bossDefeated&&stageStats.bossFight?' · Boss 用时 '+equipmentNumber(stageStats.bossFight.seconds)+' 秒':'');
  $('result-kill-fill').style.width=stats.ratio*kill+'%';if($('result-kill-meter').setAttribute)$('result-kill-meter').setAttribute('aria-valuenow',Math.round(stats.ratio*kill));
  $('result-cash').textContent=String(Math.round(stats.earned*money*100)/100); // Preserve fractional cash multipliers.
 }
@@ -1461,7 +1495,8 @@ function drawPlaneVulnerabilityMesh(e,x,z){
  const stacks=e.planeVulnerableStacks,y=e.type==='boss'?78:53;
  for(let i=0;i<stacks;i++)renderer.emissiveBox(x+(i-(stacks-1)/2)*4,y,z+2,3,3,2,'#ff9b67');
 }
-function resolveShotDamage(s,baseDamage,target){if(s.towerSniper&&target)baseDamage=globalThis.ElectricTiles.sniperDamage({...s,damage:baseDamage},target);baseDamage=globalThis.Chips?.damage(s,baseDamage,target)??baseDamage;baseDamage=globalThis.TalentRuntime?.damage(s,baseDamage)??baseDamage;baseDamage=globalThis.Specializations?.damage(s,baseDamage,target)??baseDamage;if(target)baseDamage=globalThis.ElectricTiles?.researchDamage?.(s,baseDamage,target)??baseDamage;if(target?.type==='ufoBoss'&&ufoShieldActive(target))return {damage:0,critical:false,shielded:true};if(s.towerFixedDamage)return {damage:s.damage,critical:false};const attributes=globalThis.TalentRuntime?.critical(s)||{chance:s.critChance||0,multiplier:s.critMultiplier||2},profile=globalThis.Chips?.critical(s,attributes)??attributes,critical=profile.chance>0&&Math.random()<profile.chance;return {damage:baseDamage*(critical?Math.max(1,profile.multiplier):1)*planeVulnerabilityMultiplier(target)*(target&&time<(target.companionWeakUntil||0)?1+(target.companionWeak||0):1),critical}}
+function dawnWavePierceFactor(s){return Math.max(.30,Math.pow(.6,s.hitTargets.size))}
+function resolveShotDamage(s,baseDamage,target){if(s.swordWaveHits){baseDamage*=dawnWavePierceFactor(s);if(s.swordWaveHits.has(target))baseDamage*=.5;}if(s.towerSniper&&target)baseDamage=globalThis.ElectricTiles.sniperDamage({...s,damage:baseDamage},target);baseDamage=globalThis.Chips?.damage(s,baseDamage,target)??baseDamage;baseDamage=globalThis.TalentRuntime?.damage(s,baseDamage)??baseDamage;baseDamage=globalThis.Specializations?.damage(s,baseDamage,target)??baseDamage;if(target)baseDamage=globalThis.ElectricTiles?.researchDamage?.(s,baseDamage,target)??baseDamage;if(target?.type==='ufoBoss'&&ufoShieldActive(target))return {damage:0,critical:false,shielded:true};if(s.towerFixedDamage)return {damage:s.damage,critical:false};const attributes=globalThis.TalentRuntime?.critical(s)||{chance:s.critChance||0,multiplier:s.critMultiplier||2},profile=globalThis.Chips?.critical(s,attributes)??attributes,critical=profile.chance>0&&Math.random()<profile.chance;return {damage:baseDamage*(critical?Math.max(1,profile.multiplier):1)*planeVulnerabilityMultiplier(target)*(target&&time<(target.companionWeakUntil||0)?1+(target.companionWeak||0):1),critical}}
 const COMBAT_DISPLAY_SCALE=100;
 function combatDisplayDamage(amount){return amount>0?Math.max(1,Math.round(amount*COMBAT_DISPLAY_SCALE)):0;}
 function showDamageNumber(e,amount,critical=false){
@@ -2376,7 +2411,7 @@ function cashTilesEnabled(){
 }
 function updateHealing(dt,cashDt=dt){terrainUpdateSupplies(dt,cashDt)}
 resetFloor();syncGrid();
-function reset(){globalThis.LobbyUI?.hide();$('viewport').classList.remove('difficulty-screen');globalThis.Specializations?.clear();clearRailRoom();clearBridgeRoom(true);clearSawRoom();stageStats=null;runLoot.length=0;runLootOrder.clear();chipsDroppedThisRun=0;enemyChests=[];chestEquipmentQueue=[];globalThis.TileLab?.leave();drinkTruck=null;globalThis.RoomReady?.cancel();globalThis.UIMotion?.clear();builderRoom=false;resetDeathFeedback();enemyTransports=[];globalThis.TalentRuntime?.start();globalThis.TowerResearch?.start(globalThis.DEV_TOOLS&&new URLSearchParams(location.search).has('spec')?null:globalThis.TowerResearch.effects(globalThis.TalentRuntime?.store.view().towerPaths));playerDeath=null;if(typeof resetFishSchoolTest==='function')resetFishSchoolTest();resetTerrainSystem();timedRoom=null;$('survival-clock').classList.remove('normal-timer');shockWaves=[];resetDrinks();shopErasePending=0;shopTerrainPlan=null;terrainChange=null;bossDeath=null;bossHealthMax=0;$('boss-health').hidden=true;ufoBoss=null;ufoBossTest=false;droneSaws=[];droneBoss=null;droneBossTest=false;campaignBoss=0;bossesDefeated=0;campaignBossKind='';humanoidBoss=null;humanoidTest=false;virusBoss=null;virusTest=false;snakeBoss=null;snakeTest=false;swordSwings=new WeakMap();hitSoundAt=-Infinity;testMode=!!globalThis.PromoMode?.active;$('equipment-test').hidden=true;$('test-open').textContent='测试装备';stageClearLeft=0;clearStageSettlement();$('stage-clear').style.display='none';spectrumHits=[];unlockAudio();releaseJoy();floor=1;kills=0;chaserTimer=.65;chaserSerial=0;chaserSpawned=0;survivalRemaining=0;bossIntroLeft=0;cash=0;cashPopups=[];$('cash-popups').innerHTML='';shopItems=[];shopRefreshes=0;shopLevel=1;$('overlay').classList.remove('shop');$('viewport').classList.remove('shopping');mods={speed:1};weapon=createWeaponModel(globalThis.Chips?.start(!testMode)||'pistol_t1');armor=null;shoes=null;drone=null;bombEquipment=null;bombCooldown=0;droneShootTimer=0;pendingEquipment=null;picked={};resetFloor();const health=3+talentLevel('hp')+Number(!!globalThis.Chips?.power('heart'));p={x:325,y:350,hp:health,max:health,inv:0,shield:talentLevel('shield')+Number(!!globalThis.Chips?.power('shield')),shieldHit:0,dx:0,dy:-1};enemies=[];missiles=[];blasts=[];explosionFX=[];bullets=[];shots=[];particles=[];hazards=[];turrets=[];spawnQueue=[];spawnTimer=0;cleared=false;shootTimer=0;time=0;scroll=0;phase=0;fallAge=0;landingAge=0;shake=0;paused=false;$('pause-panel').hidden=true;$('viewport').classList.remove('paused');Object.keys(keys).forEach(k=>keys[k]=false);renderer.sceneKey=null;renderer.sceneData=null;last=performance.now();p.energy=ENERGY_MAX;globalThis.ElectricTiles?.ensureCore();spawnPlayerAtCenter();beginDescent();$('pause').textContent='暂停 Ⅱ';$('overlay').style.display='none';updateUI();toast('电梯启动\n向下  /  B01',2);beep(100,.2)}
+function reset(){globalThis.LobbyUI?.hide();$('viewport').classList.remove('difficulty-screen');globalThis.Specializations?.clear();clearRailRoom();clearBridgeRoom(true);clearSawRoom();stageStats=null;runFloorStats.clear();runLoot.length=0;runLootOrder.clear();chipsDroppedThisRun=0;enemyChests=[];chestEquipmentQueue=[];globalThis.TileLab?.leave();drinkTruck=null;globalThis.RoomReady?.cancel();globalThis.UIMotion?.clear();builderRoom=false;resetDeathFeedback();enemyTransports=[];globalThis.TalentRuntime?.start();globalThis.TowerResearch?.start(globalThis.DEV_TOOLS&&new URLSearchParams(location.search).has('spec')?null:globalThis.TowerResearch.effects(globalThis.TalentRuntime?.store.view().towerPaths));playerDeath=null;if(typeof resetFishSchoolTest==='function')resetFishSchoolTest();resetTerrainSystem();timedRoom=null;$('survival-clock').classList.remove('normal-timer');shockWaves=[];resetDrinks();shopErasePending=0;shopTerrainPlan=null;terrainChange=null;bossDeath=null;bossHealthMax=0;$('boss-health').hidden=true;ufoBoss=null;ufoBossTest=false;droneSaws=[];droneBoss=null;droneBossTest=false;campaignBoss=0;bossesDefeated=0;campaignBossKind='';humanoidBoss=null;humanoidTest=false;virusBoss=null;virusTest=false;snakeBoss=null;snakeTest=false;swordSwings=new WeakMap();hitSoundAt=-Infinity;testMode=!!globalThis.PromoMode?.active;$('equipment-test').hidden=true;$('test-open').textContent='测试装备';stageClearLeft=0;clearStageSettlement();$('stage-clear').style.display='none';spectrumHits=[];unlockAudio();releaseJoy();floor=1;kills=0;chaserTimer=.65;chaserSerial=0;chaserSpawned=0;survivalRemaining=0;bossIntroLeft=0;cash=0;cashPopups=[];$('cash-popups').innerHTML='';shopItems=[];shopRefreshes=0;shopLevel=1;$('overlay').classList.remove('shop');$('viewport').classList.remove('shopping');mods={speed:1};weapon=createWeaponModel(globalThis.Chips?.start(!testMode)||'pistol_t1');armor=null;shoes=null;drone=null;bombEquipment=null;bombCooldown=0;droneShootTimer=0;pendingEquipment=null;picked={};resetFloor();const health=3+talentLevel('hp')+Number(!!globalThis.Chips?.power('heart'));p={x:325,y:350,hp:health,max:health,inv:0,shield:talentLevel('shield')+Number(!!globalThis.Chips?.power('shield')),shieldHit:0,dx:0,dy:-1};enemies=[];missiles=[];blasts=[];explosionFX=[];bullets=[];shots=[];particles=[];hazards=[];turrets=[];spawnQueue=[];spawnTimer=0;cleared=false;shootTimer=0;time=0;scroll=0;phase=0;fallAge=0;landingAge=0;shake=0;paused=false;$('pause-panel').hidden=true;$('viewport').classList.remove('paused');Object.keys(keys).forEach(k=>keys[k]=false);renderer.sceneKey=null;renderer.sceneData=null;last=performance.now();p.energy=ENERGY_MAX;globalThis.ElectricTiles?.ensureCore();spawnPlayerAtCenter();beginDescent();$('pause').textContent='暂停 Ⅱ';$('overlay').style.display='none';updateUI();toast('电梯启动\n向下  /  B01',2);beep(100,.2)}
 function toast(t,s=1.6){$('toast').textContent=t;$('toast').classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').classList.remove('show'),s*1000)}
 function beep(f,d=.07,type='sine',v=.04){if(!sound||!audio)return;let o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+d);o.connect(g);g.connect(soundOutput());o.start();o.stop(audio.currentTime+d)}
 function pickupSound(kind){if(kind==='cash'||kind==='gem'){cashPickupSound();return;}if(!sound)return;unlockAudio();if(!audio)return;const start=audio.currentTime,notes=kind==='invincible'?[523.25,659.25,783.99,1046.5,1318.51]:kind==='gem'?[1320,1760]:kind==='cash'?[880,1100,1320]:kind==='shield'?[440,660,880]:[620,830,1100];for(let i=0;i<notes.length;i++){const reward=kind==='invincible',t=start+i*(reward?.075:.065),duration=reward?.32:.14,o=audio.createOscillator(),g=audio.createGain();o.type='triangle';o.frequency.setValueAtTime(notes[i],t);g.gain.setValueAtTime(.001,t);g.gain.linearRampToValueAtTime(.075,t+.012);g.gain.exponentialRampToValueAtTime(.001,t+duration);o.connect(g);g.connect(soundOutput());o.start(t);o.stop(t+duration+.01)}}
@@ -2549,27 +2584,11 @@ function buildNormalRoster(){
 function normalSpawnCutoff(){return (timedRoom.duration??NORMAL_ROOM_TIME)-NORMAL_SPAWN_FINALE;}
 function campaignRhythmRoster(){
  const slot=campaignRoomSlot(),base=difficultyRoster(buildNormalRoster());
- if(slot%2){
-  return base.map((entry,index)=>{
-   const type=entry.type;
-   if(slot===3&&index%5===2&&!entry.elite)return {...entry,type:'moth',strongEntry:false,bridgeRoller:false};
-   if(!isMeleeEnemy(entry)&&type!=='builder')return entry;
-   return {...entry,type:slot===3&&index%2===0?'moth':'spitter',strongEntry:false,bridgeRoller:false};
-  });
- }
- const heavy=slot===4;
- timedRoom.bridgePopulation=heavy?30:16;
- timedRoom.bridgeReinforcementInterval=heavy?.28:.65;
- timedRoom.bridgeCrowd=true;
- const cores=globalThis.BridgeMechMeshes?['capsule','barrel','beetle','hermit']:null;
- const heavies=['round','crab','scorpion'];
- return base.slice(0,heavy?75:45).map((entry,index)=>{
-  if(!heavy&&index===12)return {type:'virusElite',side:0,bridgeRoller:true,enemyTier:entry.enemyTier,elite:true};
-  const rank=index%15;
-  const spec=cores&&rank===9&&heavy?{spiderCore:heavies[Math.floor(index/15)%heavies.length],scale:.92,radius:22,bridgeHp:18}
-   :cores&&[4,7,11,13].includes(rank)?{spiderCore:cores[[4,7,11,13].indexOf(rank)],scale:.76,radius:15,bridgeHp:11}
-   :cores&&index%3!==1?{spiderCore:'square',scale:.48,radius:8,bridgeHp:4}:null;
-  return {type:'crawler',side:heavy?index%2:0,bridgeRoller:true,enemyTier:entry.enemyTier,...spec};
+ return base.map((entry,index)=>{
+  const type=entry.type;
+  if(slot===3&&index%5===2&&!entry.elite)return {...entry,type:'moth',strongEntry:false,bridgeRoller:false};
+  if(!isMeleeEnemy(entry)&&type!=='builder')return entry;
+  return {...entry,type:slot===3&&index%2===0?'moth':'spitter',strongEntry:false,bridgeRoller:false};
  });
 }
 function updateCampaignBridgeMissiles(elapsed){
@@ -3093,6 +3112,7 @@ function spawnCampaignBoss(){
  else if(campaignBossKind==='drone')spawnDroneBoss();
  else if(campaignBossKind==='ufo')spawnUFOBoss();
  for(const e of currentBossBodies())scaleDifficultyEnemy(e);
+ if(stageStats)stageStats.bossFight={kind:campaignBossKind,seconds:0};
 }
 function finishCampaignBoss(){
  if(!campaignBoss||state!=='combat')return;
@@ -3105,7 +3125,7 @@ function showCampaignVictory(){
  globalThis.ParticleSmoke?.clear(true);
  globalThis.TalentRuntime?.finish();state='won';cleared=true;paused=false;releaseJoy();bullets=[];shots=[];missiles=[];hazards=[];clearSkateReward();
  $('status').textContent='全部通关';$('wave').textContent=activeDifficulty?'难度 '+activeDifficulty+' 星已通关':'三场 BOSS 已击败';recordDifficultyProgress(true);
- showOverlay(`<div class="tag">ALL CLEAR</div><h2>通关成功</h2><p>完成 ${activeDifficulty?campaignCombatWaves():30} 波战斗与 ${campaignBossStages().length} 场 BOSS 战。</p>${runMaterialResult()}<button class="primary" id="restart">重新挑战</button><button id="difficulty-return">选择难度</button>`);$('restart').onclick=reset;$('difficulty-return').onclick=()=>showDifficultySelection(activeDifficulty||1);syncMusic();
+ showOverlay(`<div class="tag">ALL CLEAR</div><h2>通关成功</h2><p>完成 ${activeDifficulty?campaignCombatWaves():30} 波战斗与 ${campaignBossStages().length} 场 BOSS 战。</p>${runMaterialResult()}${runFloorStatsResult('won')}<button class="primary" id="restart">重新挑战</button><button id="difficulty-return">选择难度</button>`);$('restart').onclick=reset;$('difficulty-return').onclick=()=>showDifficultySelection(activeDifficulty||1);syncMusic();
 }
 // Legacy groups share the normal room population gate and early ranged cap.
 const ENEMY_PRESSURE=Object.freeze({crawler:.75,spitter:2,stealthDrone:3,fighter:3.5,mechanicalRay:4,mechanicalHornet:3.5,bomber:.75,pursuitDrone:.75,eye:2.5,skull:4,missile:3,moth:4,laser:4,ironball:1.5,suicideDrone:3,ricochet:2.5,twinGun:3,lobber:4,stormCaller:4,builder:4,goldSpider:1,boss:6,snake:10,virus:10,humanoid:10,droneBoss:10,ufoBoss:10,droneMinion:2,ufoMinion:2,fishSchool:4});
@@ -3753,6 +3773,7 @@ function hurt(source=null){if(globalThis.AirBossLab?.observing)return;if(state==
 function beginPlayerDeath(){
  enemyTransports=[];
  if(state==='dead')return;
+ observeStageEnemies();closeStageCombatStats();recordRunFloorStats('dead');
  globalThis.TalentRuntime?.death();
  state='dead';playerDeath={age:0};spawnDeathBurst(p.x,p.y,28,'player',32+mountRiderLift());finishDrinkRoom();$('drinks-hud').hidden=true;droneSaws=[];releaseJoy();
  bullets=[];shots=[];missiles=[];hazards=[];spawnQueue=[];cashPopups=[];explosionFX=[];blasts=[];clearMissileSmoke();
@@ -3766,7 +3787,7 @@ function updatePlayerDeath(dt){
  if(!playerDeath)return;
  time+=dt;updateDeathFeedback(dt);updateParticles(dt);shake*=Math.exp(-dt*9);playerDeath.age+=dt;
  if(playerDeath.age+1e-9<PLAYER_DEATH_DELAY)return;
- playerDeath=null;showOverlay(`<div class="tag">SIGNAL LOST</div><h2>信号中断</h2><p>抵达 B${String(floor).padStart(2,'0')} · 击败 ${kills} 个敌人<br>电梯仍在深处等待。</p>${runMaterialResult()}<button class="primary" id="restart">重新下潜 ↓</button>`);$('restart').onclick=reset
+ playerDeath=null;showOverlay(`<div class="tag">SIGNAL LOST</div><h2>信号中断</h2><p>抵达 B${String(floor).padStart(2,'0')} · 击败 ${kills} 个敌人<br>电梯仍在深处等待。</p>${runMaterialResult()}${runFloorStatsResult('dead')}<button class="primary" id="restart">重新下潜 ↓</button>`);$('restart').onclick=reset
 }
 
 function showOverlay(html){const previous=$('overlay').style.display==='none'?null:$('overlay').dataset?.motionKind;$('viewport').classList.remove('boss-intro');$('viewport').classList.remove('survival-intro');$('survival-clock').style.display='none';$('overlay').classList.remove('shop');$('viewport').classList.remove('shopping');$('overlay').innerHTML=html;$('overlay').style.display='flex';globalThis.UIMotion?.overlay($('overlay'),previous);globalThis.TalentRuntime?.overlay();syncMusic()}
@@ -4063,7 +4084,7 @@ function applyReward(u){
  picked[u.name]=(picked[u.name]||0)+1;
 }
 function penaltyText(u){return ({turret:'- 地图边界增加一座无敌的敌方炮塔。',laserTurret:'- 地图边界增加一座无敌的敌方炮塔。',saw:'- 地形里增加会伤害你的固定电锯。',orbitSaw:'- 地形里增加会伤害你的环绕电锯。',flywheel:'- 地形里增加会伤害你的轴向飞轮。',trap:'- 地形里增加踩中会伤害你的地刺。'})[u.penalty]||''}
-const SHOP_UPGRADE_COSTS=[160,267,667,1067];
+const SHOP_UPGRADE_COSTS=[65,240,750,1250];
 const SHOP_PRICE_MULTIPLIERS=[1,1.15,1.35,1.6,1.9];
 const SHOP_REROLL_BASES=[5,8,12,18,26],SHOP_REROLL_STEPS=[3,5,7,10,14];
 const EQUIPMENT_PRICES={weapon:[10,3],armor:[8,2],shoes:[7,2],drone:[12,4],bomb:[10,3]};
@@ -4497,7 +4518,7 @@ function updateParticles(dt){
  if(absorbed)cashGemAbsorb(absorbed);
  if(absorbedCash>0)showCashPickup(absorbedCash);
 }
-function step(dt,realDt=dt){if(paused)return;if(state==='bossGallery'){time+=dt;return;}if(state==='combat'&&sawRoom?.introLeft>0){sawRoom.introLeft=Math.max(0,sawRoom.introLeft-realDt);if(sawRoom.introLeft<1e-9)sawRoom.introLeft=0;updateSawRoomHud();return;}if(state==='combat'&&timedRoom?.introLeft>0){timedRoom.introLeft=Math.max(0,timedRoom.introLeft-realDt);if(timedRoom.introLeft<=1e-9){timedRoom.introLeft=0;spawnNormalWave();}updateTimedRoomHud();return;}if(['combat','survival'].includes(state))observeStageEnemies();if(globalThis.TileLab?.active){dt*=TileLab.speed;realDt*=TileLab.speed;}if(state==='drinkArrival'){time+=realDt;updateDrinkTruck(realDt);return;}if(globalThis.RoomReady?.tick(realDt))return;globalThis.TalentRuntime?.tick(realDt);globalThis.Specializations?.tick(realDt);if(state==='dead'){updatePlayerDeath(realDt);return;}const chronoSlow=timeSlowed(),roomTimeFactor=chronoSlow?armor.timeStop:1;const deadline=state==='combat'?(sawRoom?.remaining??timedRoom?.remaining??greedRoom?.remaining):state==='survival'?survivalRemaining:null;if(deadline!=null&&deadline>0&&realDt*roomTimeFactor>deadline){dt*=deadline/(realDt*roomTimeFactor);realDt=deadline/roomTimeFactor;}const effectRealDt=realDt,roomDt=realDt*roomTimeFactor;const nightFactor=advanceDrinkNight(effectRealDt);if(state==='bossDying'){updateBossDeath(realDt);return;}const bossFrameBodies=currentBossBodies();const skateRealDt=dt;updateSkateDanger();if(skateActive()&&p.skateSlowLeft>0){dt*=.55;realDt*=.55;}if(chronoSlow){dt*=roomTimeFactor;realDt*=roomTimeFactor;}const playerDt=dt;if(terrainRun.slow>0&&!chronoSlow&&terrainActive())dt*=.35;if(state==='bossIntro'){bossIntroLeft=Math.max(0,bossIntroLeft-realDt);dt*=BOSS_SLOW}const enemyDt=dt*nightFactor;time+=dt;updateDeathFeedback(dt);spectrumHits.forEach(h=>h.age+=dt);spectrumHits=spectrumHits.filter(h=>h.age<.8);cashPopups.forEach(q=>q.age+=q.followPlayer?effectRealDt:dt);cashPopups=cashPopups.filter(q=>q.age<q.life);blasts.forEach(b=>b.t+=dt);blasts=blasts.filter(b=>b.t<.35);updateExplosionEffects(dt);updateParticles(dt);shake*=Math.exp(-dt*9);if(state==='stageClear'){updateStageClear(realDt);return}if(!['combat','survival','bossIntro','descent','landing'].includes(state))return;updateSkateReward(skateRealDt);p.frameStartX=p.x;p.frameStartY=p.y;p.towerShieldLeft=Math.max(0,(p.towerShieldLeft||0)-effectRealDt);p.inv=Math.max(0,p.inv-dt);p.shieldHit=Math.max(0,p.shieldHit-dt);let mx=(keys.d||keys.ArrowRight?1:0)-(keys.a||keys.ArrowLeft?1:0)+joy.x,my=(keys.s||keys.ArrowDown?1:0)-(keys.w||keys.ArrowUp?1:0)+joy.y;({mx,my}=drinkMovement(mx,my));let len=Math.hypot(mx,my);if(len>1){mx/=len;my/=len}if(len&&!skateActive()){p.dx=mx/(len>1?1:len);p.dy=my/(len>1?1:len)}const fieldMove=globalThis.ElectricTiles?.movementFactor(p)??1;let sp=movementSpeed()*fieldMove,walkX=p.x,walkY=p.y;if(skateActive()){if(drinkPenaltyCount('crab'))p.skateAngle=Math.cos(p.skateAngle||0)>=0?0:Math.PI;moveSkateboard(mx,my,playerDt*fieldMove);if(drinkPenaltyCount('crab'))p.y=walkY;}else walkFloor(p,p.x+mx*sp*playerDt,p.y+my*sp*playerDt,7);updateWeaponRecoil(playerDt);updateDrinks(dt,Math.hypot(p.x-walkX,p.y-walkY),enemyDt);if(state==='dead')return;updateMountCombatBonuses(dt,Math.hypot(p.x-walkX,p.y-walkY));updateSpiderGait(dt);updateTentacleGait(dt);updateStarTrail(dt);updateNeonSwordRide(dt);updateBeeMovement(Math.hypot(p.x-walkX,p.y-walkY));updateModelGrowth(playerDt);updateSkateDanger();updateEquipmentEffects(dt);if(!(state==='landing'&&terrainChange)){terrainUpdateEffects(dt,effectRealDt);updateHealing(dt,effectRealDt);updateShockTiles(dt);globalThis.ElectricTiles?.update(dt);if(state==='survival'||state==='combat'&&sawRoom){for(const s of shots)if(s.bombLaser)globalThis.ElectricTiles.advanceLaser(s,dt);else if(s.tileMissile)globalThis.ElectricTiles.advanceMissile(s,dt);shots=shots.filter(s=>!(s.bombLaser||s.tileMissile)||s.life>0);}}
+function step(dt,realDt=dt){if(paused)return;if(state==='combat'&&stageStats?.bossFight)stageStats.bossFight.seconds+=realDt;if(state==='bossGallery'){time+=dt;return;}if(state==='combat'&&sawRoom?.introLeft>0){sawRoom.introLeft=Math.max(0,sawRoom.introLeft-realDt);if(sawRoom.introLeft<1e-9)sawRoom.introLeft=0;updateSawRoomHud();return;}if(state==='combat'&&timedRoom?.introLeft>0){timedRoom.introLeft=Math.max(0,timedRoom.introLeft-realDt);if(timedRoom.introLeft<=1e-9){timedRoom.introLeft=0;spawnNormalWave();}updateTimedRoomHud();return;}if(['combat','survival'].includes(state))observeStageEnemies();if(globalThis.TileLab?.active){dt*=TileLab.speed;realDt*=TileLab.speed;}if(state==='drinkArrival'){time+=realDt;updateDrinkTruck(realDt);return;}if(globalThis.RoomReady?.tick(realDt))return;globalThis.TalentRuntime?.tick(realDt);globalThis.Specializations?.tick(realDt);if(state==='dead'){updatePlayerDeath(realDt);return;}const chronoSlow=timeSlowed(),roomTimeFactor=chronoSlow?armor.timeStop:1;const deadline=state==='combat'?(sawRoom?.remaining??timedRoom?.remaining??greedRoom?.remaining):state==='survival'?survivalRemaining:null;if(deadline!=null&&deadline>0&&realDt*roomTimeFactor>deadline){dt*=deadline/(realDt*roomTimeFactor);realDt=deadline/roomTimeFactor;}const effectRealDt=realDt,roomDt=realDt*roomTimeFactor;const nightFactor=advanceDrinkNight(effectRealDt);if(state==='bossDying'){updateBossDeath(realDt);return;}const bossFrameBodies=currentBossBodies();const skateRealDt=dt;updateSkateDanger();if(skateActive()&&p.skateSlowLeft>0){dt*=.55;realDt*=.55;}if(chronoSlow){dt*=roomTimeFactor;realDt*=roomTimeFactor;}const playerDt=dt;if(terrainRun.slow>0&&!chronoSlow&&terrainActive())dt*=.35;if(state==='bossIntro'){bossIntroLeft=Math.max(0,bossIntroLeft-realDt);dt*=BOSS_SLOW}const enemyDt=dt*nightFactor;time+=dt;updateDeathFeedback(dt);spectrumHits.forEach(h=>h.age+=dt);spectrumHits=spectrumHits.filter(h=>h.age<.8);cashPopups.forEach(q=>q.age+=q.followPlayer?effectRealDt:dt);cashPopups=cashPopups.filter(q=>q.age<q.life);blasts.forEach(b=>b.t+=dt);blasts=blasts.filter(b=>b.t<.35);updateExplosionEffects(dt);updateParticles(dt);shake*=Math.exp(-dt*9);if(state==='stageClear'){updateStageClear(realDt);return}if(!['combat','survival','bossIntro','descent','landing'].includes(state))return;updateSkateReward(skateRealDt);p.frameStartX=p.x;p.frameStartY=p.y;p.towerShieldLeft=Math.max(0,(p.towerShieldLeft||0)-effectRealDt);p.inv=Math.max(0,p.inv-dt);p.shieldHit=Math.max(0,p.shieldHit-dt);let mx=(keys.d||keys.ArrowRight?1:0)-(keys.a||keys.ArrowLeft?1:0)+joy.x,my=(keys.s||keys.ArrowDown?1:0)-(keys.w||keys.ArrowUp?1:0)+joy.y;({mx,my}=drinkMovement(mx,my));let len=Math.hypot(mx,my);if(len>1){mx/=len;my/=len}if(len&&!skateActive()){p.dx=mx/(len>1?1:len);p.dy=my/(len>1?1:len)}const fieldMove=globalThis.ElectricTiles?.movementFactor(p)??1;let sp=movementSpeed()*fieldMove,walkX=p.x,walkY=p.y;if(skateActive()){if(drinkPenaltyCount('crab'))p.skateAngle=Math.cos(p.skateAngle||0)>=0?0:Math.PI;moveSkateboard(mx,my,playerDt*fieldMove);if(drinkPenaltyCount('crab'))p.y=walkY;}else walkFloor(p,p.x+mx*sp*playerDt,p.y+my*sp*playerDt,7);updateWeaponRecoil(playerDt);updateDrinks(dt,Math.hypot(p.x-walkX,p.y-walkY),enemyDt);if(state==='dead')return;updateMountCombatBonuses(dt,Math.hypot(p.x-walkX,p.y-walkY));updateSpiderGait(dt);updateTentacleGait(dt);updateStarTrail(dt);updateNeonSwordRide(dt);updateBeeMovement(Math.hypot(p.x-walkX,p.y-walkY));updateModelGrowth(playerDt);updateSkateDanger();updateEquipmentEffects(dt);if(!(state==='landing'&&terrainChange)){terrainUpdateEffects(dt,effectRealDt);updateHealing(dt,effectRealDt);updateShockTiles(dt);globalThis.ElectricTiles?.update(dt);if(state==='survival'||state==='combat'&&sawRoom){for(const s of shots)if(s.bombLaser)globalThis.ElectricTiles.advanceLaser(s,dt);else if(s.tileMissile)globalThis.ElectricTiles.advanceMissile(s,dt);shots=shots.filter(s=>!(s.bombLaser||s.tileMissile)||s.life>0);}}
 if(state==='descent'){phase-=dt;fallAge+=dt;const travel=Math.min(1,fallAge/.72);scroll=wallScrollStart+SCREEN_PITCH*6*(.25*travel+.75*travel*travel);shake=0;if(phase<=0){scroll=wallScrollStart+SCREEN_PITCH*6;land();}return}if(state==='landing'){if(terrainChange){updateLandingTerrain(effectRealDt);return;}phase-=dt;landingAge+=dt;if(phase<=0&&!updateLandingTerrain(0))startWave();return}
 if(state==='bossIntro'){if(bossIntroLeft<=0)finishBossIntro();return}if(state==='combat'&&sawRoom){const previous=sawRoom.remaining;sawRoom.remaining=Math.max(0,sawRoom.remaining-roomDt);updateStageCountdown(previous,sawRoom.remaining);updateTerrain(enemyDt);if(state!=='combat')return;if(sawRoom.remaining<=1e-9){finishSawRoom();return;}updateEnemyBullets(enemyDt);updateSawRoomHud();return;}if(state==='combat'&&greedRoom&&updateGreedClock(roomDt))return;if(state==='combat'&&timedRoom){updateBridgeRoom(enemyDt);const previous=timedRoom.remaining;timedRoom.remaining=Math.max(0,timedRoom.remaining-roomDt);updateStageCountdown(previous,timedRoom.remaining);const cue=Math.ceil(timedRoom.remaining);if(cue>0&&cue<=5&&cue<(timedRoom.lastCue??6)){timedRoom.lastCue=cue;beep(880+(5-cue)*110,.12,'triangle',.08);}if(timedRoom.remaining<=1e-9){finishTimedRoom();return}updateTimedRoomSpawns(roomDt);}if(state==='survival'){if(railRoom)railRoom.age+=enemyDt;const previous=survivalRemaining;survivalRemaining=Math.max(0,survivalRemaining-roomDt);updateStageCountdown(previous,survivalRemaining);if(survivalRemaining<=0){finishSurvival();return}updateTerrain(enemyDt);if(state!=='survival')return;if(drone?.companion)updateCompanion(dt,[]);updateEnemyBullets(enemyDt);if(state!=='survival')return;$('status').textContent=railRoom?'巡弋火网 · 移动炮塔直射':'火力封锁 · 只需躲避';$('wave').textContent='撑过倒计时'+skateHudText();updateSurvivalClock();return}
 updateImpactKnockbacks(enemyDt);updateEnemyTransports(enemyDt);updateTerrain(enemyDt);if(state!=='combat')return;updateMissiles(enemyDt);if(state!=='combat')return;if(!timedRoom&&(enemies.some(e=>e.hp>0&&!isMeleeEnemy(e))||missiles.length))spawnTimer=.65;else if(!timedRoom&&spawnQueue.length){spawnTimer-=dt;if(spawnTimer<=0){spawnGroup();spawnTimer=.65}}if(!greedRoom&&!builderRoom&&!globalThis.TileLab?.active)updateChaserSpawns(dt);shootTimer-=playerDt*weaponAttackSpeedMultiplier();const targets=combatTargets();updateDrone(dt,targets);updateSpiderTurret(dt,targets);updateVinylCutter(dt,targets);updateUFOLaser(dt,targets);updatePlaneGun(dt);updateMountedSwords(dt,targets);if(targets.length&&!globalThis.AirBossLab?.observing&&(typeof weaponLab==='undefined'||!weaponLab?.active||weaponLab.firing)&&(weapon.id==='rotor'||shootTimer<=0)){let e=targets.reduce((a,b)=>Math.hypot(a.x-p.x,a.y-p.y)<Math.hypot(b.x-p.x,b.y-p.y)?a:b),a=Math.atan2(e.y-p.y,e.x-p.x);shootWeapon(a,playerDt)}
@@ -5655,7 +5676,11 @@ function emitModelWeapon(w,a,origin,source){
  }else if(w.sustain){const length=modelBeamLength(origin,a);shots.push({beam:true,sustain:true,modelHitAt:new WeakMap(),aim:a,x:origin.x+Math.cos(a)*length,y:origin.y+Math.sin(a)*length,originX:origin.x,originY:origin.y,vx:0,vy:0,life:.8,damage:w.damage*.45,knockback:w.knockback,pierce:99,hitRadius:12*w.visual.size,hitTargets:new Set(),source,weaponId:w.id,height:24});
  }else if(w.familyId==='sword'){
   emitSword(w,a,origin,source);
-  if(w.pellets===2){const wave=shots.at(-1);shots.push({...wave,launchDelay:(wave.launchDelay||0)+.12,hitTargets:new Set()});}
+  if(w.pellets===2){
+   const wave=shots.at(-1);
+   if(w.itemId==='sword_t4')wave.swordWaveHits=new WeakSet();
+   shots.push({...wave,launchDelay:(wave.launchDelay||0)+.12,hitTargets:new Set()});
+  }
  }else{
   for(let n=0;n<(w.burstCount||1);n++){const at=shots.length;emitWeaponShotsInternal(w,a,origin,source);if(w.familyId==='laser'){const length=modelBeamLength(origin,a),beam=shots.at(-1);beam.aim=a;beam.x=origin.x+Math.cos(a)*length;beam.y=origin.y+Math.sin(a)*length;}tagModelShots(at,w,source,n*(w.specBurstGap||.075));}
  }
@@ -5792,7 +5817,7 @@ function onModelWeaponHit(s,e){
 }
 function onModelWeaponHitBase(s,e){
  const w=s.ownerItem;if(!w||s.secondaryCut||s.specDerived)return;
- if(w.doubleCut&&s.crescent){shots.push({beam:true,arc:true,radial:true,secondaryCut:true,slashFollow:true,arcTargets:[e],x:e.x,y:e.y,originX:e.x,originY:e.y,vx:0,vy:0,life:.24,launchDelay:.09,damage:s.damage*.5,pierce:1,hitTargets:new Set(),source:s.source,weaponId:w.id,height:s.height,ownerItem:w,evolution:s.evolution,radius:18});}
+ if(w.doubleCut&&s.crescent){if(s.swordWaveHits?.has(e))return;s.swordWaveHits?.add(e);shots.push({beam:true,arc:true,radial:true,secondaryCut:true,slashFollow:true,arcTargets:[e],x:e.x,y:e.y,originX:e.x,originY:e.y,vx:0,vy:0,life:.24,launchDelay:.09,damage:s.damage*.5*(s.swordWaveHits?dawnWavePierceFactor(s):1),pierce:1,hitTargets:new Set(),source:s.source,weaponId:w.id,height:s.height,ownerItem:w,evolution:s.evolution,radius:18});}
  if(w.splitLaser&&!s.splitChild&&!s.didSplit){s.didSplit=true;const targets=combatTargets().filter(q=>q!==e&&q.hp>0&&Math.hypot(q.x-e.x,q.y-e.y)<=190).sort((a,b)=>Math.hypot(a.x-e.x,a.y-e.y)-Math.hypot(b.x-e.x,b.y-e.y)).slice(0,2);for(const target of targets)shots.push({beam:true,splitChild:true,x:target.x,y:target.y,originX:e.x,originY:e.y,vx:0,vy:0,life:.16,damage:s.damage*.55,pierce:1,hitTargets:new Set([e]),hitRadius:6*w.visual.size,source:s.source,weaponId:w.id,height:s.height,ownerItem:w,evolution:s.evolution});}
 }
 function applyWeaponRecoil(w,a){

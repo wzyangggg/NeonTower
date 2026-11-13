@@ -16,6 +16,12 @@ const floors = Number(values.floors);
 const difficulty = Number(values.difficulty);
 const seeds = values.seeds.split(',').map(Number);
 const policy = values.policy;
+const aoeScenarios = [
+ {id:'clustered-low', name:'密集低血', hp:12, spacing:18},
+ {id:'spread-low', name:'分散低血', hp:12, spacing:65},
+ {id:'clustered-medium', name:'密集中血', hp:36, spacing:18},
+];
+const aoeRespawnSeconds = 1;
 if (!Number.isInteger(floors) || floors < 1 || ![1, 2, 3, 4, 5].includes(difficulty)
  || seeds.some(seed => !Number.isInteger(seed) || seed < 1 || seed > 0xffffffff)
  || !['equip', 'save', 'output'].includes(policy)) throw Error('Invalid floors, difficulty, seeds or policy');
@@ -137,7 +143,7 @@ async function simulate(browser, seed) {
    status = await page.evaluate(({ floors, policy }) => {
     const dt = 1 / 60;
     const round = n => Math.round(n * 100) / 100;
-    const equipment = value => value ? { id: value.itemId || value.modelId || value.id, tier: value.tier } : null;
+    const equipment = value => value ? { id: value.itemId || value.modelId || value.id, name: value.name, tier: value.tier } : null;
     function outputValue(item, key) {
      if (!item) return 0;
      if (key === 'weapon') return weaponEnergyDps(item);
@@ -210,12 +216,13 @@ async function simulate(browser, seed) {
        sim.rows.push({
         floor, outcome: state === 'dead' ? 'dead' : stageSettlement.perfect ? 'full-clear' : 'survived',
         combatSeconds: round(sim.seconds), defeated: stats.defeated, roster: stats.total,
+        ...stageBossTiming(),
         peakThreat: round(sim.peak), nearThreatLimitSeconds: round(sim.capped),
         shotDps: round(Object.values(sim.damage).reduce((a, b) => a + b, 0) / (sim.seconds || 1)),
         shotDpsBySource: Object.fromEntries(Object.entries(sim.damage).map(([k, v]) => [k, round(v / (sim.seconds || 1))])),
         hp: p.hp, maxHp: p.max, shield: p.shield, earned: round(stats.earned),
         cumulativeEarned: round(sim.totalEarned), cash: round(cash), shopLevel,
-        loadout: { weapon: equipment(weapon), drone: equipment(drone), armor: equipment(armor), shoes: equipment(shoes) },
+        loadout: { weapon: equipment(weapon), drone: equipment(drone), armor: equipment(armor), shoes: equipment(shoes), bomb: equipment(bombEquipment) },
         build: sim.build, shop: [],
        });
       }
@@ -259,7 +266,7 @@ async function simulate(browser, seed) {
        }
        if (terrainView === 'equipment' && policy === 'output' && floor < floors) {
         const price = shopUpgradeCost();
-        if (floor >= 5 && upgradeShop()) row?.shop.push({action: 'upgrade-shop', level: shopLevel, price, cash: round(cash)});
+        if (upgradeShop()) row?.shop.push({action: 'upgrade-shop', level: shopLevel, price, cash: round(cash)});
         buyPreferred(row);
        }
        if (terrainView === 'equipment' && row) {
@@ -292,14 +299,15 @@ async function simulate(browser, seed) {
   }
   if (errors.length) throw Error(errors.join('\n'));
   if (!['dead', 'won', 'floor-limit'].includes(status)) throw Error('Simulation stopped in ' + status);
-  const {rows, entry} = await page.evaluate(() => {
-   const dt = 1 / 60, warmup = 3, seconds = 30, distance = 110;
+  const {rows, entry} = await page.evaluate(({aoeScenarios, aoeRespawnSeconds}) => {
+   const dt = 1 / 60, warmup = 3;
    const displayedHp = 1000000;
    // Hold equipment evolution at its floor-entry state and remove enemy spawns.
    updateModelGrowth = () => {};
-   for (const row of sim.rows) {
-    const loadout = sim.loadouts[row.floor];
-    if (!loadout) continue;
+   // All nine targets can die on the same frame before the bench replaces them.
+   beginStageClear = () => {};
+   function measure(row, loadout, scenario) {
+    const seconds = scenario ? 15 : 30;
     let rng = 842701;
     Math.random = () => ((rng = (Math.imul(rng, 1664525) + 1013904223) >>> 0) / 4294967296);
     reset();
@@ -316,32 +324,63 @@ async function simulate(browser, seed) {
     p.featherStacks = loadout.featherStacks;
     spawnQueue = [];
     chaserSpawned = Infinity;
-    const x = p.x, y = p.y - distance;
     let damageTaken = 0;
-    const target = {type: 'eye', x, y, homeX: x, homeY: y, max: displayedHp, r: 14, t: 0,
-     fire: Infinity, warn: false, seed: 0, terrainStun: Infinity, weaponLabTarget: true};
-    // Keep normal HP reads finite for the engine. Damage writes count toward DPS without lowering HP.
-    Object.defineProperty(target, 'hp', {
-     get: () => displayedHp,
-     set: value => { if (value < displayedHp) damageTaken += displayedHp - value; }
+    function makeTarget(x, y) {
+     const max = scenario?.hp ?? displayedHp;
+     let hp = max;
+     const target = {type: 'eye', x, y, homeX: x, homeY: y, max, r: 14, t: 0,
+      fire: Infinity, warn: false, seed: 0, terrainStun: Infinity, weaponLabTarget: true};
+     Object.defineProperty(target, 'hp', {
+      get: () => hp,
+      set: value => {
+       damageTaken += Math.max(0, hp - (scenario ? Math.max(0, value) : value));
+       if (scenario) hp = value;
+      }
+     });
+     return target;
+    }
+    const positions = Array.from({length: scenario ? 9 : 1}, (_, i) => {
+     const spacing = scenario?.spacing ?? 0;
+     return [325 + (i % 3 - 1) * spacing, 190 + (Math.floor(i / 3) - 1) * spacing];
     });
-    enemies = [target];
+    const targets = positions.map(([x, y]) => makeTarget(x, y));
+    const respawnTicks = Math.round(aoeRespawnSeconds / dt);
+    const respawnAt = targets.map(() => null);
+    enemies = [...targets];
     let measuredFrom = 0;
     for (let tick = 0; tick < (warmup + seconds) * 60; tick++) {
      if (tick === warmup * 60) measuredFrom = damageTaken;
      p.x = 325;
      p.y = 300;
-     target.x = x;
-     target.y = y;
      step(dt);
-     if (state !== 'combat' || enemies.length !== 1 || enemies[0] !== target) {
-      throw Error('Single-target bench left its fixed scenario on B' + row.floor);
+     if (state !== 'combat' || (!scenario && (enemies.length !== 1 || enemies[0] !== targets[0]))) {
+      throw Error(`DPS bench left ${scenario?.id ?? 'single-target'} on B${row.floor} (${state})`);
+     }
+     for (const [i, target] of targets.entries()) {
+      const [x, y] = positions[i];
+      if (target.hp <= 0) {
+       respawnAt[i] ??= tick + respawnTicks;
+       if (tick < respawnAt[i]) continue;
+       const replacement = makeTarget(x, y);
+       targets[i] = replacement;
+       respawnAt[i] = null;
+       enemies.push(replacement);
+      } else {
+       target.x = x;
+       target.y = y;
+      }
      }
     }
-    row.singleTargetDps = Math.round((damageTaken - measuredFrom) / seconds * 100) / 100;
+    return Math.round((damageTaken - measuredFrom) / seconds * 100) / 100;
+   }
+   for (const row of sim.rows) {
+    const loadout = sim.loadouts[row.floor];
+    if (!loadout) continue;
+    row.singleTargetDps = measure(row, loadout);
+    row.aoeDps = Object.fromEntries(aoeScenarios.map(scenario => [scenario.id, measure(row, loadout, scenario)]));
    }
    return {rows: sim.rows, entry: sim.entry};
-  });
+  }, {aoeScenarios, aoeRespawnSeconds});
   return { seed, status, entry, wallSeconds: Math.round((performance.now() - started) / 10) / 100, rows };
  } finally {
   await page.close();
@@ -367,7 +406,11 @@ async function simulate(browser, seed) {
    const levels = Object.fromEntries(Array.from({length: 5}, (_, j) =>
     [j + 1, entered.filter(row => row.shopLevel === j + 1).length]));
    const values = samples.map(row => row.multiplier);
-   return {floor: i + 1, samples: samples.length, measuredDps: samples.length ? median(samples.map(row => row.singleTargetDps)) : null,
+   const aoeDps = Object.fromEntries(aoeScenarios.flatMap(({id}) => {
+    const values = entered.map(row => row.aoeDps?.[id]).filter(Number.isFinite);
+    return values.length ? [[id, {min:Math.min(...values), median:median(values), max:Math.max(...values)}]] : [];
+   }));
+   return {floor: i + 1, samples: samples.length, measuredDps: samples.length ? median(samples.map(row => row.singleTargetDps)) : null, aoeDps,
     measuredMultiplier: samples.length ? median(values) : null,
     minMultiplier: samples.length ? Math.min(...values) : null, maxMultiplier: samples.length ? Math.max(...values) : null,
     hpMultiplier: floorCurves?.[i] && starHp * floorCurves[i].hp,
@@ -376,7 +419,7 @@ async function simulate(browser, seed) {
     cashMedian: median(entered.map(row => row.cash)),
     cumulativeEarnedMedian: median(entered.map(row => row.cumulativeEarned))};
   });
-  const result = JSON.stringify({type: 'hell-elevator-dps-simulation', metric: 'single-target', target: 'infinite-hp',
+  const result = JSON.stringify({type: 'hell-elevator-dps-simulation', metric: 'single-target', target: 'infinite-hp', aoeScenarios, aoeRespawnSeconds,
    difficulty, policy, floors, shopTuning, summary, runs}, null, 2);
   if (values.out) fs.writeFileSync(values.out, result + '\n');
   else console.log(result);
